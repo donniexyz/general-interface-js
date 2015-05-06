@@ -111,7 +111,7 @@ public abstract class Scope<E extends Scope, F extends Scope> {
     }
   }
 
-  private F parentScope;
+  protected F parentScope;
   private final List<E> childrenScopes = new ArrayList<E>();
 
   private Boolean renameMethodParameters = null;
@@ -133,7 +133,7 @@ public abstract class Scope<E extends Scope, F extends Scope> {
   public F getParentScope() {
     return parentScope;
   }
-
+  
   public Collection<E> getChildrenScopes() {
     return Collections.unmodifiableList(childrenScopes);
   }
