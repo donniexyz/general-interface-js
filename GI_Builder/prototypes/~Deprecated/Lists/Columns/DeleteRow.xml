@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Image - Delete Row]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[ This Column can be added to a jsx3.gui.List, jsx3.gui.Grid, or compatible derivative thereof. It provides the embedded XSLT necessary to delete the given row.]]></description>
+  <object type="jsx3.gui.Column">
+    <variants jsxwidth="20"/>
+    <strings jsxname="column (del row)" jsxxsl="&lt;xsl:attribute name=&quot;style&quot;&gt;padding:0px;&lt;/xsl:attribute&gt;&lt;div style=&quot;width:100%;height:100%;text-align:center;cursor:hand;padding:2px;&quot; onmouseover=&quot;this.style.backgroundColor='#FFCCDD';&quot; onmouseout=&quot;this.style.backgroundColor='';&quot; onclick=&quot;jsx3.gui.List.onDelete('{$myjsxid}',this);&quot;&gt;&lt;img src=&quot;JSX/images/list/delete.gif&quot;/&gt;&lt;/div&gt;" jsxtext="&amp;#160;"/>
+  </object>
+</serialization>

@@ -1,0 +1,27 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+  <record include="master.xml" group="position"/>
+
+  <record jsxid="jsx3block" group="1" jsxtext="Label">
+    <record include="master.xml" group="jsxtext" children="1"/>
+    <record jsxid="jsxfor" jsxtext="For Control"
+        eval="0"
+        jsxtip="Sets the GI control to which this label applies. The value can be the unique name of a control within
+            the application or a selection expression that will be evaluated relative to root application node."
+        docgetter="getFor" docsetter="setFor"
+        docdefault="Empty"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record include="master.xml" group="font"/>
+  <record include="master.xml" group="box"/>
+  <record include="master.xml" group="css"/>
+  <record include="master.xml" group="interaction"/>
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>

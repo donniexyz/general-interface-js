@@ -1,0 +1,59 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.io.fso"
+        name="Internet Explorer FileSystemObject Plug-In"
+        version="0.1">
+
+  <method id="isAvailable"><![CDATA[
+    try {
+      if (window.ActiveXObject || window.ActiveXObject !== undefined) {
+        return new ActiveXObject("Scripting.FileSystemObject") != null;
+      }
+    } catch (e) {}
+    return false;
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.io"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="File.js"/>
+  </resources>
+
+  <extension point="jsx3.io.file-system">
+    <method id="isAvailable"><![CDATA[
+      return this.getPlugIn().isAvailable();
+    ]]></method>
+
+    <file-system
+        id="fso"
+        label="Local Disk (ActiveX)"
+        class="jsx3.io.FSOFileSystem"
+        scheme="file"
+        read="true"
+        write="true"
+        list="true"
+        />
+  </extension>
+
+  <extension point="jsx3.amp.autoreg.dirlist">
+    <method id="isAvailable" params="scheme"><![CDATA[
+      return scheme == "file" && this.getPlugIn().isAvailable();
+    ]]></method>
+
+    <method id="getDirNames" params="baseURI"><![CDATA[
+      var dir = (new jsx3.io.FSOFileSystem()).getFile(baseURI);
+      return dir.listFiles().filter(
+          function(e) { return e.isDirectory(); }).map(
+          function(e) { return e.getName(); });
+    ]]></method>
+  </extension>
+
+</plugin>

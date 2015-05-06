@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2008, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Rating]]></name>
+  <icon><![CDATA[images/prototypes/rating.gif]]></icon>
+  <description><![CDATA[Rating]]></description>
+  <object type="jsx3.gui.DojoWidget">
+    <strings dijitClassName="dojox.form.Rating" jsxname="dijitRating" />
+    <variants dijitStyleSheets="(['dojox/form/resources/Rating.css'])" />
+  </object>
+</serialization>

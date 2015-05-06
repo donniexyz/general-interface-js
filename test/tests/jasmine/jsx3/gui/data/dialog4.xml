@@ -1,0 +1,46 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <name></name>
+  <icon></icon>
+  <description></description>
+  <onBeforeDeserialize></onBeforeDeserialize>
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxrelativeposition="1"></variants>
+    <strings jsxname="root" jsxwidth="100%" jsxheight="100%"></strings>
+    <object type="jsx3.gui.Dialog">
+      <variants jsxwidth="431" jsxheight="318" jsxwindowstate="1" jsxzindex="5029" jsxleft="114" jsxtop="72"></variants>
+      <strings jsxname="dialog" jsxdisplay=""></strings>
+      <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+      <object type="jsx3.gui.WindowBar">
+        <variants></variants>
+        <strings jsxname="windowBar" jsxtext="[Caption]"></strings>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants></variants>
+          <strings jsxname="btnMinimize"></strings>
+          <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"></dynamics>
+          <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doToggleState();"></events>
+        </object>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants></variants>
+          <strings jsxname="btnMaximize"></strings>
+          <dynamics jsximage="@Max Icon" jsxtip="jsx3.gui.Dialog.max"></dynamics>
+          <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doMaximize(this);"></events>
+        </object>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants></variants>
+          <strings jsxname="btnClose"></strings>
+          <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"></dynamics>
+          <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"></events>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1" jsxloadtype="1"></variants>
+        <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"></strings>
+      </object>
+    </object>
+    <object type="jsx3.gui.WindowBar">
+      <variants jsxbartype="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0"></variants>
+      <strings jsxname="taskBar" jsxdisplay=""></strings>
+    </object>
+  </object>
+</serialization>

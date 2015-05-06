@@ -1,0 +1,27 @@
+.jsconsole .jsconsole-command {padding:1px 22px 1px 22px;background:url(../images/userInputPreviousIcon.png) #FFFFFF no-repeat 5px 5px;}
+.jsconsole .jsconsole-command-text {color:#0088FF;white-space: pre;}
+.jsconsole .jsconsole-prompt {padding:1px 22px 1px 22px;background:url(../images/userInputIcon.png) #FFFFFF no-repeat 5px 5px;white-space:pre;}
+#JSX .jsconsole .jsconsole-prompt:focus { -moz-outline-style: none!important; outline: none !important}
+.jsconsole .jsconsole-response-info {padding:1px 22px 5px 22px;border-bottom:1px solid #eeeeee;}
+.jsconsole .jsconsole-response-error {background:url(../images/errorIcon.png) #FFFFFF no-repeat 5px 5px; padding:1px 22px 5px 22px;border-bottom:1px solid #eeeeee;color:red;white-space:pre}
+
+
+.jsconsole ol {list-style:none;padding: 0px 6px 0px 14px;margin:0px;}
+.jsconsole li {text-overflow: ellipsis;white-space: nowrap;padding:1px 0 1px 0;s}
+.jsconsole li.warning {color:#999999;font-style:italic;}
+.jsconsole li .image {padding:0 0 0 14px;width:14px;}
+.jsconsole li .image-collapsed{background:url(../images/treeRightTriangleBlack.png) #FFFFFF no-repeat 1px 4px;padding:0 0 0 14px;width:14px;}
+.jsconsole li .image-expanded{background:url(../images/treeDownTriangleBlack.png)  #FFFFFF no-repeat 1px 4px;padding:0 0 0 14px;width:14px;}
+.jsconsole span.key {color:purple;}
+.jsconsole span.inherited-key {color:#999999}
+
+* html .jsconsole .jsconsole-response-info{word-wrap: break-word;white-space:normal;}
+.jsconsole .jsconsole-formatted-string, .jsconsole .jsconsole-formatted-function {white-space:pre;}
+.jsconsole-function-context {word-wrap:break-word;white-space:pre;padding:1px 10px 1px 5px;border-left:20px solid #eeeeee;}
+.jsconsole-formatted-pretty-xml {display:block;border-left:20px solid #eee;padding-left:10px;}
+.jsconsole-formatted-object, .jsconsole-formatted-giobject {display:inline-block;vertical-align:top}
+.jsconsole-formatted-object .section, .jsconsole-formatted-giobject .section {display:-moz-inline-stack;display:inline-block;zoom:1;*display:inline;}
+.jsconsole-formatted-object .section .title-collapsed .image, .jsconsole-formatted-giobject .section .title-collapsed .image {background:url(../images/treeRightTriangleBlack.png) #FFFFFF no-repeat 1px 4px;padding:0 0 0 14px;width:14px;}
+.jsconsole-formatted-object .section .title-expanded .image, .jsconsole-formatted-giobject .section .title-expanded .image {background:url(../images/treeDownTriangleBlack.png)  #FFFFFF no-repeat 1px 4px;padding:0 0 0 14px;width:14px;}
+.jsconsole .name-giobject, .jsconsole .value-giobject {border-bottom:1px dotted #CCCCCC;}
+.jsconsole span.value {white-space:nowrap;overflow:hidden;height:15px}

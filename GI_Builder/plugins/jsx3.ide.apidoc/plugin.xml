@@ -1,0 +1,153 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.apidoc"
+        name="API Documentation Plug-In"
+        version="0.1">
+
+  <method id="addIndexFile" params="strPath"><![CDATA[
+    this.getIndexFiles().push(strPath);
+  ]]></method>
+
+  <method id="getIndexFiles"><![CDATA[
+    if (!this._indexes)
+      this._indexes = jsx3.$A();
+    return this._indexes;
+  ]]></method>
+
+  <method id="onRegister"><![CDATA[
+    this.getExtPoint("index").processExts(jsx3.$F(function(ext, xml) {
+      this.addIndexFile(ext.getPlugIn().resolveURI(xml.value()));
+    }).bind(this));
+
+    this.subscribe(jsx3.amp.PlugIn.EXTENDED, this, "_onExt");
+  ]]></method>
+
+  <method id="_onExt" params="objEvent"><![CDATA[
+    if (objEvent.extpt.getLocalId() == "index") {
+      objEvent.extpt.processExts(jsx3.$F(function(ext, xml) {
+        this.addIndexFile(ext.getPlugIn().resolveURI(xml.value()));
+      }).bind(this), objEvent.exts);
+    }
+  ]]></method>
+
+  <method id="isInstalled"><![CDATA[
+    return this.getIndexFiles().find(function(e) {
+      return jsx3.ide.getSystemRelativeFile(e).isFile();
+    }) != null;
+  ]]></method>
+
+  <method id="openDoc"><![CDATA[
+    this._open(false);
+  ]]></method>
+
+  <method id="_open" params="bWindow"><![CDATA[
+    this.load().when(jsx3.$F(function() {
+      this.openApiHelp(bWindow);
+    }).bind(this));
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.gui.BlockX"/>
+    <plugin id="jsx3.gui.Matrix"/>
+    <plugin id="jsx3.gui.ImageButton"/>
+  </requires>
+
+  <resources>
+    <propsbundle id="strings" path="strings.xml" load="early"/>
+    <script id="js" path="apidoc.js" eval="true"/>
+    <xml id="ui" path="apihelp.xml">
+      <prereq id="class-tree"/>
+      <prereq id="member-list"/>
+      <prereq id="content"/>
+      <prereq id="search-results"/>
+    </xml>
+    <script id="ApiSearcher" path="ApiSearcher.js" load="manual"/>
+    <xml id="as_dialog" path="as_dialog.xml" load="manual">
+      <prereq id="menu-settings"/>
+    </xml>
+    <xml id="as_window" path="as_window.xml" load="manual">
+      <prereq id="menu-settings"/>
+    </xml>
+
+    <xml id="menu-settings" path="settings.xml" load="manual"/>
+    <xsl id="class-tree" path="xsl/class-tree.xsl" load="manual"/>
+    <xsl id="content" path="xsl/content.xsl" load="manual"/>
+    <xsl id="member-list" path="xsl/member-list.xsl" load="manual"/>
+    <xsl id="search-results" path="xsl/search-results.xsl" load="manual"/>
+  </resources>
+
+  <!-- Displays JSXDOC repositories in the API Documentation dialog -->
+  <extension-point id="index">
+    <!-- Expects any number of path elements. The body of the path element is taken as the relative
+         path from the plug-in directory to the XML file that is a JSXDOC index file. -->
+  </extension-point>
+
+  <extension point="jsx3.ide.apidoc.index">
+    <path>jsx:/../api/xml/index.xml</path>
+  </extension>
+
+  <extension point="jsx3.ide.ui.menu" id="menus">
+    <menu id="jsx3.ide.apidoc" label="{jsx3.ide.apidoc.m1}" path="/jsx3.ide.help/apisub">
+      <section id="api"/>
+      <divider id="ide"/>
+      <section id="additions"/>
+    </menu>
+  </extension>
+
+  <extension point="jsx3.ide.ui.action" id="menu.help">
+    <action
+        id="jsx3.ide.help1_2"
+        label="{jsx3.ide.apidoc.mi1}" img="jsxapp:/images/icon_59.gif"
+        menupath="/jsx3.ide.help/api" hkconfig="true"
+        execute="jsx3.ide.openUserGuides();"/>
+    <action
+        id="jsx3.ide.help1"
+        label="{jsx3.ide.apidoc.mi2}"
+        menupath="/jsx3.ide.help/jsx3.ide.apidoc/api" hotkey="{hk.api}" hkconfig="true"
+        execute="this.getPlugIn()._open();"
+        enabled="eval" enabled-eval="this.getPlugIn().isInstalled()"/>
+    <action
+        id="jsx3.ide.help2"
+        label="{jsx3.ide.apidoc.mi3}"
+        menupath="/jsx3.ide.help/jsx3.ide.apidoc/api" hkconfig="true"
+        execute="this.getPlugIn()._open(false);"
+        enabled="eval" enabled-eval="this.getPlugIn().isInstalled()"/>
+    <action
+        id="jsx3.ide.help3"
+        label="{jsx3.ide.apidoc.mi4}"
+        menupath="/jsx3.ide.help/jsx3.ide.apidoc/api" hkconfig="true"
+        execute="this.getPlugIn()._open(true);"
+        enabled="eval" enabled-eval="this.getPlugIn().isInstalled()"/>
+    <action
+        id="jsx3.ide.help4"
+        label="{jsx3.ide.apidoc.mi5}"
+        menupath="/jsx3.ide.help/jsx3.ide.apidoc/api" hkconfig="true"
+        execute="jsx3.ide.openConsoleWindow('api/html/index.html', 'jsxide_api',null,null,'yes','yes','yes','yes','yes')"
+        enabled="file" enabled-file="../api/html/index.html"/>
+
+    <action
+        id="jsx3.ide.help5"
+        label="{jsx3.ide.apidoc.mi6}"
+        menupath="/jsx3.ide.help/jsx3.ide.apidoc/ide" hkconfig="true"
+        execute="jsx3.ide.openConsoleWindow('api/html/properties/index.html', 'jsxide_props',null,null,'yes','yes','yes','yes','yes')"
+        enabled="file" enabled-file="../api/html/properties/index.html"/>
+    <action
+        id="jsx3.ide.help6"
+        label="{jsx3.ide.apidoc.mi7}"
+        menupath="/jsx3.ide.help/jsx3.ide.apidoc/ide" hkconfig="true"
+        execute="jsx3.ide.openConsoleWindow('api/html/events/index.html', 'jsxide_events',null,null,'yes','yes','yes','yes','yes')"
+        enabled="file" enabled-file="../api/html/events/index.html"/>
+    <action
+        id="jsx3.ide.help7"
+        label="{jsx3.ide.apidoc.mi8}"
+        menupath="/jsx3.ide.help/jsx3.ide.apidoc/ide" hkconfig="true"
+        execute="jsx3.ide.openConsoleWindow('api/html/xslparams/index.html', 'jsxide_xslparams',null,null,'yes','yes','yes','yes','yes')"
+        enabled="file" enabled-file="../api/html/xslparams/index.html"/>
+  </extension>
+
+</plugin>

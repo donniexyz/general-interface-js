@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.recorder.gitak"
+        property="GitakEditorPlugin"
+        name="GITAK Test Recorder Plug-In"
+        version="0.1">
+
+  <requires>
+    <plugin id="jsx3.ide.recorder"/>
+  </requires>
+
+  <resources>
+    <script id="type" path="GitakType.js" load="early"/>
+    <script id="editor" path="GitakEditor.js"/>
+    <xml id="gitakxml" path="actions.xml" load="early"/>    
+  </resources>
+
+  <extension point="jsx3.ide.file-type" id="type">
+    <type id="gitak" label="GITAK Test Cases" img="jsxplugin://jsx3.ide.recorder.gitak/file.gif"
+          ext-class="jsx3.ide.gitak.FileType" precedence="5"/>
+  </extension>
+
+  <extension point="jsx3.ide.editor.type">
+    <type class="jsx3.ide.gitak.Editor" xmlns="">
+      <filetype id="gitak"/>
+    </type>
+  </extension>
+
+</plugin>

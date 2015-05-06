@@ -1,0 +1,230 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot" jsxassignids="1">
+  <record jsxtext="Font Properties">
+    <record jsxtext="Font Family"
+        jsxtip="Font families may be assigned by a specific font name or a generic font family. Defining a specific font will not be as likely to match as a generic font family. Multiple family assignments can be made, and if a specific font assignment is made it should be followed by a generic family name in case the first choice is not present. Any font name containing whitespace must be quoted, with either single or double quotes.&#10;&#10;P { font-family: &quot;New Century Schoolbook&quot;, Times, serif } ">
+      <syntax>font-family: [[&lt;family-name&gt; | &lt;generic-family&gt;],]* [&lt;family-name&gt; | &lt;generic-family&gt;]</syntax>
+    </record>
+    <record jsxtext="Font Style"
+        jsxtip="The font-style property defines that the font be displayed in one of three ways: normal, italic or oblique (slanted).&#10;&#10;P  { font-style: normal } ">
+      <syntax>font-style: &lt;value: normal | italic | oblique&gt;</syntax>
+    </record>
+    <record jsxtext="Font Variant"
+        jsxtip="The font-variant property determines if the font is to display in normal or small-caps. Small-caps are displayed when all the letters of the word are in capitals with uppercase characters slightly larger than lowercase. Some versions of CSS may support additional variants such as condensed, expanded, small-caps numerals or other custom variants.&#10;&#10;SPAN { font-variant: small-caps } ">
+      <syntax>font-variant: &lt;value: normal | small-caps&gt;</syntax>
+    </record>
+    <record jsxtext="Font Weight"
+        jsxtip="The font-weight property is used to specify the weight of the font. The bolder and lighter values are relative to the inherited font weight, while the other values are absolute font weights.&#10;&#10;H1 { font-weight: 800 } ">
+      <syntax>font-weight: &lt;value: normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900&gt;</syntax>
+    </record>
+    <record jsxtext="Font Size"
+        jsxtip="The font-size property is used to modify the size of the displayed font. Length Units -- relative: em (ems, the height of the element's font)  | ex (x-height, the height of the letter &quot;x&quot;)  | px (pixels, relative to the canvas resolution).  Absolute length units are highly dependent on the output medium, and so are less useful than relative units. The following absolute units are available: in (inches; 1in=2.54cm)  | cm (centimeters; 1cm=10mm)  | mm (millimeters)  | pt (points; 1pt=1/72in)  | pc (picas; 1pc=12pt)&#10;&#10;H1 { font-size: large } P { font-size: 12pt } LI { font-size: 90% } STRONG { font-size: larger } ">
+      <syntax>font-size: &lt;absolute-size: xx-small | x-small | small | medium | large | x-large | xx-large&gt; | &lt;relative-size: larger | smaller&gt; | &lt;length&gt; | &lt;percentage&gt;</syntax>
+    </record>
+    <record jsxtext="Font"
+        jsxtip="The font property may be used as a shorthand for the various font properties.&#10;&#10;P { font: italic bold 12pt/14pt Times, serif } ">
+      <syntax>font: &lt;value: &lt;font-style&gt; || &lt;font-variant&gt; || &lt;font-weight&gt; ]? &lt;font-size&gt; [ / &lt;line-height&gt; ]? &lt;font-family&gt; &gt;</syntax>
+    </record>
+  </record>
+  <record jsxtext="Color Properties">
+    <record jsxtext="Color"
+        jsxtip="The color property allows authors to specify the color of an element.  A color value is a keyword or a numerical RGB specification.  The 16 keywords are taken from the Windows VGA palette: aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.  RGB colors are given in one of four ways: #rrggbb (e.g., #00cc00) | #rgb (e.g., #0c0) | rgb(x,x,x) where x is an integer between 0 and 255 inclusive (e.g., rgb(0,204,0))  | rgb(y%,y%,y%) where y is a number between 0.0 and 100.0 inclusive (e.g., rgb(0%,80%,0%)) &#10;&#10;H1 { color: blue } H2 { color: #000080 } ">
+      <syntax>color: &lt;color&gt;</syntax>
+    </record>
+  </record>
+  <record jsxtext="Background Properties">
+    <record jsxtext="Background"
+        jsxtip="The background property is a shorthand for the more specific background-related properties.&#10;&#10;BODY { background: white url(http://www.applications.com/bg.gif) } ">
+      <syntax>background: &lt;value: &lt;background-color&gt; || &lt;background-image&gt; || &lt;background-repeat&gt; || &lt;background-attachment&gt; || &lt;background-position&gt;&gt;</syntax>
+    </record>
+    <record jsxtext="Background Color"
+        jsxtip="The background-color property sets the background color of an element.&#10;&#10;BODY { background-color: white } H1 { background-color: #000080 } ">
+      <syntax>background-color: &lt;value: &lt;color&gt; | transparent&gt;</syntax>
+    </record>
+    <record jsxtext="Background Image"
+        jsxtip="The background-image property sets the background image of an element.&#10;&#10;BODY { background-image: url(/images/bgWatermark.gif) } ">
+      <syntax>background-image: &lt;value: &lt;url&gt; | none&gt;</syntax>
+    </record>
+    <record jsxtext="Background Repeat"
+        jsxtip="The background-repeat property determines how a specified background image is repeated. The repeat-x value will repeat the image horizontally while the repeat-y value will repeat the image vertically.&#10;&#10;BODY { background: white url(green_stripe.gif); background-repeat: repeat-x } ">
+      <syntax>background-repeat: &lt;value: repeat | repeat-x | repeat-y | no-repeat&gt;</syntax>
+    </record>
+    <record jsxtext="Background Attachment"
+        jsxtip="The background-attachment property determines if a specified background image will scroll with the content or be fixed with regard to the window.&#10;&#10;BODY { background: white url(green_stripe.gif); background-attachment: fixed } ">
+      <syntax>background-attachment: &lt;value: scroll | fixed&gt;</syntax>
+    </record>
+    <record jsxtext="Background Position"
+        jsxtip="The background-position property gives the initial position of a specified background image.  Horizontal keywords (left, center, right).  Vertical keywords (top, center, bottom).  Percentages and lengths may also be used to assign the position of the background image. Percentages are relative to the size of the element.&#10;&#10;stuff ">
+      <syntax>background-position: &lt;value: [&lt;percentage&gt; | &lt;length&gt;]{1,2} | [top | center | bottom] || [left | center | right]&gt;</syntax>
+    </record>
+  </record>
+  <record jsxtext="Text Properties">
+    <record jsxtext="Word Spacing"
+        jsxtip="The word-spacing property defines an additional amount of space between words. The value must be in the length format; negative values are permitted.  Length Units -- relative: em (ems, the height of the element's font)  | ex (x-height, the height of the letter &quot;x&quot;)  | px (pixels, relative to the canvas resolution).  Absolute length units are highly dependent on the output medium, and so are less useful than relative units. The following absolute units are available: in (inches; 1in=2.54cm)  | cm (centimeters; 1cm=10mm)  | mm (millimeters)  | pt (points; 1pt=1/72in)  | pc (picas; 1pc=12pt)&#10;&#10;P.marginnote { word-spacing: -0.2em } ">
+      <syntax>word-spacing: &lt;value: normal | &lt;length&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Letter Spacing"
+        jsxtip="The letter-spacing property defines an additional amount of space between characters. The value must be in the length format; negative values are permitted. A setting of 0 will prevent justification.  Length Units -- relative: em (ems, the height of the element's font)  | ex (x-height, the height of the letter &quot;x&quot;)  | px (pixels, relative to the canvas resolution).  Absolute length units are highly dependent on the output medium, and so are less useful than relative units. The following absolute units are available: in (inches; 1in=2.54cm)  | cm (centimeters; 1cm=10mm)  | mm (millimeters)  | pt (points; 1pt=1/72in)  | pc (picas; 1pc=12pt).&#10;&#10;H1     { letter-spacing: 0.1em } ">
+      <syntax>letter-spacing: &lt;value: normal | &lt;length&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Text Decoration"
+        jsxtip="The text-decoration property allows text to be decorated through one of five properties: underline, overline, line-through, blink, or the default, none.&#10;&#10;A:link { text-decoration: underline }, A:visited, A:active { text-decoration: none } ">
+      <syntax>text-decoration: &lt;value: none | [ underline || overline || line-through || blink ]&gt;</syntax>
+    </record>
+    <record jsxtext="Vertical Alignment"
+        jsxtip="x&#10;&#10;IMG        { vertical-align: 50% } ">
+      <syntax>vertical-align: &lt;value: baseline | sub | super | top | text-top | middle | bottom | text-bottom | &lt;percentage&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Text Transformation"
+        jsxtip="The text-transform property allows text to be transformed by one of four properties: capitalize (capitalizes first character of each word) | uppercase (capitalizes all characters of each word) | lowercase (uses small letters for all characters of each word)  | none (the initial value).&#10;&#10;H2 { text-transform: capitalize } ">
+      <syntax>text-transform: &lt;value: none | capitalize | uppercase | lowercase&gt;</syntax>
+    </record>
+    <record jsxtext="Text Alignment"
+        jsxtip="The text-align property can be applied to block-level elements (P, H1, etc.) to give the alignment of the element's text. This property is similar in function to HTML's ALIGN attribute on paragraphs, headings, and divisions.&#10;&#10;H1 { text-align: center } ">
+      <syntax>text-align: &lt;value: left | right | center | justify&gt;</syntax>
+    </record>
+    <record jsxtext="Text Indentation"
+        jsxtip="The text-indent property can be applied to block-level elements (P, H1, etc.) to define the amount of indentation that the first line of the element should receive. The value must be a length or a percentage; percentages refer to the parent element's width. A common use of text-indent would be to indent a paragraph.&#10;&#10;P { text-indent: 5em } ">
+      <syntax>text-indent: &lt;value: &lt;length&gt; | &lt;percentage&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Line Height"
+        jsxtip="The line-height property will accept a value to control the spacing between baselines of text. When the value is a number, the line height is calculated by multiplying the element's font size by the number. Percentage values are relative to the element's font size. Negative values are not permitted.&#10;&#10;P { line-height: 150% } ">
+      <syntax>line-height: &lt;value: normal | &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; &gt;</syntax>
+    </record>
+  </record>
+  <record jsxtext="Box Properties">
+    <record jsxtext="Top Margin"
+        jsxtip="The margin-top property sets the top margin of an element by specifying a length or a percentage. Percentage values refer to the parent element's width. Negative margins are permitted.   Length Units -- relative: em (ems, the height of the element's font)  | ex (x-height, the height of the letter &quot;x&quot;)  | px (pixels, relative to the canvas resolution).  Absolute length units are highly dependent on the output medium, and so are less useful than relative units. The following absolute units are available: in (inches; 1in=2.54cm)  | cm (centimeters; 1cm=10mm)  | mm (millimeters)  | pt (points; 1pt=1/72in)  | pc (picas; 1pc=12pt).&#10;&#10;BODY { margin-top: 0 } ">
+      <syntax>margin-top: &lt;value: &lt;length&gt; | &lt;percentage&gt; | auto &gt;</syntax>
+    </record>
+    <record jsxtext="Bottom Margin"
+        jsxtip="The margin-bottom property sets the bottom margin of an element by specifying a length or a percentage. Percentage values refer to the parent element's width. Adjoining vertical margins are collapsed to use the maximum of the margin values.  Negative margins are permitted.   Length Units -- relative: em (ems, the height of the element's font)  | ex (x-height, the height of the letter &quot;x&quot;)  | px (pixels, relative to the canvas resolution).  Absolute length units are highly dependent on the output medium, and so are less useful than relative units. The following absolute units are available: in (inches; 1in=2.54cm)  | cm (centimeters; 1cm=10mm)  | mm (millimeters)  | pt (points; 1pt=1/72in)  | pc (picas; 1pc=12pt).&#10;&#10;P { margin-bottom: 3em } ">
+      <syntax>margin-bottom: &lt;value: &lt;length&gt; | &lt;percentage&gt; | auto &gt;</syntax>
+    </record>
+    <record jsxtext="Left Margin"
+        jsxtip="The margin-left property sets the left margin of an element by specifying a length or a percentage. Percentage values refer to the parent element's width. Negative margins are permitted.  Length Units -- relative: em (ems, the height of the element's font)  | ex (x-height, the height of the letter &quot;x&quot;)  | px (pixels, relative to the canvas resolution).  Absolute length units are highly dependent on the output medium, and so are less useful than relative units. The following absolute units are available: in (inches; 1in=2.54cm)  | cm (centimeters; 1cm=10mm)  | mm (millimeters)  | pt (points; 1pt=1/72in)  | pc (picas; 1pc=12pt).&#10;&#10;P { margin-left: 50% } ">
+      <syntax>margin-left: &lt;value: &lt;length&gt; | &lt;percentage&gt; | auto &gt;</syntax>
+    </record>
+    <record jsxtext="Right Margin"
+        jsxtip="The margin-right property sets the right margin of an element by specifying a length or a percentage. Percentage values refer to the parent element's width. Negative margins are permitted.  Length Units -- relative: em (ems, the height of the element's font)  | ex (x-height, the height of the letter &quot;x&quot;)  | px (pixels, relative to the canvas resolution).  Absolute length units are highly dependent on the output medium, and so are less useful than relative units. The following absolute units are available: in (inches; 1in=2.54cm)  | cm (centimeters; 1cm=10mm)  | mm (millimeters)  | pt (points; 1pt=1/72in)  | pc (picas; 1pc=12pt).&#10;&#10;BODY { margin-right: 0 } ">
+      <syntax>margin-right: &lt;value: &lt;length&gt; | &lt;percentage&gt; | auto &gt;</syntax>
+    </record>
+    <record jsxtext="Margin"
+        jsxtip="The margin property sets the margins of an element by specifying between one and four values, where each value is a length, a percentage, or auto. Percentage values refer to the parent element's width. Negative margins are permitted.  If four values are given, they apply to top, right, bottom, and left margin, respectively. If one value is given, it applies to all sides. If two or three values are given, the missing values are taken from the opposite side.&#10;&#10;DIV  { margin: 1em 2em 3em 4em } /* top margin 1em, right margin 2em, bottom margin 3em, left margin 4em */ ">
+      <syntax>margin: &lt;value: &lt;length&gt; | &lt;percentage&gt; | auto &gt;</syntax>
+    </record>
+    <record jsxtext="Top Padding"
+        jsxtip="The padding-top property describes how much space to put between the top border and the content of the selector. The value is either a length or a percentage. Percentage values refer to the parent element's width. Negative values are not permitted.&#10;&#10;padding-top: 5px; ">
+      <syntax>padding-top: &lt;value: &lt;length&gt; | &lt;percentage&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Bottom Padding"
+        jsxtip="The padding-bottom property describes how much space to put between the bottom border and the content of the selector. The value is either a length or a percentage. Percentage values refer to the parent element's width. Negative values are not permitted.&#10;&#10;padding-bottom: 5px; ">
+      <syntax>padding-bottom: &lt;value: &lt;length&gt; | &lt;percentage&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Left Padding"
+        jsxtip="The padding-left property describes how much space to put between the left border and the content of the selector. The value is either a length or a percentage. Percentage values refer to the parent element's width. Negative values are not permitted.&#10;&#10;padding-left: 5px; ">
+      <syntax>padding-left: &lt;value: &lt;length&gt; | &lt;percentage&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Right Padding"
+        jsxtip="The padding-right property describes how much space to put between the right border and the content of the selector. The value is either a length or a percentage. Percentage values refer to the parent element's width. Negative values are not permitted.&#10;&#10;padding-right: 5px; ">
+      <syntax>padding-right: &lt;value: &lt;length&gt; | &lt;percentage&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Padding"
+        jsxtip="An element's padding is the amount of space between the border and the content of the element. Between one and four values are given, where each value is either a length or a percentage. Percentage values refer to the parent element's width. Negative values are not permitted.  If four values are given, they apply to top, right, bottom, and left padding, respectively. If one value is given, it applies to all sides. If two or three values are given, the missing values are taken from the opposite side.&#10;&#10;BLOCKQUOTE { padding: 2em 4em 5em } ">
+      <syntax>padding: &lt;value: [ &lt;length&gt; | &lt;percentage&gt; ]{1,4} &gt;</syntax>
+    </record>
+    <record jsxtext="Top Border Width"
+        jsxtip="The border-top-width property is used to specify the width of an element's top border. The value may be one of three keywords, which are not affected by font size, or a length, which can be used to achieve relative widths. Negative values are not allowed.&#10;&#10;border-top-width: thick; ">
+      <syntax>border-top-width: &lt;value: thin | medium | thick | &lt;length&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Bottom Border Width"
+        jsxtip="The border-bottom-width property is used to specify the width of an element's bottom border. The value may be one of three keywords, which are not affected by font size, or a length, which can be used to achieve relative widths. Negative values are not allowed.&#10;&#10;border-bottom-width: medium; ">
+      <syntax>border-bottom-width: &lt;value: thin | medium | thick | &lt;length&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Left Border Width"
+        jsxtip="The border-left-width property is used to specify the width of an element's left border. The value may be one of three keywords, which are not affected by font size, or a length, which can be used to achieve relative widths. Negative values are not allowed.&#10;&#10;border-left-width: thin; ">
+      <syntax>border-left-width: &lt;value: thin | medium | thick | &lt;length&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Right Border Width"
+        jsxtip="The border-right-width property is used to specify the width of an element's right border. The value may be one of three keywords, which are not affected by font size, or a length, which can be used to achieve relative widths. Negative values are not allowed.&#10;&#10;border-right-width: thin; ">
+      <syntax>border-right-width: &lt;value: thin | medium | thick | &lt;length&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Border Width"
+        jsxtip="The border-width property is used to set the border width of an element by specifying between one and four values, where each value is a keyword or a length. Negative lengths are not permitted.  If four values are given, they apply to top, right, bottom, and left border width, respectively. If one value is given, it applies to all sides. If two or three values are given, the missing values are taken from the opposite side.&#10;&#10;border-width:0px,1px,thin,thin; ">
+      <syntax>border-width: &lt;value: thin | medium | thick | &lt;length&gt; {top,right,bottom,left}&gt;</syntax>
+    </record>
+    <record jsxtext="Border Color"
+        jsxtip="The border-color property sets the color of an element's border. Between one and four color values are specified. If four values are given, they apply to top, right, bottom, and left border color, respectively. If one value is given, it applies to all sides. If two or three values are given, the missing values are taken from the opposite side.  A color value is a keyword or a numerical RGB specification.  The 16 keywords are taken from the Windows VGA palette: aqua, black, blue, fuchsia, gray, green, lime, maroon, navy, olive, purple, red, silver, teal, white, and yellow.  RGB colors are given in one of four ways: #rrggbb (e.g., #00cc00)  | #rgb (e.g., #0c0)  | rgb(x,x,x) where x is an integer between 0 and 255 inclusive (e.g., rgb(0,204,0))  | rgb(y%,y%,y%) where y is a number between 0.0 and 100.0 inclusive (e.g., rgb(0%,80%,0%)) &#10;&#10;border-color: #00cc00, #0c0, rgb(0,204,0), rgb(0%,80%,0%); ">
+      <syntax>border-color: &lt;value: &lt;color&gt;{1,4} &gt;</syntax>
+    </record>
+    <record jsxtext="Border Style"
+        jsxtip="The border-style property sets the style of an element's border. This property must be specified for the border to be visible.  Between one and four keywords are specified. If four values are given, they apply to top, right, bottom, and left border style, respectively. If one value is given, it applies to all sides. If two or three values are given, the missing values are taken from the opposite side.&#10;&#10;BLOCKQUOTE { border-style: inset } ">
+      <syntax>border-style: &lt;value: [ none | dotted | dashed | solid | double | groove | ridge | inset | outset ]{1,4} &gt;</syntax>
+    </record>
+    <record jsxtext="Top Border"
+        jsxtip="The border-top property is a shorthand for setting the width, style, and color of an element's top border.  Note that only one border-style value may be given.&#10;&#10;border-top:solid 1px #CCCCCC; ">
+      <syntax>border-top: &lt;value: &lt;border-top-width&gt; || &lt;border-style&gt; || &lt;color&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Right Border"
+        jsxtip="The border-right property is a shorthand for setting the width, style, and color of an element's right border.  Note that only one border-style value may be given.&#10;&#10;border-right:solid 1px #CCCCCC; ">
+      <syntax>border-right: &lt;value: &lt;border-top-width&gt; || &lt;border-style&gt; || &lt;color&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Bottom Border"
+        jsxtip="The border-bottom property is a shorthand for setting the width, style, and color of an element's bottom border.  Note that only one border-style value may be given.&#10;&#10;border-bottom:solid 1px #CCCCCC; ">
+      <syntax>border-bottom: &lt;value: &lt;border-top-width&gt; || &lt;border-style&gt; || &lt;color&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Left Border"
+        jsxtip="The border-left property is a shorthand for setting the width, style, and color of an element's left border.  Note that only one border-style value may be given.&#10;&#10;border-left:solid 1px #CCCCCC; ">
+      <syntax>border-left: &lt;value: &lt;border-top-width&gt; || &lt;border-style&gt; || &lt;color&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Border"
+        jsxtip="The border property is a shorthand for setting the width, style, and color of an element's border.  The border property can only set all four borders; only one border width and border style may be given. To give different values to an element's four borders, use one or more of the border-top, border-right, border-bottom, border-left, border-color, border-width, border-style, border-top-width, border-right-width, border-bottom-width, or border-left-width properties.&#10;&#10;A:visited { border: thin dotted #800080 } ">
+      <syntax>border: &lt;value: &lt;border-width&gt; || &lt;border-style&gt; || &lt;color&gt; &gt;</syntax>
+    </record>
+    <record jsxtext="Width"
+        jsxtip="The initial value for the width property is auto. Percentages refer to the parent element's width. Negative values are not allowed.&#10;&#10;INPUT.button { width: 80px } ">
+      <syntax>width: &lt;value: &lt;length&gt; | &lt;percentage&gt; | auto &gt;</syntax>
+    </record>
+    <record jsxtext="Height"
+        jsxtip="The initial value for the height property is auto. Percentages refer to the parent element's width. Negative lengths are not allowed.&#10;&#10;IMG.logo { width: 40px; height: 40px } ">
+      <syntax>height: &lt;value: &lt;length&gt; | &lt;percentage&gt; | auto &gt;</syntax>
+    </record>
+    <record jsxtext="Float"
+        jsxtip="The float property allows text to wrap around an element.&#10;&#10;P.caption { float: right } ">
+      <syntax>float: &lt;value: left | right | none &gt;</syntax>
+    </record>
+    <record jsxtext="Clear"
+        jsxtip="The clear property specifies if an element allows floating elements to its sides. A value of left moves the element below any floating element on its left; right acts similarly for floating elements on the right. Other values are none, which is the initial value, and both, which moves the element below floating elements on both of its sides.&#10;&#10;stuff ">
+      <syntax>clear: &lt;value: none | left | right | both &gt;</syntax>
+    </record>
+  </record>
+  <record jsxtext="Classification Properties">
+    <record jsxtext="Display"
+        jsxtip="The display property is used to define an element with one of four values: block (a line break before and after the element)  | inline (no line break before and after the element)  | list-item (same as block except a list-item marker is added)  | none (no display)  | The use of the value none will turn off display of the element to which it is assigned, including any children elements.&#10;&#10;.display_on { display:block; } ">
+      <syntax>display: &lt;value: block | inline | list-item | none &gt;</syntax>
+    </record>
+    <record jsxtext="Whitespace"
+        jsxtip="The white-space property will determine how spaces within the element are treated. This property takes one of three values: normal (collapses multiple spaces into one) | pre (does not collapse multiple spaces) | nowrap (does not allow line wrapping without a &lt;br/&gt; tag) &#10;&#10;INPUT.button { white-space:nowrap; } ">
+      <syntax>white-space: &lt;value: normal | pre | nowrap &gt;</syntax>
+    </record>
+    <record jsxtext="List Style Type"
+        jsxtip="The list-style-type property specifies the type of list-item marker, and is used if list-style-image is none or if image loading is turned off.&#10;&#10;OL { list-style-type: upper-alpha } ">
+      <syntax>list-style-type: &lt;value: disc | circle | square | decimal | lower-roman | upper-roman | lower-alpha | upper-alpha | none &gt;</syntax>
+    </record>
+    <record jsxtext="List Style Image"
+        jsxtip="The list-style-image property specifies the image that will be used as list-item marker when image loading is turned on, replacing the marker specified in the list-style-type property.&#10;&#10;UL.check { list-style-image: url(/images/checkmark.gif) } ">
+      <syntax>list-style-image: &lt;value: &lt;url&gt; | none &gt;</syntax>
+    </record>
+    <record jsxtext="List Style Position"
+        jsxtip="The list-style-position property takes the value inside or outside, with outside being the default. This property determines where the marker is placed in regard to the list item. If the value inside is used, the lines will wrap under the marker instead of being indented.&#10;&#10;UL LI.inside  { list-style-position: inside } ">
+      <syntax>list-style-position: &lt;value: inside | outside &gt;</syntax>
+    </record>
+    <record jsxtext="List Style"
+        jsxtip="The list-style property is a shorthand for the list-style-type, list-style-position, and list-style-image properties.&#10;&#10;OL OL { list-style: lower-alpha outside } ">
+      <syntax>list-style: &lt;value: &lt;list-style-type&gt; || &lt;list-style-position&gt; || &lt;url&gt; &gt;</syntax>
+    </record>
+  </record>
+</data>

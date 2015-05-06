@@ -1,0 +1,19 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Number - Input]]></name>
+  <icon><![CDATA[images/prototypes/matrix-columnmask.gif]]></icon>
+  <description><![CDATA[Allows localized input of a number. One of:
+    "@number", "@number,integer", "@number,percent", and "@number,currency".]]></description>
+  <object type="jsx3.gui.Matrix.Column">
+    <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"/>
+    <strings jsxname="numberInputColumn" jsxwidth="100" jsxtext="Number" jsxvaluetemplate="@empty"
+        jsxpadding="2" jsxcellpadding="2" jsxpath="jsxtext" jsxformathandler="@number"/>
+    <object type="jsx3.gui.NumberInput">
+      <dynamics jsxformat="@Number"/>
+      <strings jsxname="numberInput"/>
+    </object>
+  </object>
+</serialization>

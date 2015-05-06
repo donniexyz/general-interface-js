@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<component classpath="jsx3.gui" xmlns:id="http://xsd.tns.tibco.com/gi/cif/2006/inlinedata" xmlns:e="http://xsd.tns.tibco.com/gi/cif/2006/events" xmlns:d="http://xsd.tns.tibco.com/gi/cif/2006/dynamics" xmlns:p="http://xsd.tns.tibco.com/gi/cif/2006/property" xmlns:pe="http://xsd.tns.tibco.com/gi/cif/2006/property.eval" xmlns:x="http://xsd.tns.tibco.com/gi/cif/2006/xslparameters" xmlns:v="http://xsd.tns.tibco.com/gi/cif/2006/view" xmlns:u="http://xsd.tns.tibco.com/gi/cif/2006/userdefined" xmlns:ue="http://xsd.tns.tibco.com/gi/cif/2006/userdefined.eval" xmlns="http://xsd.tns.tibco.com/gi/cif/2006">
+  <meta name="name"><![CDATA[List]]></meta>
+  <meta name="description"><![CDATA[Matrix instance configured to allow for List-type functionality. Additionally describes:
+                                      custom XSLT templates (e.g., "value template"),
+                                      borders (body, data cell, and header cell),
+                                      auto-adjusting column widths
+                                      paging (2-pass model)
+                                      selection (multi-row)
+                                      alernating row colors (jsx_rowbg1 and jsx_rowbg2)
+                                      custom focus style
+                                      event binding (execute), and
+                                      XSLT uri-resolver template (resolving image URLs at runtime).]]></meta>
+  <meta name="icon"><![CDATA[images/prototypes/matrixlist.gif]]></meta>
+  <Matrix
+      p:name="matrix1"
+      p:bodyborder="1px solid #dfdfef"
+      p:headerborder="1px solid #dfdfef"
+      p:bgcolor="#efefff"
+      pe:pagingmodel="1"
+      pe:selectionmodel="2"
+      pe:scalewidth="1"
+      pe:jsxxmlasync="1"
+      p:focusstyle="font-weight:bold;"
+      e:execute="jsx3.log('EVENT: (jsxexecute). Record: ' + strRECORDID);"
+      id:xml="xml"
+      x:jsx_rowbg1="#ffffff"
+      x:jsx_rowbg2="#efefff">
+
+    <id:data href="xml"><![CDATA[
+      <data jsxid="jsxroot">
+        <record jsxid="AG" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Afghanistan"/>
+        <record jsxid="AL" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Albania"/>
+        <record jsxid="AR" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Algeria"/>
+        <record jsxid="AS" jsximg="JSX/images/icons/logo_16.gif" jsxtext="American Samoa"/>
+        <record jsxid="AD" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Andorra"/>
+        <record jsxid="AO" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Angola"/>
+        <record jsxid="AU" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Anguilla"/>
+        <record jsxid="AX" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Antarctica"/>
+        <record jsxid="AT" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Antigua and Barbuda"/>
+        <record jsxid="AE" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Argentina"/>
+        <record jsxid="AM" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Armenia"/>
+        <record jsxid="AB" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Aruba"/>
+        <record jsxid="AA" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Australia"/>
+        <record jsxid="AI" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Austria"/>
+        <record jsxid="AZ" jsximg="JSX/images/icons/logo_16.gif" jsxtext="Azerbaijan"/>
+      </data>
+    ]]></id:data>
+
+    <MatrixColumn
+        p:name="mc1"
+        p:text="&amp;#160;"
+        d:border="@Outset"
+        d:bg="@Bevel TopDown"
+        d:bgcolor="@Solid Disabled"
+        pe:resize="0"
+        p:width="20"
+        p:cellpadding="2"
+        p:path="jsximg"
+        p:valuetemplate="@image"/>
+
+    <MatrixColumn
+        p:name="mc2"
+        p:text="Name"
+        p:padding="2"
+        d:border="@Outset"
+        d:bg="@Bevel TopDown"
+        d:bgcolor="@Solid Disabled"
+        p:width="*"
+        p:cellpadding="2"
+        p:path="jsxtext"/>
+
+  </Matrix>
+</component>

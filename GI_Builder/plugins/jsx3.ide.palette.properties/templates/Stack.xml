@@ -1,0 +1,23 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="jsx3stack" group="1" jsxtext="Stack">
+    <record include="master.xml" group="jsxtext" children="1"/>
+    <record include="master.xml" group="container_active" children="1"/>
+  </record>
+  <record jsxid="box" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbg']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxpadding']"/>
+  </record>
+  <record include="master.xml" group="font"/>
+  <record include="master.xml" group="css_override"/>
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>
+
+

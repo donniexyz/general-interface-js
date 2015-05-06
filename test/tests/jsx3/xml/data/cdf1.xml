@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data jsxassignids="1" jsxid="jsxroot">
+  <record jsxtext="A"/>
+  <record jsxtext="B" jsxid="2"/>
+  <record jsxtext="C"/>
+  <record jsxtext="D" jsxid="4" a1="{prop1}" a2="{prop2}" jsxtip="{prop3}" a4="{prop4"/>
+  <record jsxtext="E" jsxid="5" a1="v1" a2="v2" a3="v3"/>
+</data>

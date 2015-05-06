@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record jsxid="jsx_rowbg1" jsxtip="The CSS background color of odd rows."/>
+  <record jsxid="jsx_rowbg2" jsxtip="The CSS background color of even rows."/>
+  <record jsxid="jsx_treehead_bgcolor"
+      jsxtip="The CSS background color of branching nodes in hierarchical grids."/>
+  <record jsxid="jsx_use_categories"
+      jsxtip="If 1, records with children or @jsxcategory='1' are rendered full row. Suppress with @jsxcategory='0'"/>
+  <record jsxid="jsx_treehead_fontweight"
+      jsxtip="The CSS background font weight of branching nodes in hierarchical grids."/>
+  <record jsxid="jsx_indent" jsxtip="The number of pixels to indent for each level of a hierarchical grid."/>
+  <record jsxid="jsx_no_tip" jsxtip="If '1', the jsxtip CDF attribute is not used as the row tooltip."/>
+  <record jsxid="jsx_no_empty_indent"
+      jsxtip="If '1', branches of all leaves in hierarchical grids are not indented by the width of the plus/minus icon."/>
+  <record jsxid="jsxsortpath"
+      jsxtip="The CDF attribute to sort records on. If this attribute is not provided, the matrix rows are rendered in the order that they appear in the CDF document."/>
+  <record jsxid="jsxsortdirection"
+      jsxtip="The sort direction if the jsxsortpath attribute is provided. Either 'ascending' or 'descending'."/>
+  <record jsxid="jsxsorttype"
+      jsxtip="The sort data type if the jsxsortpath attribute is provided. Either 'text' or 'number'."/>
+  <record jsxid="jsx_autorow_style"
+      jsxtip="CSS to apply to the auto-append row (a TR element)"/>
+  <record jsxid="jsx_img_resolve"
+      jsxtip="If '0', the jsximg CDF attribute is not resolved as a URL."/>
+  <record jsxid="jsxtitle"
+      jsxtip="The title of the content of the matrix for use in loading, error, and timeout messages."/>
+  <record jsxid="jsx_1" jsxtip="User attribute 1."/>
+  <record jsxid="jsx_2" jsxtip="User attribute 2."/>
+  <record jsxid="jsx_3" jsxtip="User attribute 3."/>
+  <record jsxid="jsx_4" jsxtip="User attribute 4."/>
+  <record jsxid="jsx_5" jsxtip="User attribute 5."/>
+  <record jsxid="jsx_6" jsxtip="User attribute 6."/>
+  <record jsxid="jsx_7" jsxtip="User attribute 7."/>
+  <record jsxid="jsx_8" jsxtip="User attribute 8."/>
+  <record jsxid="jsx_9" jsxtip="User attribute 9."/>
+  <record jsxid="jsx_10" jsxtip="User attribute 10."/>
+</data>

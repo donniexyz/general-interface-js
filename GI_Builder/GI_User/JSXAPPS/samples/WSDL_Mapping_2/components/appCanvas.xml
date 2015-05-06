@@ -1,0 +1,102 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Licensed under TIBCO BSD license, see license.txt under directory samples/
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.4">
+  <name>Sample App Template</name>
+  <icon/>
+  <description>Basic template for sample applications.  Contains a top block for descriptions, and a bottom block for the sample app.</description>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize/>
+  <object type="jsx3.gui.LayoutGrid">
+    <variants jsxrelativeposition="0" jsxoverflow="2"/>
+    <strings jsxname="layoutSample (--)" jsxrows="250,*"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1"/>
+      <strings jsxname="blockDescription" jsxtext="&lt;p align=&quot;right&quot;&gt;&lt;b&gt;WSDL Mapping 2; version 2.0&lt;/b&gt;&lt;br/&gt; JSX version: 3.4.0&lt;/p&gt;  &lt;p&gt;This sample application demonstrates   the two-step process for rendering repeating structures: 1) mapping repeating structures from WSDL to CDF; and 2)   associating CDF documents and attributes with GUI components.&lt;/p&gt;  &lt;p&gt;Enter several comma-separated ticker symbols,   choose a day with the date picker and click Query Service. The service will return a record for each stock, which will   be rendered in the grid component.&lt;/p&gt;  &lt;p&gt;Examine the mapping rule for details. The response element containing the   repeating structures is mapped to a CDF Document; the repeating element is mapped to a CDF Record, and the values to   be displayed are mapped to CDF Attributes. Examine the cache document &quot;historicals&quot; to see the CDF.&lt;/p&gt;  &lt;p&gt;The CDF   document is then rendered in the view by specifying the XML Cache ID property of the grid, and then defining the Path   properties of each of the columns.&lt;/p&gt;  &lt;p&gt; This sample by default will run in Static Mode, rendering the results of a   sample message   on screen. To run against the Xignite web service in Live Mode, you'll need your own license key, available at   &lt;a target=&quot;_blank&quot; href=&quot;http://www.xignite.com/xhistorical.asmx?op=xRegister&quot;&gt;http://www.xignite.com/xhistorical.asmx?op=xRegister&lt;/a&gt;.   To switch from Static to Live mode, change the Mode value (available in Project &gt; Project Settings. &gt; Deployment) to   Live and reload your browser. &lt;/p&gt;"/>
+      <dynamics jsxborder="@Outset" jsxpadding="@8Pixel" jsxbgcolor="@Solid Medium"/>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1"/>
+      <strings jsxname="blockApp"/>
+      <dynamics jsxborder="@Outset" jsxpadding="@8Pixel"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="1" jsxoverflow="2"/>
+        <strings jsxname="layout (--)" jsxrows="50,*"/>
+        <dynamics jsxbgcolor="@Solid Light" jsxborder="@Outset"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="pane"/>
+          <dynamics jsxborder="@Outset" jsxbgcolor="@Solid Disabled" jsxpadding="@8Pixel"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxheight="18" jsxrelativeposition="0" jsxleft="13" jsxtop="4"/>
+            <strings jsxname="label" jsxtext="Enter one or more stock symbols" jsxmargin="0 4 0 0" jsxpadding="4 0 0 0"/>
+          </object>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxrelativeposition="0" jsxleft="210" jsxtop="4" jsxwidth="200"/>
+            <strings jsxname="symbol" jsxmargin="0 4 0 0" jsxvalue=""/>
+            <events jsxexecute="eg.wsdl2.callGetHistoricalQuotes();"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxheight="18" jsxrelativeposition="0" jsxleft="170" jsxtop="24"/>
+            <strings jsxname="label" jsxtext="Date" jsxmargin="0 4 0 0" jsxpadding="4 0 0 0"/>
+          </object>
+          <object type="jsx3.gui.Button">
+            <variants jsxindex="0" jsxheight="18" jsxrelativeposition="0" jsxleft="410" jsxtop="26"/>
+            <strings jsxname="Query" jsxtext="Query Service" jsxmargin="0 4 0 0"/>
+            <events jsxexecute="eg.wsdl2.callGetHistoricalQuotes();"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxheight="18" jsxrelativeposition="0" jsxleft="290" jsxtop="24"/>
+            <strings jsxname="label" jsxtext="(MM-DD-YYYY)" jsxmargin="0 4 0 0" jsxpadding="4 0 0 0"/>
+          </object>
+          <object type="jsx3.gui.DatePicker">
+            <variants jsxwidth="80" jsxrelativeposition="0" jsxheight="18" jsxleft="210" jsxtop="25" jsxfirstweekday="0"/>
+            <strings jsxname="startDate" jsxmargin="0 4 0 0" jsxtip="Click to enter a date"/>
+            <dynamics jsxdateformat="@Short"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants/>
+          <strings jsxname="jsxblock"/>
+          <dynamics jsxbgcolor="@Solid Medium" jsxbodyborder="@Outset"/>
+          <object type="jsx3.gui.Matrix">
+            <variants jsxsortcolumn="1"/>
+            <strings jsxname="gridResults" jsxsortdirection="descending" jsxxmlid="historicals"/>
+            <dynamics jsxbgcolor="@Solid Light" jsxbg="@Alternating Rows"/>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants jsxwidth="120"/>
+              <strings jsxname="date" jsxpath="Date" jsxtext="Date" jsxcellpadding="3" jsxpadding="3"/>
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+            </object>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants jsxwidth="120"/>
+              <strings jsxname="security" jsxpath="Security" jsxtext="Security" jsxcellpadding="3" jsxpadding="3"/>
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+            </object>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants jsxwidth="120"/>
+              <strings jsxname="open" jsxpath="Open" jsxtext="Open" jsxcellpadding="3" jsxpadding="3"/>
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+            </object>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants jsxwidth="120"/>
+              <strings jsxname="high" jsxpath="High" jsxtext="High" jsxcellpadding="3" jsxpadding="3"/>
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+            </object>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants jsxwidth="120"/>
+              <strings jsxname="low" jsxpath="Low" jsxtext="Low" jsxcellpadding="3" jsxpadding="3"/>
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+            </object>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants jsxwidth="120"/>
+              <strings jsxname="close" jsxpath="LastClose" jsxtext="Close" jsxcellpadding="3" jsxpadding="3"/>
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

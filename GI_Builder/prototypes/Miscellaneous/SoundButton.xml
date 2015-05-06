@@ -1,0 +1,18 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Sound Button]]></name>
+  <icon><![CDATA[images/prototypes/sound.gif]]></icon>
+  <description><![CDATA[A button that plays a sound when pressed.]]></description>
+  <object type="jsx3.gui.Button">
+    <variants jsxindex="0" jsxheight="18"/>
+    <strings jsxname="button" jsxtext="play" jsxmargin="0 4 0 0"/>
+    <events jsxexecute="this.getChild(0).play()"/>
+    <object type="jsx3.gui.Sound">
+      <variants jsxvolume="50"/>
+      <strings jsxname="sound" jsxurl="jsx:///sounds/beeps.wav"/>
+    </object>
+  </object>
+</serialization>

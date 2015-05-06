@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Date Picker]]></name>
+  <icon><![CDATA[images/prototypes/datepicker.gif]]></icon>
+  <description><![CDATA[Date picker object.]]></description>
+  <object type="jsx3.gui.DatePicker">
+    <variants jsxwidth="100" jsxrelativeposition="1" jsxheight="18"/>
+    <strings jsxname="datePicker" jsxmargin="0 4 0 0"/>
+  </object>
+</serialization>

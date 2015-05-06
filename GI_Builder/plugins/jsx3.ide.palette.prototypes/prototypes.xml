@@ -1,0 +1,1350 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <onAfterDeserialize><![CDATA[
+
+objJSX._firsttime = false;
+
+objJSX.onPaletteLoaded = function() {
+  this.onEditorChanged(jsx3.ide.getActiveEditor(), null);
+
+  var mm = new jsx3.amp.util.MenuManager();
+  mm.addMenuBar("/", menuBar);
+  this.getPlugIn().getExtPoint("ctxmenu").processExts().each(function(e) { mm.addMenu(e); });
+  this.getPlugIn().getExtPoint("ctxmenu-item").processExts().each(function(e) { mm.addItem(e); });
+  mm.finishInit();
+
+  var sysBarMgr = new jsx3.amp.util.ToolbarManager(jsx_ide_complibs_bar);
+  sysBarMgr.addSection("utils");
+  sysBarMgr.addSection("additions", true);
+  this.getPlugIn().getExtPoint("system_toolbar").processExts().each(function(e) { sysBarMgr.addItem(e); });
+
+  ide_component_libs_online_list.setXMLURL(this.getPlugIn()._buildXMLURL());
+
+  this.setUserView('summary');
+
+  if (this.getPlugIn().getLicenseAgreement()) {
+    this.setOnlineView('summary');
+  } else {
+    this.setOnlineView('license');
+  }
+};
+
+objJSX.onLicenseAgree = function() {
+  this.getPlugIn().agreeToLicense();
+  this.setOnlineView('summary');
+};
+
+objJSX.onSystemReloaded = function() {
+  ide_component_libs_tree.repaint();
+};
+
+objJSX.onUserReloaded = function() {
+  ide_component_libs_user_tree.repaint();
+};
+
+objJSX.onEditorChanged = function(newEditor, oldEditor) {
+  var onBefore = oldEditor && oldEditor.getMode() == "component";
+  var onNow = newEditor && newEditor.getMode() == "component";
+
+  if (onBefore != onNow) {
+    jsx3.sleep(jsx3.$F(this._onEditorChangedSleep).bind(this, [onNow]), "jsx3.ide.palette.componentlibs", this, true);
+  }
+};
+
+objJSX._onEditorChangedSleep = function(onNow) {
+  if (onNow) {
+    if (!objJSX._firsttime) {
+      objJSX._firsttime = true;
+      var p = this.getPlugIn();
+      jsx3.ide._addJob(jsx3.$F(p.reloadSystemLibraries).bind(p, [ide_component_libs_tree]));
+      jsx3.ide._addJob(jsx3.$F(p.reloadUserLibraries).bind(p, [ide_component_libs_user_tree]));
+    }
+
+    ide_component_libs_tree.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+    ide_component_libs_user_tree.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+    this._setButtonsEnabled(jsx3.gui.Form.STATEENABLED);
+  } else {
+    ide_component_libs_tree.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+    ide_component_libs_user_tree.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+    this._setButtonsEnabled(jsx3.gui.Form.STATEDISABLED);
+  }
+};
+
+objJSX._setButtonsEnabled = function(enabled) {
+  var buttons = jsx_ide_complibs_bar.getDescendantsOfType(jsx3.gui.ToolbarButton);
+  for (var i = 0; i < buttons.length; i++) {
+    buttons[i].setEnabled(enabled, true);
+  }
+};
+
+objJSX._onChange = function(v) {
+  this.getPlugIn().publish({subject:"selection", value:v});
+};
+
+objJSX._onUserChange = function(cdf, v) {
+  btnup.setEnabled(v != null && cdf.getRecord(v).type != "folder", true);
+  btnnf.setEnabled(v != null && cdf.getRecord(v).type == "folder", true);
+  btndl.setEnabled(!!v, true);
+};
+
+objJSX.getSystemTree = function() {
+  return ide_component_libs_tree;
+};
+
+objJSX.getUserTree = function() {
+  return ide_component_libs_user_tree;
+};
+
+objJSX.getOnlineList = function() {
+  return ide_component_libs_online_list;
+};
+
+objJSX.getOnlineViews = function() {
+  return jsx_ide_complibs_online_views;
+};
+
+objJSX.setComponentView = function(viewStr) {
+  var view = tabbedpane.getDescendantOfName(viewStr + '_tab');
+  if(!view){
+    return;
+  }
+  tabbedpane.setSelectedIndex(view);
+  tabbedpane.repaint();
+  this._current_component_view = view;
+};
+
+var _previous_user_view = null;
+objJSX.setUserView = function(viewStr, bDontRepaint) {
+  _previous_user_view = jsx_ide_complibs_user_views.getSelectedIndex();
+  var view = jsx_ide_complibs_user_views.getDescendantOfName('jsx_ide_complibs_user_' + viewStr + '_tab');
+  if(!view){
+    return;
+  }
+  jsx_ide_complibs_user_views.setSelectedIndex(view);
+  if (!bDontRepaint) {
+    jsx_ide_complibs_user_views.repaint();
+  }
+  this._current_user_view = view;
+};
+
+var _login_back_action = null;
+objJSX.setLoginBackAction = function(action) {
+  _login_back_action = action;
+};
+
+objJSX.unsetLoginBackAction = function () {
+  _login_back_action = null;
+  jsx_ide_complibs_user_views.setSelectedIndex(_previous_user_view);
+  jsx_ide_complibs_user_views.repaint();
+};
+
+objJSX.onLoginBack = function() {
+  if (!_login_back_action) {
+    this.setUserView('summary');
+  } else {
+    _login_back_action();
+    this.unsetLoginBackAction();
+  }
+};
+
+var _user_login_action = null;
+objJSX.setUserLoginAction = function(action) {
+  _user_login_action = function() {
+    action();
+    jsx_ide_complibs_user_views.setSelectedIndex(_previous_user_view);
+    jsx_ide_complibs_user_views.repaint();
+  };
+};
+
+objJSX.setLoginProblem = function(strProblem, bRepaint) {
+  login_problem_text.setText(strProblem, bRepaint);
+  login_problem.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, bRepaint);
+};
+
+objJSX.userLogin = function() {
+  var plugIn = this.getPlugIn();
+  var s = jsx3.ide.getIDESettings();
+
+  login_problem.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+  login_button.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+  login_spinner.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+  login_username.setEnabled(0, true);
+  login_password.setEnabled(0, true);
+
+  var request = new jsx3.net.Request(),
+      s = jsx3.ide.getIDESettings(),
+      id = plugIn.getId();
+
+  request.subscribe(jsx3.net.Request.EVENT_ON_RESPONSE, function(objEvent) {
+    var target = objEvent.target;
+    var status = target.getStatus();
+
+    if (status == 200) {
+      var response = jsx3.eval("(" + target.getResponseText() + ")");
+
+      if (!response.result) {
+        var m = response.error.match(/LDAP: error code \d+ - ([^\]]*)/);
+        palette.setLoginProblem(m[1], true);
+        return;
+      }
+
+      s.set(plugIn.getId(), 'username', response.result.uid);
+
+      if (_user_login_action) {
+        _user_login_action();
+        _user_login_action = null;
+      } else {
+        var objRecord = ide_component_libs_user_tree.getRecord(ide_component_libs_user_tree.getValue());
+        var objXML = plugIn._loadComponentForUpload(objRecord.path);
+        if (objXML) {
+          objJSX.setUploadDetail(objXML, objRecord);
+        }
+      }
+    } else if(status == 401) {
+      palette.setLoginProblem("Unauthorized", true);
+    } else if(status >= 500) {
+      palette.setLoginProblem("Server encountered an error", true);
+    }
+  });
+  request.subscribe(jsx3.net.Request.EVENT_ON_TIMEOUT, function(objEvent){
+    palette.setLoginProblem("Timed out", true);
+  });
+  request.subscribe('*', function(objEvent) {
+    login_spinner.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+    login_button.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+    login_username.setEnabled(1, true);
+    login_password.setEnabled(1, true);
+  });
+
+  request.open("post", plugIn.uri.login, true);
+  request.setRequestHeader('Accept', 'application/json');
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.send(jsx3.$O.json({
+    id: "call1",
+    method: "authenticate",
+    params: [
+      login_username.getValue(),
+      login_password.getValue()
+    ]
+  }), 5000);
+};
+
+var _uploadObjXML = null;
+
+objJSX.setUploadDetail = function(objXML, objRecord) {
+  _uploadObjXML = objXML;
+  objXML.setSelectionNamespaces("xmlns:jsx1='" + jsx3.app.Model.CURRENT_VERSION + "'");
+
+  var rootNode = objXML.selectSingleNode('/jsx1:serialization');
+  var firstChild = rootNode.getFirstChild();
+  var nameNode = objXML.selectSingleNode('/jsx1:serialization/jsx1:name');
+  if (!nameNode) {
+    nameNode = objXML.createNode(jsx3.xml.Entity.TYPEELEMENT, 'name', jsx3.app.Model.CURRENT_VERSION);
+    nameNode.appendChild(objXML.createNode(jsx3.xml.Entity.TYPECDATA, objRecord.jsxtext));
+    rootNode.insertBefore(nameNode, firstChild);
+  } else if (!nameNode.getValue()) {
+    nameNode.removeChildren();
+    nameNode.appendChild(objXML.createNode(jsx3.xml.Entity.TYPECDATA, objRecord.jsxtext));
+  }
+  upload_name.setValue(nameNode.getValue()||objRecord.jsxtext);
+
+  var descNode = objXML.selectSingleNode('/jsx1:serialization/jsx1:description');
+  if (!descNode) {
+    descNode = objXML.createNode(jsx3.xml.Entity.TYPEELEMENT, 'description', jsx3.app.Model.CURRENT_VERSION);
+    descNode.appendChild(objXML.createNode(jsx3.xml.Entity.TYPECDATA, ''));
+    rootNode.insertBefore(descNode, firstChild);
+  }
+
+  var iter = rootNode.selectNodes("//text()");
+  while (iter.hasNext()) {
+    var child = iter.next();
+    if (child.getNodeType() != jsx3.xml.Entity.TYPECDATA) {
+      child.getParent().removeChild(child);
+    }
+  }
+  upload_description.setValue(descNode.getValue());
+
+  upload_checkbox.setChecked(jsx3.gui.CheckBox.UNCHECKED);
+  upload_button_btn.setEnabled(jsx3.gui.Form.STATEDISABLED);
+  this.setUserView('upload');
+};
+
+objJSX._doUpload = function() {
+  var objXML = _uploadObjXML;
+  upload_problem.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+  upload_button.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+  upload_spinner.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+  upload_description.setEnabled(0, true);
+  upload_checkbox.setEnabled(0, true);
+
+  // set description in the component
+  var descNode = objXML.selectSingleNode('/jsx1:serialization/jsx1:description');
+  descNode.removeChildren();
+  descNode.appendChild(objXML.createNode(jsx3.xml.Entity.TYPECDATA, upload_description.getValue()));
+
+  // set name in the component
+  var nameNode = objXML.selectSingleNode('/jsx1:serialization/jsx1:name');
+  nameNode.removeChildren();
+  nameNode.appendChild(objXML.createNode(jsx3.xml.Entity.TYPECDATA, upload_name.getValue()));
+
+  var request = new jsx3.net.Request();
+  request.subscribe(jsx3.net.Request.EVENT_ON_RESPONSE, function(objEvent){
+    var target = objEvent.target,
+        status = target.getStatus();
+
+    if (status == 201) {
+      var res = jsx3.eval("(" + target.getResponseText() + ")");
+      var dateFormat = new jsx3.util.DateFormat("y-M-d'T'H:m:s.S'Z'");
+      dateFormat.setTimeZoneOffset(0);
+
+      _uploadObjXML = null;
+      delete res["component"];
+      delete res["log"];
+      res.myRating = "null";
+      res.jsxid = res.id;
+      res.uploaded = dateFormat.parse(res.uploaded).valueOf();
+      objJSX.setOnlineDetail(res);
+      objJSX.setOnlineView('detail', true);
+      objJSX.setComponentView('online');
+      objJSX.setUserView('summary');
+      window.setTimeout(function(){
+        objJSX.getPlugIn()._reloadList(ide_component_libs_online_list);
+        window.setTimeout(function(){
+          ide_component_libs_online_list.selectRecord(res.jsxid);
+        }, 500);
+      }, 500);
+    } else if(status == 401) {
+      objJSX.setLoginProblem('Unauthorized');
+      objJSX.setUserView('login');
+    }
+  });
+  request.subscribe(jsx3.net.Request.EVENT_ON_TIMEOUT, function(){
+    upload_problem_text.setText('Upload timed out.', true);
+    upload_problem.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+  });
+  request.subscribe('*', function(){
+    upload_spinner.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+    upload_button.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+    upload_description.setEnabled(1, true);
+    upload_checkbox.setEnabled(1, true);
+  });
+  request.open("post", this.getPlugIn().uri.prototypeRoot, true);
+  request.setRequestHeader('Content-Type', 'application/json');
+  request.setRequestHeader('Accept', 'application/json');
+  request.send(jsx3.$O.json({
+    name: upload_name.getValue(),
+    description: upload_description.getValue(),
+    component: objXML.toString()
+  }), 5000);
+};
+
+objJSX.setOnlineView = function(viewStr, bDontRepaint) {
+  var view = jsx_ide_complibs_online_views.getDescendantOfName('jsx_ide_proto_' + viewStr + '_tab');
+  if(!view){
+    return;
+  }
+  if (viewStr != 'detail' && viewStr != 'remove') {
+    jsx_ide_proto_detail_view._selected_detail_record = null;
+  }
+  jsx_ide_complibs_online_views.setSelectedIndex(view);
+  if (!bDontRepaint) {
+    jsx_ide_complibs_online_views.repaint();
+  }
+  this._current_user_view = view;
+};
+
+objJSX.setOnlineDetailRatings = function(objRecord, bRepaint) {
+  var plugIn = this.getPlugIn();
+  var s = jsx3.ide.getIDESettings();
+  var username = s.get(this.getPlugIn().getId(), "username");
+  var ownedByUser = username == objRecord.user;
+
+  detail_avg_rating_img.setSrc(plugIn._getStarImage(objRecord.rating));
+
+  var myStars = jsx3.util.List.wrap(detail_your_rating.getChildren());
+  var starUrls = plugIn._getStars(objRecord.myRating != "null" ? parseInt(objRecord.myRating, 10) : 0);
+  for (var i=0, star; star=starUrls[i]; i++) {
+    myStars.get(i).setSrc(star);
+  }
+
+  detail_your_rating.setDisplay(
+    ownedByUser ? jsx3.gui.Block.DISPLAYNONE : jsx3.gui.Block.DISPLAYBLOCK, false
+  );
+  detail_cant_rate.setDisplay(
+    ownedByUser ? jsx3.gui.Block.DISPLAYBLOCK : jsx3.gui.Block.DISPLAYNONE, false
+  );
+
+  if (bRepaint) {
+    jsx_ide_proto_detail_ratings.repaint();
+  }
+};
+
+objJSX.setOnlineDetail = function(objRecord, bDontCloseReportForm) {
+  var plugIn = this.getPlugIn();
+  var dateFormat = jsx3.util.DateFormat.getDateInstance(jsx3.util.DateFormat.SHORT);
+
+  detail_description.setText(objRecord.description);
+  detail_id.setText(objRecord.jsxid);
+  detail_title.setText(objRecord.name);
+  detail_uploaded.setText(dateFormat.format(new Date(parseInt(objRecord.uploaded, 10))));
+  detail_downloads.setText("" + (objRecord.downloads||0));
+  detail_created_by.setText(objRecord.user);
+
+  this.setOnlineDetailRatings(objRecord);
+
+  if (!bDontCloseReportForm) {
+    this.closeReportForm();
+  }
+
+  var s = jsx3.ide.getIDESettings();
+  var username = s.get(this.getPlugIn().getId(), "username");
+  var ownedByUser = username == objRecord.user;
+
+  report_sent.setDisplay(jsx3.gui.Block.DISPLAYNONE);
+  report_button.setDisplay(
+    ownedByUser ? jsx3.gui.Block.DISPLAYNONE : jsx3.gui.Block.DISPLAYBLOCK, true
+  );
+
+  detail_owner_container.setDisplay(
+    ownedByUser ? jsx3.gui.Block.DISPLAYBLOCK : jsx3.gui.Block.DISPLAYNONE, true
+  );
+
+  jsx_ide_proto_detail_view._selected_detail_record = objRecord;
+  this.setOnlineView('detail');
+};
+
+objJSX.onCreatedByClick = function () {
+  jsx_ide_online_search.setValue(
+    'user:' + jsx_ide_proto_detail_view._selected_detail_record.user +
+    ' featured:false'
+  );
+  ide_component_libs_online_list.setXMLURL(this.getPlugIn()._buildXMLURL());
+  ide_component_libs_online_list.resetCacheData();
+
+  this.setOnlineView('summary');
+};
+
+var _report_open = false;
+var doToggleReportForm = function () {
+  report_button.setBackgroundColor(!_report_open ? "#e8e8f4" : "#ffffff", true)
+               .setBorder(!_report_open ? "2px solid #dddde9;2px solid #dddde9; 0; 2px solid #dddde9;" : "0;0;0;0;", true);
+  download_container.setBorder(!_report_open ? "0; 0; 2px solid #dddde9; 0;" : "0;0;0;0;", true);
+  jsx_ide_proto_detail_actions.setHeight(!_report_open ? 248 : 20, true);
+  _report_open = !_report_open;
+  if(_report_open){
+    report_issue.focus();
+  }
+};
+
+objJSX.toggleReportForm = function() {
+  var plugIn = this.getPlugIn();
+  var s = jsx3.ide.getIDESettings();
+
+  if (!_report_open) {
+    if (!s.get(plugIn.getId(), "username")) {
+      _login_back_action = function() {
+        palette.setComponentView('online');
+      };
+      _user_login_action = function() {
+        doToggleReportForm();
+        palette.setComponentView('online');
+      };
+      this.setUserView('login', true);
+      this.setComponentView('user');
+      return;
+    }
+  }
+
+  doToggleReportForm();
+};
+
+objJSX.closeReportForm = function() {
+  _report_open = true;
+  doToggleReportForm();
+  report_issue.setValue(null);
+  report_textarea.setValue("");
+  report_flag_content.setChecked(jsx3.gui.CheckBox.UNCHECKED);
+  report_send_button.setEnabled(jsx3.gui.Form.STATEDISABLED);
+};
+
+objJSX.doNewFolder = function() {
+  var parentId = ide_component_libs_user_tree.getValue();
+  var rec = ide_component_libs_user_tree.getRecord(parentId);
+  var basePath = rec.syspath;
+  
+  this.getServer().prompt("Create Folder", "Enter the name of the folder to create.",
+      jsx3.$F(function(d, val) {
+        d.doClose();
+        val = jsx3.util.strTrim(val);
+        var success = this.getPlugIn().createUserFolder(basePath, val);
+        if (success) {
+          ide_component_libs_user_tree.insertRecord({
+            jsxid:parentId + "/" + val, jsxtext:val, syspath:basePath + "/" + val, type:"folder", 
+            jsximg:rec.jsximg, jsxlazy:"1"
+          }, parentId, true);
+        }
+      }).bind(this));
+};
+
+objJSX.doUserDelete = function() {
+  var val = ide_component_libs_user_tree.getValue();
+  var syspath = ide_component_libs_user_tree.getRecord(val).syspath;
+  
+  this.getServer().confirm("Delete Component?", "The selected component or folder will be deleted permanently. Proceed?",
+      function(d) { 
+        d.doClose(); 
+        if (objJSX.getPlugIn().deleteUserComponent(syspath)) 
+          ide_component_libs_user_tree.deleteRecord(val);
+      }, null, 
+      "Delete", "Cancel");
+};
+
+objJSX.onUserBeforeDrop = function(objSource, sourceId, objTarget, targetId, bInsert) {
+  if (objSource != objTarget || targetId == sourceId)
+    return false;
+    
+  var rec = objTarget.getRecordNode(targetId);
+  return rec.getAttribute("type") == "folder" && !bInsert;
+};
+
+objJSX.onUserDrop = function(objSource, sourceId, objTarget, targetId, bInsert) {
+  if (objSource == objTarget && sourceId != targetId && !bInsert) {
+    var bLazy = objSource.getRecord(targetId).jsxlazy == "1";
+    var objNewFile = this.getPlugIn().moveUserComponent(
+        objSource.getRecord(sourceId).syspath, objSource.getRecord(targetId).syspath);
+    
+    if (objNewFile) {
+      if (bLazy) {
+        objTarget.deleteRecord(sourceId);
+      } else {
+        objSource.getRecordNode(sourceId).setAttribute("syspath", 
+            jsx3.ide.getSystemDirFile().relativePathTo(objNewFile));
+      }
+    }
+    
+    if (!bLazy) return !!objNewFile;
+  }
+
+  return false;
+};
+
+objJSX.onSystemDrag = function(objSource, sourceId) {
+  var rec = objSource.getRecordNode(sourceId);
+  if (rec.getAttribute("type") == "folder") return false;
+  
+  if (objHW = jsx3.gui.Heavyweight.GO("jsxfocusrectangle")) 
+    objHW.destroy();
+}
+
+]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxleft="0" jsxtop="0" jsxoverflow="2" _firsttime="false"/>
+    <strings jsxname="palette" jsxwidth="100%" jsxheight="100%" jsxhelpid="ide.palette.complibs" jsxpadding="2 0 0 0"/>
+    <object type="jsx3.gui.Block">
+      <variants/>
+      <strings jsxname="menuBar" jsxdisplay="none"/>
+    </object>
+    <object type="jsx3.gui.TabbedPane">
+      <variants jsxtabheight="18" jsxselectedindex="2"/>
+      <strings jsxname="tabbedpane" jsxtextalign="0" jsxborder="solid 1px #f6f6ff;0px;0px;0px"/>
+      <object type="jsx3.gui.Tab">
+        <variants jsxheight="18"/>
+        <strings jsxname="components_tab" jsxtext="System" jsxbgcolor="#d8d8e5" jsxmargin="0 4 0 0"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"/>
+          <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxvisibility=""/>
+          <dynamics jsxbgcolor="@Solid Medium"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxoverflow="2"/>
+            <strings jsxname="jsx_ide_cache_layout" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.WindowBar">
+              <variants jsxfontsize="10" jsxbartype="2" jsxoverflow="3" jsxrelativeposition="1"/>
+              <strings jsxname="jsx_ide_complibs_bar" jsxborder="0px;0px;solid 1px #a8a8b5;0px"/>
+              <dynamics jsxbgcolor="@Solid Medium"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+              <strings jsxname="jsx_ide_comps_treeblock" jsxwidth="100%" jsxheight="100%"/>
+              <dynamics jsxborder="@Outset" jsxbgcolor="@Solid Light"/>
+              <object type="jsx3.gui.Tree">
+                <variants jsxuseroot="0" jsxdrag="1"/>
+                <strings jsxname="ide_component_libs_tree" jsxmenu="jsx3.ide.prototypesctx" jsxwidth="100%" jsxheight="100%" jsxdisplay="none"/>
+                <dynamics jsxpadding="@Tree Padding" jsxbgcolor="@Solid Light"/>
+                <events jsxdrag="palette.onSystemDrag(this, strDRAGID)" jsxadopt="false" jsxdata="palette.getPlugIn().doPLDirData(this,objNODE);" jsxchange="palette._onChange(this.getValue());"/>
+                <xslparameters jsxsortpath="sorton" jsxindent="16" jsx_img_resolve="0"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Tab">
+        <variants jsxheight="18"/>
+        <strings jsxname="user_tab" jsxtext="User" jsxbgcolor="#d8d8e5" jsxmargin="0 4 0 0"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="0" jsxloadtype="4" jsxleft="0" jsxtop="0"/>
+          <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxvisibility=""/>
+          <dynamics jsxbgcolor="@Solid Medium"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="layoutRows" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.WindowBar">
+              <variants jsxbartype="2" jsxfontsize="10" jsxrelativeposition="1" jsxoverflow="3"/>
+              <strings jsxname="jsx_ide_complibs_user_bar" jsxborder="0px;0px;solid 1px #a8a8b5;0px"/>
+              <dynamics jsxbgcolor="@Solid Medium"/>
+              <object type="jsx3.gui.ToolbarButton">
+                <variants jsxdivider="0" jsxenabled="0"/>
+                <strings jsxname="btnnf" jsximage="jsxapp:/images/icon_57.gif" jsxtip="Create new folder"/>
+                <events jsxexecute="palette.doNewFolder();"/>
+              </object>
+              <object type="jsx3.gui.ToolbarButton">
+                <variants jsxdivider="0" jsxenabled="0"/>
+                <strings jsxname="btndl" jsximage="jsxapp:/images/icon_24.gif" jsxtip="Delete selected component"/>
+                <events jsxexecute="palette.doUserDelete();"/>
+              </object>
+              <object type="jsx3.gui.ToolbarButton">
+                <variants jsxdivider="0" jsxenabled="0"/>
+                <strings jsxname="btnup" jsximage="images/application_get.png" jsxtip="Upload component"/>
+                <events jsxexecute="palette.getPlugIn().uploadUserPrototype(palette, ide_component_libs_user_tree);"/>
+              </object>
+              <object type="jsx3.gui.ToolbarButton">
+                <variants jsxdivider="1"/>
+                <strings jsxname="toolBarBtn" jsximage="jsxapp:/images/icon_15.gif" jsxtip="Refresh the list of prototypes"/>
+                <events jsxexecute="palette.getPlugIn().reloadUserLibraries(ide_component_libs_user_tree);palette._onUserChange(ide_component_libs_user_tree);"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.TabbedPane">
+              <variants selectedIndex="2" jsxselectedindex="-1" jsxshowtabs="0"/>
+              <strings jsxname="jsx_ide_complibs_user_views" jsxtextalign="0"/>
+              <dynamics jsxbgcolor="@Solid Light"/>
+              <object type="jsx3.gui.Tab">
+                <variants jsxheight="18"/>
+                <strings jsxname="jsx_ide_complibs_user_summary_tab" jsxtext="Tab"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                  <strings jsxname="jsx_ide_comps_user_treeblock" jsxwidth="100%" jsxheight="100%" jsxvisibility="" jsxdisplay="none"/>
+                  <dynamics jsxborder="@Outset" jsxbgcolor="@Solid Light"/>
+                  <object type="jsx3.gui.Tree">
+                    <variants jsxuseroot="1" jsxdrag="1" jsxdrop="1"/>
+                    <strings jsxname="ide_component_libs_user_tree" jsxwidth="100%" jsxheight="100%" jsxdisplay="none"/>
+                    <dynamics jsxpadding="@Tree Padding" jsxbgcolor="@Solid Light"/>
+                    <events jsxdrag="if(objHW = jsx3.gui.Heavyweight.GO(&quot;jsxfocusrectangle&quot;)) objHW.destroy();" jsxbeforedrop="palette.onUserBeforeDrop(objSOURCE, strDRAGID, this, strRECORDID, bINSERTBEFORE)" jsxdrop="palette.onUserDrop(objSOURCE, strDRAGID, this, strRECORDID, bINSERTBEFORE)" jsxadopt="this == objTARGET" jsxdata="palette.getPlugIn().doPLDirData(this,objNODE);" jsxchange="palette._onUserChange(this, this.getValue());"/>
+                    <xslparameters jsxsortpath="sorton" jsxindent="16" jsx_img_resolve="0"/>
+                  </object>
+                </object>
+              </object>
+              <object type="jsx3.gui.Tab">
+                <variants jsxheight="20"/>
+                <strings jsxname="jsx_ide_complibs_user_login_tab" jsxtext="Tab 1" jsxbgcolor="#e8e8f5"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxleft="0" jsxtop="0" jsxwidth="100" jsxheight="100" jsxoverflow="1" jsxrelativeposition="0"/>
+                  <strings jsxname="block" jsxdisplay="none" jsxvisibility=""/>
+                  <object type="jsx3.gui.LayoutGrid">
+                    <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                    <strings jsxname="layoutRows" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="2" jsxfontsize="14" jsxrelativeposition="1"/>
+                      <strings jsxname="login_title" jsxwidth="100%" jsxheight="100%" jsxtextalign="center" jsxtext="Login" jsxfontweight="bold" jsxpadding="2 0 0 0"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Fade TopDown"/>
+                      <object type="jsx3.gui.Image">
+                        <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="2" jsxtop="2"/>
+                        <strings jsxname="image" jsxsrc="images/backButton.png"/>
+                        <dynamics jsxcursor="@Hand"/>
+                        <events jsxclick="palette.onLoginBack();"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="1" jsxrelativeposition="1" jsxleft="0" jsxtop="0"/>
+                      <strings jsxname="jsx_ide_proto_login_view" jsxwidth="100%" jsxpadding="8 20 8 8" jsxstyleoverride="overflow-y:auto;overflow-x:hidden;"/>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="1" jsxfontsize="12" jsxheight="32"/>
+                        <strings jsxname="block" jsxrelativeposition="1" jsxtext="Log in to your account" jsxfontweight="bold" jsxwidth="100%"/>
+                      </object>
+                      <object type="jsx3.gui.Label">
+                        <variants jsxrelativeposition="1" jsxoverflow="3" jsxleft="0" jsxtop="0" jsxheight="18"/>
+                        <strings jsxname="formLabel" jsxtext="Username:" jsxfor="#input" jsxfontweight="normal" jsxwidth="100%"/>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="1" jsxheight="26"/>
+                        <strings jsxname="block" jsxrelativeposition="1" jsxwidth="100%"/>
+                        <object type="jsx3.gui.TextBox">
+                          <variants jsxheight="18"/>
+                          <strings jsxname="login_username" jsxvalue="" jsxwidth="100%"/>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Label">
+                        <variants jsxrelativeposition="1" jsxoverflow="3" jsxheight="18"/>
+                        <strings jsxname="formLabel" jsxtext="Password:" jsxfor="#input" jsxfontweight="normal"/>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="1" jsxheight="30"/>
+                        <strings jsxname="block" jsxrelativeposition="1" jsxwidth="100%"/>
+                        <object type="jsx3.gui.TextBox">
+                          <variants jsxtype="2" jsxheight="18"/>
+                          <strings jsxname="login_password" jsxvalue="" jsxwidth="100%"/>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="1" jsxheight="20"/>
+                        <strings jsxname="block" jsxwidth="100%" jsxrelativeposition="1"/>
+                        <object type="jsx3.gui.LayoutGrid">
+                          <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                          <strings jsxname="layoutCols" jsxcols="*,110" jsxwidth="100%" jsxheight="100%"/>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="2"/>
+                            <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxcolor="#1D0FB7" jsxfontweight="bold" jsxpadding="0 0 0 4"/>
+                            <dynamics jsxborder="@No jsxborder"/>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxrelativeposition="1"/>
+                              <strings jsxname="text" jsxtext="&lt;a href=&quot;http://www.generalinterface.org/alias/signup&quot; target=&quot;_blank&quot;&gt;Create Account&lt;/a&gt;"/>
+                              <dynamics jsxcursor="@Hand"/>
+                            </object>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="1"/>
+                            <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+                              <strings jsxname="login_button" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+                              <object type="jsx3.gui.Button">
+                                <variants jsxindex="0" jsxheight="18" jsxwidth="100"/>
+                                <strings jsxname="button" jsxtext="Login"/>
+                                <events jsxexecute="palette.userLogin();"/>
+                              </object>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"/>
+                              <strings jsxname="login_spinner" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxtextalign="center"/>
+                              <object type="jsx3.gui.Image">
+                                <variants jsxoverflow="2" jsxrelativeposition="1"/>
+                                <strings jsxname="image" jsxsrc="images/spinner.gif"/>
+                              </object>
+                              <object type="jsx3.gui.Block">
+                                <variants jsxrelativeposition="1"/>
+                                <strings jsxname="text" jsxtext="Logging in" jsxpadding="0 0 0 4" jsxheight="100%"/>
+                              </object>
+                            </object>
+                          </object>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="1"/>
+                        <strings jsxname="login_problem" jsxwidth="100%" jsxrelativeposition="1" jsxmargin="8 0 0 0" jsxdisplay="none"/>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxoverflow="3"/>
+                          <strings jsxname="block" jsxwidth="100%" jsxrelativeposition="1" jsxborder="solid 2px #e7dd80;" jsxbgcolor="#fff5c4"/>
+                          <dynamics jsxpadding="@8Pixel"/>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="1"/>
+                            <strings jsxname="block" jsxrelativeposition="1" jsxtext="Problem logging in" jsxfontweight="bold" jsxmargin="0 0 4 0"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants/>
+                            <strings jsxname="login_problem_text" jsxwidth="100%" jsxtext="Problem text"/>
+                          </object>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+              <object type="jsx3.gui.Tab">
+                <variants jsxheight="18"/>
+                <strings jsxname="jsx_ide_complibs_user_upload_tab" jsxtext="Tab" jsxbgcolor="#d8d8e5"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+                  <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxdisplay="" jsxvisibility=""/>
+                  <object type="jsx3.gui.LayoutGrid">
+                    <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                    <strings jsxname="layoutRows" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="2" jsxfontsize="14" jsxrelativeposition="1"/>
+                      <strings jsxname="upload_title" jsxwidth="100%" jsxheight="100%" jsxtextalign="center" jsxtext="Upload Component" jsxfontweight="bold" jsxpadding="2 0 0 0"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Fade TopDown"/>
+                      <object type="jsx3.gui.Image">
+                        <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="2" jsxtop="2"/>
+                        <strings jsxname="image" jsxsrc="images/backButton.png"/>
+                        <dynamics jsxcursor="@Hand"/>
+                        <events jsxclick="palette.setUserView('summary');"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="1" jsxrelativeposition="1"/>
+                      <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxpadding="8 20 8 8" jsxstyleoverride="overflow-y:auto;overflow-x:hidden;"/>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxrelativeposition="1" jsxoverflow="3" jsxheight="18"/>
+                        <strings jsxname="upload_name_block" jsxtext="Component Name:"/>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="1" jsxheight="28"/>
+                        <strings jsxname="block" jsxwidth="100%" jsxrelativeposition="1"/>
+                        <object type="jsx3.gui.TextBox">
+                          <variants jsxtype="0" jsxheight="18"/>
+                          <strings jsxwidth="100%" jsxname="upload_name" jsxvalue=""/>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxrelativeposition="1" jsxoverflow="3" jsxheight="18"/>
+                        <strings jsxname="label" jsxtext="Description:" jsxwidth="100%"/>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="3" jsxheight="125"/>
+                        <strings jsxname="block" jsxwidth="100%" jsxrelativeposition="1" jsxmargin="0 0 8 0"/>
+                        <object type="jsx3.gui.TextBox">
+                          <variants jsxtype="1"/>
+                          <strings jsxwidth="100%" jsxheight="100%" jsxname="upload_description" jsxvalue="Just a blue button"/>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="1" jsxheight="50"/>
+                        <strings jsxname="block" jsxwidth="100%" jsxrelativeposition="1"/>
+                        <object type="jsx3.gui.LayoutGrid">
+                          <variants jsxrelativeposition="1" jsxoverflow="2" jsxfontsize="11"/>
+                          <strings jsxcols="20,*"/>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="2"/>
+                            <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+                            <object type="jsx3.gui.CheckBox">
+                              <variants jsxheight="18" jsxchecked="0" jsxdefaultchecked="0"/>
+                              <strings jsxname="upload_checkbox" jsxmargin="0 4 0 0"/>
+                              <events jsxtoggle="upload_button_btn.setEnabled(intCHECKED, true);"/>
+                            </object>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants/>
+                            <strings jsxtext="I have read and agree to the &lt;a href=&quot;http://www.generalinterface.org/terms.html&quot; target=&quot;_blank&quot;&gt;GeneralInterface.org terms of service&lt;/a&gt;."/>
+                            <events jsxclick="palette.getPlugIn()._onAgreeLabelClick(objEVENT, upload_checkbox, upload_button_btn);"/>
+                          </object>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="1" jsxheight="20"/>
+                        <strings jsxname="block" jsxwidth="100%" jsxrelativeposition="1"/>
+                        <object type="jsx3.gui.LayoutGrid">
+                          <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                          <strings jsxname="layoutCols" jsxcols="*,100" jsxwidth="100%" jsxheight="100%"/>
+                          <object type="jsx3.gui.Block">
+                            <variants/>
+                            <strings/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="1"/>
+                            <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+                              <strings jsxname="upload_button" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+                              <object type="jsx3.gui.Button">
+                                <variants jsxindex="0" jsxheight="18" jsxenabled="0"/>
+                                <strings jsxwidth="100%" jsxname="upload_button_btn" jsxtext="Upload"/>
+                                <events jsxexecute="palette._doUpload();"/>
+                              </object>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"/>
+                              <strings jsxname="upload_spinner" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxtextalign="center"/>
+                              <object type="jsx3.gui.Image">
+                                <variants jsxoverflow="2" jsxrelativeposition="1"/>
+                                <strings jsxname="image" jsxsrc="images/spinner.gif"/>
+                              </object>
+                              <object type="jsx3.gui.Block">
+                                <variants jsxrelativeposition="1"/>
+                                <strings jsxname="text" jsxtext="Uploading" jsxpadding="0 0 0 4" jsxheight="100%"/>
+                              </object>
+                            </object>
+                          </object>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="1"/>
+                        <strings jsxname="upload_problem" jsxwidth="100%" jsxrelativeposition="1" jsxmargin="8 0 0 0" jsxdisplay="none"/>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxoverflow="3"/>
+                          <strings jsxname="block" jsxwidth="100%" jsxrelativeposition="1" jsxborder="solid 2px #e7dd80;" jsxbgcolor="#fff5c4"/>
+                          <dynamics jsxpadding="@8Pixel"/>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="1"/>
+                            <strings jsxname="block" jsxrelativeposition="1" jsxtext="Problem with Component Upload" jsxfontweight="bold" jsxmargin="0 0 4 0"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants/>
+                            <strings jsxname="upload_problem_text" jsxwidth="100%" jsxtext="Problem text"/>
+                          </object>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Tab">
+        <variants jsxheight="18"/>
+        <strings jsxname="online_tab" jsxtext="Online" jsxbgcolor="#e8e8f5" jsxmargin="0 4 0 0"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"/>
+          <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxvisibility="" jsxdisplay=""/>
+          <dynamics jsxbgcolor="@Solid Medium"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="jsx_ide_prototypes_layout" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.WindowBar">
+              <variants jsxbartype="2" jsxfontsize="10" jsxrelativeposition="1" jsxoverflow="3"/>
+              <strings jsxname="jsx_ide_complibs_online_bar" jsxborder="0px;0px;solid 1px #a8a8b5;0px"/>
+              <dynamics jsxbgcolor="@Solid Medium"/>
+              <object type="jsx3.gui.LayoutGrid">
+                <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                <strings jsxname="layoutCols" jsxcols="*,110" jsxwidth="100%" jsxheight="100%"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxpadding="3 6 0 0"/>
+                  <object type="jsx3.gui.TextBox">
+                    <variants jsxheight="18" jsxenabled="1" jsxtype="0"/>
+                    <strings jsxname="jsx_ide_online_search" jsxvalue="" jsxwidth="100%" jsxpadding="1 19 0 2"/>
+                    <events jsxincchange="palette.getPlugIn()._onSearch(this, ide_component_libs_online_list, strVALUE);"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="3"/>
+                  <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+                  <object type="jsx3.gui.Image">
+                    <variants jsxoverflow="3" jsxrelativeposition="0" jsxleft="-22" jsxtop="5"/>
+                    <strings jsxname="image" jsxsrc="images/clearSearch.gif"/>
+                    <dynamics jsxcursor="@Hand"/>
+                    <events jsxclick="palette.getPlugIn()._clearSearch(jsx_ide_online_search, ide_component_libs_online_list);"/>
+                  </object>
+                  <object type="jsx3.gui.Menu">
+                    <variants jsxxmlasync="1" jsxdivider="1" jsxxmlbind="1"/>
+                    <strings jsxname="jsx_ide_online_filter_menu" jsxtip="Filters" jsximage="images/table_gear.png" jsxxmlid="jsx3.ide.palette.prototypes.menu-filters"/>
+                    <events jsxexecute="palette.getPlugIn()._onOnlineFilterMenuExecute(this, ide_component_libs_online_list, strRECORDID, jsx_ide_online_search);"/>
+                  </object>
+                  <object type="jsx3.gui.Menu">
+                    <variants jsxxmlasync="1" jsxdivider="0" jsxxmlbind="1"/>
+                    <strings jsxname="menu" jsxtip="Feeds" jsximage="images/feed.png" jsxxmlid="jsx3.ide.palette.prototypes.menu-feeds"/>
+                    <events jsxexecute="palette.getPlugIn()._onOnlineFeedMenuExecute(this, strRECORDID);"/>
+                  </object>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <variants jsxdivider="0"/>
+                    <strings jsxname="toolBarBtn" jsximage="jsxapp:/images/icon_15.gif" jsxtip="Refresh the list of prototypes"/>
+                    <events jsxexecute="palette.getPlugIn()._reloadList(ide_component_libs_online_list);"/>
+                  </object>
+                </object>
+              </object>
+            </object>
+            <object type="jsx3.gui.TabbedPane">
+              <variants selectedIndex="2" jsxselectedindex="1" jsxshowtabs="0"/>
+              <strings jsxname="jsx_ide_complibs_online_views" jsxtextalign="0"/>
+              <dynamics jsxbgcolor="@Solid Light"/>
+              <object type="jsx3.gui.Tab">
+                <variants jsxheight="18"/>
+                <strings jsxname="jsx_ide_proto_summary_tab" jsxtext="Tab 2" jsxbgcolor="#d8d8e5"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+                  <strings jsxname="jsx_ide_proto_summary_view" jsxwidth="100%" jsxheight="100%" jsxvisibility="" jsxdisplay="none"/>
+                  <dynamics jsxborder="@Outset" jsxbgcolor="@Solid Light"/>
+                  <object type="jsx3.gui.Matrix">
+                    <variants jsxjsxxmlasync="1" jsxselectionmodel="1" jsxdrag="1" jsxdrop="0" jsxreorder="0" jsxsuppressvscroll="0" jsxscalewidth="1" jsxpagingmodel="1" jsxxmlasync="1"/>
+                    <strings jsxname="ide_component_libs_online_list" jsxrenderingmodel="shallow" jsxsorttype="number" jsxsortdirection="descending" jsxfocusstyle=";"/>
+                    <dynamics jsxbgcolor="@Solid Light"/>
+                    <events jsxexecute="palette.getPlugIn()._onOnlineListExecute(palette, this, strRECORDID);" jsxadopt="false"/>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxsort="0"/>
+                      <strings jsxname="nameColumn" jsxwidth="*" jsxcellpadding="2 2 2 8" jsxpath="name" jsxformathandler="jsx3.ide.getPlugIn('jsx3.ide.palette.prototypes').formatComponentName" jsxpadding="2 3 0 3" jsxtext="Name"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Fade TopDown"/>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <variants jsxwidth="100" jsxsort="1"/>
+                      <strings jsxname="filterColumn" jsxtext="Rating" jsxcellpadding="5 0 0 8" jsxpath="rating" jsxtextalign="left" jsxformathandler="jsx3.ide.getPlugIn('jsx3.ide.palette.prototypes').formatRating" jsxpadding="2 3 0 3" jsxsortdatatype="number" jsxdatatype="number"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Fade TopDown"/>
+                    </object>
+                  </object>
+                </object>
+              </object>
+              <object type="jsx3.gui.Tab">
+                <variants jsxheight="18"/>
+                <strings jsxname="jsx_ide_proto_license_tab" jsxtext="Tab 3" jsxbgcolor="#d8d8e5"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxleft="0" jsxtop="0" jsxwidth="100" jsxheight="100" jsxoverflow="1" jsxrelativeposition="0"/>
+                  <strings jsxname="block" jsxdisplay="" jsxvisibility=""/>
+                  <object type="jsx3.gui.LayoutGrid">
+                    <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                    <strings jsxname="layoutRows" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="2" jsxfontsize="14"/>
+                      <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtextalign="center" jsxtext="License Agreement" jsxfontweight="bold" jsxpadding="2 0 0 0"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Fade TopDown"/>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="1"/>
+                      <strings jsxname="jsx_ide_proto_license_view" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+                      <dynamics jsxpadding="@8Pixel"/>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxrelativeposition="1" jsxoverflow="3"/>
+                        <strings jsxname="label" jsxtext="Before using the Online features of Builder, you must agree to the &lt;a
+ href='http://www.generalinterface.org/terms.html' target='_blank'&gt;GeneralInterface.org terms of service&lt;/a&gt;."/>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="3" jsxheight="18"/>
+                        <strings jsxname="pane2" jsxwidth="100%" jsxmargin="12 0 0 0" jsxtextalign="right"/>
+                        <object type="jsx3.gui.Button">
+                          <variants jsxindex="0" jsxheight="18" jsxwidth="100"/>
+                          <strings jsxname="jsx_ide_proto_license_download" jsxtext="I Agree" jsxmargin="0 4 0 0"/>
+                          <events jsxexecute="palette.onLicenseAgree();"/>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+              <object type="jsx3.gui.Tab">
+                <variants jsxheight="18"/>
+                <strings jsxname="jsx_ide_proto_remove_tab" jsxtext="Tab" jsxbgcolor="#d8d8e5"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxleft="0" jsxtop="0" jsxwidth="100" jsxheight="100" jsxoverflow="1" jsxrelativeposition="0"/>
+                  <strings jsxname="block" jsxdisplay="none" jsxvisibility=""/>
+                  <object type="jsx3.gui.LayoutGrid">
+                    <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                    <strings jsxname="layoutRows" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="2" jsxfontsize="14"/>
+                      <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtextalign="center" jsxtext="Remove Component?" jsxfontweight="bold" jsxpadding="2 0 0 0"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Fade TopDown"/>
+                      <object type="jsx3.gui.Image">
+                        <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="2" jsxtop="2"/>
+                        <strings jsxname="image" jsxsrc="images/backButton.png"/>
+                        <dynamics jsxcursor="@Hand"/>
+                        <events jsxclick="palette.setOnlineView('summary');"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="1"/>
+                      <strings jsxname="jsx_ide_proto_remove_view" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxpadding="8 20 8 8"/>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxrelativeposition="1" jsxoverflow="3" jsxfontsize="14"/>
+                        <strings jsxname="label" jsxtext="Remove your component?" jsxpadding="0 0 8 0"/>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants/>
+                        <strings jsxname="text" jsxwidth="100%" jsxtext="You are about to remove your component from the Prototype Library.  This action cannot be undone." jsxpadding="0 0 12 0"/>
+                      </object>
+                      <object type="jsx3.gui.CheckBox">
+                        <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="0"/>
+                        <strings jsxname="jsx_ide_proto_remove_confirm" jsxtext="Confirm removal" jsxmargin="0 4 12 0" jsxwidth="100%"/>
+                        <events jsxtoggle="jsx_ide_proto_remove_remove.setEnabled(intCHECKED, true);"/>
+                      </object>
+                      <object type="jsx3.gui.Button">
+                        <variants jsxindex="0" jsxheight="18" jsxwidth="100" jsxenabled="0"/>
+                        <strings jsxname="jsx_ide_proto_remove_remove" jsxtext="Remove it" jsxmargin="0 4 0 8"/>
+                        <events jsxexecute="palette.getPlugIn().removeComponent(palette, jsx_ide_proto_remove_confirm, this, jsx_ide_proto_remove_cancel, ide_component_libs_online_list, jsx_ide_proto_detail_view._selected_detail_record);"/>
+                      </object>
+                      <object type="jsx3.gui.Button">
+                        <variants jsxindex="0" jsxheight="18" jsxwidth="100"/>
+                        <strings jsxname="jsx_ide_proto_remove_cancel" jsxtext="Cancel" jsxmargin="0 4 0 8"/>
+                        <events jsxexecute="palette.setOnlineView('detail');"/>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+              <object type="jsx3.gui.Tab">
+                <variants jsxheight="18"/>
+                <strings jsxname="jsx_ide_proto_removed_tab" jsxtext="Tab" jsxbgcolor="#d8d8e5"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxleft="0" jsxtop="0" jsxwidth="100" jsxheight="100" jsxoverflow="1" jsxrelativeposition="0"/>
+                  <strings jsxname="block" jsxdisplay="none" jsxvisibility=""/>
+                  <object type="jsx3.gui.LayoutGrid">
+                    <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                    <strings jsxname="layoutRows" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="2" jsxfontsize="14"/>
+                      <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtextalign="center" jsxtext="Component Removed" jsxfontweight="bold" jsxpadding="2 0 0 0"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Fade TopDown"/>
+                      <object type="jsx3.gui.Image">
+                        <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="2" jsxtop="2"/>
+                        <strings jsxname="image" jsxsrc="images/backButton.png"/>
+                        <dynamics jsxcursor="@Hand"/>
+                        <events jsxclick="palette.setOnlineView('summary');"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="1"/>
+                      <strings jsxname="jsx_ide_proto_removed_view" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+                      <dynamics jsxpadding="@8Pixel"/>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxrelativeposition="1" jsxoverflow="3" jsxfontsize="14"/>
+                        <strings jsxname="label" jsxtext="Component Removed" jsxpadding="0 0 8 0" jsxwidth="100%"/>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxrelativeposition="1" jsxoverflow="3"/>
+                        <strings jsxname="jsx_ide_proto_removed_back" jsxtext="Back to list of online components" jsxcolor="#1D0FB7" jsxfontweight="bold"/>
+                        <dynamics jsxcursor="@Hand"/>
+                        <events jsxexecute="palette.setOnlineView('summary');"/>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+              <object type="jsx3.gui.Tab">
+                <variants jsxheight="18"/>
+                <strings jsxname="jsx_ide_proto_detail_tab" jsxtext="Tab" jsxbgcolor="#d8d8e5"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxleft="0" jsxtop="0" jsxwidth="100" jsxheight="100" jsxoverflow="1" jsxrelativeposition="0"/>
+                  <strings jsxname="block" jsxdisplay="none" jsxvisibility=""/>
+                  <object type="jsx3.gui.LayoutGrid">
+                    <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                    <strings jsxname="detail_container" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="2" jsxfontsize="14"/>
+                      <strings jsxname="detail_title" jsxwidth="100%" jsxheight="100%" jsxtextalign="center" jsxtext="Detail" jsxfontweight="bold"/>
+                      <dynamics jsxborder="@Outset" jsxbg="@Fade TopDown"/>
+                      <object type="jsx3.gui.Image">
+                        <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="2" jsxtop="2"/>
+                        <strings jsxname="image" jsxsrc="images/backButton.png"/>
+                        <dynamics jsxcursor="@Hand"/>
+                        <events jsxclick="palette.setOnlineView('summary');"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="1" jsxrelativeposition="1"/>
+                      <strings jsxname="jsx_ide_proto_detail_view" jsxwidth="100%" jsxheight="100%" jsxpadding="8 20 8 8" jsxstyleoverride="overflow-y:auto;overflow-x:hidden;"/>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxrelativeposition="1" jsxoverflow="3"/>
+                        <strings jsxname="detail_downloaded" jsxtext="Component Downloaded" jsxpadding="4 0 4 0" jsxborder="1px solid #92ba67" jsxbgcolor="#e4ffc8" jsxtextalign="center" jsxmargin="0 0 8 0" jsxfontweight="normal" jsxdisplay="none" jsxwidth="100%"/>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="3"/>
+                        <strings jsxname="block" jsxwidth="100%" jsxrelativeposition="1" jsxpadding="0 0 12 0"/>
+                        <dynamics jsxborder="@Outset Bottom"/>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxoverflow="3" jsxrelativeposition="1"/>
+                          <strings jsxname="detail_description" jsxtext="Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat."/>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxheight="104" jsxrelativeposition="1" jsxoverflow="3"/>
+                        <strings jsxname="jsx_ide_proto_detail_details" jsxwidth="100%" jsxpadding="12 0 12 0"/>
+                        <dynamics jsxborder="@Outset Bottom"/>
+                        <object type="jsx3.gui.LayoutGrid">
+                          <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                          <strings jsxname="layoutRows" jsxrows="20,20,20,20" jsxwidth="100%" jsxheight="100%" jsxcols="75,*"/>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="2"/>
+                            <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtext="Unique ID:" jsxtextalign="right" jsxfontweight="bold"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="1"/>
+                            <strings jsxname="detail_id" jsxwidth="100%" jsxheight="100%" jsxtext="0" jsxpadding="0 0 0 8"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="2"/>
+                            <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtext="Uploaded:" jsxtextalign="right" jsxfontweight="bold"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="1"/>
+                            <strings jsxname="detail_uploaded" jsxwidth="100%" jsxheight="100%" jsxtext="09/05/2009" jsxpadding="0 0 0 8"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="2"/>
+                            <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxfontweight="bold" jsxtext="Downloads:"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="1"/>
+                            <strings jsxname="detail_downloads" jsxwidth="100%" jsxheight="100%" jsxtext="445" jsxpadding="0 0 0 8"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="2"/>
+                            <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxfontweight="bold" jsxtext="Created by:"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="1"/>
+                            <strings jsxname="detail_created_by" jsxwidth="100%" jsxheight="100%" jsxtext="Adam Smith" jsxpadding="0 0 0 8"/>
+                            <dynamics jsxcursor="@Hand"/>
+                            <events jsxclick="palette.onCreatedByClick();"/>
+                          </object>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="3" jsxheight="74"/>
+                        <strings jsxname="jsx_ide_proto_detail_ratings" jsxwidth="100%" jsxrelativeposition="1" jsxpadding="12 0 12 0"/>
+                        <dynamics jsxborder="@Outset Bottom"/>
+                        <object type="jsx3.gui.LayoutGrid">
+                          <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                          <strings jsxname="layoutRows" jsxrows="25,25" jsxwidth="100%" jsxheight="100%" jsxcols="75,*"/>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="2"/>
+                            <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtext="Avg. Rating:" jsxtextalign="right" jsxfontweight="bold"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="1"/>
+                            <strings jsxname="detail_avg_rating" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxpadding="0 0 0 8"/>
+                            <object type="jsx3.gui.Image">
+                              <variants jsxoverflow="2" jsxrelativeposition="1" jsxwidth="70" jsxheight="14"/>
+                              <strings jsxname="detail_avg_rating_img" jsxsrc="images/0.png"/>
+                            </object>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="2"/>
+                            <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtext="Your Rating:" jsxtextalign="right" jsxfontweight="bold"/>
+                          </object>
+                          <object type="jsx3.gui.Block">
+                            <variants jsxoverflow="1"/>
+                            <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxpadding="0 0 0 8"/>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="1" jsxwidth="70" jsxheight="14"/>
+                              <strings jsxname="detail_your_rating" jsxrelativeposition="1"/>
+                              <properties onmouseover="jsx3.ide.getPlugIn('jsx3.ide.palette.prototypes').onRatingMouseOver(this, event);" onmouseout="jsx3.ide.getPlugIn('jsx3.ide.palette.prototypes').onRatingMouseOut(this, event);"/>
+                              <object type="jsx3.gui.Image">
+                                <variants jsxoverflow="2" jsxrelativeposition="1"/>
+                                <strings jsxname="image" jsxsrc="images/emptyStar.png"/>
+                                <events jsxclick="palette.getPlugIn().rateComponent(palette, detail_your_rating, &quot;1&quot;, ide_component_libs_online_list);"/>
+                              </object>
+                              <object type="jsx3.gui.Image">
+                                <variants jsxoverflow="2" jsxrelativeposition="1"/>
+                                <strings jsxname="image" jsxsrc="images/emptyStar.png"/>
+                                <events jsxclick="palette.getPlugIn().rateComponent(palette, detail_your_rating, &quot;2&quot;, ide_component_libs_online_list);"/>
+                              </object>
+                              <object type="jsx3.gui.Image">
+                                <variants jsxoverflow="2" jsxrelativeposition="1"/>
+                                <strings jsxname="image" jsxsrc="images/emptyStar.png"/>
+                                <events jsxclick="palette.getPlugIn().rateComponent(palette, detail_your_rating, &quot;3&quot;, ide_component_libs_online_list);"/>
+                              </object>
+                              <object type="jsx3.gui.Image">
+                                <variants jsxoverflow="2" jsxrelativeposition="1"/>
+                                <strings jsxname="image" jsxsrc="images/emptyStar.png"/>
+                                <events jsxclick="palette.getPlugIn().rateComponent(palette, detail_your_rating, &quot;4&quot;, ide_component_libs_online_list);"/>
+                              </object>
+                              <object type="jsx3.gui.Image">
+                                <variants jsxoverflow="2" jsxrelativeposition="1"/>
+                                <strings jsxname="image" jsxsrc="images/emptyStar.png"/>
+                                <events jsxclick="palette.getPlugIn().rateComponent(palette, detail_your_rating, &quot;5&quot;, ide_component_libs_online_list);"/>
+                              </object>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="1"/>
+                              <strings jsxname="detail_cant_rate" jsxheight="100%" jsxrelativeposition="1" jsxtext="You cannot rate your own component" jsxdisplay="none"/>
+                            </object>
+                          </object>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="2" jsxheight="20"/>
+                        <strings jsxname="jsx_ide_proto_detail_actions" jsxrelativeposition="1" jsxwidth="100%" jsxmargin="10 0 10 0"/>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxoverflow="2" jsxheight="30" jsxrelativeposition="1"/>
+                          <strings jsxname="pane1" jsxwidth="100%"/>
+                          <object type="jsx3.gui.LayoutGrid">
+                            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                            <strings jsxname="layoutCols" jsxcols="*,100" jsxwidth="100%" jsxheight="100%"/>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="3"/>
+                              <strings jsxname="report_button" jsxwidth="100%" jsxheight="100%" jsxtext="" jsxpadding="4 0 0 8"/>
+                              <object type="jsx3.gui.Block">
+                                <variants jsxrelativeposition="1" jsxoverflow="3"/>
+                                <strings jsxname="jsx_ide_proto_detail_problem" jsxtext="Report a problem" jsxcolor="#1D0FB7" jsxfontweight="bold" jsxstyleoverride="white-space: nowrap;"/>
+                                <dynamics jsxcursor="@Hand"/>
+                                <events jsxclick="palette.toggleReportForm();"/>
+                              </object>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="3"/>
+                              <strings jsxname="download_container" jsxwidth="100%" jsxheight="100%" jsxpadding="0 0 12 12"/>
+                              <object type="jsx3.gui.Button">
+                                <variants jsxindex="0" jsxheight="18"/>
+                                <strings jsxwidth="100%" jsxname="button" jsxtext="Download" jsxmargin="0 4 0 0"/>
+                                <events jsxexecute="palette.getPlugIn()._onOnlineDetailDownload(detail_id);"/>
+                              </object>
+                            </object>
+                          </object>
+                        </object>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxoverflow="1" jsxheight="218" jsxrelativeposition="1"/>
+                          <strings jsxname="report_form" jsxwidth="100%" jsxborder="0; 2px solid #dddde9; 2px solid #dddde9; 2px solid #dddde9;" jsxbgcolor="#e8e8f4"/>
+                          <dynamics jsxpadding="@8Pixel"/>
+                          <object type="jsx3.gui.LayoutGrid">
+                            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                            <strings jsxname="layoutRows" jsxrows="20,30,20,100,30" jsxwidth="100%" jsxheight="100%"/>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxrelativeposition="1" jsxoverflow="3"/>
+                              <strings jsxname="label" jsxtext="Issue with component:"/>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="2"/>
+                              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+                              <object type="jsx3.gui.Select">
+                                <variants jsxwidth="150" jsxheight="18" jsxxmlasync="1"/>
+                                <strings jsxname="report_issue" jsxmargin="0 4 0 0" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record jsxid=&quot;inappropriate&quot; jsxtext=&quot;Inappropriate Content&quot;/&gt;&lt;record jsxid=&quot;copyright&quot; jsxtext=&quot;Copyright Violation&quot;/&gt;&lt;/data&gt;"/>
+                                <events jsxselect="palette.getPlugIn().checkReportCriteria(report_issue, report_textarea, report_flag_content, report_send_button);"/>
+                              </object>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxrelativeposition="1" jsxoverflow="3"/>
+                              <strings jsxname="label" jsxtext="Comments:"/>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="1"/>
+                              <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+                              <dynamics jsxborder="@Outset"/>
+                              <object type="jsx3.gui.TextBox">
+                                <variants jsxtype="1"/>
+                                <strings jsxwidth="100%" jsxheight="100%" jsxname="report_textarea" jsxmargin="0 0 0 0" jsxvalue=""/>
+                                <events jsxchange="palette.getPlugIn().checkReportCriteria(report_issue, report_textarea, report_flag_content, report_send_button);"/>
+                              </object>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxoverflow="3"/>
+                              <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxpadding="12 0 0 0"/>
+                              <object type="jsx3.gui.LayoutGrid">
+                                <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                                <strings jsxname="layoutCols" jsxcols="100,*" jsxwidth="100%" jsxheight="100%"/>
+                                <object type="jsx3.gui.Block">
+                                  <variants jsxoverflow="2"/>
+                                  <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+                                  <object type="jsx3.gui.CheckBox">
+                                    <variants jsxheight="18" jsxchecked="0" jsxdefaultchecked="0"/>
+                                    <strings jsxname="report_flag_content" jsxtext="Flag this content" jsxmargin="0 4 0 0"/>
+                                    <events jsxtoggle="palette.getPlugIn().checkReportCriteria(report_issue, report_textarea, report_flag_content, report_send_button);"/>
+                                  </object>
+                                </object>
+                                <object type="jsx3.gui.Block">
+                                  <variants jsxoverflow="1"/>
+                                  <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+                                  <object type="jsx3.gui.Button">
+                                    <variants jsxindex="0" jsxheight="18" jsxenabled="0"/>
+                                    <strings jsxname="report_send_button" jsxtext="Send Report"/>
+                                    <events jsxexecute="palette.getPlugIn().reportProblem(palette, report_issue, report_textarea, report_sent, jsx_ide_proto_detail_view, ide_component_libs_online_list);"/>
+                                  </object>
+                                </object>
+                              </object>
+                            </object>
+                          </object>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants/>
+                        <strings jsxname="report_sent" jsxwidth="100%" jsxtext="Thank you. Your report has been sent." jsxbgcolor="#e4ffc8" jsxpadding="4 0 4 0" jsxmargin="0 0 8 0" jsxborder="2px solid #92ba67" jsxtextalign="center" jsxdisplay="none"/>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="3"/>
+                        <strings jsxname="detail_owner_container" jsxwidth="100%" jsxrelativeposition="1" jsxpadding="12 0 12 8"/>
+                        <dynamics jsxborder="@Inset Top"/>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxrelativeposition="1" jsxoverflow="3" jsxfontsize="12"/>
+                          <strings jsxname="label" jsxtext="This is your component" jsxwidth="100%" jsxmargin="0 0 4 0"/>
+                        </object>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxrelativeposition="1" jsxoverflow="3"/>
+                          <strings jsxname="jsx_ide_proto_detail_owner_remove" jsxtext="Remove your component?" jsxcolor="#1D0FB7" jsxfontweight="bold"/>
+                          <dynamics jsxcursor="@Hand"/>
+                          <events jsxclick="palette.setOnlineView('remove');"/>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

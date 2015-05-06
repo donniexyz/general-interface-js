@@ -1,0 +1,65 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="jsx3tree" group="1" jsxtext="Tree">
+    <record include="master.xml" group="form_novalue" children="1"/>
+    <record include="master.xml" group="jsxrequired" children="1"/>
+    <record jsxid="jsxmultiselect" jsxtext="Multi-Select"
+        eval="1"
+        jsxtip="Sets whether the tree supports multi-select or single-select."
+        docgetter="getMultiSelect" docsetter="setMultiSelect"
+        docdefault="Single-Select (&lt;code&gt;jsx3.gui.Tree.SINGLE&lt;/code&gt;)"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setMultiSelect(vntValue);">
+      <enum jsxid="jsx3.gui.Tree.MULTI" jsxtext="Multi-Select"/>
+      <enum jsxid="jsx3.gui.Tree.SINGLE" jsxtext="Single-Select"/>
+    </record>
+    <record jsxid="jsxiconminus" jsxtext="Close Icon"
+        eval="0"
+        jsxtip="The 16x16 transparent .gif used to signal that clicking the item  collapses its contents."
+        docgetter="getIconMinus" docsetter="setIconMinus"
+        docdefault="&lt;code&gt;jsx3.gui.Tree.ICONMINUS&lt;/code&gt;. See the API documentation for this component."
+        jsxmask="jsxpath"/>
+    <record jsxid="jsxiconplus" jsxtext="Open Icon"
+        eval="0"
+        jsxtip="The 16x16 transparent .gif used to signal that clicking the item displays/expands its contents."
+        docgetter="getIconPlus" docsetter="setIconPlus"
+        docdefault="&lt;code&gt;jsx3.gui.Tree.ICONPLUS&lt;/code&gt;. See the API documentation for this component."
+        jsxmask="jsxpath"/>
+    <record jsxid="jsxicon" jsxtext="Icon"
+        eval="0"
+        jsxtip="The icon to use for items in the tree."
+        docgetter="getIcon" docsetter="setIcon"
+        docdefault="&lt;code&gt;jsx3.gui.Tree.ICON&lt;/code&gt;. See the API documentation for this component."
+        jsxmask="jsxpath"/>
+    <record include="master.xml" group="drag" children="1"/>
+    <record jsxid="jsxuseroot" jsxtext="Show Root Node"
+        eval="1"
+        jsxtip="Whether to show the root node in the tree."
+        docgetter="getRoot" docsetter="setRoot"
+        docdefault="Show (&lt;code&gt;jsx3.Boolean.TRUE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Show"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Hide"/>
+    </record>
+  </record>
+
+  <record include="master.xml" group="blockx"/>
+
+  <record include="master.xml" group="font">
+    <record include="master.xml" group="jsxdisabledcolor" children="1"/>
+  </record>
+  <record include="master.xml" group="box_tree">
+    <record include="master.xml" group="jsxdisabledbgcolor" children="1"/>
+  </record>
+
+  <record include="master.xml" group="css_noclass"/>
+  <record include="master.xml" group="interaction"/>
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>

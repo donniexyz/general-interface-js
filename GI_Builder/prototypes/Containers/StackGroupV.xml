@@ -1,0 +1,27 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Stack Group - V]]></name>
+  <icon><![CDATA[images/prototypes/stackgroup-side.gif]]></icon>
+  <description><![CDATA[Stack group with two vertical (side by side) stack items.]]></description>
+  <object type="jsx3.gui.StackGroup">
+    <variants jsxorientation="1" jsxrelativeposition="0"/>
+    <strings jsxname="stackgroupV"/>
+    <object type="jsx3.gui.Stack">
+      <strings jsxname="stack1" jsxtext="Stack 1"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1" jsxloadtype="4"/>
+        <strings jsxname="pane" jsxbgcolor="#ffffff"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Stack">
+      <strings jsxname="stack2" jsxtext="Stack 2"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1" jsxloadtype="4"/>
+        <strings jsxname="pane" jsxbgcolor="#ffffff"/>
+      </object>
+    </object>
+  </object>
+</serialization>

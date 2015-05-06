@@ -1,0 +1,18 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"></variants>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%"></strings>
+    <object type="jsx3.gui.Matrix">
+      <variants jsxheaderheight="0" jsxjsxxmlasync="1"></variants>
+      <strings jsxname="matrix1" jsxrenderingmodel="hierarchical" jsxpagingmodel="4" jsxdrag="1" jsxdrop="1" jsxselectionmodel="2" jsxxml="&#xA;      &lt;data jsxid=&quot;jsxroot&quot;&gt;&#xA;        &lt;record jsxid=&quot;1&quot; jsxtext=&quot;rootnode&quot; jsxopen=&quot;1&quot; jsximg=&quot;jsx:/images/tree/folder.gif&quot;&gt;&#xA;          &lt;record jsxid=&quot;2&quot; jsxtext=&quot;node a&quot; jsxopen=&quot;1&quot; jsximg=&quot;jsx:/images/tree/folder.gif&quot;&gt;&#xA;            &lt;record jsxid=&quot;3&quot; jsxtext=&quot;node b&quot; jsximg=&quot;jsx:/images/tree/folder.gif&quot;&gt;&#xA;              &lt;record jsxid=&quot;4&quot; jsxtext=&quot;node c&quot;  jsximg=&quot;jsx:/images/tree/folder.gif&quot;&gt;&#xA;                &lt;record jsxid=&quot;5&quot; jsxtext=&quot;node d&quot; jsximg=&quot;jsx:/images/tree/file.gif&quot;/&gt;&#xA;              &lt;/record&gt;&#xA;            &lt;/record&gt;&#xA;            &lt;record jsxid=&quot;6&quot; jsxtext=&quot;node e&quot; jsximg=&quot;jsx:/images/tree/folder.gif&quot;&gt;&#xA;              &lt;record jsxid=&quot;7&quot; jsxtext=&quot;node f with a lot of text to see what the impact&quot; jsximg=&quot;jsx:/images/tree/folder.gif&quot;&gt;&#xA;                &lt;record jsxid=&quot;8&quot; jsxtext=&quot;node g&quot; jsximg=&quot;jsx:/images/tree/file.gif&quot;/&gt;&#xA;              &lt;/record&gt;&#xA;            &lt;/record&gt;&#xA;          &lt;/record&gt;&#xA;        &lt;/record&gt;&#xA;      &lt;/data&gt;&#xA;    "></strings>
+      <dynamics jsxbgcolor="@Solid Light"></dynamics>
+      <events jsxtoggle="jsx3.log('EVENT: (jsxtoggle). ' + strRECORDID + '. Open: ' + bOPEN);"></events>
+      <object type="jsx3.gui.Matrix.Column">
+        <variants></variants>
+        <strings jsxname="mc1" jsxwidth="*" jsxcellpadding="2" jsxpath="jsxtext"></strings>
+        <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"></dynamics>
+      </object>
+    </object>
+  </object>
+</serialization>

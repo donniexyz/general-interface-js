@@ -1,0 +1,148 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+  <onAfterDeserialize><![CDATA[
+
+objJSX.onPaletteLoaded = function() {
+  var editor = jsx3.ide.getActiveEditor();
+  if (editor)
+    this.onEditorChanged(editor, null);
+};
+
+objJSX.onEditorChanged = function(newEditor, oldEditor) {
+  var onNow = newEditor && newEditor.getMode() == "component" && 
+      this.getPlugIn().allAreCacheable(newEditor.getSelection());
+
+  this._makeActive(onNow);
+
+  if (onNow)
+    this.getPlugIn().onXslParameterChange();
+};
+
+objJSX._makeActive = jsx3.$F(function(bActive) {
+  if (Boolean(jsxxslparam_name.getEnabled()) != Boolean(bActive)) {
+    jsxxslparam_name.setEnabled(bActive, true);
+    jsxxslparam_value.setEnabled(bActive, true);
+    jsxaddxslparam.setEnabled(bActive, true);
+
+    if (!bActive)
+      jsxxslparams.clearXmlData();
+    jsxxslparams.setEnabled(bActive, !bActive);
+
+    namelabel.setColor(bActive ? "#000000" : jsx3.gui.Form.DEFAULTDISABLEDCOLOR, true);
+    valuelabel.setColor(bActive ? "#000000" : jsx3.gui.Form.DEFAULTDISABLEDCOLOR, true);
+  }
+}).throttled();
+
+objJSX.onSelectionChanged = function(objEditor) {
+  this.onEditorChanged(objEditor);
+};
+
+objJSX._paramExec = function() {
+  var nameField = jsxxslparam_name;
+  var valueField = jsxxslparam_value;
+  var name = nameField.getValue();
+  var value = valueField.getValue();
+
+  if (name && value) {
+    this.getPlugIn().onXslParameterAdd(name, value);
+    nameField.setValue("");
+    valueField.setValue("");
+    nameField.focus();
+  }
+};
+
+objJSX.getList = function() {
+  return jsxxslparams;
+};
+
+objJSX.getNameInput = function() {
+  return jsxxslparam_name;
+};
+
+objJSX.getValueInput = function() {
+  return jsxxslparam_value;
+};
+
+//objJSX.registerHotKey(jsx3.ide.onXslParameterDelete, jsx3.gui.Event.KEY_DELETE, false, true, false); // delete
+
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+   <dynamics jsxborder="@Outset" jsxbgcolor="@Solid Medium"/>
+   <variants jsxleft="0" jsxtop="0" jsxoverflow="1" />
+   <strings jsxname="xslparampal" jsxwidth="100%" jsxheight="100%" jsxhelpid="ide.palette.xsl"/>
+    <object type="jsx3.gui.LayoutGrid">
+     <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2" />
+     <strings jsxname="jsxxslparams_editor" jsxwidth="100%" jsxheight="100%" jsxrows="48,*"/>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxbgcolor="@Solid Medium" />
+       <variants jsxoverflow="2" jsxrelativeposition="1" />
+       <strings jsxname="jsxxslparams_namevalueeditor" jsxwidth="100%" jsxheight="100%" jsxpadding="22 6 0 98" jsxtextalign="right" />
+        <object type="jsx3.gui.Block">
+         <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtext="_gen_name"/>
+         <variants jsxrelativeposition="0" jsxleft="6" jsxtop="8" jsxwidth="60" />
+         <strings jsxtextalign="right" jsxname="namelabel"/>
+        </object>
+        <object type="jsx3.gui.Block">
+         <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtext="_gen_value"/>
+         <variants jsxrelativeposition="0" jsxleft="6" jsxtop="28" jsxwidth="60" />
+         <strings jsxtextalign="right" jsxname="valuelabel"/>
+        </object>
+        <object type="jsx3.gui.Select">
+         <variants jsxrelativeposition="0" jsxleft="70" jsxtop="6" jsxtype="1"/>
+         <strings jsxname="jsxxslparam_name" jsxwidth="100%" />
+         <events jsxexecute="this.getParent().getChild('jsxxslparam_value').focus();" />
+        </object>
+        <object type="jsx3.gui.TextBox">
+         <variants jsxrelativeposition="0" jsxleft="70" jsxtop="26" />
+         <strings jsxname="jsxxslparam_value" jsxwidth="100%" />
+         <events jsxexecute="xslparampal._paramExec();" />
+        </object>
+        <object type="jsx3.gui.ToolbarButton">
+         <dynamics jsxtip="_atted_add"/>
+         <strings jsxname="jsxaddxslparam" jsximage="jsx:///images/tree/plus.gif" />
+          <events jsxexecute="xslparampal._paramExec();" />
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Inset Top" jsxbgcolor="@Solid Medium" />
+       <variants jsxoverflow="2" />
+       <strings jsxwidth="100%" jsxheight="100%" />
+         <object type="jsx3.gui.Matrix">
+          <dynamics jsxbgcolor="@Solid Light" jsxbodyborder="@Outset"/>
+          <variants jsxpagingmodel="1" jsxselectionmodel="0" jsxscalewidth="1" jsxresize="1" jsxreorder="0"/>
+         <strings jsxname="jsxxslparams" jsxmenu="jsxmenu_xslparams" jsxsortpath="" jsxsortdirection="ascending" jsxfocusstyle=";"/>
+         <events jsxafteredit="xslparampal.getPlugIn().onXslParameterEdit(strRECORDID, strNEWVALUE, this);"
+           jsxmenu="strRECORDID != null &amp;&amp; strRECORDID != '';" />
+          <object type="jsx3.gui.Matrix.Column">
+           <dynamics jsxtext="_gen_name" jsxbg="@Fade TopDown" jsxborder="@Outset"
+               jsxcellbgcolor="@Matrix HeaderCol BG" jsxcellborder="@Matrix HeaderCol Border"/>
+           <strings jsxname="jsxxslparams_name" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxmask="jsxmenu_xslparams" jsxwidth="120" jsxpath="jsxtext"/>
+          </object>
+          <object type="jsx3.gui.Matrix.Column">
+           <dynamics jsxtext="_gen_value" jsxbg="@Fade TopDown" jsxborder="@Outset"
+               jsxcellbgcolor="@Matrix ValueCol BG" jsxcellborder="@Matrix ValueCol Border"/>
+           <strings jsxname="jsxxslparams_value" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="*" jsxpath="value" jsxmask="jsxmask_paramstext"
+               jsxvaluetemplate="&lt;xsl:template xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+&lt;xsl:choose&gt;
+  &lt;xsl:when test=&quot;@value=''&quot;&gt;&lt;span class=&quot;jsx3ide_props_emptystring&quot;&gt;[empty]&lt;/span&gt;&lt;/xsl:when&gt;
+  &lt;xsl:when test=&quot;@jsxmulti&quot;&gt;&lt;span class=&quot;jsx3ide_props_multi&quot;&gt;[multiple values]&lt;/span&gt;&lt;/xsl:when&gt;
+  &lt;xsl:otherwise&gt;&lt;xsl:value-of select=&quot;@value&quot; /&gt;&lt;/xsl:otherwise&gt;
+&lt;/xsl:choose&gt;
+&lt;/xsl:template&gt;"/>
+             <object type="jsx3.gui.TextBox">
+              <strings jsxname="jsxmask_xslparamtext" />
+             </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Menu">
+          <variants jsxshare="1"/> 
+          <strings jsxname="jsxmenu_xslparams" jsxdisplay="none" jsxxmlid="jsx3.ide.palette.xslparams.contextmenu"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

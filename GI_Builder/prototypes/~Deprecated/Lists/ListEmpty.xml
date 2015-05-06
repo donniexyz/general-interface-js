@@ -1,0 +1,17 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[List]]></name>
+  <icon><![CDATA[images/prototypes/matrix.gif]]></icon>
+  <description><![CDATA[Empty list object with word wrap off and alternating row colors.]]></description>
+  <object type="jsx3.gui.List">
+    <dynamics jsxbg="@Alternating Rows" jsxbgcolor="@Solid Medium" jsxclassname="@List Fixed Height (Clear)"/>
+    <variants jsxgrowby="1"/>
+    <strings jsxname="list" jsxxml="&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;data jsxid=&quot;jsxroot&quot;&gt; 
+  &lt;record jsxid=&quot;unique&quot; jsxtext=&quot;Cell Content&quot; jsximg=&quot;JSX/images/icons/logo_16.gif&quot;/&gt;
+&lt;/data&gt;" jsxsortdirection="ascending"/>
+  </object>
+</serialization>

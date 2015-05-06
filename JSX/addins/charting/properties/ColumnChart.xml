@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+  <record include="master.xml" group="position"/>
+
+  <record jsxid="columnchart" group="1" jsxtext="ColumnChart">
+    <record jsxid="type" jsxtext="Type"
+        jsxtip="Sets the type of column chart."
+        docgetter="getType" docsetter="setType"
+        docdefault="clustered (&lt;code&gt;jsx3.chart.BCChart.TYPE_CLUSTERED&lt;/code&gt;)"
+        eval="0" nullable="0"
+        jsxmask="jsxselect" jsxexecute="objJSX.setType(vntValue); objJSX.repaint()">
+      <enum jsxid="jsx3.chart.BCChart.TYPE_CLUSTERED" jsxtext="clustered"/>
+      <enum jsxid="jsx3.chart.BCChart.TYPE_STACKED" jsxtext="stacked"/>
+      <enum jsxid="jsx3.chart.BCChart.TYPE_STACKED100" jsxtext="stacked 100%"/>
+    </record>
+    <record jsxid="seriesOverlap" jsxtext="Column Overlap"
+        jsxtip="Sets the amount of overlap between columns in the same category as a multiple of the column width."
+        docgetter="getSeriesOverlap" docsetter="setSeriesOverlap"
+        docdefault="&lt;code&gt;0&lt;/code&gt;"
+        eval="1"
+        disallow="[^\.0-9\-]"
+        jsxmask="jsxtext"/>
+    <record jsxid="categoryCoverage" jsxtext="Column Coverage"
+        jsxtip="Sets the fraction of the width of a category occupied by columns (&lt;code&gt;0.0 - 1.0&lt;/code&gt;)."
+        docgetter="setCategoryCoverage" docsetter="setCategoryCoverage"
+        docdefault="&lt;code&gt;1&lt;/code&gt;"
+        eval="1"
+        disallow="[^\.0-9]"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record include="master.xml" group="blockx"/>
+  <record include="master.xml" group="background"/>
+  <record include="master.xml" group="chart"/>
+  <record include="master.xml" group="interaction_menuonly"/>
+</data>

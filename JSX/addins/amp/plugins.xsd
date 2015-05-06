@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://www.generalinterface.org/gi/amp" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:amp="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+      XML schema that covers the various XML formats of the General Interface Asynchronous Modular
+      Platform (AMP).
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:import schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"/>
+  
+  <!-- <plugins> -->
+  <xs:element name="plugins" xmlns:amp="http://www.generalinterface.org/gi/amp">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        The top-level element of the plugins.xml plug-in registration file.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="plugin" type="amp:pluginType" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+    

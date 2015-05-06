@@ -1,0 +1,4 @@
+AuthName "General Interface Unit Tests"
+AuthType Basic
+AuthUserFile /srv/www/vhosts/generalinterface.org/tests/auth/.htpasswd
+Require valid-user

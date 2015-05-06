@@ -1,0 +1,43 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Multiselect]]></name>
+  <icon><![CDATA[images/prototypes/matrixlist.gif]]></icon>
+  <description><![CDATA[Multiselect object.]]></description>
+  <object type="jsx3.gui.Block">
+    <variants jsxwidth="150" jsxheight="200" jsxoverflow="2"/>
+    <strings jsxname="multiselect" jsxmargin="0 4 0 0" jsxbgcolor="#FFFFFF"/>
+    <dynamics jsxborder="@Inset"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="3"/>
+      <strings jsxname="block" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Matrix">
+        <variants jsxselectionmodel="2" jsxscalewidth="1" jsxjsxxmlasync="1" jsxheaderheight="0"/>
+        <strings jsxname="matrix" jsxfocusstyle="." jsxxml="
+          &lt;data jsxid=&quot;jsxroot&quot;&gt;
+            &lt;record jsxid=&quot;AG&quot; jsxtext=&quot;Afghanistan&quot;/&gt;
+            &lt;record jsxid=&quot;AL&quot; jsxtext=&quot;Albania&quot;/&gt;
+            &lt;record jsxid=&quot;AR&quot; jsxtext=&quot;Algeria&quot;/&gt;
+            &lt;record jsxid=&quot;AS&quot; jsxtext=&quot;American Samoa&quot;/&gt;
+            &lt;record jsxid=&quot;AD&quot; jsxtext=&quot;Andorra&quot;/&gt;
+            &lt;record jsxid=&quot;AO&quot; jsxtext=&quot;Angola&quot;/&gt;
+            &lt;record jsxid=&quot;AU&quot; jsxtext=&quot;Anguilla&quot;/&gt;
+            &lt;record jsxid=&quot;AX&quot; jsxtext=&quot;Antarctica&quot;/&gt;
+            &lt;record jsxid=&quot;AT&quot; jsxtext=&quot;Antigua and Barbuda&quot;/&gt;
+            &lt;record jsxid=&quot;AE&quot; jsxtext=&quot;Argentina&quot;/&gt;
+            &lt;record jsxid=&quot;AM&quot; jsxtext=&quot;Armenia&quot;/&gt;
+            &lt;record jsxid=&quot;AB&quot; jsxtext=&quot;Aruba&quot;/&gt;
+            &lt;record jsxid=&quot;AA&quot; jsxtext=&quot;Australia&quot;/&gt;
+            &lt;record jsxid=&quot;AI&quot; jsxtext=&quot;Austria&quot;/&gt;
+            &lt;record jsxid=&quot;AZ&quot; jsxtext=&quot;Azerbaijan&quot;/&gt;
+          &lt;/data&gt;
+        "/>
+        <object type="jsx3.gui.Matrix.Column">
+          <strings jsxname="column" jsxcellpadding="2" jsxpath="jsxtext"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

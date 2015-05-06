@@ -1,0 +1,36 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.xsltool"
+        name="XSLT Merge Tool Plug-In"
+        class="jsx3.ide.ui.DialogToolPlugIn"
+        version="0.1">
+
+  <requires>
+    <plugin id="jsx3.ide.ui"/>
+    <plugin id="jsx3.gui.Button"/>
+    <plugin id="jsx3.gui.ToolbarButton"/>
+    <plugin id="jsx3.gui.RadioButton"/>
+    <plugin id="jsx3.gui.Select"/>
+    <plugin id="jsx3.gui.TabbedPane"/>
+  </requires>
+
+  <resources>
+    <xml id="ui" path="merge.xml"/>
+  </resources>
+
+  <extension point="jsx3.ide.ui.action" id="menu.help">
+    <action
+        id="jsx3.ide.merge"
+        label="XML/XSL Merge Tool..." img="jsxapp:/images/icon_34.gif"
+        menupath="/jsx3.ide.tools/ide" hkconfig="true"
+        execute="this.getPlugIn().openTool()"
+        enabled="project"/>
+  </extension>
+
+</plugin>

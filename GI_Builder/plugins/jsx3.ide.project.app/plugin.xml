@@ -1,0 +1,59 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.project.app"
+        name="Application Project Type Plug-In"
+        version="0.1">
+
+  <script>
+    this.getEngine().getPlugIn("jsx3.ide.project").loaded().when(function() {
+      jsx3.Class.defineClass("jsx3.ide.project.Type", jsx3.ide.ProjectType, null, function(Type, Type_prototype) {
+        Type_prototype.isProjectDir = function(dir) {
+          return dir.resolve("config.xml").isFile();
+        };
+      });
+    });
+  </script>
+
+  <requires>
+    <plugin id="jsx3.ide.project"/>
+  </requires>
+
+  <resources>
+    <script id="server" path="server.js"/>
+    <script id="js" path="AppProject.js">
+      <prereq id="server"/>
+    </script>
+    <xml id="wizard1" path="wizard1.xml" load="manual">
+      <prereq id="js"/>
+    </xml>
+    <xml id="wizard2" path="wizard2.xml" load="manual"/>
+  </resources>
+
+  <event id="cacheChanged">
+  </event>
+
+  <extension-point id="project-template">
+    <processor type="instantiator" instance-class="jsx3.ide.project.Template"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.project.project-type" id="type">
+    <type id="jsxapp" label="General Interface Application" class="jsx3.ide.project.AppProject"
+          panes="wizard1, wizard2" ext-class="jsx3.ide.project.Type"
+          description="A standard General Interface application."
+          >
+    </type>
+  </extension>
+
+  <extension point="jsx3.ide.project.app.project-template">
+    <template id="empty" label="Empty Project"
+              description="An project with an empty JavaScript logic file and an empty main component file."
+              path="template"/>
+  </extension>
+
+</plugin>

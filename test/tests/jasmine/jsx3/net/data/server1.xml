@@ -1,0 +1,11 @@
+<data>
+  <record jsxid="namespace" type="string">gi.test.App1</record>
+  <record jsxid="includes" type="array">
+    <record jsxid="8" type="map">
+      <record jsxid="id" type="string">rule1_xml</record>
+      <record jsxid="type" type="string">services</record>
+      <record jsxid="load" type="number">0</record>
+      <record jsxid="src" type="string">data/rule1.xml</record>
+    </record>
+  </record>
+</data>

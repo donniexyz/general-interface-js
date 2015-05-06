@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+   <variants jsxleft="0" jsxtop="0" jsxoverflow="2" jsxrelativeposition="0" />
+   <strings jsxwidth="100%" jsxheight="100%" jsxrows="32,60,26,*" jsxhelpid="ide.mapper.tester.panel4"/>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="1" />
+     <strings jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" />
+      <object type="jsx3.gui.ToolbarButton">
+       <variants jsxtype="1" jsxleft="8" jsxtop="8" jsxrelativeposition="0" />
+       <strings jsxname="jsx_schema_pause_3" jsxtip="pause before executing filter code" jsximage="images/pause.gif" />
+      </object>
+      <object type="jsx3.gui.Block">
+       <variants jsxleft="62" jsxtop="12" jsxheight="14" jsxoverflow="2" jsxrelativeposition="0" />
+       <strings jsxname="jsx_schema_label_4" jsxtext="Pre-Mapping Filter/Handler &amp;#160; &amp;#160;&lt;span style=&quot;color:blue;&quot;&gt;([objXML] = this.getInboundDocument())&lt;/span&gt;" jsxfontweight="bold" jsxwidth="70%" />
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <variants jsxleft="35" jsxtop="8" jsxrelativeposition="0" jsxenabled="0" />
+       <strings jsxname="jsx_schema_play_3" jsxtip="resume (execute filter/handler code)" jsximage="images/play.gif" groupName="" />
+       <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.ServiceTest).inboundFilter();" />
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxbgcolor="@Solid Medium" jsxpadding="@8Pixel" />
+     <variants jsxleft="10" jsxtop="10" jsxoverflow="2" />
+     <strings jsxwidth="100%" jsxheight="100%" />
+      <object type="jsx3.gui.TextBox">
+       <dynamics jsxbg="@Grid Lines" jsxfontname="@Script FN" jsxfontsize="@Script FS" jsxborder="@Inset" />
+       <variants jsxleft="0" jsxtop="0" jsxindex="0" jsxtype="1" />
+       <strings jsxwidth="100%" jsxheight="100%" jsxname="jsx_schema_wsdlurl_inbound_filter" />
+       <events jsxkeydown="jsx3.ide.doTextEditorKeyDown(objEVENT,this);" jsxonblur="g_schema_b_dirty = true;" />
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="1" />
+     <strings jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" />
+      <object type="jsx3.gui.ToolbarButton">
+       <variants jsxleft="8" jsxtop="0" jsxtype="1" jsxrelativeposition="0" />
+       <strings jsxname="jsx_schema_pause_4" jsxtip="pause before executing inbound mappings" jsximage="images/pause.gif" />
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <variants jsxleft="35" jsxtop="0" jsxrelativeposition="0" jsxenabled="0" />
+       <strings jsxname="jsx_schema_play_4" jsxtip="resume (execute inbound mappings)" jsximage="images/play.gif" />
+       <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.ServiceTest).inboundMap();" />
+      </object>
+      <object type="jsx3.gui.Block">
+       <variants jsxleft="62" jsxtop="4" jsxheight="14" jsxoverflow="2" jsxrelativeposition="0" />
+       <strings jsxname="jsx_schema_label_5" jsxtext="Inbound Mappings" jsxfontweight="bold" jsxwidth="70%" />
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxpadding="@8Pixel" />
+     <variants jsxleft="0" jsxtop="0" jsxoverflow="2" />
+     <strings jsxwidth="100%" jsxheight="100%" />
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Inset" />
+       <variants jsxoverflow="2" />
+       <strings jsxwidth="100%" jsxheight="100%" />
+        <include src="components/ServiceTest/mapping_list.xml" async="true"/>
+      </object>
+    </object>
+  </object>
+</serialization>

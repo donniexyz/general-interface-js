@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record jsxid="jsxsortpath"
+      jsxtip="The CDF attribute to sort records on. If this attribute is not provided, the tree entries are rendered in the order that they appear in the CDF document."/>
+  <record jsxid="jsxsortdirection"
+      jsxtip="The sort direction if the jsxsortpath attribute is provided. Either 'ascending' or 'descending'."/>
+  <record jsxid="jsxsorttype"
+      jsxtip="The sort data type if the jsxsortpath attribute is provided. Either 'text' or 'number'."/>
+  <record jsxid="jsxdeepfrom"
+      jsxtip="The jsxid attribute of the CDF record to use as the root node of the rendered tree. If this attribute it not provided, the first child record of the root data element is used."/>
+  <record jsxid="jsx_indent" jsxtip="The number of pixels to indent for each level of the tree."/>
+  <record jsxid="jsx_no_empty_indent"
+      jsxtip="If '1', branches of all leaves in the tree are not indented by the width of the plus/minus icon."/>
+  <record jsxid="jsx_img_resolve"
+      jsxtip="If '0', the jsximg CDF attribute is not resolved as a URL."/>
+  <record jsxid="jsxtitle"
+      jsxtip="The title of the content of the tree for use in loading, error, and timeout messages."/>
+</data>

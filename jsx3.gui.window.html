@@ -1,0 +1,62 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+  
+<html>
+  <head>
+    <title></title>
+    <script type="text/javascript" language="JavaScript">
+function _jsx_onLoad() {
+  var agt = navigator.userAgent.toLowerCase();
+  var op = agt.indexOf("opera") >= 0;
+  var ie = (agt.indexOf("msie") >= 0 && !this.op)||!!document.documentMode;
+  var me = window;
+  if( ie ){
+    if(!me._jsxwindow){//IE specific code
+      window.opener._getjsxwindow();
+    }
+    var opener = window.top;
+  } else {
+    var opener = window.opener;
+  }
+  opener.setTimeout(function(){
+    var doc = me.document;
+    var openerDoc = me.opener ? me.opener.document : null;
+    var objWindow = me._jsxwindow;
+    var Event = me.opener ? me.opener.jsx3.gui.Event : null;
+
+    if (openerDoc && objWindow) {
+      me.onbeforeunload = new Function("if (window._jsxwindow) window._jsxwindow.onBeforeUnload();");
+      me.onfocus = new Function("if (window._jsxwindow) window._jsxwindow.onFocus();");
+      me.onresize = new Function("if (window._jsxwindow) window._jsxwindow.onResize();");
+
+      // Cancel native browser right click according to the same setting as the main window
+      if (objWindow.getServer().getEnv("cancelrightclick"))
+        doc.oncontextmenu = new Function("return false;");
+
+      if (me.opener.onerror)
+        me.onerror = me.opener.onerror;
+
+      // special handling of keydown event ensures that the Window's root block can capture any keydown events for the
+      // purpose of handling hot keys
+      doc.onkeydown = function(e) {
+        if (me._jsxwindow) {
+          var captured = false;
+          var rootBlock = me._jsxwindow.getRootBlock();
+          if (rootBlock != null)
+            captured = rootBlock.checkHotKeys(jsx3.gui.Event.wrap(e || event));
+        }
+      };
+
+      objWindow.onLoad(me);
+    }
+  }, 0);
+}
+
+    </script>
+  </head>
+  <body id="JSX" onload="_jsx_onLoad()" SCROLL="no" class="jsx30window">
+    &#160;
+  </body>
+</html>

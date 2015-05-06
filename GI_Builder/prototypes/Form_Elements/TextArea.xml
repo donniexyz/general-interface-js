@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Text Area]]></name>
+  <icon><![CDATA[images/prototypes/textbox-area.gif]]></icon>
+  <description><![CDATA[Textbox object with Type property set to Text Area and Wrap=True.]]></description>
+  <object type="jsx3.gui.TextBox">
+    <variants jsxwidth="200" jsxheight="72" jsxtype="1"/>
+    <strings jsxname="textarea" jsxmargin="0 4 0 0"/>
+  </object>
+</serialization>

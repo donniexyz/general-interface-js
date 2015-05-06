@@ -1,0 +1,31 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.editor.cache"
+        name="Cache Editor Plug-In"
+        version="0.1"
+        property="CacheEditorPlugin">
+
+  <requires>
+    <plugin id="jsx3.ide.editor.xml"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="CacheEditor.js"/>
+    <xml id="editor" path="editor.xml"/>
+    <xml id="mode_readonly" path="text-xmlro.xml" load="manual"/>
+  </resources>
+
+  <extension point="jsx3.ide.editor.type">
+    <type class="jsx3.ide.CacheEditor">
+      <filetype id="cache"/>
+    </type>
+  </extension>
+  
+</plugin>
+    

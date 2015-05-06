@@ -1,0 +1,298 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.editor.component"
+        name="Component Editor Plug-In"
+        version="0.1"
+        property="ComponentEditorPlugin">
+
+  <method id="getDomPalette"><![CDATA[
+    return this.getEngine().getPlugIn("jsx3.ide.ui").getPalette(this, "dom.palette");
+  ]]></method>
+
+  <method id="getAttrPalette"><![CDATA[
+    return this.getEngine().getPlugIn("jsx3.ide.ui").getPalette(this, "attr.palette");
+  ]]></method>
+
+  <method id="_getPalettes"><![CDATA[
+    return jsx3.$A([this.getDomPalette(), this.getAttrPalette()]);
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.ide.editor"/>
+    <plugin id="jsx3.gui.Matrix"/>
+    <plugin id="jsx3.gui.Tree"/>
+    <plugin id="jsx3.gui.ImageButton"/>
+    <plugin id="jsx3.gui.TextBox"/>
+    <plugin id="jsx3.gui.Select"/>
+    <plugin id="jsx3.gui.TabbedPane"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="ComponentEditor.js"/>
+    <xml id="editor" path="tab_component.xml"/>
+    <xml id="mode_html" path="component-html.xml" load="manual"/>
+    <xml id="mode_profile" path="component-profile.xml" load="manual"/>
+    <xml id="mode_sourcefmt" path="component-xmlro.xml" load="manual"/>
+    <xml id="mode_source" path="component-xmlrw.xml" load="manual"/>
+
+    <script id="palette_dom_js" path="palettes/dom/dom.js" eval="true" load="manual"/>
+    <xml id="palette_dom" path="palettes/dom/dom.xml" load="manual">
+      <prereq id="palette_dom_js"/>
+      <prereq plugin="jsx3.ide.ui"/>
+      <prereq plugin="jsx3.amp.util.menumgr"/>
+      <prereq plugin="jsx3.amp.util.toolbarmgr"/>
+    </xml>
+
+    <xml id="menu_attributes" path="palettes/attributes/contextmenu.xml" load="manual"/>
+    <script id="js_attributes" path="palettes/attributes/attributes.js" load="manual" eval="true"/>
+    <xml id="palette_attributes" path="palettes/attributes/attributes.xml" load="manual">
+      <prereq id="js_attributes"/>
+      <prereq id="menu_attributes"/>
+    </xml>
+  </resources>
+
+  <event id="domChanged">
+    <param id="editor"/>
+  </event>
+  
+  <event id="cacheChanged">
+    <param id="editor"/>
+  </event>
+
+  <event id="recycled">
+    <param id="editor"/>
+    <param id="o"/>
+  </event>
+
+  <event id="attrChanged">
+    <param id="o"/>
+    <param id="key"/>
+    <param id="value"/>
+  </event>
+
+  <subscribe event="jsx3.ide.editor.activeChanged
+                    jsx3.ide.editor.modeChanged"><![CDATA[
+    this._getPalettes().each(function(e) {
+      var content = e.getUIObject();
+      if (content && content.onEditorChanged)
+        content.onEditorChanged(evt.editor, evt.previous);
+    });
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.selectionChanged"><![CDATA[
+    if (!evt.active) return;
+    this._getPalettes().each(function(e) {
+      var content = e.getUIObject();
+      if (content && content.onSelectionChanged)
+        content.onSelectionChanged(evt.editor);
+    });
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.renamed
+                    jsx3.ide.editor.component.domChanged" when="loaded"><![CDATA[
+    if (evt.editor == jsx3.ide.getActiveEditor() && this.onDomChange)
+      this.onDomChange();
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.palette.properties.domChanged" when="loaded"><![CDATA[
+    if (this.onDomChange)
+      this.onDomChange();
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.palette.properties.propChanged" when="loaded"><![CDATA[
+    if (evt.prop == 'jsxannotation' && this.onDomChange)
+      this.onDomChange();
+  ]]></subscribe>
+
+  <!-- The DOM palette context menu -->
+  <extension-point id="dom-ctxmenu">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenu"/>
+  </extension-point>
+
+  <!-- The DOM palette context menu items -->
+  <extension-point id="dom-ctxmenu-item">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenuItem"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.editor.type">
+    <type class="jsx3.ide.ComponentEditor" xmlns="">
+      <filetype id="component"/>
+    </type>
+  </extension>
+  
+  <extension point="jsx3.ide.ui.palette" id="dom.palette">
+    <palette label="Component Hierarchy" hotkey="ctrl+1"
+             resource="palette_dom" default-position="q2" idegroup="per-file"/>
+  </extension>
+  <extension point="jsx3.ide.ui.palette" id="attr.palette">
+    <palette label="Attribute Editor" hotkey="ctrl+4"
+             resource="palette_attributes" default-position="q4" default-closed="true" idegroup="per-node"/>
+  </extension>
+
+  <extension point="jsx3.ide.editor.component.dom-ctxmenu" id="dom.ctxmenu">
+    <menu id="jsx3.ide.domctx" path="/">
+      <section id="edit"/>
+      <section id="persist"/>
+      <divider id="import"/>
+      <divider id="delete"/>
+      <divider id="util"/>
+      <divider id="additions"/>
+    </menu>
+    <menu id="persistence" label="Persistence" path="/jsx3.ide.domctx/persist">
+      <section id="all"/>
+    </menu>
+    <menu id="import" label="Import" path="/jsx3.ide.domctx/import">
+      <section id="all"/>
+    </menu>
+    <menu id="export" label="Export" path="/jsx3.ide.domctx/import">
+      <section id="all"/>
+    </menu>
+  </extension>
+
+  <extension point="jsx3.ide.editor.component.dom-ctxmenu-item" id="dom.ctxmenu-items">
+    <action
+        id="clone"
+        label="Clone"
+        menupath="/jsx3.ide.domctx/edit"
+        execute="this.getPlugIn().cloneDOM(menu.getContextParent().getValue())"
+        img="jsxapp:/images/icon_1.gif"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({noroot:1})"/>
+    <action
+        id="repaint"
+        label="Repaint"
+        menupath="/jsx3.ide.domctx/edit"
+        execute="this.getPlugIn().doRepaint(menu.getContextParent().getValue())"
+        img="jsxapp:/images/icon_68.gif"/>
+    <action
+        id="fetchrepaint"
+        label="Re-Fetch Data and Repaint"
+        menupath="/jsx3.ide.domctx/edit"
+        execute="this.getPlugIn().doFetchDataAndRepaint(menu.getContextParent().getValue())"
+        img="jsxapp:/images/icon_68a.gif"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({cacheable:1})"/>
+
+    <action
+        id="persist0"
+        label="Transitory"
+        menupath="/jsx3.ide.domctx/persistence/all"
+        execute="this.getPlugIn().doPersist(menu.getContextParent().getValue(),jsx3.app.Model.PERSISTNONE)"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({noroot:1})"
+        selected="eval" selected-eval="this.getPlugIn().domMenuSelected({persist:jsx3.app.Model.PERSISTNONE})"/>
+    <action
+        id="persist1"
+        label="Embedded"
+        menupath="/jsx3.ide.domctx/persistence/all"
+        execute="this.getPlugIn().doPersist(menu.getContextParent().getValue(),jsx3.app.Model.PERSISTEMBED)"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({noroot:1})"
+        selected="eval" selected-eval="this.getPlugIn().domMenuSelected({persist:jsx3.app.Model.PERSISTEMBED})"/>
+    <action
+        id="persist2"
+        label="Referenced"
+        menupath="/jsx3.ide.domctx/persistence/all"
+        execute="this.getPlugIn().doPersist(menu.getContextParent().getValue(),jsx3.app.Model.PERSISTREF)"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({noroot:1, refonly:1})"
+        selected="eval" selected-eval="this.getPlugIn().domMenuSelected({persist:jsx3.app.Model.PERSISTREF})"/>
+    <action
+        id="persist3"
+        label="Referenced - Asynchronous"
+        menupath="/jsx3.ide.domctx/persistence/all"
+        execute="this.getPlugIn().doPersist(menu.getContextParent().getValue(),jsx3.app.Model.PERSISTREFASYNC)"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({noroot:1, refonly:1})"
+        selected="eval" selected-eval="this.getPlugIn().domMenuSelected({persist:jsx3.app.Model.PERSISTREFASYNC})"/>
+
+    <action
+        id="import1"
+        label="Embedded..."
+        menupath="/jsx3.ide.domctx/import/all"
+        execute="this.getPlugIn().importDomBranch(menu.getContextRecordId(),jsx3.app.Model.PERSISTEMBED)"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({single:1, noref:1})"/>
+    <action
+        id="import2"
+        label="Referenced..."
+        menupath="/jsx3.ide.domctx/import/all"
+        execute="this.getPlugIn().importDomBranch(menu.getContextRecordId(),jsx3.app.Model.PERSISTREF)"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({single:1, noroot:1, noref:1})"/>
+    <action
+        id="import3"
+        label="Referenced - Asynchronous..."
+        menupath="/jsx3.ide.domctx/import/all"
+        execute="this.getPlugIn().importDomBranch(menu.getContextRecordId(),jsx3.app.Model.PERSISTREFASYNC)"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({single:1, noroot:1, noref:1})"/>
+
+    <action
+        id="export1"
+        label="As XML..."
+        menupath="/jsx3.ide.domctx/export/all"
+        execute="this.getPlugIn().exportDomBranch(jsx3.GO(menu.getContextRecordId()),'MODEL')"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({single:1, noroot:1})"/>
+    <action
+        id="export2"
+        label="As HTML..."
+        menupath="/jsx3.ide.domctx/export/all"
+        execute="this.getPlugIn().exportDomBranch(jsx3.GO(menu.getContextRecordId()),'VIEW')"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({single:1, noroot:1})"/>
+
+    <action
+        id="recycle"
+        label="Recycle"
+        menupath="/jsx3.ide.domctx/delete"
+        execute="this.getPlugIn().recycleDOM(menu.getContextParent().getValue())"
+        img="jsxapp:/images/icon_73.gif"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({noroot:1})"/>
+
+    <action
+        id="clipname"
+        label="Copy Name to Clipboard"
+        menupath="/jsx3.ide.domctx/util"
+        execute="this.getPlugIn().domCopyNameToCB(menu.getContextRecordId())"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({single:1, noroot:1})"/>
+    <action
+        id="clipget"
+        label="Copy Getter Code to Clipboard"
+        menupath="/jsx3.ide.domctx/util"
+        execute="this.getPlugIn().domCopyGetterToCB(menu.getContextRecordId())"
+        enabled="eval" enabled-eval="this.getPlugIn().domMenuEnabled({single:1, noroot:1})"/>
+    
+  </extension>
+
+  <bindable id="isComponentMode" value="var e = jsx3.ide.getActiveEditor(); e &amp;&amp; e.getMode() == 'component'"
+            subscribe="jsx3.ide.editor.activeChanged
+                       jsx3.ide.editor.modeChanged"/>
+
+  <bindable id="oneOrMoreSelected" value="jsx3.ide.getSelected(true).length > 0"
+            subscribe="jsx3.ide.editor.selectionChanged"/>
+
+  <bindable id="rootNotSelected" value="jsx3.ide.getSelected(true).find(
+                                             function(e) { return e == e.getServer().getBodyBlock(); }) == null"
+            subscribe="jsx3.ide.editor.selectionChanged"/>
+
+  <bindable id="onlyBlockXSelected" value="jsx3.ide.getSelected(true).find(
+                                             function(e) { return !e.instanceOf(jsx3.xml.Cacheable); }) == null"
+            subscribe="jsx3.ide.editor.selectionChanged"/>
+
+  <!-- Toolbar buttons, etc -->
+  <extension-point id="dom-toolbar">
+    <processor type="instantiator" instance-class="jsx3.amp.util.ToolbarItem"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.editor.component.dom-toolbar">
+    <button id="clone" img="jsxapp:/images/icon_1.gif" tip="Clone this object" section="edit"
+            execute="this.getPlugIn().cloneDOM();" enabled="{isComponentMode &amp;&amp; oneOrMoreSelected &amp;&amp; rootNotSelected}"/>
+    <button id="repaint" img="jsxapp:/images/icon_68.gif" tip="Repaint this object" section="edit"
+            execute="this.getPlugIn().doRepaint();" enabled="{isComponentMode &amp;&amp; oneOrMoreSelected}"/>
+    <button id="fetchrepaint" img="jsxapp:/images/icon_68a.gif" tip="Re-fetch data and repaint this object" section="edit"
+            execute="this.getPlugIn().doFetchDataAndRepaint();" enabled="{isComponentMode &amp;&amp; oneOrMoreSelected &amp;&amp; onlyBlockXSelected}"/>
+    <button id="recycle" img="jsxapp:/images/icon_73.gif" tip="Recycle this object" section="delete"
+            execute="this.getPlugIn().recycleDOM();" enabled="{isComponentMode &amp;&amp; oneOrMoreSelected &amp;&amp; rootNotSelected}"/>
+    <button id="refresh" img="jsxapp:/images/icon_15.gif" tip="Refresh the DOM tree" section="utils"
+            execute="this.getPlugIn().onDomChange();" enabled="{isComponentMode}"/>
+  </extension>
+
+</plugin>
+    

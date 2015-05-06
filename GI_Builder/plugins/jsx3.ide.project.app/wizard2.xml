@@ -1,0 +1,102 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.getFirstResponder = function() {
+  return projectPath;
+};
+
+objJSX.getTitle = function() {
+  return "Choose a Project Path";
+};
+
+objJSX.onConceal = function(objSession) {
+  objSession.projectPath = projectPath.getValue();
+};
+
+objJSX.onTryNext = function() {
+  if (jsx3.util.strTrim(projectPath.getValue()).length == 0)
+    return {ok:false, alert:true, message:"You must enter a project path before continuing."};
+};
+
+objJSX._doBrowse = function() {
+  var appFolder = jsx3.ide.getProjectDirectory();
+
+  jsx3.ide.getPlugIn("jsx3.io.browser").saveFile(this.getServer().getRootBlock(), {
+      name:"newprojectdialog", modal:true, title: "Create New Project", okLabel: "Create",
+      folder: appFolder, baseFolder: appFolder,
+      onChoose: jsx3.$F(function(objFile) {
+        this._onBrowseChoose(objFile, appFolder);
+      }).bind(this)
+  });
+};
+
+objJSX._onBrowseChoose = function(objFile, appFolder) {
+  var strPath = appFolder.relativePathTo(objFile);
+  if (objFile.getName() && strPath.match(/^[\w\-\.\/]+$/)) {
+    projectPath.setValue(strPath);
+  } else {
+    this.beep();
+  }
+};
+
+objJSX._doCreate = function() {
+  var strValue = projectPath.getValue();
+  if (! strValue) {
+    this.beep();
+  } else {
+    jsx3.ide.doNewProject(this, strValue);
+  }
+};
+
+projectPath._doIncChange = function(strNewValue) {
+  if (jsx3.util.strEmpty(strNewValue)) return true;
+  if (strNewValue.match(/^[\w\-\.\/]+$/)) {
+    return true;
+  } else {
+    this.beep();
+    return false;
+  }
+};
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants/>
+    <strings jsxwidth="100%" jsxheight="100%" jsxname="wpane"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="3"/>
+      <strings jsxwidth="100%"
+               jsxtext="Enter the name of the project you wish to create or click on the folder button to browse to a location for the new project. A directory will be created in JSXAPPS with the name of the new project. The new project will open in the current browser window."/>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2" jsxpadding="8"/>
+      <strings jsxwidth="100%" jsxheight="40"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxheight="100%" jsxcols="*,32"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18"/>
+            <strings jsxname="projectPath" jsxwidth="100%"
+                     jsxtip="The path may contain only the following characters: A-Z a-z 0-9 . / -"/>
+            <events jsxincchange="this._doIncChange(strVALUE);"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+          <object type="jsx3.gui.ToolbarButton">
+            <variants/>
+            <strings jsximage="jsxapp:/images/icon_60.gif"/>
+            <events jsxexecute="wpane._doBrowse();"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

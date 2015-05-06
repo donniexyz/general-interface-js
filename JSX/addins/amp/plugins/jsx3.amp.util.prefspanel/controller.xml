@@ -1,0 +1,97 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[
+ 
+objJSX.getContentPane = function() { return contentPane; };
+objJSX.getListPane = function() { return listPane; };
+
+objJSX.setButtonsEnabled = function(bEnabled) {
+  var enabled = jsx3.gui.Form[bEnabled ? "STATEENABLED" : "STATEDISABLED"];
+  applyBtn.setEnabled(enabled, true);
+  saveBtn.setEnabled(enabled, true);
+};
+
+objJSX._onCancel = function() {
+  this.getController().unload(true);
+};
+
+objJSX._onApply = function() {
+  this.getController().apply();
+};
+
+objJSX._onSave = function() {
+  this.getController().save();  
+};
+
+objJSX._onHelp = function() {
+  this.getServer().invokeHelp(objJSX.getContentPane().getChild(0));
+};
+
+contentPane._doCancel = function(objEvent) {
+  prefs_controller._onCancel();
+};
+
+contentPane._doSave = function(objEvent) {
+  var src = objEvent.srcElement();
+  if (src != null && src.nodeName.toUpperCase() == "INPUT") return;
+  
+  if (saveBtn.getEnabled())
+    saveBtn.doExecute();
+};
+
+contentPane.registerHotKey('_doSave', jsx3.gui.Event.KEY_ENTER, false, false, false); // save on return key
+contentPane.registerHotKey('_doCancel', ".", false, true, false); // save on return key
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+   <variants tabindex="0" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+   <strings jsxname="prefs_controller" jsxwidth="100%" jsxheight="100%" jsxcols="95,*"/>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxbgcolor="@Solid Light"/>
+     <variants jsxoverflow="1"/>
+     <strings jsxname="listPane" jsxwidth="100%" jsxheight="100%" jsxtextalign="center"/>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics />
+     <variants jsxoverflow="2"/>
+     <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxborder="0px;0px;0px;solid 1px #9898a5"/>
+      <object type="jsx3.gui.LayoutGrid">
+       <variants />
+       <strings jsxname="layout" jsxrows="*,34"/>
+        <object type="jsx3.gui.Block">
+         <dynamics jsxbgcolor="@Solid Medium"/>
+         <variants jsxoverflow="1" jsxindex="1"/>
+         <strings jsxname="contentPane" jsxwidth="100%" jsxheight="100%"/>
+        </object>
+        <object type="jsx3.gui.Block">
+         <dynamics jsxpadding="@8Pixel" jsxbgcolor="@Solid Medium"/>
+         <variants jsxoverflow="2"/>
+         <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+          <object type="jsx3.gui.Button">
+           <variants jsxindex="0" jsxheight="18"/>
+           <strings jsxname="cancelBtn" jsxtext="Cancel" jsxmargin="0 20 0 0"/>
+           <events jsxexecute="prefs_controller._onCancel();"/>
+          </object>
+          <object type="jsx3.gui.Button">
+           <variants jsxindex="0" jsxheight="18" jsxenabled="0"/>
+           <strings jsxname="applyBtn" jsxtext="Apply" jsxmargin="0 6 0 0"/>
+           <events jsxexecute="prefs_controller._onApply();"/>
+          </object>
+          <object type="jsx3.gui.Button">
+           <variants jsxindex="0" jsxheight="18" jsxenabled="0"/>
+           <strings jsxname="saveBtn" jsxtext="Save" jsxmargin="0 12 0 0" jsxfontweight="bold"/>
+           <events jsxexecute="prefs_controller._onSave();"/>
+          </object>
+          <object type="jsx3.gui.ImageButton">
+           <variants jsxindex="0" jsxheight="16" jsxwidth="16"/>
+           <strings jsxname="helpBtn" jsxmargin="0 0 0 0" jsximage="GI_Builder/images/icon_59.gif"/>
+           <events jsxexecute="prefs_controller._onHelp();"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

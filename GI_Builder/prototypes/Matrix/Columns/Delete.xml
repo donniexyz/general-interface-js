@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Button - Delete]]></name>
+  <icon><![CDATA[images/prototypes/matrix-columnmask.gif]]></icon>
+  <description><![CDATA[Renders an image in each row that when clicked causes the CDF record to be deleted from the matrix.]]></description>
+  <object type="jsx3.gui.Matrix.Column">
+    <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"/>
+    <strings jsxname="imageButtonColumn" jsxwidth="100" jsxtext="Delete"
+        jsxpadding="3" jsxcellpadding="1" jsxvaluetemplate="@empty"  jsxformathandler="function(objDiv, strCDFKey, objMatrix, objMatrixColumn, intRowNumber, objServer) { if(strCDFKey == &quot;jsxautorow&quot;) { objDiv.innerHTML = '&lt;div&gt;&amp;#160;&lt;/div&gt;'; } }"/>
+    <object type="jsx3.gui.ImageButton">
+      <variants jsxwidth="16" jsxheight="16"/>
+      <strings jsxname="imageButtonMask"
+          jsximage="jsx:///images/list/delete.gif"/>
+      <events jsxexecute="this.getParent().getParent().deleteRecord(this.emGetSession().recordId, true);"/>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<dogs>
+  <breeds>
+    <breed>poodle</breed>
+    <breed>pug</breed>
+    <breed>dachsund</breed>
+  </breeds>
+</dogs>

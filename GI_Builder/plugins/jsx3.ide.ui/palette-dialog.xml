@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX._doMinimize = function() {
+  this.doToggleState(jsx3.gui.Dialog.MINIMIZED);
+};
+
+objJSX._doCloseMe = function() {
+  this.getManager()._onPositionMenu(this, this.getPalette(), "close");
+};
+
+objJSX.setPaletteLabel = function(s) {
+  titleBar.setText(s, true);
+};
+
+objJSX.onContainerOpened = function() {
+};
+
+objJSX.getPaletteContentHolder = function() {
+  return this;
+};
+
+objJSX.registerHotKey('_doMinimize', 'm', false, true, false); // minimize on ctrl-m
+objJSX.registerHotKey('_doCloseMe', 'w', false, false, true); // close on alt-w
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Dialog">
+      <dynamics jsxbgcolor="@Solid Medium" />
+      <variants jsxwidth="300" jsxheight="300" />
+      <strings jsxname="dialog" />
+      <events jsxaftermove="this.constrainPosition(); this.getManager()._afterDialogMove(this);" jsxafterresize="this.getManager()._afterDialogMove(this);"/>
+        <object type="jsx3.gui.WindowBar">
+          <variants />
+          <strings jsxname="titleBar" jsxtext="Palette Title" />
+            <object type="jsx3.gui.ToolbarButton">
+              <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+              <variants />
+              <strings jsxname="jsx_tbb" />
+              <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doToggleState();" />
+            </object>
+            <object type="jsx3.gui.Menu">
+              <variants jsxtype="0" jsxshare="1"/>
+              <strings jsxname="jsxmenu_dock" jsxxmlid="jsx3.ide.ui.palette-menu" jsxtip="docking options" jsximage="jsxapp:/images/icon_81.gif" jsxmargin="2 5 0 0"/>
+              <events jsxexecute="dialog.getManager()._onPositionMenu(dialog, dialog.getPalette(), strRECORDID)"
+                      jsxmenu="this.selectItem('float');" />
+            </object>
+        </object>
+    </object>
+</serialization>

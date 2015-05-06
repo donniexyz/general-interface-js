@@ -1,0 +1,448 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<project name="General Interface Bamboo Interface" basedir=".">
+
+  <property name="tools.dir" value="tools"/>
+
+  <property name="staging.nightly" value="."/>
+  <property name="staging.release" value="."/>
+  <property name="staging-doc.nightly" value="."/>
+  <property name="staging-doc.release" value="."/>
+  <property name="staging-javadoc.nightly" value="javadoc"/>
+  <property name="staging-javadoc.release" value="javadoc"/>
+
+  <property name="tests.staging-dir" value="."/>
+  <property name="tests.staging-url" value="http://www.generalinterface.org/nightly-tests"/>
+  <property name="tests.selenium-host" value="localhost"/>
+  <property name="tests.selenium-port" value="4444"/>
+  <property name="tests.selenium-env" value="IE6 on Windows, IE7 on Windows, Firefox2 on Windows, Firefox3 on Windows, Safari3 on Windows, Safari4 on Windows, Chrome1 on Windows, Firefox on Linux"/>
+  <property name="tests.selenium-threads" value="4"/>
+  <property name="tests.selenium-reset" value="true"/>
+  
+  <property name="grid.reset-cmd" value="/srv/selenium-grid/javad_restart_environment.sh"/>
+  <property name="grid.reset-cmd-dir" value="/srv/selenium-grid"/>
+
+  <property name="project.dir" value=".."/>
+  <property name="temp.svninfo" value="svninfo.tmp"/>
+
+  <property name="buildDir" value="temp"/>
+
+  <target name="init">
+    <property file="build.properties"/>
+    <property file="tools/build.properties"/>
+  </target>
+
+  <target name="init-tools" depends="init">
+    <property file="${tools.dir}/build.properties"/>
+
+    <ant antfile="${tools.dir}/build.xml" inheritall="false" inheritrefs="false" target="package"/>
+
+    <path id="cp.tools">
+      <path path="${tools.dir}/jsx-tools.jar"/>
+    </path>
+
+    <taskdef resource="com/tibco/gi/ant/antlib.xml" classpathref="cp.tools"/>
+  </target>
+
+  <target name="init-testng" depends="init">
+    <path id="cp.testng">
+      <fileset dir="${tools.dir}" includes="${lib.testng}"/>
+    </path>
+
+    <taskdef resource="testngtasks" classpathref="cp.testng"/>
+  </target>
+
+  <target name="init-contrib" depends="init">
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+      <classpath>
+        <pathelement location="${tools.dir}/lib/ant-contrib/ant-contrib-1.0b3.jar"/>
+      </classpath>
+    </taskdef>
+  </target>
+
+  <target name="compile"
+      description="Compiles GI in strict mode and fails on any warning.">
+    <!-- clean -->
+    <ant antfile="build.xml" target="distclean" inheritall="false" inheritrefs="false"/>
+
+    <!-- and compile with strict = true -->
+    <ant antfile="build.xml" target="dist" inheritall="false" inheritrefs="false">
+      <property name="build.gi.strict" value="true"/>
+    </ant>
+  </target>
+
+  <target name="nightly" depends="init"
+      description="Builds and deploys the regular, debug and no-dep flavors of GI in the nightly build directory.">
+
+    <getsvnrevision path="${project.dir}" property="rev"/>
+
+    <mkdir dir="${buildDir}"/>
+    <property name="temp.distzip" value="${buildDir}/gi.zip"/>
+    <property name="nightly.zip.prefix" value="${staging.nightly}/gi-${build.gi.version.name}"/>
+
+    <!-- clean -->
+    <ant antfile="build.xml" target="distclean" inheritall="false" inheritrefs="false"/>
+
+    <!-- standard build -->
+    <ant antfile="build.xml" target="dist-zip-clean" inheritall="false" inheritrefs="false">
+      <property name="build.dist.zip" value="build/${temp.distzip}"/>
+      <property name="build.gi.buildno" value="${rev}"/>
+    </ant>
+    <copy file="${temp.distzip}" tofile="${nightly.zip.prefix}.r${rev}.zip"/>
+    <symlink overwrite="true" link="${nightly.zip.prefix}.latest.zip" resource="${nightly.zip.prefix}.r${rev}.zip"/>
+
+    <ant antfile="build.xml" target="clean" inheritall="false" inheritrefs="false"/>
+
+    <!-- Dojo build -->
+    <ant antfile="build.xml" target="dist-zip-clean" inheritall="false" inheritrefs="false">
+      <property name="build.dist.zip" value="build/${temp.distzip}"/>
+      <property name="build.gi.buildno" value="${rev}dj"/>
+      <property name="build.gi.docs" value="false"/>
+      <property name="build.dojo.type" value="source"/>
+      <property name="build.dojo.compile-docs" value="true"/>
+    </ant>
+    <copy file="${temp.distzip}" tofile="${nightly.zip.prefix}.r${rev}-dojo.zip"/>
+    <symlink overwrite="true" link="${nightly.zip.prefix}.latest-dojo.zip" resource="${nightly.zip.prefix}.r${rev}-dojo.zip"/>
+
+    <ant antfile="build.xml" target="clean" inheritall="false" inheritrefs="false"/>
+
+    <!-- debug build -->
+    <ant antfile="build.xml" target="dist-zip-clean" inheritall="false" inheritrefs="false">
+      <property name="build.dist.zip" value="build/${temp.distzip}"/>
+      <property name="build.gi.buildno" value="${rev}db"/>
+      <property name="build.gi.benchmark" value="true"/>
+      <property name="build.gi.docs" value="false"/>
+    </ant>
+    <copy file="${temp.distzip}" tofile="${nightly.zip.prefix}.r${rev}-debug.zip"/>
+    <symlink overwrite="true" link="${nightly.zip.prefix}.latest-debug.zip" resource="${nightly.zip.prefix}.r${rev}-debug.zip"/>
+
+    <ant antfile="build.xml" target="clean" inheritall="false" inheritrefs="false"/>
+
+    <!-- no deprecated code build -->
+    <ant antfile="build.xml" target="dist-zip-clean" inheritall="false" inheritrefs="false">
+      <property name="build.dist.zip" value="build/${temp.distzip}"/>
+      <property name="build.gi.buildno" value="${rev}nd"/>
+      <property name="build.gi.deprecated" value="false"/>
+      <property name="build.gi.docs" value="false"/>
+    </ant>
+    <copy file="${temp.distzip}" tofile="${nightly.zip.prefix}.r${rev}-nodep.zip"/>
+    <symlink overwrite="true" link="${nightly.zip.prefix}.latest-nodep.zip" resource="${nightly.zip.prefix}.r${rev}-nodep.zip"/>
+
+    <ant antfile="build.xml" target="clean" inheritall="false" inheritrefs="false"/>
+
+    <!-- cross-domain code build -->
+    <ant antfile="build.xml" target="dist-zip-clean" inheritall="false" inheritrefs="false">
+      <property name="build.dist.zip" value="build/${temp.distzip}"/>
+      <property name="build.gi.buildno" value="${rev}xd"/>
+      <property name="build.gi.docs" value="false"/>
+      <property name="build.gi.ide" value="false"/>
+      <property name="build.gi.xd" value="true"/>
+    </ant>
+    <copy file="${temp.distzip}" tofile="${nightly.zip.prefix}.r${rev}-xd.zip"/>
+    <symlink overwrite="true" link="${nightly.zip.prefix}.latest-xd.zip" resource="${nightly.zip.prefix}.r${rev}-xd.zip"/>
+  </target>
+
+  <target name="nightly-docs" depends="init"
+      description="Builds and deploys the API documentation and deploys it to the nightly staging area.">
+    <getsvnrevision path="${project.dir}" property="rev"/>
+    <tstamp>
+      <format property="timestamp" pattern="M/d/yyyy hh:mm aa"/>
+    </tstamp>
+
+    <!-- clean -->
+    <ant antfile="build.xml" target="clean" inheritall="false" inheritrefs="false"/>
+
+    <ant antfile="build.xml" target="compile-doc" inheritall="false" inheritrefs="false">
+      <property name="gi.apidocs.title" value="General Interface ${build.gi.version.name} (Nightly r${rev} ${timestamp})"/>
+    </ant>
+    <ant antfile="build.xml" target="compile-idedoc" inheritall="false" inheritrefs="false"/>
+
+    <!-- deploy api documentation -->
+    <delete dir="${staging-doc.nightly}/${build.gi.version.name}"/>
+    <copy todir="${staging-doc.nightly}/${build.gi.version.name}">
+      <fileset dir="${project.dir}/${build.loc.dist}/gi/api/html" includes="**"/>
+    </copy>
+
+    <!-- deploy javadoc -->
+    <ant antfile="tools/build.xml" target="javadoc" inheritall="false" inheritrefs="false">
+      <property name="tools.title.api" value="General Interface Build Tools API ${build.gi.version.name} (Nightly r${rev} ${timestamp})"/>
+    </ant>
+
+    <delete dir="${staging-javadoc.nightly}/${build.gi.version.name}"/>
+    <copy todir="${staging-javadoc.nightly}/${build.gi.version.name}">
+      <fileset dir="tools/build/doc/api" includes="**"/>
+    </copy>
+  </target>
+
+  <target name="clean" depends="init">
+    <delete dir="${buildDir}"/>
+    <ant antfile="build.xml" target="distclean" inheritall="false" inheritrefs="false"/>
+  </target>
+
+  <target name="tests" depends="init, clean, init-tools, init-testng, init-contrib"
+      description="Builds GI, deploys it to a local HTTP server, and invokes Selenium Grid on the unit tests.">
+
+    <gi-uuid property="randomDir"/>
+    <property name="testClassesDir" value="${buildDir}/test-classes"/>
+    <property name="testResultsDir" value="${buildDir}/test-reports"/>
+
+    <if>
+      <equals arg1="true" arg2="${tests.selenium-reset}"/>
+      <then>
+        <echo>Resetting the Selenium grid...</echo>
+        <exec executable="${grid.reset-cmd}" dir="${grid.reset-cmd-dir}"/>
+      </then>
+    </if>
+
+    <!-- Clean and build -->
+    <ant antfile="build.xml" target="dist" inheritall="false" inheritrefs="false">
+      <property name="build.gi.buildno" value="${rev}"/>
+      <property name="build.gi.docs" value="false"/>
+    </ant>
+
+    <!-- Stage files -->
+    <property name="stagingDir" value="${tests.staging-dir}/${randomDir}"/>
+    <property name="phpTestResultsDir" value="${stagingDir}/test/server/test-reports"/>
+
+    <echo message="Staging GI in directory ${stagingDir}"/>
+
+    <copy todir="${stagingDir}">
+      <fileset dir="${project.dir}/dist/gi" includes="**"/>
+      <fileset dir="${project.dir}" includes="test/**"/>
+    </copy>
+
+    <!-- make test CGIs executable -->
+    <chmod perm="755">
+      <fileset dir="${stagingDir}">
+        <include name="**/*.cgi"/>
+      </fileset>
+    </chmod>
+
+    <mkdir dir="${phpTestResultsDir}"/>
+    <chmod dir="${phpTestResultsDir}" perm="777"/>
+
+    <!-- Compile selenium tests -->
+    <mkdir dir="${testClassesDir}"/>
+    
+    <path id="cp.selenium">
+      <fileset dir="tools" includes="${lib.selenium}"/>
+      <path path="${testClassesDir}"/>
+    </path>
+
+    <javac
+        destdir="${testClassesDir}"
+        deprecation="${compiler.deprecation}"
+        debug="${compiler.debug}"
+        source="${compiler.source}"
+        compiler="${compiler.type}"
+        classpathref="cp.selenium"
+        >
+      <src path="${project.dir}/test/java"/>
+    </javac>
+
+    <if>
+      <equals arg1="true" arg2="${tests.selenium-reset}"/>
+      <then>
+        <echo>Sleeping for two minutes...</echo>
+        <sleep seconds="120"/>
+      </then>
+    </if>
+
+    <exec executable="/usr/bin/curl" dir="." failonerror="true">
+      <arg value='-X' />
+      <arg value='POST' />
+      <arg value='https://saucelabs.com/rest/v1/generalinterface/js-tests' />
+      <arg value='-u' />
+      <arg value='generalinterface:96bb0bc4-a281-4157-8133-f2efb76099df' />
+      <arg value='-d' />
+      <arg value='platforms=[["Windows 7", "firefox", "22"], ["OS X 10.8", "safari", "6"]]' />
+      <arg value="-d" />
+      <arg value='url="${tests.staging-url}/${randomDir}/test/gi-spec.html"' />
+      <arg value="-d" />
+      <arg value="framework=jasmine" />
+    </exec>
+<!--
+    <exec executable="/usr/bin/curl" dir="." failonerror="true">
+      <arg value='-X' />
+      <arg value='POST' />
+      <arg value='https://saucelabs.com/rest/v1/generalinterface/js-tests' />
+      <arg value='-u' />
+      <arg value='generalinterface:96bb0bc4-a281-4157-8133-f2efb76099df' />
+      <arg value='-H' />
+      <arg value='Accept: application/json' />
+      <arg value='- -data' />
+      <arg value='{"platforms": [["Windows 7", "firefox", "22"], ["Linux", "googlechrome", ""]], "url": "${tests.staging-url}/${randomDir}/test/gi-spec.html", "framework": "jasmine"}' />
+    </exec>
+-->
+    <!-- Invoke Selenium hub -->
+<!--
+ <testng
+        classpathref="cp.selenium"
+        haltonfailure="false"
+        parallel="methods" threadCount="${tests.selenium-threads}" timeOut="1500000"
+        suitename="GI Test Suite for Selenium Grid"
+        outputdir="${buildDir}/testng-reports">
+
+      <sysproperty key="java.security.policy" file="tools/lib/selenium/testng.policy"/>
+      <sysproperty key="seleniumSite" value="${tests.staging-url}/${randomDir}/test/"/>
+      <sysproperty key="seleniumHost" value="${tests.selenium-host}"/>
+      <sysproperty key="seleniumPort" value="${tests.selenium-port}"/>
+      <sysproperty key="seleniumEnvs" value="${tests.selenium-env}"/>
+
+      <classfileset dir="${testClassesDir}" includes="**/SeleniumGridTestFactory.class"/>
+    </testng>
+-->
+    <!-- Buffer for Selenium to finish -->
+    <sleep seconds="5"/>
+    
+    <!-- Copy test results files to local area -->
+    <mkdir dir="${testResultsDir}"/>
+    <copy todir="${testResultsDir}" flatten="true">
+      <fileset dir="${phpTestResultsDir}" includes="**/*.xml"/>
+    </copy>
+
+    <!-- Delete staged files -->
+    <delete dir="${stagingDir}"/>
+
+  </target>
+
+  <target name="release" depends="init"
+      description="Builds and deploys the regular, debug and max flavors of GI in the release directory.">
+
+    <getsvnrevision path="${project.dir}" property="rev"/>
+
+    <mkdir dir="${buildDir}"/>
+    <property name="temp.distzip" value="${buildDir}/gi.zip"/>
+
+    <!-- clean -->
+    <ant antfile="build.xml" target="distclean" inheritall="false" inheritrefs="false"/>
+
+    <!-- standard build -->
+    <ant antfile="build.xml" target="dist-zip-clean" inheritall="false" inheritrefs="false">
+      <property name="dist.gi" value="gi-${build.gi.version.name}"/>
+      <property name="build.dist.zip" value="build/${temp.distzip}"/>
+      <property name="build.gi.buildno" value="${rev}"/>
+      <property name="build.obf.mapfileout" value="../dist/obfuscation-map.txt"/>
+    </ant>
+    <copy file="${temp.distzip}" tofile="${staging.release}/gi-${build.gi.version.name}.zip"/>
+
+    <ant antfile="build.xml" target="clean" inheritall="false" inheritrefs="false"/>
+
+    <!-- debug build -->
+    <ant antfile="build.xml" target="dist-zip-clean" inheritall="false" inheritrefs="false">
+      <property name="dist.gi" value="gi-${build.gi.version.name}-debug"/>
+      <property name="build.dist.zip" value="build/${temp.distzip}"/>
+      <property name="build.gi.buildno" value="${rev}db"/>
+      <property name="build.gi.benchmark" value="true"/>
+      <property name="build.obf.mapfileout" value="../dist/obfuscation-map-debug.txt"/>
+    </ant>
+    <copy file="${temp.distzip}" tofile="${staging.release}/gi-${build.gi.version.name}-debug.zip"/>
+
+    <ant antfile="build.xml" target="clean" inheritall="false" inheritrefs="false"/>
+
+    <!-- max build -->
+    <ant antfile="build.xml" target="dist-zip-clean" inheritall="false" inheritrefs="false">
+      <property name="dist.gi" value="gi-${build.gi.version.name}-max"/>
+      <property name="build.dist.zip" value="build/${temp.distzip}"/>
+      <property name="build.gi.buildno" value="${rev}mx"/>
+      <property name="build.gi.includes.jsx" value="34max"/>
+      <property name="build.obf.mapfileout" value="../dist/obfuscation-map-max.txt"/>
+    </ant>
+    <copy file="${temp.distzip}" tofile="${staging.release}/gi-${build.gi.version.name}-max.zip"/>
+
+    <ant antfile="build.xml" target="clean" inheritall="false" inheritrefs="false"/>
+
+    <!-- dojo build -->
+    <ant antfile="build.xml" target="dist-zip-clean" inheritall="false" inheritrefs="false">
+      <property name="dist.gi" value="gi-${build.gi.version.name}-dojo"/>
+      <property name="build.dist.zip" value="build/${temp.distzip}"/>
+      <property name="build.gi.buildno" value="${rev}dj"/>
+      <property name="build.dojo.type" value="source"/>
+      <property name="build.dojo.compile-docs" value="true"/>
+      <property name="build.obf.mapfileout" value="../dist/obfuscation-map-dojo.txt"/>
+    </ant>
+    <copy file="${temp.distzip}" tofile="${staging.release}/gi-${build.gi.version.name}-dojo.zip"/>
+
+    <ant antfile="build.xml" target="clean" inheritall="false" inheritrefs="false"/>
+
+    <!-- cross-domain code build -->
+    <ant antfile="build.xml" target="dist-zip-clean" inheritall="false" inheritrefs="false">
+      <property name="dist.gi" value="gi-${build.gi.version.name}-xd"/>
+      <property name="build.dist.zip" value="build/${temp.distzip}"/>
+      <property name="build.gi.buildno" value="${rev}xd"/>
+      <property name="build.gi.docs" value="false"/>
+      <property name="build.gi.ide" value="false"/>
+      <property name="build.gi.xd" value="true"/>
+      <property name="build.obf.mapfileout" value="../dist/obfuscation-map-xd.txt"/>
+    </ant>
+    <copy file="${temp.distzip}" tofile="${staging.release}/gi-${build.gi.version.name}-xd.zip"/>
+
+    <!-- source build -->
+    <delete dir="${buildDir}"/>
+    <mkdir dir="${buildDir}"/>
+    <copy todir="${buildDir}/gi-${build.gi.version.name}-source" includeemptydirs="false">
+      <fileset dir="${project.dir}"
+          excludes="**/.svn/** dist/** gipp/** gitak/** dojo-toolkit/** build/${buildDir}/** build/tools/build/**"/>
+    </copy>
+    <zip basedir="${buildDir}/gi-${build.gi.version.name}-source" destfile="temp.zip"/>
+    <move file="temp.zip" tofile="${staging.release}/gi-${build.gi.version.name}-source.zip"/>
+
+    <delete dir="${buildDir}"/>
+  </target>
+
+  <target name="release-docs" depends="init"
+      description="Builds and deploys the API documentation and deploys it to the release staging area.">
+
+    <!-- clean -->
+    <ant antfile="build.xml" target="clean" inheritall="false" inheritrefs="false"/>
+
+    <ant antfile="build.xml" target="compile-doc" inheritall="false" inheritrefs="false"/>
+    <ant antfile="build.xml" target="compile-idedoc" inheritall="false" inheritrefs="false"/>
+
+    <!-- deploy api documentation -->
+    <delete dir="${staging-doc.release}/${build.gi.version}"/>
+    <copy todir="${staging-doc.release}/${build.gi.version}">
+      <fileset dir="${project.dir}/${build.loc.dist}/gi/api/html" includes="**"/>
+    </copy>
+
+    <!-- deploy javadoc -->
+    <ant antfile="tools/build.xml" target="javadoc" inheritall="false" inheritrefs="false">
+      <property name="tools.title.api" value="General Interface Build Tools API ${build.gi.version.name}"/>
+    </ant>
+
+    <delete dir="${staging-javadoc.release}/${build.gi.version.name}"/>
+    <copy todir="${staging-javadoc.release}/${build.gi.version.name}">
+      <fileset dir="tools/build/doc/api" includes="**"/>
+    </copy>
+  </target>
+
+  <macrodef name="getsvnrevision">
+    <attribute name="path"/>
+    <attribute name="property"/>
+
+    <sequential>
+      <tempfile property="svninfo.log"/>
+      <exec executable="svn" output="${temp.svninfo}">
+        <arg line="info @{path}"/>
+      </exec>
+
+      <loadfile property="@{property}" srcFile="${temp.svninfo}">
+        <filterchain>
+          <linecontains>
+            <contains value="Last Changed Rev: "/>
+          </linecontains>
+          <deletecharacters chars="Last Changed Rev: "/>
+          <striplinebreaks/>
+        </filterchain>
+      </loadfile>
+      <delete file="${svninfo.log}" quiet="true"/>
+    </sequential>
+  </macrodef>
+
+</project>
+    

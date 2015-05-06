@@ -1,0 +1,99 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <onAfterDeserialize><![CDATA[
+
+objJSX.refreshTree = jsx3.$F(function() {
+  var bin = jsx3.ide.getRecycleBin();
+  var editor = jsx3.ide.getActiveEditor();
+  var tree = this.getTree();
+
+  if (bin && editor.getMode() == "component") {
+    this.getPlugIn().fillRecycleBinTree();
+    tree.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+  } else {
+    tree.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+  }
+}).throttled();
+
+objJSX._doRestore = function() {
+  var tree = this.getTree();
+  var record = tree.getRecord(tree.getValue());
+  if (record != null && record.mayrestore)
+    jsx3.ide.doRecycleRestore(tree);
+};
+
+objJSX._onSelect = function(objTree) {
+  this.getPlugIn().publish({subject:"selection", value:objTree.getValue()});
+};
+
+objJSX.getTree = function() {
+  return jsx_ide_recycling_tree;
+};
+
+objJSX._doMinimize = function() {
+  this.doToggleState(jsx3.gui.Dialog.MINIMIZED);
+};
+
+objJSX.onRsrcLoad = function() {
+  // alt+r will restore the selected item
+  this.registerHotKey('_doRestore', 'r', false, false, true);
+  this.registerHotKey('_doMinimize', 'm', false, true, false); // minimize on ctrl-m
+  this.registerHotKey('doClose', 'w', false, false, true); // close on alt-w
+
+  var barMgr = new jsx3.amp.util.ToolbarManager(jsx_ide_recycle_bar);
+  barMgr.addSection("utils");
+  barMgr.addSection("additions", true);
+  this.getPlugIn().getExtPoint("toolbar").processExts().each(function(e) { barMgr.addItem(e); });
+
+  this.refreshTree();
+};
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+   <dynamics jsxbgcolor="@Solid Medium" />
+   <variants jsxwidth="281" jsxheight="240" jsxoverflow="2"/>
+   <strings jsxname="jsx_ide_recycling_bin" jsxhelpid="ide.palette.recyc"/>
+   <events jsxaftermove="this.constrainPosition(); this.getPlugIn().doSaveRecycleBinState(this);"
+           jsxafterresize="this.getPlugIn().doSaveRecycleBinState(this);"/>
+    <object type="jsx3.gui.WindowBar">
+     <variants />
+     <strings jsxtext="Recycle Bin" />
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min" />
+       <variants />
+       <strings />
+       <events jsxexecute="this.getParent().getParent().doToggleState();" />
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close" />
+       <variants />
+       <strings />
+       <events jsxexecute="this.getParent().getParent().doClose();" />
+      </object>
+    </object>
+    <object type="jsx3.gui.LayoutGrid">
+     <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2" />
+     <strings jsxwidth="100%" jsxheight="100%" jsxrows="26,*"/>
+      <object type="jsx3.gui.WindowBar">
+       <dynamics jsxbgcolor="@Solid Medium" />
+       <variants jsxfontsize="10" jsxbartype="2" jsxoverflow="3" jsxrelativeposition="1" jsxheight="0" />
+       <strings jsxname="jsx_ide_recycle_bar" />
+      </object>
+      <object type="jsx3.gui.Block">
+       <variants jsxoverflow="2" />
+       <strings jsxwidth="100%" jsxheight="100%" jsxbgcolor="white" />
+        <object type="jsx3.gui.Tree">
+         <dynamics jsxpadding="@Tree Padding"/>
+         <variants jsxoverflow="3" jsxuseroot="0" jsxrelativeposition="1"/>
+         <strings jsxname="jsx_ide_recycling_tree" jsxwidth="100%" jsxheight="100%" jsxxslid="jsx_ide_recycling" />
+         <events jsxchange="jsx_ide_recycling_bin._onSelect(this);"/>
+         <xslparameters jsxindent="16"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

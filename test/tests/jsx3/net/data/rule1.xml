@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data jsxid="jsxroot" jsxnamespace="jsx3.ide.mapper.Mapper" jsxversion="1.0">
+  <record jsxid="x97832" jsxtext="WSDL (jsx:///../GI_Builder/addins/mapping/samples/Address.wsdl)" jsxopen="1"
+          src="jsx:///../GI_Builder/addins/mapping/samples/Address.wsdl" type="W">
+    <record jsxid="x43996" jsxtext="Service (http://ws.cdyne.com/psadd...slookup.asmx)" jsxopen="1"
+            type="S" soapstyle="document">
+      <record jsxid="x23922" jsxtext="ReturnCityState" jsxopen="1" opname="ReturnCityState"
+              endpoint="http://test.example.com" method="GET" type="P"
+              jsxselected="1">
+        <headers jsxid="x62269"/>
+        <record jsxid="x80256" jsxtext="Input (request)" type="I" stubpath="/SOAP-ENV:Envelope/SOAP-ENV:Body"
+                soapuse="literal" jsxopen="1"/>
+        <record jsxid="x91523" jsxtext="Output (response)" type="O" soapuse="literal"
+                jsxopen="1">
+          <record jsxid="x77350" jsxtext="ReturnCityState" jsxopen="1" type="C"
+                  datatype="" tns="http://ws.cdyne.com/">
+            <record jsxid="x6311" jsxtext="zipcode" jsxopen="1" type="C"
+                    datatype="string" simple="1" tns="http://ws.cdyne.com/">
+              <restrictions jsxid="x42900">
+                <record jsxid="x70282" name="maxoccur" value="1"/>
+                <record jsxid="x94283" name="minoccur" value="0"/>
+              </restrictions>
+              <record jsxid="x65883" jsxtext="rule_node" type="D">
+                <mappings jsxid="x77645">
+                  <record jsxid="x83214" name="Script" value="setValue(&quot;cdatatext&quot;);"/>
+                </mappings>
+              </record>
+            </record>
+            <record jsxid="x38782" jsxtext="LicenseKey" jsxopen="1" type="A"
+                    datatype="string" simple="1" tns="http://ws.cdyne.com/" jsxSelectMask="Script">
+              <restrictions jsxid="x34462">
+                <record jsxid="x93385" name="maxoccur" value="1"/>
+                <record jsxid="x97012" name="minoccur" value="0"/>
+              </restrictions>
+              <mappings jsxid="x81928">
+                <record jsxid="x66968" name="Script" value="setValue(&quot;attValue&quot;);"/>
+              </mappings>
+            </record>
+          </record>
+        </record>
+      </record>
+    </record>
+  </record>
+</data>

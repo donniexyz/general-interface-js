@@ -1,0 +1,210 @@
+<?xml version="1.0"?>
+
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<project name="General Interface Build Tools" default="all" basedir=".">
+
+  <property file="build.properties"/>
+
+  <property name="dir.src" value="src/java"/>
+  <property name="dir.test" value="src/test"/>
+  <property name="dir.tests" value="tests"/>
+  <property name="dir.build" value="build"/>
+  <property name="dir.build.gensrc" value="${dir.build}/src-generated"/>
+  <property name="dir.build.classes" value="${dir.build}/classes"/>
+  <property name="dir.build.test" value="${dir.build}/test-classes"/>
+  <property name="dir.build.doc" value="${dir.build}/doc/api"/>
+  <property name="dir.test.out" value="${dir.build}/test-run"/>
+  <property name="dist.jar" value="jsx-tools.jar"/>
+  <property name="cli.zip" value="jsx-tools-cli.zip"/>
+
+  <target name="all" depends="test, package" description="Runs all tests and build the JAR package.">
+  </target>
+
+  <target name="init">
+    <path id="cp.source">
+      <path path="${lib.rhino}"/>
+      <path path="${lib.jaxen}"/>
+      <path path="${lib.xalan}"/>
+      <path path="${lib.ant}"/>
+      <path path="${lib.jsparser}"/>
+      <path path="${lib.saxon}"/>
+      <path path="${lib.args4j}"/>
+    </path>
+
+    <path id="cp.test.compile">
+      <path refid="cp.source"/>
+      <path path="${dir.build.classes}"/>
+      <path path="${lib.testng}"/>
+    </path>
+
+    <path id="cp.test.run">
+      <path path="${lib.rhino}"/>
+      <path path="${lib.jaxen}"/>
+      <path path="${lib.xalan}"/>
+      <path path="${lib.ant}"/>
+      <path path="${lib.jsparser}"/>
+      <path path="${dir.build.classes}"/>
+      <path path="${lib.testng}"/>
+      <path path="${dir.build.test}"/>
+    </path>
+  </target>
+
+  <target name="init-testng">
+    <taskdef resource="testngtasks" classpath="${lib.testng}"/>
+  </target>
+
+  <target name="build" depends="init">
+    <mkdir dir="${dir.build.classes}"/>
+    <mkdir dir="${dir.build.gensrc}/com/tibco/gi/tools/doc"/>
+    <mkdir dir="${dir.build.gensrc}/com/tibco/gi/tools/javascript"/>
+
+    <!-- Compile JSX Doc parser -->
+    <javacc
+        target="${dir.src}/com/tibco/gi/tools/doc/TypeParser.jj"
+        javacchome="${lib.javacc.home}"
+        outputdirectory="${dir.build.gensrc}/com/tibco/gi/tools/doc"
+        />
+    <!-- Compile classes -->
+    <javac
+        destdir="${dir.build.classes}"
+        deprecation="${compiler.deprecation}"
+        debug="${compiler.debug}"
+        source="${compiler.source}"
+        compiler="${compiler.type}"
+        classpathref="cp.source"
+        >
+      <src path="${dir.src}"/>
+      <src path="${dir.build.gensrc}"/>
+    </javac>
+    <!-- Copy resources -->
+    <copy todir="${dir.build.classes}">
+      <fileset dir="${dir.src}">
+        <include name="**/*.properties"/>
+        <include name="**/*.xml"/>
+        <include name="**/*.xsl"/>
+      </fileset>
+    </copy>
+    <!-- Copy API doc resources -->
+    <copy todir="${dir.build.classes}/com/tibco/gi/tools/doc">
+      <fileset dir="../apidoc/">
+        <include name="*.xsl"/>
+        <include name="*.html"/>
+        <include name="*.css"/>
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="build-test" depends="init">
+    <mkdir dir="${dir.build.test}"/>
+    <javac
+        srcdir="${dir.test}"
+        destdir="${dir.build.test}"
+        deprecation="${compiler.deprecation}"
+        debug="${compiler.debug}"
+        source="${compiler.source}"
+        compiler="${compiler.type}"
+        classpathref="cp.test.compile"
+        />
+  </target>
+
+  <target name="test" depends="init-testng, build, build-test" description="Run all tool tests.">
+    <testng
+        classpathref="cp.test.run"
+        haltonfailure="true"
+        outputdir="${dir.test.out}">
+
+      <sysproperty key="com.tibco.gi.javascript.TESTS_DIR" value="${dir.tests}"/>
+      <sysproperty key="com.tibco.gi.javascript.REGRESSIONS_DIR" value="${dir.tests}/regression"/>
+      <sysproperty key="com.tibco.gi.javascript.TMP_FILE" value="${dir.test.out}/tmp_file"/>
+
+      <classfileset id="fileset.test" dir="${dir.build.test}">
+        <include name="**/TestFactory.class"/>
+      </classfileset>
+    </testng>
+  </target>
+
+  <target name="package" depends="build" description="Package the tools in a JAR file.">
+    <jar destfile="${dist.jar}" whenempty="fail">
+      <fileset dir="${dir.build.classes}">
+        <include name="**/*.class"/>
+        <include name="**/*.properties"/>
+        <include name="**/*.xml"/>
+        <include name="**/*.xsl"/>
+        <include name="**/*.html"/>
+        <include name="**/*.css"/>
+      </fileset>
+    </jar>
+  </target>
+
+  <target name="package-cli" depends="package" description="Package the command line tools in a ZIP file.">
+    <property name="clidir" value="${dir.build}/jsx-tools-cli"/>
+
+    <mkdir dir="${clidir}"/>
+    <mkdir dir="${clidir}/lib"/>
+
+    <copy todir="${clidir}" flatten="true">
+      <fileset dir="bin">
+        <include name="*"/>
+      </fileset>
+    </copy>
+
+    <chmod perm="755">
+      <fileset dir="${clidir}">
+        <include name="*"/>
+      </fileset>
+    </chmod>
+
+    <copy todir="${clidir}/lib" file="${dist.jar}" flatten="true"/>
+    
+    <copy todir="${clidir}/lib" flatten="true">
+      <fileset dir=".">
+        <include name="${lib.rhino}"/>
+        <include name="${lib.args4j}"/>
+        <include name="${lib.jaxen}"/>
+        <include name="${lib.xalan}"/>
+        <include name="${lib.saxon}"/>
+        <include name="${lib.saxon-dom}"/>
+        <include name="${lib.jsparser}"/>
+      </fileset>
+    </copy>
+
+    <zip
+        destfile="${cli.zip}">
+      <zipfileset dir="${dir.build}" includes="jsx-tools-cli/*.sh" filemode="755"/>
+      <zipfileset dir="${dir.build}" includes="jsx-tools-cli/**/*" excludes="jsx-tools-cli/*.sh"/>
+    </zip>
+  </target>
+
+  <target name="javadoc" depends="init" description="Compiles the javadoc documentation for the tools.">
+    <javadoc charset="UTF-8"
+        classpathref="cp.test.compile"
+        destdir="${dir.build.doc}"
+        author="true"
+        version="true"
+        use="true"
+        windowtitle="${tools.title.api}"
+        bottom="${tools.api.bottom}"
+        source="${compiler.source}"
+        stylesheetfile="gi-javadoc.css"
+        >
+      <packageset dir="${dir.src}" defaultexcludes="yes">
+        <include name="com/tibco/gi/**"/>
+        <exclude name="com/tibco/gi/tools/doc/**"/>
+        <exclude name="com/tibco/gi/tools/obfuscator/**"/>
+      </packageset>
+
+      <link offline="false" href="http://java.sun.com/j2se/1.5.0/docs/api/"/>
+      <link offline="false" href="http://ant.apache.org/manual/api/"/>
+    </javadoc>
+  </target>
+
+  <target name="clean" description="Remove all build artifacts.">
+    <delete dir="${dir.build}"/>
+    <delete file="${dist.jar}"/>
+  </target>
+
+</project>

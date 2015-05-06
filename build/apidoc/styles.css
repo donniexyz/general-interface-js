@@ -1,0 +1,96 @@
+/*
+ * Copyright (c) 2001-2009, TIBCO Software Inc.
+ * Use, modification, and distribution subject to terms of license.
+ */
+
+body { font-family: Verdana, Arial, sans-serif; font-size: 12px; }
+td { font-size: 12px; }
+h1 { font-size: 20px; font-weight: bold; margin: 4px 0px 16px 0px; padding: 0px; }
+h2 {}
+h3 {}
+h4 { font-size: 14px; font-weight: bold; margin: 12px 0px 6px 0px; padding: 0px; }
+h4.package-name { margin: 4px 0px 2px 0px; }
+
+div.declaration { font-family: Monaco, "Courier New", Courier, monospace;
+  padding: 0px 0px 0px 36px; text-indent: -36px; }
+div.declaration-class { font-family: Monaco, "Courier New", Courier, monospace; }
+span.param { font-family: Monaco, "Courier New", Courier, monospace; }
+div.param { padding: 3px 0px 1px 0px; }
+
+/* name of method/field */
+h3.detail { margin: 4px 0px 6px 0px; padding: 0px; font-size: 14px; font-weight: bold; }
+/* title of Returns:, Since:, etc. */
+h4.detail { margin: 4px 0px 2px 0px; padding: 0px; font-size: 12px; font-weight: bold; }
+div.detaildesc { padding: 16px 0px 12px 0px; }
+div.detailcontent { padding: 0px 0px 0px 24px; }
+div.indent { padding: 0px 0px 0px 36px; text-indent: -12px; }
+div.summarydesc { padding: 4px 0px 0px 12px; }
+div.inheritance { font-family: Monaco, "Courier New", Courier, monospace; padding: 2px 0px 2px 0px; }
+
+h3.relatives { margin: 16px 0px 8px 0px; padding: 0px; font-size: 14px; font-weight: bold; }
+div.relatives { padding: 0px 0px 0px 24px; }
+
+a:link { color: #990000; }
+a:visited { color: #660000; }
+a:active { color: #FF6666; }
+a:hover { color: #CC0000; }
+
+hr { border-top: 1px solid #CCCCCC; border-bottom: 1px dashed #666666; border-right: none; border-left: none;
+  height: 3px; background-color:#FFFFFF; color: #FFFFFF; margin: 12px 0px 12px 0px; }
+
+table.summary { width: 100%; border-collapse: collapse; border-spacing: 0px; border: 1px solid #999999;
+  margin: 6px 0px 6px 0px; }
+table.summary TR { vertical-align: top; }
+table.summary TH { font-size: 15px; text-align: left; padding: 4px 6px 4px 6px; border: 1px solid #999999;
+  background-color: #EEEEEE; font-weight: bold; }
+table.summary TD { margin: 0px; padding: 4px 6px 4px 6px; border: 1px solid #CCCCCC; }
+table.summary TD.type { font-family: Monaco, "Courier New", Courier, monospace; }
+
+table.detail { width: 100%; border-collapse: collapse; border-spacing: 0px;
+  margin: 6px 0px 6px 0px; }
+table.detail TH { font-size: 15px; text-align: left; padding: 4px 6px 4px 6px; border: 1px solid #999999;
+  background-color: #EEEEEE; font-weight: bold; }
+
+table.inherited { width: 100%; border-collapse: collapse; border-spacing: 0px; border: 1px solid #999999;
+  margin: 6px 0px 6px 0px; }
+table.inherited TH { font-size: 14px; text-align: left; padding: 4px 6px 4px 6px; border: 1px solid #999999;
+  background-color: #FFFFFF; font-weight: bold; }
+table.inherited TD { margin: 0px; padding: 4px 6px 4px 6px; border: 1px solid #CCCCCC; }
+
+div.deprecated { font-style: italic; margin: 0px 0px 12px 0px; }
+div.deprecated-inline { font-style: italic; }
+div.deprecated span.title, div.deprecated-inline span.title { font-style: normal; font-weight: bold; }
+
+div.dep, span.dep, TD.dep { text-decoration: line-through; }
+a.member, span.member { font-weight: bold; }
+
+div.page { margin: 10px 0px 50px 0px; }
+
+h3.pkglist { font-size: 14px; font-weight: bold; margin: 12px 0px 4px 0px; padding: 0px; }
+div.pkglist-package {}
+div.pkglist-class {}
+div.pkglist-interface { font-style: italic; }
+
+table.packages { width: 100%; border-collapse: collapse; border-spacing: 0px; border: 1px solid #999999;
+  margin: 6px 0px 6px 0px; }
+table.packages TH { font-size: 15px; text-align: left; padding: 4px 6px 4px 6px; border: 1px solid #999999;
+  background-color: #EEEEEE; font-weight: bold; }
+table.packages TD { margin: 0px; padding: 4px 6px 4px 6px; border: 1px solid #CCCCCC; }
+
+div.header { width: 100%; background-color: #EEEEEE; margin: 0px 0px 12px 0px; font-size: 14px;
+  padding: 3px 0px 3px 0px; }
+div.header span { margin: 0px 1px 0px 1px; padding: 0px 6px 0px 6px; }
+
+div.copyright { margin: 6px 0px 12px 0px; font-size: 10px; }
+
+table.deprecated { width: 100%; border-collapse: collapse; border-spacing: 0px; border: 1px solid #999999;
+  margin: 6px 0px 6px 0px; }
+table.deprecated TH { font-size: 15px; text-align: left; padding: 4px 6px 4px 6px; border: 1px solid #999999;
+  background-color: #EEEEEE; font-weight: bold; }
+table.deprecated TD { margin: 0px; padding: 4px 6px 4px 6px; border: 1px solid #CCCCCC; }
+table.deprecated TD div.name { font-family: Monaco, "Courier New", Courier, monospace; }
+table.deprecated TD div.desc { font-style: italic; }
+
+div.page { margin: 10px 0px 96px 0px; }
+.noprint {}
+.noscreen { display: none; }

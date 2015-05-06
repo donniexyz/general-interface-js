@@ -1,0 +1,99 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+ 
+objJSX.getContentPane = function() { return contentPane; };
+objJSX.setTitle = function(s) { titlePane.setText(s, true); };
+
+objJSX.setButtonState = function(previous, next, finish, cancel) {
+  if (previous != null)
+    previousBtn.setEnabled(previous, true);
+  if (next != null)
+    nextBtn.setEnabled(next, true);
+  if (finish != null)
+    finishBtn.setEnabled(finish, true);
+  if (cancel != null)
+    cancelBtn.setEnabled(cancel, true);
+};
+
+objJSX._onCancel = function() {
+  this.getWizard().cancel();
+};
+
+objJSX._onFinish = function() {
+  this.getWizard().finish();
+};
+
+objJSX._onPrevious = function() {
+  this.getWizard().previous();
+};
+
+objJSX._onNext = function() {
+  this.getWizard().next();
+};
+
+contentPane._doCancel = function(objEvent) {
+  wizard._onCancel();
+};
+
+contentPane._doNext = function(objEvent) {
+  var src = objEvent.srcElement();
+  if (src != null && src.nodeName.toUpperCase() == "INPUT")
+    return;
+  objJSX._onNext();
+};
+
+contentPane.registerHotKey('_doNext', jsx3.gui.Event.KEY_ENTER, false, false, false); // save on return key
+contentPane.registerHotKey('_doCancel', ".", false, true, false); // save on return key
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+    <variants/>
+    <strings jsxname="wizard" jsxrows="20,*,25"/>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxbgcolor="@Solid Medium"/>
+      <variants jsxoverflow="1" jsxindex="1"/>
+      <strings jsxname="titlePane" jsxwidth="100%" jsxheight="100%" jsxfontsize="12" jsxfontweight="bold"/>
+    </object>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxbgcolor="@Solid Medium"/>
+      <variants jsxoverflow="2" jsxindex="1"/>
+      <strings jsxname="contentPane" jsxwidth="100%" jsxheight="100%"/>
+    </object>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxbgcolor="@Solid Medium" jsxborder="@Inset Top"/>
+      <variants jsxoverflow="2"/>
+      <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxpadding="6 0 0 0"/>
+      <object type="jsx3.gui.Button">
+        <variants jsxindex="0" jsxheight="18" jsxenabled="0"/>
+        <strings jsxname="previousBtn" jsxtext="Previous" jsxmargin="0 6 0 0"/>
+        <events jsxexecute="wizard._onPrevious();"/>
+      </object>
+      <object type="jsx3.gui.Button">
+        <variants jsxindex="0" jsxheight="18" jsxenabled="0"/>
+        <strings jsxname="nextBtn" jsxtext="Next" jsxmargin="0 20 0 0"/>
+        <events jsxexecute="wizard._onNext();"/>
+      </object>
+      <object type="jsx3.gui.Button">
+        <variants jsxindex="0" jsxheight="18" jsxenabled="0"/>
+        <strings jsxname="finishBtn" jsxtext="Finish" jsxmargin="0 6 0 0"/>
+        <events jsxexecute="wizard._onFinish();"/>
+      </object>
+      <object type="jsx3.gui.Button">
+        <variants jsxindex="0" jsxheight="18"/>
+        <strings jsxname="cancelBtn" jsxtext="Cancel" jsxmargin="0 0 0 0"/>
+        <events jsxexecute="wizard._onCancel();"/>
+      </object>
+      <!--
+                <object type="jsx3.gui.ImageButton">
+                 <variants jsxindex="0" jsxheight="16" jsxwidth="16"/>
+                 <strings jsxname="helpBtn" jsxmargin="0 0 0 0" jsximage="GI_Builder/images/icon_59.gif"/>
+                 <events jsxexecute="prefs_controller.onHelp();"/>
+                </object>
+      -->
+    </object>
+  </object>
+</serialization>

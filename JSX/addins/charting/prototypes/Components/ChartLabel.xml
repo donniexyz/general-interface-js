@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <name><![CDATA[Chart Label]]></name>
+ <icon><![CDATA[icons/chartLabel.gif]]></icon>
+ <description><![CDATA[a label; can be a child of a chart, legend, or axis to display the title of that component]]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.chart.ChartLabel">
+   <dynamics />
+   <variants alpha="1" labelRotation="0" jsxfontsize="12" />
+   <strings jsxname="chartLabel" jsxtext="Chart Label" jsxtextalign="center" jsxfontweight="bold" jsxfontname="Arial" />
+  </object>
+</serialization>

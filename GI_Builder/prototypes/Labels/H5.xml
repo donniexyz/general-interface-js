@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[H5 Heading]]></name>
+  <icon><![CDATA[images/prototypes/h5.gif]]></icon>
+  <description><![CDATA[An HTML H5 tag]]></description>
+  <object type="jsx3.gui.Block">
+    <variants jsxrelativeposition="1" jsxoverflow="3"/>
+    <strings jsxname="h5" jsxtagname="h5" jsxtext="Heading 5"/>
+  </object>
+</serialization>

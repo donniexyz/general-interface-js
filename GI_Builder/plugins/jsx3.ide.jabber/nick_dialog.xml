@@ -1,0 +1,70 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+objJSX.setNickname = function(jid, nick){
+  this.jsxjid = jid;
+  textbox.setValue(nick||jid);
+  nick_block.setText('Set nickname for ' + jid);
+  textbox.focus();
+}
+objJSX.getNickname = function(){
+  return textbox.getValue();
+}
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+    <variants jsxwidth="391" jsxheight="132" jsxwindowstate="1" jsxleft="61" jsxtop="27" jsxmodal="1"/>
+    <strings jsxname="jsx_xmpp_nick_dialog"/>
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <object type="jsx3.gui.WindowBar">
+      <variants/>
+      <strings jsxname="windowBar" jsxtext="Set Nickname"/>
+      <object type="jsx3.gui.ToolbarButton">
+        <variants/>
+        <strings jsxname="btnClose"/>
+        <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2" jsxloadtype="1"/>
+      <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+      <dynamics jsxpadding="@8Pixel"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+        <strings jsxname="layoutRows" jsxrows="30,30,30" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="nick_block" jsxwidth="100%" jsxheight="100%" jsxtext="Set username's nickname to" jsxfontweight="bold"/>
+          <dynamics jsxborder="@No jsxborder"/>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+          <dynamics jsxborder="@No jsxborder"/>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18"/>
+            <strings jsxname="textbox" jsxwidth="100%" jsxvalue=""/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxtextalign="right"/>
+          <dynamics jsxborder="@No jsxborder"/>
+          <object type="jsx3.gui.Button">
+            <variants jsxindex="0" jsxheight="18"/>
+            <strings jsxname="button" jsxtext="Cancel" jsxmargin="0 4 0 0"/>
+            <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+          </object>
+          <object type="jsx3.gui.Button">
+            <variants jsxindex="0" jsxheight="18"/>
+            <strings jsxname="button" jsxtext="Change" jsxmargin="0 4 0 0" jsxfontweight="bold"/>
+            <events jsxexecute="jsx_xmpp_nick_dialog.getPlugIn()._doEditNickname(objEVENT, jsx_xmpp_nick_dialog);"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2010, TIBCO Software Inc.
+  ~ Licensed under TIBCO BSD license, see license.txt under directory samples/
+  -->
+<data jsxid="jsxroot" jsxnamespace="jsx3.ide.mapper.Mapper" jsxversion="1.0">
+  <record jsxid="24312" jsxtext="WSDL (wsdl/Historicals.wsdl)" jsxopen="1" src="wsdl/Historicals.wsdl" type="W" path="/jsx1:definitions">
+    <record jsxid="5877" jsxtext="Service (http://www.xignite.com/xHistorical.asmx)" jsxopen="1" path="/jsx1:definitions/jsx1:service/jsx1:port/jsx4:address" type="S" soapstyle="document">
+      <record jsxid="9498" jsxtext="GetHistoricalQuotes" jsxopen="1" opname="GetHistoricalQuotes" endpoint="http://www.xignite.com/xHistorical.asmx" method="POST" type="P" path="/jsx1:definitions/jsx1:binding/jsx1:operation[4]">
+        <headers jsxid="31936">
+          <record jsxid="8179" name="SOAPAction" value="http://www.xignite.com/services/GetHistoricalQuotes"/>
+          <record jsxid="21849" name="Content-Type" value="text/xml"/>
+        </headers>
+        <record jsxid="6632" jsxtext="Input (request)" type="I" stubsrc="jsx://xml/stubs/soap.xml" stubpath="/SOAP-ENV:Envelope/SOAP-ENV:Body" soapuse="literal" path="/jsx1:definitions/jsx1:message[10]" jsxopen="1">
+          <record jsxid="38548" jsxtext="GetHistoricalQuotes" jsxopen="1" type="C" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:element[8]" datatype="" tns="http://www.xignite.com/services/">
+            <record jsxid="8286" jsxtext="Identifiers" jsxopen="1" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:element[8]/jsx3:complexType/jsx3:sequence/jsx3:element" datatype="string" simple="1" tns="http://www.xignite.com/services/" jsxSelectMask="Script">
+              <restrictions jsxid="61086">
+                <record jsxid="54955" name="maxoccur" value="1"/>
+                <record jsxid="27339" name="minoccur" value="0"/>
+              </restrictions>
+              <mappings jsxid="81574">
+                <record jsxid="25264" name="Script" value="setValue('TIBX');"/>
+              </mappings>
+            </record>
+            <record jsxid="36899" jsxopen="1" datatype="IdentifierTypes" ttns="http://www.xignite.com/services/" tns="http://www.xignite.com/services/" jsxtext="IdentifierType" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:simpleType" jsxSelectMask="Script">
+              <restrictions jsxid="39819">
+                <record jsxid="83258" name="maxoccur" value="1"/>
+                <record jsxid="14124" name="enumeration" value="Symbol"/>
+                <record jsxid="61590" name="enumeration" value="CIK"/>
+                <record jsxid="45177" name="enumeration" value="CUSIP"/>
+              </restrictions>
+              <mappings jsxid="57171">
+                <record jsxid="68569" name="Script" value="setValue(&quot;Symbol&quot;);"/>
+              </mappings>
+            </record>
+            <record jsxid="99611" jsxtext="AsOfDate" jsxopen="1" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:element[8]/jsx3:complexType/jsx3:sequence/jsx3:element[3]" datatype="string" simple="1" tns="http://www.xignite.com/services/" jsxSelectMask="Script">
+              <restrictions jsxid="8938">
+                <record jsxid="88976" name="maxoccur" value="1"/>
+                <record jsxid="38362" name="minoccur" value="0"/>
+              </restrictions>
+              <mappings jsxid="4883">
+                <record jsxid="9876" name="Script" value="setValue('8/1/2010');"/>
+              </mappings>
+            </record>
+          </record>
+        </record>
+        <record jsxid="74768" jsxtext="Output (response)" type="O" soapuse="literal" path="/jsx1:definitions/jsx1:message[11]" jsxopen="1" jsxselected="1" stubsrc="messages/historicalsOutputMessage.xml">
+          <record jsxid="54646" jsxtext="GetHistoricalQuotesResponse" jsxopen="1" type="C" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:element[9]" datatype="" tns="http://www.xignite.com/services/" jsxSelectMask="Script">
+            <record jsxid="81479" jsxtext="GetHistoricalQuotesResult" jsxopen="1" type="C" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:element[9]/jsx3:complexType/jsx3:sequence/jsx3:element" datatype="ArrayOfHistoricalQuote" ttns="http://www.xignite.com/services/" tns="http://www.xignite.com/services/" jsxSelectMask="CDF Document">
+              <restrictions jsxid="69699">
+                <record jsxid="11799" name="maxoccur" value="1"/>
+                <record jsxid="64374" name="minoccur" value="0"/>
+              </restrictions>
+              <record jsxid="44847" jsxtext="HistoricalQuote" jsxopen="1" type="C" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:complexType[5]/jsx3:sequence/jsx3:element" datatype="HistoricalQuote" ttns="http://www.xignite.com/services/" tns="http://www.xignite.com/services/" jsxSelectMask="Script">
+                <restrictions jsxid="23273">
+                  <record jsxid="23320" name="maxoccur" value="unbounded"/>
+                  <record jsxid="92315" name="minoccur" value="0"/>
+                  <record jsxid="4869" name="minoccur" value="0"/>
+                </restrictions>
+                <record jsxid="69838" jsxopen="1" datatype="OutcomeTypes" ttns="http://www.xignite.com/services/" tns="http://www.xignite.com/services/" jsxtext="Outcome" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:simpleType[2]" jsxSelectMask="Script">
+                  <restrictions jsxid="39738">
+                    <record jsxid="44090" name="maxoccur" value="1"/>
+                    <record jsxid="51381" name="enumeration" value="Success"/>
+                    <record jsxid="55332" name="enumeration" value="SystemError"/>
+                    <record jsxid="41261" name="enumeration" value="RequestError"/>
+                    <record jsxid="19704" name="enumeration" value="RegistrationError"/>
+                  </restrictions>
+                  <mappings jsxid="7793">
+                    <record jsxid="44303" name="Script" value="wsOutcome = MESSAGENODE.getValue();"/>
+                  </mappings>
+                </record>
+                <record jsxid="20841" jsxtext="Message" jsxopen="1" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:complexType[2]/jsx3:sequence/jsx3:element[2]" datatype="string" simple="1" tns="http://www.xignite.com/services/" jsxSelectMask="Script">
+                  <restrictions jsxid="16028">
+                    <record jsxid="85806" name="maxoccur" value="1"/>
+                    <record jsxid="236" name="minoccur" value="0"/>
+                  </restrictions>
+                  <mappings jsxid="41034">
+                    <record jsxid="83952" name="Script" value="wsMessage = MESSAGENODE.getValue();"/>
+                  </mappings>
+                </record>
+                <record jsxid="6305" jsxtext="Security" type="C" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:complexType/jsx3:complexContent/jsx3:extension/jsx3:sequence/jsx3:element" datatype="Security" ttns="http://www.xignite.com/services/" tns="http://www.xignite.com/services/" jsxSelectMask="Script" jsxopen="1">
+                  <restrictions jsxid="33180">
+                    <record jsxid="24858" name="maxoccur" value="1"/>
+                    <record jsxid="75295" name="minoccur" value="0"/>
+                  </restrictions>
+                  <record jsxid="98099" jsxtext="Symbol" jsxopen="1" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:complexType[3]/jsx3:complexContent/jsx3:extension/jsx3:sequence/jsx3:element[3]" datatype="string" simple="1" tns="http://www.xignite.com/services/">
+                    <restrictions jsxid="65427">
+                      <record jsxid="361" name="maxoccur" value="1"/>
+                      <record jsxid="89452" name="minoccur" value="0"/>
+                    </restrictions>
+                    <mappings jsxid="18451">
+                      <record jsxid="55089" name="CDF Attribute" value="Security"/>
+                    </mappings>
+                  </record>
+                </record>
+                <record jsxid="56962" jsxtext="Date" jsxopen="1" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:complexType/jsx3:complexContent/jsx3:extension/jsx3:sequence/jsx3:element[2]" datatype="string" simple="1" tns="http://www.xignite.com/services/">
+                  <restrictions jsxid="12434">
+                    <record jsxid="17401" name="maxoccur" value="1"/>
+                    <record jsxid="60637" name="minoccur" value="0"/>
+                  </restrictions>
+                  <mappings jsxid="48584">
+                    <record jsxid="32022" name="CDF Attribute" value="Date"/>
+                  </mappings>
+                </record>
+                <record jsxid="66665" jsxtext="Open" jsxopen="1" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:complexType/jsx3:complexContent/jsx3:extension/jsx3:sequence/jsx3:element[4]" datatype="double" simple="1" tns="http://www.xignite.com/services/">
+                  <restrictions jsxid="87048">
+                    <record jsxid="31813" name="maxoccur" value="1"/>
+                  </restrictions>
+                  <mappings jsxid="83148">
+                    <record jsxid="43904" name="CDF Attribute" value="Open"/>
+                  </mappings>
+                </record>
+                <record jsxid="30137" jsxtext="LastClose" jsxopen="1" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:complexType/jsx3:complexContent/jsx3:extension/jsx3:sequence/jsx3:element[5]" datatype="double" simple="1" tns="http://www.xignite.com/services/">
+                  <restrictions jsxid="48521">
+                    <record jsxid="26687" name="maxoccur" value="1"/>
+                  </restrictions>
+                  <mappings jsxid="21742">
+                    <record jsxid="14536" name="CDF Attribute" value="LastClose"/>
+                  </mappings>
+                </record>
+                <record jsxid="65835" jsxtext="High" jsxopen="1" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:complexType/jsx3:complexContent/jsx3:extension/jsx3:sequence/jsx3:element[6]" datatype="double" simple="1" tns="http://www.xignite.com/services/">
+                  <restrictions jsxid="54064">
+                    <record jsxid="19658" name="maxoccur" value="1"/>
+                  </restrictions>
+                  <mappings jsxid="54983">
+                    <record jsxid="58480" name="CDF Attribute" value="High"/>
+                  </mappings>
+                </record>
+                <record jsxid="53899" jsxtext="Low" jsxopen="1" type="E" path="/jsx1:definitions/jsx1:types/jsx3:schema/jsx3:complexType/jsx3:complexContent/jsx3:extension/jsx3:sequence/jsx3:element[7]" datatype="double" simple="1" tns="http://www.xignite.com/services/">
+                  <restrictions jsxid="77540">
+                    <record jsxid="14641" name="maxoccur" value="1"/>
+                  </restrictions>
+                  <mappings jsxid="38938">
+                    <record jsxid="85732" name="CDF Attribute" value="Low"/>
+                  </mappings>
+                </record>
+                <mappings jsxid="44224">
+                  <record jsxid="32619" name="CDF Record" value=""/>
+                </mappings>
+              </record>
+              <mappings jsxid="16794">
+                <record jsxid="39208" name="CDF Document" value="historicals"/>
+              </mappings>
+            </record>
+          </record>
+        </record>
+      </record>
+    </record>
+  </record>
+</data>

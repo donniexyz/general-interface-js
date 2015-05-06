@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  --> 
+<data> 
+ 
+  <!-- jsx3.gui.Select --> 
+  <record jsxid="jsx3.gui.Select.defaultText" jsxtext="- Valitse -"/> 
+  <record jsxid="jsx3.gui.Select.dataUnavailable" jsxtext="- Ei sisältöä -"/> 
+  <record jsxid="jsx3.gui.Select.noMatch" jsxtext="- Ei vastaavuuksia -"/> 
+  <record jsxid="jsx3.gui.Select.sel" jsxtext="Valittu"/>
+ 
+  <!-- jsx3.gui.Menu --> 
+  <record jsxid="jsx3.gui.Menu.noData" jsxtext="- Ei sisältöä -"/>
+  <record jsxid="jsx3.gui.Menu.sel" jsxtext="Valittu"/> 
+ 
+  <!-- jsx3.gui.Matrix --> 
+  <record jsxid="jsx3.gui.Matrix.seek" jsxtext="Näytetään rivit {0}-{1}. Rivejä yhteensä {2}"/> 
+ 
+  <!-- jsx3.gui.BlockX --> 
+  <record jsxid="jsx3.gui.BlockX.loading" jsxtext="Ladataan XSL:ää..."/> 
+  <record jsxid="jsx3.gui.BlockX.timeout" jsxtext="XSL aikakatkaisu"/> 
+  <record jsxid="jsx3.gui.BlockX.error" jsxtext="XSL virhe"/> 
+ 
+  <!-- jsx3.xml.Cacheable --> 
+  <record jsxid="jsx3.xml.Cacheable.loading" jsxtext="Ladataan {0}..."/> 
+  <record jsxid="jsx3.xml.Cacheable.timeout" jsxtext="Aikakatkaisu ladattaessa resurssia {0}"/> 
+  <record jsxid="jsx3.xml.Cacheable.error" jsxtext="Virhe ladattaessa resurssia {0}"/> 
+  <record jsxid="jsx3.xml.Cacheable.data" jsxtext="sisältö"/> 
+ 
+  <!-- jsx3.gui.Dialog --> 
+  <record jsxid="jsx3.gui.Dialog.close" jsxtext="Sulje"/> 
+  <record jsxid="jsx3.gui.Dialog.min" jsxtext="Minimoi"/> 
+  <record jsxid="jsx3.gui.Dialog.max" jsxtext="Maksimoi"/> 
+  <record jsxid="jsx3.gui.Dialog.restore" jsxtext="Palauta"/> 
+
+  <!-- jsx3.gui.DatePicker -->
+  <record jsxid="jsx3.gui.DatePicker.nextm" jsxtext="Seuraava kuukausi"/>
+  <record jsxid="jsx3.gui.DatePicker.prevm" jsxtext="Edellinen kuukausi"/>
+  <record jsxid="jsx3.gui.DatePicker.nexty" jsxtext="Seuraava vuosi"/>
+  <record jsxid="jsx3.gui.DatePicker.prevy" jsxtext="Edellinen vuosi"/>
+
+  <!-- jsx3.gui.TimePicker -->
+  <record jsxid="jsx3.gui.TimePicker.up" jsxtext="Kasvata"/>
+  <record jsxid="jsx3.gui.TimePicker.down" jsxtext="Pienennä"/>
+
+  <!-- jsx3.gui.ColorPicker -->
+  <record jsxid="jsx3.gui.ColorPicker.handle" jsxtext="Liukusäädin"/>
+
+  <!-- jsx3.gui.Tree -->
+  <record jsxid="jsx3.gui.Tree.exp" jsxtext="Avaa haara"/>
+  <record jsxid="jsx3.gui.Tree.col" jsxtext="Sulje haara"/>
+ 
+</data> 

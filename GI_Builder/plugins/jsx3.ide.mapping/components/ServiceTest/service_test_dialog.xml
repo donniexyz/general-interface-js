@@ -1,0 +1,137 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <name><![CDATA[Dialog]]></name>
+ <description><![CDATA[Dialog box.  (Set Modal property for a modal dialog).]]></description>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+   <dynamics jsxbgcolor="@Solid Medium"/>
+   <variants jsxwindowstate="1" jsxminx="650" jsxminy="300"/>
+   <strings jsxname="dialog" jsxwidth="650" jsxheight="300" jsxhelpid="ide.mapper.tester"/>
+    <properties onmousedown="var objJSX = jsx3.GO(this.id);if(!objJSX.isFront()) objJSX.getDescendantsOfType(jsx3.ide.mapper.ServiceTest)[0].onRestore();"/>
+    <object type="jsx3.gui.WindowBar">
+     <variants/>
+     <strings jsxtext="Test Interface (XML Mapping Utility)"/>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+       <variants/>
+       <strings/>
+       <events jsxexecute="this.getParent().getParent().doToggleState();"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsxtip="jsx3.gui.Dialog.max"/>
+       <variants/>
+       <strings jsxname="max button" jsximage="JSX/images/dialog/max.gif"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doMaximize(this);"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+       <variants/>
+       <strings/>
+       <events jsxexecute="this.getParent().getParent().doClose();"/>
+      </object>
+    </object>
+    <object type="jsx3.ide.mapper.ServiceTest">
+     <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxname="jsxmaptester"/>
+      <object type="jsx3.gui.LayoutGrid">
+       <variants jsxleft="0" jsxtop="0" jsxoverflow="2" jsxrelativeposition="0" />
+       <strings jsxwidth="100%" jsxheight="100%" jsxrows="26,*"/>
+        <object type="jsx3.gui.WindowBar">
+         <variants jsxbartype="2" jsxrelativeposition="0" jsxtop="0" jsxleft="0"/>
+         <strings jsxname="jsxwindowbar"/>
+          <object type="jsx3.gui.Block">
+           <variants jsxheight="21" jsxoverflow="1" jsxwidth="262"/>
+           <strings jsxpadding="0 0 0 4"/>
+            <object type="jsx3.gui.Select">
+             <variants jsxwidth="250" jsxheight="18" jsxleft="6" jsxtop="3" jsxrelativeposition="0"/>
+             <strings jsxname="jsx_schema_oplist" jsxxmlid="jsx_schema_opslist" jsxtip="select the operation to test"/>
+             <events jsxselect="this.getAncestorOfType(jsx3.ide.mapper.ServiceTest).select();"/>
+            </object>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+           <variants jsxtype="0" state="1" jsxindex="0"/>
+           <strings jsxname="jsx_schema_test_cancel" jsxtext="" jsximage="images/reset.gif" groupName="jsx_soaptester" jsxtip="reset the tester" jsxleft="304" jsxtop="0"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.ServiceTest).reset();"/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+           <variants jsxtype="2" jsxstate="1" jsxdivider="1"/>
+           <strings jsxname="jsx_schema_taboutboundmapping" jsximage="GI_Builder/images/icon_85.gif" jsxtext="1. Create" jsxgroupname="soaptester" jsxtip="create the request message and apply 'post-mapping' filter code"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.ServiceTest).getDescendantOfName(&quot;jsx_schema_jsx_schema_taboutboundmapping&quot;).doShow();"/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+           <variants jsxtype="2" jsxstate="0" jsxdivider="1"/>
+           <strings jsxname="jsx_schema_taboutboudanchor" jsximage="GI_Builder/images/icon_86.gif" jsxtext="2. Send" jsxgroupname="soaptester" jsxtip="review and send the request message"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.ServiceTest).getDescendantOfName(&quot;jsx_schema_taboutbound&quot;).doShow()"/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+           <variants jsxtype="2" jsxstate="0" jsxdivider="1"/>
+           <strings jsxname="jsx_schema_tabinboundanchor" jsxtext="3. Receive" jsxgroupname="soaptester" jsximage="GI_Builder/images/icon_87.gif" jsxtip="review the response message"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.ServiceTest).getDescendantOfName(&quot;jsx_schema_tabinbound&quot;).doShow()"/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+           <variants jsxtype="2" jsxstate="0" jsxdivider="1"/>
+           <strings jsxname="jsx_schema_tabinboundmapping" jsxtext="4. Apply" jsxgroupname="soaptester" jsximage="GI_Builder/images/icon_88.gif" jsxtip="apply 'pre-mapping' filter code and apply inbound mapping rules"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.ServiceTest).getDescendantOfName(&quot;jsx_schema_jsx_schema_tabinboundmapping&quot;).doShow()"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+         <dynamics jsxbgcolor="@Solid Disabled"/>
+         <variants jsxleft="0" jsxtop="0" jsxoverflow="1"/>
+         <strings jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.Block">
+           <variants jsxleft="0" jsxtop="0" jsxoverflow="1"/>
+           <strings jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.TabbedPane">
+             <dynamics jsxbgcolor="@Transparent BG"/>
+             <variants jsxselectedindex="0" tabHeight="24" jsxindex="0" jsxrelativeposition="0" jsxshowtabs="0"/>
+             <strings jsxname="jsx_schema_tpsoaptester" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.Tab">
+               <variants jsxheight="20" jsxtabIndex="0" jsxindex="0"/>
+               <strings jsxname="jsx_schema_jsx_schema_taboutboundmapping" jsxtext="Outbound Mappings &amp;rarr;&amp;#160;" jsxbgcolor="#e8e8f5"/>
+                <object type="jsx3.gui.Block">
+                 <dynamics jsxbgcolor="@Solid Medium"/>
+                 <variants jsxoverflow="1" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+                 <strings jsxname="jsx_schema_jsx_schema_taboutboundmappingContent" jsxwidth="100%" jsxheight="100%"/>
+                  <include src="components/ServiceTest/panel1.xml" async="true"/>
+                </object>
+              </object>
+              <object type="jsx3.gui.Tab">
+               <variants jsxheight="18" jsxtabIndex="1" jsxindex="0"/>
+               <strings jsxname="jsx_schema_taboutbound" jsxtext="Outbound Message  &amp;rarr;&amp;#160;" jsxbgcolor="#d8d8e5"/>
+                <object type="jsx3.gui.Block">
+                 <dynamics jsxbgcolor="@Solid Medium"/>
+                 <variants jsxoverflow="1" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+                 <strings jsxdisplay="none" jsxwidth="100%" jsxheight="100%"/>
+                  <include src="components/ServiceTest/panel2.xml" async="true"/>
+                </object>
+              </object>
+              <object type="jsx3.gui.Tab">
+               <variants jsxheight="18" jsxtabIndex="2" jsxindex="0"/>
+               <strings jsxname="jsx_schema_tabinbound" jsxtext="Inbound Message &amp;rarr;&amp;#160;" jsxbgcolor="#d8d8e5"/>
+                <object type="jsx3.gui.Block">
+                 <dynamics jsxbgcolor="@Solid Medium"/>
+                 <variants jsxoverflow="1" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+                 <strings jsxdisplay="none" jsxwidth="100%" jsxheight="100%"/>
+                  <include src="components/ServiceTest/panel3.xml" async="true"/>
+                </object>
+              </object>
+              <object type="jsx3.gui.Tab">
+               <variants jsxheight="18" jsxtabIndex="3" jsxindex="0"/>
+               <strings jsxname="jsx_schema_jsx_schema_tabinboundmapping" jsxtext="Inbound Mappings &amp;rarr;" jsxbgcolor="#d8d8e5"/>
+                <object type="jsx3.gui.Block">
+                 <dynamics jsxbgcolor="@Solid Medium"/>
+                 <variants jsxoverflow="1" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+                 <strings jsxdisplay="none" jsxwidth="100%" jsxheight="100%"/>
+                  <include src="components/ServiceTest/panel4.xml" async="true"/>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

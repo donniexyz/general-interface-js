@@ -1,0 +1,406 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[
+
+
+  //constants to track edit state and file path
+  objJSX.b_dirty = false;
+  objJSX.b_reload = false;
+  objJSX.b_new = false;
+  objJSX.b_open = false;
+  objJSX.b_close = false;
+  objJSX.curFilePath;
+
+
+  /**
+   * Returns the jsx3.ide.mapper.Mapper instance being managed by this objJSX instance
+   */
+  objJSX.getMapper = function() {
+   return jsx3.ide.mapper.Mapper ? this.getDescendantsOfType(jsx3.ide.mapper.Mapper)[0] : null;
+  };
+
+
+  /**
+   * Gets the URL for the file being edited (a relative path). Returns null if no path info is available (a new file not yet saved)
+   * @return {String | null}
+   */
+  objJSX.getFilePath = function() {
+   return this.curFilePath;
+  };
+
+
+  /**
+   * Sets the URL for the file being edited by this editor
+   * @param strPath {String} relative URL as string
+   * @param strFriendlyPath {String} relative to project URL as string
+   */
+  objJSX.setFilePath = function(strPath,strFriendlyPath) {
+   //update model and view for the editor
+    this.curFilePath = strPath;
+    if(strPath == null)
+      this.getPathBlock().setTip("[untitled]").setText("[untitled]",true);
+    else
+      this.getPathBlock().setTip(strFriendlyPath).setText(jsx3.util.strTruncate(strFriendlyPath, 35, null, 2/3),true);
+  };
+
+
+  /**
+   * Resets the editor to its initial state
+   * @param strPath {String} relative URL as string
+   */
+  objJSX.reset = function() {
+    this.setFilePath();
+    this.setDirty(false);
+  };
+
+
+  /**
+   * Gets object handle to the jsx3.gui.Block instance displaying the url of the Rules File being edited
+   * @return {jsx3.gui.Block}
+   */
+  objJSX.getPathBlock = function() {
+    return this.getDescendantOfName("jsx_schema_parser_filename");
+  };
+
+
+  /**
+   * Sets the editor's dirty state. Updates model and VIEW
+   * @param bDirty {boolean} flag to designate dirty (edited) or not
+   */
+  objJSX.setDirty = function(bDirty) {
+    //update model and view
+    this.b_dirty = bDirty;
+    this.getPathBlock().setColor((bDirty)?"crimson":"",true);
+  };
+
+
+  /**
+   * Gets the editor's dirty (edited) state
+   * @return {boolean}
+   */
+  objJSX.getDirty = function() {
+    return this.b_dirty;
+  };
+
+
+
+  /**
+   * Checks to see if existing edits have been made that need to be saved/discarded. If no, calls <code>doResumeOpenRulsFile</code>. If yes, calls <code>doSaveRulesFile</code>
+   */
+  objJSX.doOpenRulesFile = function() {
+    //if user made edits, prompt them to save
+    if(this.getDirty()) {
+      var me = this;
+      jsx3.IDE.confirm(
+      "Unsaved File",
+      "The current rules file has been edited. Do you wish to Save the changes?",
+      function(d){d.doClose(); me.b_open = true; me.doSaveRulesFile();},
+      null,
+      "Save", "Cancel", 1,
+      function(d){d.doClose(); me.setDirty(false); me.doResumeOpenRulesFile();},"Don't Save");
+    } else {
+      this.doResumeOpenRulesFile();
+    }
+  };
+
+
+
+  /**
+   * Called after any dirty-file cleanup has completed (Existing edits were either discarded or saved. At this point, just show the 'open' dialog)
+   */
+  objJSX.doResumeOpenRulesFile = function() {
+    jsx3.ide.getPlugIn("jsx3.io.browser").chooseFile(jsx3.IDE.getRootBlock(), {
+        name:"jsxdialog", modal:true, title:"Choose Mapping Rules File", okLabel:"OK",
+        folder: jsx3.ide.getCurrentDirectory(), onChoose: jsx3.$F(function(objFile) {
+        this.doOpenRulesFileExecute(objFile);
+        jsx3.ide.setCurrentDirectory(objFile.getParentFile());
+        }).bind(this)
+    });
+  };
+
+
+  /**
+   * Called after the user has selected a file within the 'open' dialog
+   * @param objFile {jsx3.io.File} File sele
+   */
+  objJSX.doOpenRulesFileExecute = function(objFile) {
+    //callback notified by the filesystem dialog of the path selected by the user
+    this.doNewRulesFile(objFile);
+  };
+
+
+  /**
+   * Called after the user has selected a file within the 'open' dialog (by <code>doOpenRulesFileExecute</code>.
+   * Also called when user clicks the 'new file' toolbar button. If no edits (not dirty) <code>doResumeNewRulesFile</code> is then called.
+   * @param objFile {jsx3.io.File}
+   */
+  objJSX.doNewRulesFile = function(objFile) {
+    //convert the file object into a relative URL that we can add to the project resource domain
+    var base = jsx3.ide.getSystemDirFile();
+    var strURL = (objFile == null) ? jsx3.ide.mapper.Mapper.NEW_FILE_PATH : base.relativePathTo(objFile);
+
+    if(this.getDirty() && strURL == jsx3.ide.mapper.Mapper.NEW_FILE_PATH) {
+     var me = this;
+     jsx3.IDE.confirm(
+       "Unsaved File",
+       "The current rules file has been edited. Do you wish to Save the changes?",
+       function(d){d.doClose(); me.b_new = true; me.doSaveRulesFile();},
+       null,
+       "Save", "Cancel", 1,
+       function(d){d.doClose(); me.setDirty(false); me.doResumeNewRulesFile(objFile,strURL); },"Don't Save");
+    } else {
+      this.doResumeNewRulesFile(objFile,strURL);
+    }
+  };
+
+
+  /**
+   * Called after any dirty-file cleanup has completed (Existing edits were either discarded or saved. At this point, just show the 'open' dialog)
+   * @param objFile {jsx3.io.File} file object chosen by the user to open. If null, it is assumed that this is a new file
+   * @param strURL {String} URL for the new file
+   */
+  objJSX.doResumeNewRulesFile = function(objFile,strURL) {
+    var objMapper = this.getMapper();
+    if(objMapper != null) {
+      //determine the relative base path to the file
+      if(objFile) {
+        var strPath = jsx3.ide.relativePathTo(objFile);
+        var strFriendlyPath = jsx3.net.URI.decode(jsx3.ide.PROJECT.getDirectory().relativePathTo(objFile));
+      } else {
+        strPath = strURL;
+      }
+
+      if(strPath == jsx3.ide.mapper.Mapper.NEW_FILE_PATH) {
+        //simple reset; just close and reload
+        window.setTimeout(function() { jsx3.ide.mapper.openUtility(); },10);
+        this._closeMe();
+      } else {
+        this.setFilePath(strPath,strFriendlyPath);
+
+        //call handler by mapper to deal with the actual opening of the file. The editor is generic and shouldn't know anything about its content
+        objMapper.onOpen(strURL);
+
+        //reset flag
+        this.setDirty(false);
+
+        //add this file to the list of IDE project resources if this is an 'open', not a 'new'
+        if(objFile)
+          jsx3.ide.addResourceToProject(objFile,"services",false);
+      }
+    } else {
+      //if the editor is open, but the mapper, unavailable, it's a race condition, just do a re-try after a pause, the order of the queue will now force it to work
+      var my = this;
+      window.setTimeout(function() { my.doResumeNewRulesFile(objFile,strURL); }, 10);
+    }
+  };
+
+
+
+  /**
+   * Called by mapper contained by this editor instance, if a successful parse, save/save as are enabled.  if not, disabled
+   * @param intSuccess {int} 0 or 1 (1 is success)
+   */
+  objJSX.onParse = function(intSuccess) {
+    this.getDescendantOfName("jsx_schema_parser_save").setEnabled(intSuccess,true);
+    this.getDescendantOfName("jsx_schema_parser_saveas").setEnabled(intSuccess,true);
+  };
+
+
+  /**
+   * Called when the 'save' toolbar button is clicked on the editor. If the file has been saved, saves immediately. otherwise, save as is called
+   */
+  objJSX.doSaveRulesFile = function() {
+    if(this.getFilePath() != null) {
+      //this file has been saved before, make call to save to existing path
+      this.doSaveAsRulesFileExecute(jsx3.ide.getSystemRelativeFile(this.getFilePath()));
+    } else {
+      //this file has not been saved before; show the save as dialog
+      this.doSaveAsRulesFile();
+    }
+  };
+
+
+  /**
+   * Shows the save as dialog
+   */
+  objJSX.doSaveAsRulesFile = function() {
+    var home = jsx3.ide.getCurrentUserHome();
+    jsx3.ide.getPlugIn("jsx3.io.browser").saveFile(jsx3.IDE.getRootBlock(), {
+        name:"jsx_ide_file_dialog", modal:true, title:"Save Mapping Rules File", okLabel:"Save",
+        folder: jsx3.ide.getCurrentDirectory(), baseFolder: home,
+        onChoose: jsx3.$F(function(objFile) {
+          this.doSaveAsRulesFileExecute(objFile);
+          jsx3.ide.setCurrentDirectory(objFile.getParentFile());
+        }).bind(this)
+    });
+  };
+
+
+  /**
+   * Called after user has selected a file in the 'save as' dialog or is called directly from <code>doSaveRulesFile</code> if the file path is known
+   * @param objFile {jsx3.io.File} file object to write output to (the state of the Rules Tree)
+   */
+  objJSX.doSaveAsRulesFileExecute = function(objFile) {
+    //3.5.1HF01: write any in-process edits before saving--if not, the user's current rule edits will not be persisted
+     this.getMapper().writeMappings(true);
+
+     //generate xml for file to save to disk
+    var strContentToSave = this.getMapper().getContent();
+
+    //if at least one valid property was able to be saved, proceed
+    if(strContentToSave != null) {
+      // TODO: add encoding to XML document declaration?
+      var bSuccess = jsx3.ide.writeUserFile(objFile, strContentToSave);
+
+      if(!bSuccess) {
+       this.getMapper()._LOG.error("Save Failed. The file could not be saved. Please validate that the file is not locked (read only)." );
+        jsx3.IDE.alert("Save Failed", "The file could not be saved. Please validate that the file is not locked (read only)" );
+      } else {
+        //whenever a successful save occurs, add the resource to the project's list of resources
+        jsx3.ide.addResourceToProject(objFile,"services", false);
+
+        //reset flag that says edits have occurred
+        this.setDirty(false);
+
+        //set the file name
+        var sysPath = jsx3.ide.getSystemDirFile();
+        var strURL = sysPath.relativePathTo(objFile);
+        var strFriendlyURL = jsx3.net.URI.decode(jsx3.ide.PROJECT.getDirectory().relativePathTo(objFile));
+        this.setFilePath(strURL,strFriendlyURL);
+
+        //if the save was called as part of a process to close/open/new/
+        if(this.b_reload) {
+          //if user chose to reload the rules file
+          this.doNewRulesFile(objFile);
+          this.b_reload = false;
+          this.doRulesReload();
+        } else if(this.b_open) {
+          //if user chose to first save this file before opening another
+          this.doNewRulesFile(objFile);
+          this.b_open = false;
+          this.doOpenRulesFile();
+        } else if(this.b_close) {
+          this._closeMe();
+        } else if(this.b_new) {
+          //if user chose to first save this file before opening another
+          this.b_new = false;
+          this.doNewRulesFile();
+        }
+      }
+    } else {
+      //log error
+      jsx3.log("iddp","No valid entries for the current dynamic property file. File was not saved.");
+    }
+  };
+
+
+  /**
+   * Called when user clicks the close button on the editor. Prompts for save if dirty. Closes the editor
+   * @param objFile {jsx3.io.File} file object to write output to (the state of the Rules Tree)
+   */
+  objJSX.closeEditor = function() {
+    //check dirty state
+    if(this.getDirty()) {
+     var me = this;
+     jsx3.IDE.confirm(
+      "Unsaved File",
+      "The current rules file has been edited. Do you wish to Save the changes before closing the XML Mapping Utility?",
+      function(d){d.doClose(); me.b_close = true; me.doSaveRulesFile(); },null,"Save",
+      "Cancel", 1,
+      function(d){d.doClose(); me._closeMe(); },"Don't Save");
+    } else {
+      //not dirty; just close
+      this._closeMe();
+    }
+  };
+
+  objJSX._closeMe = function() {
+    jsx3.IDE.EDITOR_MGR.close(this.getEditor());
+  };
+
+
+  objJSX.constrainPosition(true);
+
+]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+   <dynamics jsxbgcolor="@Solid Medium"/>
+   <variants jsxoverflow="2"/>
+   <strings jsxname="jsx_schema_dialog" jsxwidth="900" jsxheight="600" jsxminx="660" jsxminy="600" jsxhelpid="ide.mapper"/>
+    <object type="jsx3.gui.WindowBar">
+     <strings jsxname="jsxcbar" jsxtext="XML Mapping Utility"/>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+       <strings jsxname="jsxtbb"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doToggleState();"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsxtip="jsx3.gui.Dialog.max"/>
+       <strings jsxname="jsxtbb" jsximage="JSX/images/dialog/max.gif"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doMaximize(this);"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+       <strings jsxname="jsxtbb"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).closeEditor();"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.LayoutGrid">
+     <dynamics jsxbgcolor="@Solid Disabled"/>
+     <variants/>
+     <strings jsxrows="26,8,*"/>
+      <object type="jsx3.gui.LayoutGrid">
+       <dynamics jsxbgcolor="@Solid Medium"/>
+       <variants />
+       <strings jsxborder="0px;0px;solid 1px #9898a5;0px" jsxcols="290,*"/>
+        <object type="jsx3.gui.WindowBar">
+         <dynamics jsxbgcolor="@Transparent BG"/>
+         <variants jsxbartype="2"/>
+         <strings jsxname="jsxwindowbar" jsxborder="."/>
+          <object type="jsx3.gui.ToolbarButton">
+           <strings jsxname="jsx_schema_parser_new" jsxtip="create new mapping ruleset" jsximage="GI_Builder/images/icon_29.gif"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doNewRulesFile();"/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+           <strings jsxname="jsx_schema_parser_open" jsxtip="open mapping ruleset..." jsximage="GI_Builder/images/icon_60.gif"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doOpenRulesFile();"/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+           <variants jsxenabled="0"/>
+           <strings jsxdivider="1" jsxname="jsx_schema_parser_save" jsxtip="save" jsximage="GI_Builder/images/icon_13.gif"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doSaveRulesFile()"/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+           <variants jsxenabled="0"/>
+           <strings jsxname="jsx_schema_parser_saveas" jsxtip="save as..." jsximage="GI_Builder/images/icon_14.gif"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doSaveAsRulesFile();"/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+           <strings jsxdivider="1" jsxname="jsx_schema_parser_help" jsximage="GI_Builder/images/icon_59.gif"/>
+           <events jsxexecute="this.getServer().invokeHelp(this.getAncestorOfType(jsx3.gui.Dialog));"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+         <variants jsxoverflow="2"/>
+         <strings jsxname="jsx_schema_parser_filename" jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxtext="[untitled]" jsxpadding="5" jsxfontweight="bold" jsxfontsize="12" jsxcolor="crimson"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+       <variants jsxoverflow="2"/>
+       <strings jsxwidth="100%" jsxheight="100%"/>
+      </object>
+      <object type="jsx3.gui.Block">
+       <variants jsxoverflow="1"/>
+       <strings jsxname="jsxmapperpane" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+        <include src="components/_Mapper.xml" async="true"/>
+      </object>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Inset" jsxbgcolor="@Solid Light"/>
+       <variants jsxoverflow="2"/>
+       <strings jsxname="jsxmapper_component_bin" jsxwidth="100%" jsxheight="100%"/>
+      </object>
+    </object>
+  </object>
+</serialization>

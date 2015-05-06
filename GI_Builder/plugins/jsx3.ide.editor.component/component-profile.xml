@@ -1,0 +1,240 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.fillFromJSX = function(obj) {
+  formIcon.setValue(obj.getMetaValue('icon'));
+  formName.setValue(obj.getMetaValue('name'));
+  formDescription.setValue(obj.getMetaValue('description'));
+  formBeforeDeserialize.setValue(obj.getMetaValue('onbefore'));
+  formAfterDeserialize.setValue(obj.getMetaValue('onafter'));
+};
+
+objJSX.clear = function() {
+  formIcon.setValue('');
+  formName.setValue('');
+  formDescription.setValue('');
+  formBeforeDeserialize.setValue('');
+  formAfterDeserialize.setValue('');
+};
+
+objJSX.onOpen = function() {
+  var baseFolder = null;
+  var iconUri = formIcon.getValue();
+  if (iconUri) {
+    var currentFile = jsx3.ide.getSystemRelativeFile(jsx3.ide.PROJECT.resolveURI(iconUri));
+    if (currentFile.exists())
+      baseFolder = currentFile.getParentFile();
+  }
+
+  jsx3.ide.getPlugIn("jsx3.io.browser").chooseFile(this.getServer().getRootBlock(), {
+      name:"cpfd", modal:true, folder: baseFolder || jsx3.ide.getActiveProjectDirectory(),
+      onChoose: jsx3.$F(function(objFile) {
+        formIcon.setValue(jsx3.ide.PROJECT.getDirectory().relativePathTo(objFile));
+        this.setDirty();
+      }).bind(this)
+  });
+};
+
+objJSX.getEditor = function() {
+  var mainTab = this.getAncestorOfType(jsx3.gui.Tab);
+  return jsx3.ide.getEditorForTab(mainTab);
+};
+
+objJSX.setDirty = function() {
+  this.getEditor().setDirty(true);
+};
+
+objJSX.getProfileProperties = function() {
+  //exit early if the profile as defined by the profile pane is not current (i.e., another editor (such as readwrite) is open)
+  if (!this._inited) return {};
+
+  //build out the serialization profile object and return
+  var props = {};
+  props.name = formName.getValue();
+  props.icon = formIcon.getValue();
+  props.description = formDescription.getValue();
+  props.onbefore = formBeforeDeserialize.getValue();
+  props.onafter = formAfterDeserialize.getValue();
+  return props;
+};
+
+objJSX.spyOnBefore = function() {
+  return "<span class='jsx3ide_eventspy'>" + 
+      "<div class='name'>onBeforeDeserialize</div>" + 
+      "<div class='desc'>" + 
+      "JavaScript code to execute after the XML of this serialization file has been loaded and parsed " + 
+      "and immediately before the contents of this file are loaded into the live application DOM. This script has " +
+      "access to the following context variables:" + 
+      "</div>" + 
+      "<div class='var'><b>objPARENT</b>&#160;{<span class='type'>jsx3.app.Model</span>}: " +
+      "The parent DOM node loading this component file.</div>" + 
+      "<div class='var'><b>objXML</b>&#160;{<span class='type'>jsx3.xml.Entity</span>}: " +
+      "The parsed contents of this component file.</div>" + 
+      "</span>";
+};
+
+objJSX.spyOnAfter = function() {
+  return "<span class='jsx3ide_eventspy'>" + 
+      "<div class='name'>onAfterDeserialize</div>" + 
+      "<div class='desc'>" + 
+      "JavaScript code to execute immediately after the contents of this serialization file have been loaded into the " +
+      "live application DOM. This script has access to the following context variables:" + 
+      "</div>" + 
+      "<div class='var'><b>objJSX</b>&#160;{<span class='type'>jsx3.app.Model</span>}: " +
+      "The root DOM node of this component file.</div>" + 
+      "</span>";
+};
+
+objJSX.onShowMe = function() {
+  this.getEditor().onShowComponentProfile(this);
+};
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Tab">
+    <variants jsxheight="20"/>
+    <strings jsxname="mode_profile" jsxbgcolor="#e8e8f5" jsxhelpid="ide.editor.component.profile"/>
+    <events jsxshow="this.onShowMe()"/>
+    <object type="jsx3.gui.Block">
+      <strings jsxwidth="100%" jsxheight="100%" jsxpadding="10"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <dynamics jsxbgcolor="@Solid Medium"/>
+        <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+        <strings jsxname="mylayout" jsxwidth="100%" jsxheight="100%" jsxrows="25,125,*,*"/>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxtext="_edit_profile_title"/>
+          <variants jsxoverflow="1" jsxfontsize="14"/>
+          <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="left" jsxfontweight="bold"/>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%" jsxpadding="0 0 4 0"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="mylayout" jsxwidth="100%" jsxheight="100%" jsxrows="24,*"/>
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="1" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+              <strings jsxwidth="100%" jsxheight="100%" jsxcols="80,*,80,*,30"/>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="2"/>
+                <strings jsxwidth="100%" jsxheight="100%"/>
+                <object type="jsx3.gui.Block">
+                  <dynamics jsxtext="_gen_name" jsxtip="_edit_profile_tip1"/>
+                  <variants jsxrelativeposition="1"/>
+                  <strings jsxtextalign="right" jsxwidth="100%" jsxpadding="5 8 0 0"/>
+                </object>
+              </object>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="2"/>
+                <strings jsxwidth="100%" jsxheight="100%" jsxpadding="2 0 0 0"/>
+                <object type="jsx3.gui.TextBox">
+                  <strings jsxname="formName" jsxwidth="100%" jsxheight="18"/>
+                  <events jsxincchange="this.getAncestorOfType(jsx3.gui.Tab).setDirty()"/>
+                </object>
+              </object>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="1"/>
+                <strings jsxwidth="100%" jsxheight="100%"/>
+                <object type="jsx3.gui.Block">
+                  <dynamics jsxtext="_edit_profile_txt1" jsxtip="_edit_profile_tip2"/>
+                  <variants jsxrelativeposition="1"/>
+                  <strings jsxtextalign="right" jsxwidth="100%" jsxpadding="5 8 0 0"/>
+                </object>
+              </object>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="2"/>
+                <strings jsxwidth="100%" jsxheight="100%" jsxpadding="2 0 0 0"/>
+                <object type="jsx3.gui.TextBox">
+                  <strings jsxname="formIcon" jsxwidth="100%" jsxheight="18"/>
+                  <events jsxincchange="this.getAncestorOfType(jsx3.gui.Tab).setDirty()"/>
+                </object>
+              </object>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="2"/>
+                <strings jsxpadding="2 6 0 0"/>
+                <object type="jsx3.gui.ImageButton">
+                  <dynamics jsxtip="_gen_browse"/>
+                  <variants jsxindex="0" jsxwidth="16" jsxheight="16"/>
+                  <strings jsxname="btnOpenIcon" jsximage="jsxapp:/images/icon_60.gif" jsxmargin="0 0 0 8"/>
+                  <events jsxexecute="this.getAncestorOfType(jsx3.gui.Tab).onOpen();"/>
+                </object>
+              </object>
+            </object>
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="1" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+              <strings jsxname="mylayout" jsxwidth="100%" jsxheight="100%" jsxcols="80,*"/>
+              <object type="jsx3.gui.Block">
+                <dynamics jsxtext="_gen_desc" jsxtip="_edit_profile_tip3"/>
+                <variants jsxoverflow="2"/>
+                <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxpadding="4 8 0 0"/>
+              </object>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="2"/>
+                <strings jsxname="mychild2" jsxwidth="100%" jsxheight="100%"/>
+                <object type="jsx3.gui.TextBox">
+                  <dynamics jsxborder="@Inset"/>
+                  <variants jsxtype="1"/>
+                  <strings jsxname="formDescription" jsxwidth="100%" jsxheight="100%" jsxvalue=""/>
+                  <events jsxincchange="this.getAncestorOfType(jsx3.gui.Tab).setDirty()"/>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxspy="1"/>
+          <strings jsxwidth="100%" jsxheight="100%" jsxpadding="4 0 4 0"/>
+          <events jsxspy="this.getAncestorOfType(jsx3.gui.Tab).spyOnBefore()"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="1" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="mylayout" jsxwidth="100%" jsxheight="100%" jsxrows="15,*"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxwidth="100%" jsxheight="100%" jsxtext="onBeforeDeserialize"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="mychild2" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.TextBox">
+                <dynamics jsxbg="@Grid Lines" jsxborder="@Inset"/>
+                <variants jsxtype="1"/>
+                <strings jsxname="formBeforeDeserialize" jsxwidth="100%" jsxheight="100%" jsxvalue=""/>
+                <events jsxkeydown="jsx3.ide.doTextEditorKeyDown(objEVENT,this);"
+                    jsxincchange="this.getAncestorOfType(jsx3.gui.Tab).setDirty()"/>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxspy="1"/>
+          <strings jsxwidth="100%" jsxheight="100%" jsxpadding="4 0 0 0"/>
+          <events jsxspy="this.getAncestorOfType(jsx3.gui.Tab).spyOnAfter()"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="1" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="mylayout" jsxwidth="100%" jsxheight="100%" jsxrows="15,*"/>
+            <object type="jsx3.gui.Block">
+              <dynamics jsxtip="_edit_profile_tip5"/>
+              <variants jsxoverflow="2"/>
+              <strings jsxwidth="100%" jsxheight="100%" jsxtext="onAfterDeserialize"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="mychild2" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.TextBox">
+                <dynamics jsxborder="@Inset" jsxbg="@Grid Lines"/>
+                <variants jsxtype="1"/>
+                <strings jsxname="formAfterDeserialize" jsxwidth="100%" jsxheight="100%" jsxvalue=""/>
+                <events jsxkeydown="jsx3.ide.doTextEditorKeyDown(objEVENT,this);"
+                    jsxincchange="this.getAncestorOfType(jsx3.gui.Tab).setDirty()"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

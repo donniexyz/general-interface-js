@@ -1,0 +1,13 @@
+<transform xmlns="http://gi.tibco.com/transform/" xmlns:u="http://gi.tibco.com/transform/user" version="1.0">
+    <template onpaint="var objPrompt = this.getRenderedBox('jsConsolePrompt');if(objPrompt) objPrompt.focus();">
+        <div u:id="jsConsole" class="jsconsole" index="{$index}" jsxindex="{$jsxindex}" label="{$label}" title="{$tip}" style="position:{$position}; width:{$width};height:{$height};overflow:auto;font-size:{$fontsize};font-family:{$fontname};background-color:#FFFFFF;padding:5px 0px 5px 0px;" onclick="{onClick}" onmouseup="{onMouseUp}">
+          <div u:protected="true" style="width:100%;height:100%;" onclick="{onBodyClick}">
+            <div u:id="jsConsoleOutput" class="jsconsole-output">
+            </div>
+            <div class="jsconsole-prompt-container">
+              <div u:id="jsConsolePrompt" class="jsconsole-prompt" u:protected="true" contenteditable="true" hideFocus='hideFocus' onkeydown="{onKeyDown}"></div>
+            </div>
+          </div>
+        </div>
+    </template>
+</transform>

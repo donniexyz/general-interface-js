@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Block - 100%]]></name>
+  <icon><![CDATA[images/prototypes/block.gif]]></icon>
+  <description><![CDATA[Simple block, relatively positioned with overflow=scroll.]]></description>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"/>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+  </object>
+</serialization>

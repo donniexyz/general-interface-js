@@ -1,0 +1,74 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[
+ 
+objJSX.getFirstResponder = function() {
+  return templatelist;
+};
+
+objJSX.getTitle = function() {
+  return "Choose a Project Template";
+};
+
+objJSX.onTryNext = function() {
+  if (!templatelist.getValue())
+    return {ok:false, alert:true, message:"You must select a project template before continuing."};
+};
+
+objJSX.onReveal = function() {
+  if (!this._types) {
+    this._types = this.getPlugIn().getExtPoint("project-template").processExts();
+
+    this._types.each(function(e) {
+      templatelist.insertRecord({jsxid:e.getId(), label:e.getLabel()});
+    });
+
+    if (this._types.length == 1) {
+      templatelist.setValue(this._types[0].getId());
+      this._doSelect(this._types[0].getId());
+    }
+  }
+};
+
+objJSX.onConceal = function(objSession) {
+  objSession.templateType = this._getTypeById(templatelist.getValue());
+};
+
+objJSX._getTypeById = function(id) {
+  return this._types.find(function(e) { return e.getId() == id; });
+};
+
+objJSX._doSelect = function(id) {
+  var type = this._getTypeById(id);
+  descr.setText(type ? type.getDescription() : "", true);
+};
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+    <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+    <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxrows="120,*"/>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxborder="@Inset"/>
+      <variants jsxoverflow="2"/>
+      <strings jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Matrix">
+        <dynamics jsxbgcolor="@Solid Medium"/>
+        <variants jsxselectionmodel="1" jsxresize="0" jsxheaderheight="0" jsxreorder="0" jsxscalewidth="1"/>
+        <strings jsxname="templatelist" jsxbodyborder="1px solid #d8d8e5" jsxfocusstyle=";"/>
+        <events jsxchange="pane._doSelect(this.getValue());"/>
+        <object type="jsx3.gui.Matrix.Column">
+          <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"
+                    jsxcellbgcolor="@Matrix AllCol Light BG" jsxcellborder="@Matrix AllCol Light Border"/>
+          <strings jsxname="abclist_col1" jsxcellpadding="3" jsxwidth="*" jsxpath="label" jsxvaluetemplate="@unescape" jsxformathandler="@unescape"/>
+        </object>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2"/>
+      <strings jsxname="descr" jsxwidth="100%" jsxheight="100%" jsxpadding="6 0 6 0"/>
+    </object>
+  </object>
+</serialization>

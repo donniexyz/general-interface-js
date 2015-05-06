@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Sound]]></name>
+  <icon><![CDATA[images/prototypes/sound.gif]]></icon>
+  <description><![CDATA[A sound component that can be played programmatically.]]></description>
+  <object type="jsx3.gui.Sound">
+    <variants jsxvolume="50"/>
+    <strings jsxname="sound" jsxurl="jsx:///sounds/beeps.wav"/>
+  </object>
+</serialization>

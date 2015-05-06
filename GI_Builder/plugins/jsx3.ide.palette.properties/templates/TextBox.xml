@@ -1,0 +1,84 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+  <record include="master.xml" group="position"/>
+
+  <record jsxid="jsx3list" group="1" jsxtext="TextBox">
+    <record include="master.xml" group="form" children="1"/>
+    <record jsxid="jsxreadonly" jsxtext="Read-Only"
+        eval="1"
+        jsxtip="Sets whether the text box is read-only."
+        docgetter="getReadonly" docsetter="setReadonly"
+        docdefault="&lt;code&gt;false (jsx3.Boolean.FALSE)&lt;/code&gt;"
+        disallow="'"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+    <record include="master.xml" group="jsxrequired" children="1"/>
+    <record include="master.xml" group="wrap" children="1"/>
+    <record jsxid="jsxtype" jsxtext="Type"
+        eval="1"
+        jsxtip="Sets the type of text box, such as text box, text area, or password."
+        docgetter="getType" docsetter="setType"
+        docdefault="Text Box (&lt;code&gt;jsx3.gui.TextBox.TYPETEXT&lt;/code&gt;)"
+        jsxexecute="objJSX.setType(vntValue);objJSX.repaint();"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.TextBox.TYPETEXT" jsxtext="Text Box"/>
+      <enum jsxid="jsx3.gui.TextBox.TYPETEXTAREA" jsxtext="Text Area"/>
+      <enum jsxid="jsx3.gui.TextBox.TYPEPASSWORD" jsxtext="Password"/>
+    </record>
+    <record jsxid="jsxmaxlength" jsxtext="Max Length"
+        eval="1"
+        jsxtip="Sets the maximum allowed length of a text box of type text box or password."
+        docgetter="getMaxLength" docsetter="setMaxLength"
+        docdefault="Empty"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxvalidationexpression" jsxtext="Validation Expr"
+        eval="0"
+        jsxtip="Sets the regular expression to apply to the contents of the text box when &lt;code&gt;doValidate()&lt;/code&gt; is called."
+        docgetter="getValidationExpression" docsetter="setValidationExpression"
+        disallow=""
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxvalidationtype" jsxtext="Validation Type"
+        eval="0"
+        jsxtip="Sets the type of pre-canned validation expression to use, such as phone, zipcode, and social security number."
+        docgetter="getValidationType" docsetter="setValidationType"
+        docdefault="None (&lt;code&gt;jsx3.gui.TextBox.VALIDATIONNONE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.TextBox.VALIDATIONNONE" jsxtext="None"/>
+      <enum jsxid="jsx3.gui.TextBox.VALIDATIONSSN" jsxtext="Social Security"/>
+      <enum jsxid="jsx3.gui.TextBox.VALIDATIONPHONE" jsxtext="Phone"/>
+      <enum jsxid="jsx3.gui.TextBox.VALIDATIONEMAIL" jsxtext="Email"/>
+      <enum jsxid="jsx3.gui.TextBox.VALIDATIONNUMBER" jsxtext="Number"/>
+      <enum jsxid="jsx3.gui.TextBox.VALIDATIONLETTER" jsxtext="Letter"/>
+      <enum jsxid="jsx3.gui.TextBox.VALIDATIONUSZIP" jsxtext="US Zipcode"/>
+    </record>
+  </record>
+
+  <record include="master.xml" group="font"/>
+
+  <record jsxid="box" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid!='jsxoverflow']"/>
+    <record jsxid="jsxoverflow" jsxtext="Overflow"
+        jsxtip="Sets the CSS overflow for this text box, which defines how its on-screen view behaves when the contents are larger than the specified width and/or height."
+        docgetter="getOverflow" docsetter="setOverflow"
+        docdefault="Expand (&lt;code&gt;jsx3.gui.TextBox.OVERFLOWNORMAL&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.TextBox.OVERFLOWNORMAL" jsxtext="Normal"/>
+      <enum jsxid="jsx3.gui.TextBox.OVERFLOWAUTO" jsxtext="Auto"/>
+      <enum jsxid="jsx3.gui.TextBox.OVERFLOWSCROLL" jsxtext="Scroll"/>
+    </record>
+    <record include="master.xml" group="jsxdisabledbgcolor" children="1"/>
+  </record>
+
+  <record include="master.xml" group="css"/>
+  <record include="master.xml" group="interaction"/>
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>

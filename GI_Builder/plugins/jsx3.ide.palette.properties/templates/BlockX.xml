@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+  <record include="master.xml" group="position"/>
+
+  <record jsxid="jsx3block" group="1" jsxtext="BlockX">
+    <record include="master.xml" group="jsxtagname" children="1"/>
+  </record>
+
+  <record include="master.xml" group="blockx-xml">
+    <record jsxid="jsxxslid" jsxtext="XSL Cache Id"
+        eval="0"
+        jsxtip="Sets the cache ID for the XSL document this object is mapped to."
+        docgetter="getXSLId" docsetter="setXSLId"
+        docdefault="Unique ID assigned by the system"
+        validate="/^[\w\-\.]*$/"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setXSLId(vntValue);"/>
+    <record jsxid="jsxxsl" jsxtext="XSL String"
+        eval="0"
+        jsxtip="Sets the XSL document as a string."
+        docgetter="getXSLString" docsetter="setXSLString"
+        jsxmask="jsxtextarea"
+        jsxexecute="objJSX.setXSLString(vntValue);"/>
+    <record jsxid="jsxxslurl" jsxtext="XSL URL"
+        eval="0"
+        jsxtip="Sets the URL for the resource. This resource is synchronously loaded when this object is painted on-screen."
+        docgetter="getXSLURL" docsetter="setXSLURL"
+        jsxmask="jsxpath"
+        jsxexecute="objJSX.setXSLURL(vntValue);"/>
+    <record jsxid="jsxxslasync" jsxtext="XSL Async"
+        eval="1"
+        jsxtip="If set to Asynchronous and the XSL template of this control is loaded from a URL, then the template is loaded asynchronously and a loading message is displayed in this control until the it loads."
+        docgetter="getXslAsync" docsetter="setXslAsync"
+        docdefault="Synchronous (&lt;code&gt;jsx3.Boolean.FALSE&lt;/code&gt;)"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setXslAsync(vntValue);">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Asynchronous"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Synchronous"/>
+    </record>
+  </record>
+
+  <record include="master.xml" group="font"/>
+  <record include="master.xml" group="box"/>
+  <record include="master.xml" group="css"/>
+  <record include="master.xml" group="interaction"/>
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>

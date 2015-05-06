@@ -1,0 +1,11 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"></variants>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%"></strings>
+    <object type="jsx3.gui.Slider">
+      <variants jsxvalue="0" jsxrelativeposition="1" jsxorientation="0" jsxpainttrack="1" jsxtrackclick="1"></variants>
+      <strings jsxname="slider" jsxlength="200"></strings>
+    </object>
+  </object>
+</serialization>

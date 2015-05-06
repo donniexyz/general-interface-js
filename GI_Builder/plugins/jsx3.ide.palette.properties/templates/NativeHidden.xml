@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="jsx3hidden" group="1" jsxtext="Form">
+    <record include="master.xml" path="/data/record[@jsxid='form']/record[@jsxid='jsxvalue']"/>
+  </record>
+
+  <record include="master.xml" group="metadata"/>
+</data>

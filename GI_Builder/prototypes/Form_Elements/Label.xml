@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Label]]></name>
+  <icon><![CDATA[images/prototypes/label.gif]]></icon>
+  <description><![CDATA[A native HTML label tag]]></description>
+  <object type="jsx3.gui.Label">
+    <variants jsxrelativeposition="1" jsxoverflow="3"/>
+    <strings jsxname="formLabel" jsxtext="[label]" jsxfor="#input"/>
+  </object>
+</serialization>

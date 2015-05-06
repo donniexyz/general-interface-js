@@ -1,0 +1,14 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Dialog]]></name>
+  <icon><![CDATA[images/prototypes/dialog.gif]]></icon>
+  <description><![CDATA[Dialog box.  (Set Modal property for a modal dialog).]]></description>
+  <object type="jsx3.gui.Dialog">
+    <variants jsxwidth="431" jsxheight="318" jsxwindowstate="1" jsxzindex="5002"></variants>
+    <strings jsxname="dialog"></strings>
+    <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1" jsxloadtype="1"></variants>
+      <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"></strings>
+    </object>
+  </object>
+</serialization>

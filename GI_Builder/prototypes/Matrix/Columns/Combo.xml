@@ -1,0 +1,24 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Select - Combo]]></name>
+  <icon><![CDATA[images/prototypes/matrix-columnmask.gif]]></icon>
+  <description><![CDATA[Combo that selects one of a set of enumerated values. jsxid is the key, jsxtext is the text.]]></description>
+  <object type="jsx3.gui.Matrix.Column">
+    <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"/>
+    <strings jsxname="comboColumn" jsxwidth="100" jsxtext="Combo"
+        jsxpadding="2" jsxcellpadding="2 0 0 6" jsxvaluetemplate="@empty"
+        jsxformathandler="@lookup" jsxpath="jsxvalue"/>
+    <object type="jsx3.gui.Select">
+      <variants jsxtype="1"/>
+      <strings jsxname="selectMask" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;
+&lt;record jsxid=&quot;1&quot; jsxtext=&quot;One&quot;/&gt;
+&lt;record jsxid=&quot;2&quot; jsxtext=&quot;Two&quot;/&gt;
+&lt;record jsxid=&quot;3&quot; jsxtext=&quot;Three&quot;/&gt;
+&lt;/data&gt;"/>
+      <xslparameters jsxsortpath="jsxid"/>
+    </object>
+  </object>
+</serialization>

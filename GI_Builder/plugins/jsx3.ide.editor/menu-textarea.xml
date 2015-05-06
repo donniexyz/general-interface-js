@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record jsxid="wrap" jsxtext="Wrap Text" jsxgroupname="wrapgp" 
+    jsxexecute="var cp = this.getContextParent(); cp.setWrap(jsx3.gui.TextBox.WRAPYES).repaint(); var tb = cp.getAncestorOfName('jsxcodeeditor'); tb.onWrap(jsx3.gui.TextBox.WRAPYES);"
+    jsximg="jsxapp:/images/icon_18.gif" />
+  <record jsxid="unwrap" jsxtext="Un-wrap Text" jsxselected="1" jsxgroupname="wrapgp"
+    jsxexecute="var cp = this.getContextParent(); cp.setWrap(jsx3.gui.TextBox.WRAPNO).repaint(); var tb = cp.getAncestorOfName('jsxcodeeditor'); tb.onWrap(jsx3.gui.TextBox.WRAPNO);"
+    jsximg="jsxapp:/images/icon_17.gif" />
+</data>

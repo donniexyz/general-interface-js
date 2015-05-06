@@ -1,0 +1,54 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+   <variants jsxleft="0" jsxtop="0" jsxoverflow="2" jsxrelativeposition="0"/>
+   <strings jsxwidth="100%" jsxheight="100%" jsxrows="80,26,*" jsxhelpid="ide.mapper.tester.panel3"/>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="2"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxpadding="8 8 0 100"/>
+      <object type="jsx3.gui.Block">
+       <variants jsxleft="0" jsxtop="12" jsxwidth="90" jsxoverflow="2" jsxrelativeposition="0"/>
+       <strings jsxname="jsx_schema_label_3" jsxtext="HTTP Headers" jsxtextalign="right" jsxheight="12" jsxfontweight="bold"/>
+      </object>
+      <object type="jsx3.gui.TextBox">
+       <dynamics jsxborder="@Inset"/>
+       <variants jsxleft="10" jsxtop="10" jsxindex="0" jsxtype="1" jsxenabled="1"/>
+       <strings jsxwidth="100%" jsxname="jsx_schema_headers_response" jsxheight="100%" jsxdisabledbgcolor="#ffffff"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="2"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxpadding="8 8 0 100"/>
+      <object type="jsx3.gui.Block">
+       <variants jsxleft="0" jsxtop="12" jsxwidth="90" jsxoverflow="2" jsxrelativeposition="0"/>
+       <strings jsxname="jsx_schema_label_3" jsxtext="HTTP Status" jsxtextalign="right" jsxheight="12" jsxfontweight="bold" jsxtip="entering a non 200/202 value will cause the fault message rules to be applied if they exist. otherwise, the output message rules will be applied in all situations"/>
+      </object>
+      <object type="jsx3.gui.TextBox">
+       <variants jsxwidth="50" jsxheight="18" jsxleft="10" jsxtop="10" jsxmaxlength="3"/>
+       <strings jsxname="jsx_schema_status" jsxvalidationtype="number"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="2"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxpadding="8 8 8 100"/>
+      <object type="jsx3.gui.ToolbarButton">
+       <variants jsxleft="8" jsxtop="8" jsxrelativeposition="0"/>
+       <strings jsxname="jsx_schema_test_generate_alternate" jsxtip="generate alternate inbound message (if an alternate URL is provided, this document will be used; if no alternate is provided, the XML Mapping Utility will auto-generate a message)" jsximage="images/alternate.gif" groupName="jsx_soaptester"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.ServiceTest).getAlternateResponse();"/>
+      </object>
+      <object type="jsx3.gui.Block">
+       <variants jsxleft="36" jsxtop="12" jsxwidth="54" jsxoverflow="2" jsxrelativeposition="0"/>
+       <strings jsxname="jsx_schema_label_3" jsxtext="Response" jsxtextalign="right" jsxheight="12" jsxfontweight="bold"/>
+      </object>
+      <object type="jsx3.gui.TextBox">
+       <dynamics jsxborder="@Inset"/>
+       <variants jsxindex="0" jsxtype="1"/>
+       <strings jsxwidth="100%" jsxheight="100%" jsxname="jsx_schema_envelope_response"/>
+      </object>
+    </object>
+  </object>
+</serialization>

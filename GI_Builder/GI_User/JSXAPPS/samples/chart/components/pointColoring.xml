@@ -1,0 +1,75 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Licensed under TIBCO BSD license, see license.txt under directory samples/
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <name><![CDATA[Sample App Template]]></name>
+ <description><![CDATA[Basic template for sample applications.  Contains a top block for descriptions, and a bottom block for the sample app.]]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+   <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+   <strings jsxname="layoutSample (--)" jsxwidth="100%" jsxheight="100%" jsxrows="170,*"/>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxborder="@Outset" jsxpadding="@8Pixel" jsxbgcolor="@Solid Medium"/>
+     <variants jsxoverflow="1"/>
+     <strings jsxname="blockDescription" jsxwidth="100%" jsxheight="100%" jsxtext="
+&lt;p align=&quot;right&quot;&gt;&lt;b&gt;Charting; version 2.0&lt;/b&gt;&lt;br/&gt;
+JSX version: 3.4.0&lt;/p&gt;
+
+&lt;p&gt;This chart shows how to use a coloring function to shade each category individually. The points are shaded from yellow to red along the y axis and from transparent to opaque along the x axis.&lt;/p&gt;
+
+&lt;p&gt;Additionally, this chart shows how to use a context menu with chart components. A right click on the chart series will show a context menu for choosing the point renderer of the series.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;logic.js&lt;/b&gt; contains several functions that provide the behaviors for these events.&lt;/p&gt;"/>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxborder="@Outset" jsxpadding="@8Pixel"/>
+     <variants jsxoverflow="1"/>
+     <strings jsxname="blockApp" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.chart.PlotChart">
+       <variants jsxleft="0" jsxtop="0" jsxwidth="400" jsxheight="300" borderWidth="1" borderAlpha="1" alpha="1" jsxrelativeposition="1" loadState="1" maxPointRadius="30"/>
+       <strings jsxname="bubbleChart" titlePlacement="top" legendPlacement="right" dataPadding="14 25 14 10" borderColor="#999999" magnitudeMethod="area" jsxbgcolor="#FFFFFF" jsxxmlurl="xml/plotchart.xml"/>
+        <object type="jsx3.chart.ChartLabel">
+         <variants jsxleft="0" jsxtop="0" jsxwidth="398" jsxheight="25" labelRotation="0" jsxfontsize="14"/>
+         <strings jsxname="title" jsxtext="Bubble Chart" jsxcolor="#FFFFFF" jsxbgcolor="#666666" jsxpadding="4 0 0 0" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center"/>
+        </object>
+        <object type="jsx3.chart.LinearAxis">
+         <variants jsxleft="0" jsxtop="0" jsxwidth="298" jsxheight="273" originX="-41" originY="-14" horizontal="1" primary="1" length="232" showAxis="1" showLabels="1" labelGap="3" labelRotation="0" tickLength="3" minorTickDivisions="4" minorTickLength="2" autoAdjust="1" baseAtZero="1" shownMin="-100" shownMax="100" shownInterval="25"/>
+         <strings jsxname="xAxis" axisStroke="#000000 1 1" labelPlacement="axis" tickAlignment="aligned" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="outside" minorTickStroke="#666666 1" labelStyle="font-size: 8px; font-family: Verdana;"/>
+        </object>
+        <object type="jsx3.chart.LinearAxis">
+         <variants jsxleft="0" jsxtop="0" jsxwidth="298" jsxheight="273" originX="-41" originY="-14" horizontal="0" primary="1" length="229" showAxis="1" showLabels="1" labelGap="3" labelRotation="0" tickLength="3" minorTickDivisions="4" minorTickLength="3" displayWidth="25" autoAdjust="1" baseAtZero="1" shownMin="-100" shownMax="100" shownInterval="25"/>
+         <strings jsxname="yAxis" axisStroke="#000000 1 1" labelPlacement="axis" tickAlignment="aligned" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="none" minorTickStroke="#000000 1 1" labelStyle="font-size: 8px; font-family: Verdana; text-align: right;"/>
+        </object>
+        <object type="jsx3.chart.GridLines">
+         <variants jsxleft="41" jsxtop="14" jsxwidth="232" jsxheight="229" useXPrimary="1" useYPrimary="1" horizontalAbove="1" inForeground="0" strokeMajorV="['#FFFFFF 1 .7']" strokeMinorV="['#FFFFFF 1 .2']" strokeMajorH="['#FFFFFF 1 .7']" strokeMinorH="['#FFFFFF 1 .2']" fillV="['#CCCCCC']"/>
+         <strings jsxname="grid" borderStroke="#999999"/>
+        </object>
+        <object type="jsx3.chart.Legend">
+         <variants boxHeight="10" lineHeight="22" titleSpace="8" boxSpace="6" jsxleft="298" jsxtop="25" jsxwidth="100" jsxheight="273"/>
+         <strings jsxname="legend" labelStyle="font-size: 10px;" backgroundStroke="#BBBBBB" jsxmargin="10 10 10 4" jsxpadding="4 4 0 4"/>
+          <object type="jsx3.chart.ChartLabel">
+           <variants labelRotation="0" jsxfontsize="12" jsxleft="8" jsxtop="115" jsxwidth="78" jsxheight="18"/>
+           <strings jsxname="legendTitle" jsxtext="Legend" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center"/>
+          </object>
+        </object>
+        <object type="jsx3.chart.BubbleSeries">
+         <variants usePrimaryX="1" usePrimaryY="1" index="0" jsxleft="41" jsxtop="14" jsxwidth="232" jsxheight="229"/>
+         <strings jsxname="series1" seriesName="Events" renderer="jsx3.chart.PointRenderer.CIRCLE" tooltipFunction="jsx3.chart.BubbleSeries.tooltip" xField="x" yField="y" magnitudeField="m" fill="#FF0000" stroke="#666666" colorFunction="eg.chart.pointColoring" jsxmenu="pointTypeMenu"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Menu">
+       <variants/>
+       <strings jsxname="pointTypeMenu" jsxtip="menu" jsxtext="menu" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;
+ &lt;record jsxgroupname=&quot;pt&quot; jsxselected=&quot;1&quot; jsxid=&quot;CIRCLE&quot; jsxtext=&quot;Circle&quot;/&gt;
+ &lt;record jsxgroupname=&quot;pt&quot; jsxid=&quot;BOX&quot; jsxtext=&quot;Box&quot;/&gt;
+ &lt;record jsxgroupname=&quot;pt&quot; jsxid=&quot;TRIANGLE&quot; jsxtext=&quot;Triangle&quot;/&gt;
+ &lt;record jsxgroupname=&quot;pt&quot; jsxid=&quot;CROSS&quot; jsxtext=&quot;Cross&quot;/&gt;
+ &lt;record jsxgroupname=&quot;pt&quot; jsxid=&quot;DIAMOND&quot; jsxtext=&quot;Diamond&quot;/&gt;
+ &lt;/data&gt;" jsxdisplay="none"/>
+       <events jsxexecute="eg.chart.pointTypeSelect(this, strRECORDID);"/>
+      </object>
+    </object>
+  </object>
+</serialization>

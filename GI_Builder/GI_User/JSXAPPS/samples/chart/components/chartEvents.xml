@@ -1,0 +1,65 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Licensed under TIBCO BSD license, see license.txt under directory samples/
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <name><![CDATA[Sample App Template]]></name>
+ <description><![CDATA[Basic template for sample applications.  Contains a top block for descriptions, and a bottom block for the sample app.]]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+   <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+   <strings jsxname="layoutSample (--)" jsxwidth="100%" jsxheight="100%" jsxrows="140,*"/>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxborder="@Outset" jsxpadding="@8Pixel" jsxbgcolor="@Solid Medium"/>
+     <variants jsxoverflow="1"/>
+     <strings jsxname="blockDescription" jsxwidth="100%" jsxheight="100%" jsxtext="
+&lt;p align=&quot;right&quot;&gt;&lt;b&gt;Charting; version 2.0&lt;/b&gt;&lt;br/&gt;
+JSX version: 3.4.0&lt;/p&gt;
+
+&lt;p&gt;This is an example of chart events. The top chart uses a select event to show drill down data in the bottom chart. Click on a slice in the top chart to show nested data in the bottom chart. Both charts use a spy glass event to show formatted text when the mouse moves over a pie slice.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;logic.js&lt;/b&gt; contains several functions that provide the behaviors for these events.&lt;/p&gt;"/>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxborder="@Outset" jsxpadding="@8Pixel"/>
+     <variants jsxoverflow="1"/>
+     <strings jsxname="blockApp" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.chart.PieChart">
+       <variants jsxleft="10" jsxtop="10" jsxwidth="250" jsxheight="165" borderWidth="1" borderAlpha="1" alpha="1" jsxrelativeposition="0" loadState="1" seriesPadding="0.1" totalAngle="360" startAngle="0"/>
+       <strings jsxname="majorCategories" titlePlacement="top" legendPlacement="right" dataPadding="10" borderColor="#999999" categoryField="jsxtext" colorFunction="eg.chart.pieColoring" seriesStroke="#666666" jsxbgcolor="#FFFFFF" jsxxmlurl="xml/drilldown.xml"/>
+        <object type="jsx3.chart.ChartLabel">
+         <variants jsxleft="0" jsxtop="0" jsxwidth="248" jsxheight="16" labelRotation="0" jsxfontsize="12" preferredHeight="16"/>
+         <strings jsxname="title" jsxtext="Major Categories" jsxpadding="2 0 0 0" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center"/>
+        </object>
+        <object type="jsx3.chart.PieSeries">
+         <variants jsxleft="0" jsxtop="0" jsxwidth="118" jsxheight="127" usePrimaryX="1" usePrimaryY="1" index="0"/>
+         <strings jsxname="series1" seriesName="Series 1" field="jsxvalue"/>
+         <events jsxselect="eg.chart.doDrillDown(this.getChart(), strRECORDID);" jsxspy="eg.chart.pieSpy(this.getChart(), strRECORDID);"/>
+        </object>
+        <object type="jsx3.chart.Legend">
+         <variants boxHeight="10" lineHeight="16" titleSpace="8" boxSpace="6" jsxleft="138" jsxtop="16" jsxwidth="110" jsxheight="147" preferredWidth="110"/>
+         <strings jsxname="legend" labelStyle="font-size: 10px;" backgroundFill="" backgroundStroke="#BBBBBB" jsxmargin="10 10 10 4" jsxpadding="4 4 0 4"/>
+         <events jsxselect="eg.chart.doDrillDown(this.getChart(), strRECORDID);" jsxspy="eg.chart.legendSpy(this.getChart(), strRECORDID);"/>
+        </object>
+      </object>
+      <object type="jsx3.chart.PieChart">
+       <variants jsxleft="10" jsxtop="190" jsxwidth="250" jsxheight="165" borderWidth="1" borderAlpha="1" alpha="1" jsxrelativeposition="0" loadState="1" innerRadius="0" seriesPadding="0.1" totalAngle="360" startAngle="0"/>
+       <strings jsxname="minorCategories" titlePlacement="top" legendPlacement="right" dataPadding="10" borderColor="#999999" categoryField="jsxtext" colorFunction="eg.chart.pieColoring" seriesStroke="#666666" jsxbgcolor="#FFFFFF"/>
+        <object type="jsx3.chart.ChartLabel">
+         <variants jsxleft="0" jsxtop="0" jsxwidth="248" jsxheight="16" labelRotation="0" jsxfontsize="12" preferredHeight="16"/>
+         <strings jsxname="title" jsxtext="Minor Categories" jsxpadding="2 0 0 0" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center"/>
+        </object>
+        <object type="jsx3.chart.PieSeries">
+         <variants jsxleft="0" jsxtop="0" jsxwidth="118" jsxheight="127" usePrimaryX="1" usePrimaryY="1" index="0"/>
+         <strings jsxname="series2" seriesName="Series 2" field="jsxvalue"/>
+         <events jsxspy="eg.chart.pieSpy(this.getChart(), strRECORDID);"/>
+        </object>
+        <object type="jsx3.chart.Legend">
+         <variants boxHeight="10" lineHeight="16" titleSpace="8" boxSpace="6" jsxleft="138" jsxtop="16" jsxwidth="110" jsxheight="147" preferredWidth="110"/>
+         <strings jsxname="legend" labelStyle="font-size: 10px;" backgroundFill="" backgroundStroke="#BBBBBB" jsxmargin="10 10 10 4" jsxpadding="4 4 0 4"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

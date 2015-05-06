@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Toolbar]]></name>
+  <icon><![CDATA[images/prototypes/toolbar.gif]]></icon>
+  <description><![CDATA[toolBar object, use for collecting sets of buttons into navigable groups.]]></description>
+  <object type="jsx3.gui.WindowBar">
+    <variants jsxbartype="1"/>
+    <strings jsxname="toolBar"/>
+  </object>
+</serialization>

@@ -1,0 +1,96 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.2">
+  <name/>
+  <icon/>
+  <description/>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize/>
+  <object type="jsx3.gui.Block">
+    <variants jsxrelativeposition="1"/>
+    <strings jsxinstanceof="jsx3.app.Model" jsxname="blkRootPane" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrepeat="4" jsxsizearray="['50','28','*','28']" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2" jsxbestguess="1" jsxorientation="0"/>
+      <strings jsxname="lytCanvas2Layout" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="blkCanvas2BrandingPane" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+        <dynamics jsxborder="@Outset" jsxpadding="@8Pixel"/>
+        <object type="jsx3.gui.Image">
+          <variants jsxoverflow="2" jsxrelativeposition="1"></variants>
+          <strings jsxname="image" jsxsrc="jsx:///images/icons/logo_234_18.gif"></strings>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="blkCanvas2MenuBarPane" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset"/>
+        <object type="jsx3.gui.WindowBar">
+          <variants jsxbartype="2"/>
+          <strings jsxname="winbarCanvas2MenuBar"/>
+          <object type="jsx3.gui.Menu">
+            <variants jsxstate="0"/>
+            <strings jsxname="mnuCanvas2ImageMenu1" jsxtip="menu" jsxtext="menu" jsximage="images/refresh.gif" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record jsxid=&quot;1&quot; jsxtext=&quot;New&quot;/&gt;&lt;record jsxid=&quot;1&quot; jsxtext=&quot;Open&quot;/&gt;&lt;record jsxid=&quot;1&quot; jsxtext=&quot;Save&quot;/&gt;&lt;/data&gt;" Dmxj="&lt;div id=&quot;_jsx_sampleGUILayout_51&quot; tabindex=&quot;0&quot; onmouseover=&quot;this.focus();&quot; onmouseout=&quot;this.blur();&quot; onfocus=&quot;jsx3.Menu.doFocus(this,'_jsx_sampleGUILayout_5',1);&quot; onblur=&quot;jsx3.Menu.doBlur(this,'_jsx_sampleGUILayout_5',1);&quot; jsxid=&quot;1&quot; class=&quot;jsx30menu_item&quot; jsxtype=&quot;Leaf&quot;&gt;&lt;span class=&quot;jsx30menu_kc&quot; JSXDragType=&quot;JSX_GENERIC&quot; style=&quot;&quot; JSXDragId=&quot;1&quot; JSXSpyglass=&quot;1&quot;&gt;&lt;table class=&quot;jsx30menu_kct&quot;&gt; &lt;tr&gt; &lt;td class=&quot;name&quot;&gt;New&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/span&gt;&lt;/div&gt; &lt;div id=&quot;_jsx_sampleGUILayout_51&quot; tabindex=&quot;0&quot; onmouseover=&quot;this.focus();&quot; onmouseout=&quot;this.blur();&quot; onfocus=&quot;jsx3.Menu.doFocus(this,'_jsx_sampleGUILayout_5',1);&quot; onblur=&quot;jsx3.Menu.doBlur(this,'_jsx_sampleGUILayout_5',1);&quot; jsxid=&quot;1&quot; class=&quot;jsx30menu_item&quot; jsxtype=&quot;Leaf&quot;&gt;&lt;span class=&quot;jsx30menu_kc&quot; JSXDragType=&quot;JSX_GENERIC&quot; style=&quot;&quot; JSXDragId=&quot;1&quot; JSXSpyglass=&quot;1&quot;&gt;&lt;table class=&quot;jsx30menu_kct&quot;&gt; &lt;tr&gt; &lt;td class=&quot;name&quot;&gt;Open&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/span&gt;&lt;/div&gt; &lt;div id=&quot;_jsx_sampleGUILayout_51&quot; tabindex=&quot;0&quot; onmouseover=&quot;this.focus();&quot; onmouseout=&quot;this.blur();&quot; onfocus=&quot;jsx3.Menu.doFocus(this,'_jsx_sampleGUILayout_5',1);&quot; onblur=&quot;jsx3.Menu.doBlur(this,'_jsx_sampleGUILayout_5',1);&quot; jsxid=&quot;1&quot; class=&quot;jsx30menu_item&quot; jsxtype=&quot;Leaf&quot;&gt;&lt;span class=&quot;jsx30menu_kc&quot; JSXDragType=&quot;JSX_GENERIC&quot; style=&quot;&quot; JSXDragId=&quot;1&quot; JSXSpyglass=&quot;1&quot;&gt;&lt;table class=&quot;jsx30menu_kct&quot;&gt; &lt;tr&gt; &lt;td class=&quot;name&quot;&gt;Save&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/span&gt;&lt;/div&gt; "/>
+          </object>
+          <object type="jsx3.gui.Menu">
+            <variants jsxstate="0"/>
+            <strings jsxname="mnuCanvas2ImageMenu2" jsxtip="menu" jsxtext="menu" jsximage="images/refresh.gif" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record jsxid=&quot;1&quot; jsxtext=&quot;New&quot;/&gt;&lt;record jsxid=&quot;1&quot; jsxtext=&quot;Open&quot;/&gt;&lt;record jsxid=&quot;1&quot; jsxtext=&quot;Save&quot;/&gt;&lt;/data&gt;" Dmxj="&lt;div id=&quot;_jsx_sampleGUILayout_61&quot; tabindex=&quot;0&quot; onmouseover=&quot;this.focus();&quot; onmouseout=&quot;this.blur();&quot; onfocus=&quot;jsx3.Menu.doFocus(this,'_jsx_sampleGUILayout_6',1);&quot; onblur=&quot;jsx3.Menu.doBlur(this,'_jsx_sampleGUILayout_6',1);&quot; jsxid=&quot;1&quot; class=&quot;jsx30menu_item&quot; jsxtype=&quot;Leaf&quot;&gt;&lt;span class=&quot;jsx30menu_kc&quot; JSXDragType=&quot;JSX_GENERIC&quot; style=&quot;&quot; JSXDragId=&quot;1&quot; JSXSpyglass=&quot;1&quot;&gt;&lt;table class=&quot;jsx30menu_kct&quot;&gt; &lt;tr&gt; &lt;td class=&quot;name&quot;&gt;New&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/span&gt;&lt;/div&gt; &lt;div id=&quot;_jsx_sampleGUILayout_61&quot; tabindex=&quot;0&quot; onmouseover=&quot;this.focus();&quot; onmouseout=&quot;this.blur();&quot; onfocus=&quot;jsx3.Menu.doFocus(this,'_jsx_sampleGUILayout_6',1);&quot; onblur=&quot;jsx3.Menu.doBlur(this,'_jsx_sampleGUILayout_6',1);&quot; jsxid=&quot;1&quot; class=&quot;jsx30menu_item&quot; jsxtype=&quot;Leaf&quot;&gt;&lt;span class=&quot;jsx30menu_kc&quot; JSXDragType=&quot;JSX_GENERIC&quot; style=&quot;&quot; JSXDragId=&quot;1&quot; JSXSpyglass=&quot;1&quot;&gt;&lt;table class=&quot;jsx30menu_kct&quot;&gt; &lt;tr&gt; &lt;td class=&quot;name&quot;&gt;Open&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/span&gt;&lt;/div&gt; &lt;div id=&quot;_jsx_sampleGUILayout_61&quot; tabindex=&quot;0&quot; onmouseover=&quot;this.focus();&quot; onmouseout=&quot;this.blur();&quot; onfocus=&quot;jsx3.Menu.doFocus(this,'_jsx_sampleGUILayout_6',1);&quot; onblur=&quot;jsx3.Menu.doBlur(this,'_jsx_sampleGUILayout_6',1);&quot; jsxid=&quot;1&quot; class=&quot;jsx30menu_item&quot; jsxtype=&quot;Leaf&quot;&gt;&lt;span class=&quot;jsx30menu_kc&quot; JSXDragType=&quot;JSX_GENERIC&quot; style=&quot;&quot; JSXDragId=&quot;1&quot; JSXSpyglass=&quot;1&quot;&gt;&lt;table class=&quot;jsx30menu_kct&quot;&gt; &lt;tr&gt; &lt;td class=&quot;name&quot;&gt;Save&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/span&gt;&lt;/div&gt; "/>
+          </object>
+          <object type="jsx3.gui.Menu">
+            <variants/>
+            <strings jsxname="mnuCanvas2TextMenu" jsxtip="menu" jsxtext="menu" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record jsxid=&quot;1&quot; jsxtext=&quot;New&quot;/&gt;&lt;record jsxid=&quot;1&quot; jsxtext=&quot;Open&quot;/&gt;&lt;record jsxid=&quot;1&quot; jsxtext=&quot;Save&quot;/&gt;&lt;/data&gt;" Dmxj="&lt;div id=&quot;_jsx_sampleGUILayout_71&quot; tabindex=&quot;0&quot; onmouseover=&quot;this.focus();&quot; onmouseout=&quot;this.blur();&quot; onfocus=&quot;jsx3.Menu.doFocus(this,'_jsx_sampleGUILayout_7',1);&quot; onblur=&quot;jsx3.Menu.doBlur(this,'_jsx_sampleGUILayout_7',1);&quot; jsxid=&quot;1&quot; class=&quot;jsx30menu_item&quot; jsxtype=&quot;Leaf&quot;&gt;&lt;span class=&quot;jsx30menu_kc&quot; JSXDragType=&quot;JSX_GENERIC&quot; style=&quot;&quot; JSXDragId=&quot;1&quot; JSXSpyglass=&quot;1&quot;&gt;&lt;table class=&quot;jsx30menu_kct&quot;&gt; &lt;tr&gt; &lt;td class=&quot;name&quot;&gt;New&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/span&gt;&lt;/div&gt; &lt;div id=&quot;_jsx_sampleGUILayout_71&quot; tabindex=&quot;0&quot; onmouseover=&quot;this.focus();&quot; onmouseout=&quot;this.blur();&quot; onfocus=&quot;jsx3.Menu.doFocus(this,'_jsx_sampleGUILayout_7',1);&quot; onblur=&quot;jsx3.Menu.doBlur(this,'_jsx_sampleGUILayout_7',1);&quot; jsxid=&quot;1&quot; class=&quot;jsx30menu_item&quot; jsxtype=&quot;Leaf&quot;&gt;&lt;span class=&quot;jsx30menu_kc&quot; JSXDragType=&quot;JSX_GENERIC&quot; style=&quot;&quot; JSXDragId=&quot;1&quot; JSXSpyglass=&quot;1&quot;&gt;&lt;table class=&quot;jsx30menu_kct&quot;&gt; &lt;tr&gt; &lt;td class=&quot;name&quot;&gt;Open&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/span&gt;&lt;/div&gt; &lt;div id=&quot;_jsx_sampleGUILayout_71&quot; tabindex=&quot;0&quot; onmouseover=&quot;this.focus();&quot; onmouseout=&quot;this.blur();&quot; onfocus=&quot;jsx3.Menu.doFocus(this,'_jsx_sampleGUILayout_7',1);&quot; onblur=&quot;jsx3.Menu.doBlur(this,'_jsx_sampleGUILayout_7',1);&quot; jsxid=&quot;1&quot; class=&quot;jsx30menu_item&quot; jsxtype=&quot;Leaf&quot;&gt;&lt;span class=&quot;jsx30menu_kc&quot; JSXDragType=&quot;JSX_GENERIC&quot; style=&quot;&quot; JSXDragId=&quot;1&quot; JSXSpyglass=&quot;1&quot;&gt;&lt;table class=&quot;jsx30menu_kct&quot;&gt; &lt;tr&gt; &lt;td class=&quot;name&quot;&gt;Save&lt;/td&gt; &lt;/tr&gt; &lt;/table&gt;&lt;/span&gt;&lt;/div&gt; "/>
+          </object>
+          <object type="jsx3.gui.ToolbarButton">
+            <variants/>
+            <strings jsxname="tbbCanvas2ToolbarButton" jsximage="images/openfolder.gif" jsxtext="[text]"/>
+            <events jsxexecute="eg.guilayout.getServer().alert(&quot;Server-based alert&quot;, &quot;button clicked&quot;);"/>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="blkCanvas2ContentPane" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="blkCanvas2TaskBarPane" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset"/>
+        <object type="jsx3.gui.WindowBar">
+          <variants jsxbartype="3"/>
+          <strings jsxname="winbarCanvas2TaskBar"/>
+        </object>
+      </object>
+    </object>
+    <object type="jsx3.gui.Dialog">
+      <variants jsxwidth="431" jsxheight="318" jsxzindex="5000" jsxwindowstate="1" jsxleft="48" jsxtop="126"/>
+      <strings jsxname="dlgCanvas2Dialog"/>
+      <dynamics jsxbgcolor="@Solid Medium"/>
+      <object type="jsx3.gui.WindowBar">
+        <variants/>
+        <strings jsxname="winbarCanvas2DialogTitle" jsxtext="My Dialog Box"/>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants/>
+          <strings jsxname="tbbCanvas2MinimizeDialog"/>
+          <dynamics jsximage="@Min Icon" jsxtip="@Min Tip"/>
+          <events jsxexecute="this.getParent().getParent().doToggleState();"/>
+        </object>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants/>
+          <strings jsxname="tbbCanvas2MaximizeDialog" jsximage="JSX/images/dialog/max.gif"/>
+          <dynamics jsxtip="@Max Tip"/>
+          <events jsxexecute="this.getAncestorOfType(&quot;jsx3.Dialog&quot;).doMaximize(this);"/>
+        </object>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants/>
+          <strings jsxname="tbbCanvas2CloseDialog"/>
+          <dynamics jsximage="@Close Icon" jsxtip="@Close Tip"/>
+          <events jsxexecute="this.getParent().getParent().doClose();"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="blkCanvas2DialogContent" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxtext="&lt;p&gt;Another application canvas.  This one implements a nice menu bar as the second pane in the Layout (--) and a task bar at the bottom which holds buttons for maximizing and minimizing any dialogs which might be open.&lt;/p&gt;  &lt;p&gt;As always, set the number of child panes and their heights in the Layout component.  You can use &quot;*&quot; for one of the child panes and it will grab whatever it can get.&lt;/p&gt;  &lt;p&gt;This layout is similar to the one we use in GI Builder, except we combined the Menubar and the branding into a single element to save space.&lt;/p&gt;  &lt;p&gt;FYI, Menubars and taskbars are 28px high.&lt;/p&gt;"/>
+        <dynamics jsxpadding="@8Pixel"/>
+      </object>
+    </object>
+  </object>
+</serialization>

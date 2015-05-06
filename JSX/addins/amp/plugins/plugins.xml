@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<plugins xmlns="http://www.generalinterface.org/gi/amp"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugins.xsd">
+
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.HotKey"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Heavyweight"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Interactive">
+    <requires>
+      <plugin id="jsx3.gui.HotKey"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Painted"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Block">
+    <requires>
+      <plugin id="jsx3.gui.Interactive"/>
+      <plugin id="jsx3.gui.Painted"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Label">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.app.UserSettings"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.net.Form"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.xml.Cacheable"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Form"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Alerts"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.BlockX">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.xml.Cacheable"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.ToolbarButton">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.WindowBar">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Dialog">
+    <requires>
+      <plugin id="jsx3.gui.Alerts"/>
+      <plugin id="jsx3.gui.ToolbarButton"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Button">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.NativeButton">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.NativeFileUpload">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.NativeHidden">
+    <requires>
+      <plugin id="jsx3.gui.Painted"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.NativeForm">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.TextBox">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.NumberInput">
+    <requires>
+      <plugin id="jsx3.gui.TextBox"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.CheckBox">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.RadioButton">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Splitter">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.LayoutGrid">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Stack">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.StackGroup">
+    <requires>
+      <plugin id="jsx3.gui.LayoutGrid"/>
+      <plugin id="jsx3.gui.Stack"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Tab">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.TabbedPane">
+    <requires>
+      <plugin id="jsx3.gui.Tab"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Select">
+    <requires>
+      <plugin id="jsx3.gui.Heavyweight"/>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.xml.Cacheable"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.NativeSelect">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.xml.Cacheable"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Menu">
+    <requires>
+      <plugin id="jsx3.gui.Heavyweight"/>
+      <plugin id="jsx3.xml.Cacheable"/>
+      <plugin id="jsx3.gui.Form"/>
+      <plugin id="jsx3.gui.ToolbarButton"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Tree">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.xml.Cacheable"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.DatePicker">
+    <requires>
+      <plugin id="jsx3.gui.Heavyweight"/>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Slider">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Sound">
+    <requires>
+      <plugin id="jsx3.gui.Interactive"/>
+      <plugin id="jsx3.gui.Painted"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Window"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.ImageButton">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.ColorPicker">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.TimePicker">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Matrix.Column">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Matrix">
+    <requires>
+      <plugin id="jsx3.xml.Cacheable"/>
+      <plugin id="jsx3.gui.Form"/>
+      <plugin id="jsx3.gui.Matrix.Column"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Image">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.net.Service"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Table">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.xml.Cacheable"/>
+      <plugin id="jsx3.gui.Form"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.html.DOM"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.html.Style"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.Template">
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+      <plugin id="jsx3.html.DOM"/>
+      <plugin id="jsx3.html.Style"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.util.Dojo"/>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.xml.DojoDataStore">
+    <requires>
+      <plugin id="jsx3.util.Dojo"/>
+    </requires>
+  </plugin>
+  <plugin class="jsx3.amp.ClassPlugIn" id="jsx3.gui.DojoWidget">
+    <requires>
+      <plugin id="jsx3.util.Dojo"/>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+  </plugin>
+
+  <plugin id="jsx3.gui.Alerts.alert">
+    <requires>
+      <plugin id="jsx3.gui.Button"/>
+      <plugin id="jsx3.gui.Alerts"/>
+    </requires>
+    <resources>
+      <xml id="xml" path="jsx:/xml/components/dialog_alert.xml" cache="shared"/>
+    </resources>
+  </plugin>
+  <plugin id="jsx3.gui.Alerts.confirm">
+    <requires>
+      <plugin id="jsx3.gui.Button"/>
+      <plugin id="jsx3.gui.Alerts"/>
+    </requires>
+    <resources>
+      <xml id="xml" path="jsx:/xml/components/dialog_confirm.xml" cache="shared"/>
+    </resources>
+  </plugin>
+  <plugin id="jsx3.gui.Alerts.prompt">
+    <requires>
+      <plugin id="jsx3.gui.Button"/>
+      <plugin id="jsx3.gui.Alerts"/>
+    </requires>
+    <resources>
+      <xml id="xml" path="jsx:/xml/components/dialog_prompt.xml" cache="shared"/>
+    </resources>
+  </plugin>
+
+  <plugin
+      id="jsx3.amp.main"
+      name="Controller Plug-In"
+      class="jsx3.amp.Main"
+      version="0.1">
+
+    <requires>
+      <plugin id="jsx3.gui.Block"/>
+    </requires>
+
+    <resources>
+      <script id="Main" path="Main.js" load="early"/>
+    </resources>
+
+    <!-- Any plug-in that wants to be notified of the plug-in initialization progress can register here. -->
+    <extension-point id="progress" name="Initialization Progress Extension Point">
+      <!-- This should return an object with the following methods:
+             setProgress(pct : Number) : void
+             onComplete(pct : Number) : void
+          -->
+      <processor type="return-async"/>
+    </extension-point>
+
+    <!-- Any code that needs to run at application initialization can register with this extension point. -->
+    <extension-point id="init" name="Initialization Extension Point">
+      <processor type="eval"/>
+    </extension-point>
+
+    <!-- Exactly one plug-in should extend this point to provide the default component file to paint. -->
+    <extension-point id="layout" name="Main Component Extension Point">
+      <!-- This should return a function with the following signature:
+           function(parent : jsx3.app.Model)  
+          -->
+      <processor type="return-async"/>
+    </extension-point>
+
+  </plugin>
+
+  <plugin
+      id="jsx3.amp.autoreg"
+      name="Plug-In Auto-Registration Plug-In"
+      class="jsx3.amp.AutoReg"
+      version="0.1">
+
+    <resources>
+      <script id="js" path="AutoReg.js" load="early"/>
+    </resources>
+
+    <!-- Fired after this plug-in has registered all auto-registering plug-ins. -->
+    <event id="done"/>
+
+    <extension-point id="dirlist" name="Provide Directory Listing">
+      <!-- Any extension should define the following methods:
+             isAvailable(scheme : String) : boolean
+             getDirNames(baseURI : jsx3.net.URI) : Array<String>
+          -->
+    </extension-point>
+  </plugin>
+
+  <plugin
+      id="jsx3.amp.persist"
+      name="Data Persistance Plug-In"
+      version="0.1">
+
+    <method id="getFirstProvider">
+      return this.getExtPoint("provider").getExts().find(function(e) { return e.isAvailable(); });
+    </method>
+
+    <extension-point id="provider" name="Provide Persistance">
+      <!-- Any extension should define the following methods:
+             isAvailable() : boolean
+             get(k : String) : String
+             put(k : String, v : String) : void
+             remove(k : String) : void
+          -->
+    </extension-point>
+
+    <extension point="jsx3.amp.persist.provider" id="cookie">
+      <method id="_getKey" params="k">
+        return "com_tibco_gi_amp_persist_" + k;
+      </method>
+
+      <method id="isAvailable">
+        var s = this.getPlugIn().getServer();
+        var k = this._getKey("__test"), v = "foobar";
+        s.setCookie(k, v);
+        var ok = s.getCookie(k) == v;
+        s.deleteCookie(k);
+        return ok;
+      </method>
+
+      <method id="get" params="k">
+        var s = this.getPlugIn().getServer();
+        return s.getCookie(this._getKey(k));
+      </method>
+
+      <method id="put" params="k, v">
+        var s = this.getPlugIn().getServer();
+        s.deleteCookie(this._getKey(k));
+        var now = new Date();
+        s.setCookie(this._getKey(k), v, new Date(now.getFullYear() + 1, now.getMonth(), now.getDate()));
+      </method>
+
+      <method id="remove" params="k">
+        var s = this.getPlugIn().getServer();
+        s.deleteCookie(this._getKey(k));
+      </method>
+    </extension>
+  </plugin>
+
+  <plugin
+      id="jsx3.amp.util.menumgr"
+      name="MenuManager Plug-In"
+      version="0.1">
+    <requires>
+      <plugin id="jsx3.gui.Menu"/>
+    </requires>
+    <resources>
+      <script id="js" path="MenuManager.js"/>
+    </resources>
+  </plugin>
+
+  <plugin
+      id="jsx3.amp.util.toolbarmgr"
+      name="ToolbarManager Plug-In"
+      version="0.1">
+    <requires>
+      <plugin id="jsx3.gui.ToolbarButton"/>
+    </requires>
+    <resources>
+      <script id="js" path="ToolbarManager.js"/>
+    </resources>
+  </plugin>
+
+  <plugin
+      id="jsx3.amp.util.prefspanel"
+      name="PrefsPane Plug-In"
+      global="true"
+      property="jsx3.amp.util.PrefsPane.PLUGIN"
+      version="0.1">
+    <resources>
+      <script id="js" path="PrefsController.js"/>
+      <xml id="controller" path="controller.xml"/>
+    </resources>
+  </plugin>
+
+  <plugin
+      id="jsx3.amp.util.wizard"
+      name="Wizard Plug-In"
+      global="true"
+      property="jsx3.amp.util.Wizard.PLUGIN"
+      version="0.1">
+    <resources>
+      <script id="js" path="Wizard.js"/>
+      <xml id="controller" path="controller.xml"/>
+    </resources>
+  </plugin>
+
+</plugins>

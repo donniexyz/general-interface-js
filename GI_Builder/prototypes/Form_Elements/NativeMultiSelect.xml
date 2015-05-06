@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Multiselect - Native]]></name>
+  <icon><![CDATA[images/prototypes/nativemultiselect.gif]]></icon>
+  <description><![CDATA[A multiselect object implemented with the native browser control.]]></description>
+  <object type="jsx3.gui.NativeSelect">
+    <variants jsxwidth="150" jsxxmlasync="1" jsxmultiple="1" jsxsize="10"/>
+    <strings jsxname="nativeMultiSelect" jsxxmlurl="jsx:///xml/sample.xml" jsxmargin="0 4 0 0"/>
+  </object>
+</serialization>

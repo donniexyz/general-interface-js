@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+
+  <record jsxid="jsxdrag" jsxtext="Drag"
+      jsxtip="Fires when the user drags this block. Canceling this event prevents the drag from occurring."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="strDRAGTYPE" type="String" jsxtext="the type of drag (JSXDragType)."/>
+    <record jsxid="strDRAGID" type="String" jsxtext="the id of the dragged element (JSXDragId)."/>
+    <record jsxid="objGUI" type="HTMLElement" jsxtext="the HTML element acted upon."/>
+  </record>
+
+  <record jsxid="jsxkeydown" jsxtext="Key Down"
+      jsxtip="Fires after a browser &lt;code&gt;keydown&lt;/code&gt; event when this block has focus.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxclick" jsxtext="Click"
+      jsxtip="Fires after the user clicks this block.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxdblclick" jsxtext="Double-Click"
+      jsxtip="Fires after the user double-clicks this block.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxdrop" jsxtext="Drop"
+      jsxtip="Fires after the user drops an object on this block.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="objSOURCE" type="jsx3.gui.Block" jsxtext="the object where the drag begins."/>
+    <record jsxid="strDRAGTYPE" type="String" jsxtext="the type of drag (JSXDragType)."/>
+    <record jsxid="strDRAGID" type="String" jsxtext="the id of the dragged element (JSXDragId)."/>
+    <record jsxid="objGUI" type="HTMLElement" jsxtext="the HTML element acted upon."/>
+  </record>
+
+  <record jsxid="jsxctrldrop" jsxtext="Ctrl Drop"
+      jsxtip="Fires after the user drops an object on this block while pressing the Ctrl key.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="objSOURCE" type="jsx3.gui.Block" jsxtext="the object where the drag begins."/>
+    <record jsxid="strDRAGTYPE" type="String" jsxtext="the type of drag (JSXDragTyp).e"/>
+    <record jsxid="strDRAGID" type="String" jsxtext="the id of the dragged element (JSXDragId)."/>
+    <record jsxid="objGUI" type="HTMLElement" jsxtext="the HTML element acted upon."/>
+  </record>
+
+  <record jsxid="jsxspy" jsxtext="Spyglass"
+      jsxtip="Fires after the user hovers the mouse over this block and before the spyglass displays. The event script must evaluate to the HTML content to display in the spyglass. Canceling this event prevents the spyglass from displaying."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxmenu" jsxtext="Menu"
+      jsxtip="Fires after the user right-clicks this block and before the bound context menu displays. Canceling this event prevents the menu from displaying."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="objMENU" type="jsx3.gui.Menu" vartype="inout" jsxtext="the menu to display."
+        jsxreturntext="use this field to override the default menu with an instance of &lt;code&gt;jsx3.gui.Menu&lt;/code&gt;."/>
+  </record>
+
+  <record jsxid="jsxbeforemove" jsxtext="Before Move"
+      jsxtip="Fires when the user depresses the mouse button on this movable block. Canceling this event prevents this block from moving."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="bCONSTRAINX" type="boolean" vartype="return"
+        jsxtext="set to &lt;code&gt;true&lt;/code&gt; if only vertical movement allowed. For example: &lt;code&gt;o = {bCONSTRAINX:true};&lt;/code&gt;"/>
+    <record jsxid="bCONSTRAINY" type="boolean" vartype="return"
+        jsxtext="set to &lt;code&gt;true&lt;/code&gt; if only horizontal movement allowed. For example: &lt;code&gt;o = {bCONSTRAINY:true};&lt;/code&gt;"/>
+  </record>
+
+  <record jsxid="jsxaftermove" jsxtext="After Move"
+      jsxtip="Fires when the user releases the mouse button after moving this block across the screen.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxdestroy" jsxtext="Destroy" always="1"
+      jsxtip="Fires after this block is removed from the DOM.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objPARENT" type="jsx3.app.Model"
+        jsxtext="the parent of this block before it is removed from the DOM."/>
+  </record>
+</data>

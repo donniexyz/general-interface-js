@@ -1,0 +1,400 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<html>
+  <head>
+    <title>General Interface Test Recorder</title>
+
+<script type="text/javascript" language="JavaScript">
+
+  window.state = {inited:false, editor:null, paused:false, asserting:false, waiting:false, loadListener:null};
+
+  var isIe = false;
+  var ignoreClick = false;
+
+  function cntr() {
+    return document.getElementById("appContainer");
+  }
+
+  function onReady() {
+    window.setTimeout(function() {
+      state.editor = window["gippeditor"];
+
+      window.onbeforeunload = new Function("cleanAndClose();");
+      window.onresize = updateHeight;
+
+      var cnt = cntr();
+
+      if (window.document.addEventListener) {
+        window.document.addEventListener("click", onAppClick, true);
+
+        // In Firefox also need to cancel all these events if we are waiting or asserting
+        // so that GUI controls don't see them, cancel them, and prevent click from bubbling
+        window.document.addEventListener("mousedown", onAppMouse, true);
+        window.document.addEventListener("mouseup", onAppMouse, true);
+        window.document.addEventListener("focus", onAppMouse, true);
+      } else if (cnt.attachEvent) {
+        // setCapture does not work on document so we need to register the event handler on appContainer instead
+        cnt.attachEvent("onclick", onAppClick);
+        isIe = true;
+        window.document.body.className = "ie"; // CSS for transparent PNGs
+      } else {
+        window.document.onclick = onAppClick;
+      }
+
+      updateHeight();
+
+      if (state.editor) {
+        window.setTimeout(loadApp, 250);
+        state.editor.onRecorderLaunched();
+      } else
+        if (confirm("This page must be launched directly from General Interface Builder. Close window?"))
+          cleanAndClose(true);
+    }, 250);
+  }
+
+  function cleanAndClose(bClose) {
+    try {
+      window.state = {};
+      if (window.gippeditor) {
+        window.gippeditor.onRecorderStopped();
+        window.gippeditor = null;
+      }
+    } catch (e) {}
+
+    if (bClose)
+      window.close();
+
+    ignoreClick = true;
+  }
+
+  function updateHeight() {
+    var cnt = cntr();
+    var ctrl = document.getElementById("recorderControls");
+    cnt.style.height = document.body.clientHeight - ctrl.offsetHeight;
+  }
+
+  function loadApp() {
+    var cnt = cntr();
+    var script = document.createElement("script");
+    script.setAttribute("type", "text/javascript");
+    script.setAttribute("src", state.editor.getJsxSrc());
+    script.setAttribute("jsxapppath", state.editor.getJsxAppPath());
+    script.setAttribute("caption", ""); // prevent title from changing
+    cnt.appendChild(script);
+
+    state.loadListener = window.setInterval(checkLoaded, 100);
+  }
+
+  function checkLoaded() {
+    if (exitOnEditorGone()) return;
+
+    if (!state.inited && window.jsx3 && jsx3.lang && jsx3.lang.AOP && jsx3.gui && jsx3.gui.Interactive) {
+      state.inited = true;
+      window.clearInterval(state.loadListener);
+
+      var classes = [jsx3.gui.Interactive.jsxclass];
+      var pkgs = jsx3.lang.Package.getPackages();
+      for (var i = 0; i < pkgs.length; i++) {
+        var c = pkgs[i].getClasses();
+        for (var j = 0; j < c.length; j++) {
+          if (jsx3.$A(c[j].getInterfaces()).contains(jsx3.gui.Interactive.jsxclass))
+            classes.push(c[j]);
+        }
+      }
+      
+//      state.editor.getPlugIn().getLog().warn("Registering recorder. [" + classes + "]");
+
+      jsx3.lang.AOP.pcrem("evtCP"); // just in case...
+      jsx3.lang.AOP.pc("evtCP", {classes:classes, methods:"doEvent"});
+
+      jsx3.lang.AOP.before("evtCP", function(strType, objContext) {
+        if (!ignoreClick && !state.paused && !state.asserting && !state.waiting) {
+          if (exitOnEditorGone()) return;
+
+          var hasListener = this.hasEvent(strType) || this.getSubscriberCount(strType) > 0;
+
+          state.editor.onModelEvent(this, strType, objContext, hasListener);
+        }
+      });
+    }
+  }
+
+  function exitOnEditorGone() {
+    var alive = false;
+    try {
+      alive = state.editor && state.editor.isAlive();
+    } catch (e) {}
+
+    if (!alive) {
+      ignoreClick = true;
+      if (confirm("General Interface Builder is no longer associated with this recorder, perhaps because it was reloaded. Close window?")) {
+        cleanAndClose(true);
+        return true;
+      }
+      ignoreClick = false;
+    }
+    return false;
+  }
+
+  function onPause() {
+    var btn = document.getElementById("playPause");
+    var status = document.getElementById("status");
+    if (state.paused) {
+      state.paused = false;
+      status.innerHTML = "Recording...";
+      btn.className = "btn";
+    } else {
+      state.paused = true;
+      status.innerHTML = "Paused";
+      btn.className = "btn paused";
+    }
+  }
+
+  function onWait() {
+    if (state.asserting)
+      onAssert();
+
+    var btn = document.getElementById("wait");
+    if (state.waiting) {
+      state.waiting = false;
+      btn.className = "btn";
+      stopCapture();
+    } else {
+      state.waiting = true;
+      btn.className = "btn down";
+      startCapture();
+    }
+  }
+
+  function onAssert() {
+    if (state.waiting)
+      onWait();
+
+    var btn = document.getElementById("assert");
+    if (state.asserting) {
+      state.asserting = false;
+      btn.className = "btn";
+      stopCapture();
+    } else {
+      state.asserting = true;
+      btn.className = "btn down";
+      startCapture();
+    }
+  }
+
+  function stopCapture() {
+    if (isIe)
+      cntr().releaseCapture();
+  }
+
+  function startCapture() {
+    // Internet Explorer capture code. Ensures that all mouse events go to appContainer before they
+    // are received by any GUI controls. setCapture does not work on document.
+    if (isIe)
+      window.setTimeout(function() {
+        cntr().setCapture();
+      }, 0);
+  }
+
+  function onStop() {
+    cleanAndClose(true);
+  }
+
+  function onAppClick(event) {
+    if (!window.closed && !ignoreClick && (state.asserting || state.waiting) && window.jsx3 && jsx3.html && jsx3.html.getJSXParent) {
+      var e = jsx3.gui.Event.wrap(event);
+      var objJSX = jsx3.html.getJSXParent(e.srcElement());
+      if (objJSX) {
+        if (exitOnEditorGone()) return;
+
+        try {
+          state.editor.onAssert(objJSX, state.waiting);
+        } catch (e) {
+          alert(e.message + "\n" + e.stack);
+        }
+
+        if (state.waiting)
+          onWait();
+        else
+          onAssert();
+
+        // Cancel the event bubble (Fx and IE code)
+        if (event.stopPropagation) {
+          event.stopPropagation();
+          event.preventDefault();
+        } else {
+          event.cancelBubble = true;
+          event.keyCode = 0;
+          event.returnValue = false;
+        }
+      } else if (isIe) {
+        // If setCapture is on then even clicks on the recorder controls will be captured. This code
+        // ensures the onclick handler is called when one of these buttons is clicked while capturing is on.
+        var target = event.target || event.srcElement;
+        if (target && target.className == "btn" && target.onclick)
+          target.onclick(event);
+      }
+    }
+  }
+
+  function onAppMouse(event) {
+    if (state.asserting || state.waiting) {
+      event.stopPropagation();
+      event.preventDefault();
+    }
+  }
+
+</script>
+
+<style type="text/css">
+  body {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+    top: 0px;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    overflow: hidden;
+  }
+
+  #recorderControls {
+    height: 30px;
+    overflow: hidden;
+    background-image: url(images/bar_bg.png);
+    font-size: 11px;
+    font-family: Verdana, sans-serif;
+  }
+
+  .padding {
+    padding: 7px 7px;
+  }
+
+  .btn {
+    overflow: hidden;
+    float: left;
+    cursor: pointer;
+  }
+
+  body.ie #assert {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/assert_up.png', sizingMethod='scale'); background-image: none;
+  }
+
+  body.ie #wait {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/wait_up.png', sizingMethod='scale'); background-image: none;
+  }
+
+  body.ie #assert.down {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/assert_down.png', sizingMethod='scale'); background-image: none;
+  }
+
+  body.ie #wait.down {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/wait_down.png', sizingMethod='scale'); background-image: none;
+  }
+
+  body.ie #stop {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/stop_up.png', sizingMethod='scale'); background-image: none;
+  }
+
+  body.ie #stop:hover {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/stop_down.png', sizingMethod='scale'); background-image: none;
+  }
+
+  body.ie #playPause {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/pause_up.png', sizingMethod='scale'); background-image: none;
+  }
+
+  body.ie #playPause:hover {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/pause_down.png', sizingMethod='scale'); background-image: none;
+  }
+
+  body.ie #playPause.paused {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/record_up.png', sizingMethod='scale'); background-image: none;
+  }
+
+  body.ie #playPause.paused:hover {
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='images/record_down.png', sizingMethod='scale'); background-image: none;
+  }
+
+  #assert {
+    width: 66px;
+    height: 16px;
+    background-image: url(images/assert_up.png);
+  }
+
+  #wait {
+    width: 67px; 
+    height: 16px;
+    background-image: url(images/wait_up.png);
+  }
+
+  #assert.down {
+    background-image: url(images/assert_down.png);
+  }
+
+  #wait.down {
+    background-image: url(images/wait_down.png);
+  }
+
+  #stop {
+    width: 16px;
+    height: 16px;
+    float: right;
+    background-image: url(images/stop_up.png);
+  }
+
+  #stop:hover {
+    background-image: url(images/stop_down.png);
+  }
+
+  #playPause {
+    margin-right: 8px;
+    width: 16px;
+    height: 16px;
+    float: right;
+    background-image: url(images/pause_up.png);
+  }
+
+  #playPause:hover {
+    background-image: url(images/pause_down.png);
+  }
+
+  #playPause.paused {
+    background-image: url(images/record_up.png);
+  }
+
+  #playPause.paused:hover {
+    background-image: url(images/record_down.png);
+  }
+
+  #status {
+    float: right;
+    margin-right: 10px;
+  }
+
+  #appContainer {
+    width: 100%;
+    overflow: hidden;
+    background-color: #EEEEEE;
+  }
+</style>
+
+  </head>
+  <body onload="onReady()" SCROLL="no">
+    <div id="recorderControls">
+      <div class="padding">
+        <div id="assert" class="btn" onclick="onAssert();" title="Toggle assert command mode"></div>
+        <div id="wait" class="btn" onclick="onWait();" title="Toggle wait command mode"></div>
+
+        <div id="stop" class="btn" onclick="onStop();" title="Stop recording and close window"></div>
+        <div id="playPause" class="btn" onclick="onPause();" title="Toggle recording"></div>
+        <div id="status">Recording...</div>
+      </div>
+    </div>
+    <div id="appContainer"></div>
+  </body>
+</html>

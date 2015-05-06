@@ -1,0 +1,23 @@
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="main"
+        name="UI Plug-In"
+        version="0.1">
+
+  <requires>
+    <plugin id="jsx3.gui.Block"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="main.js" eval="true"/>
+    <xml id="layout" path="layout.xml"/>
+  </resources>
+
+  <!-- Extensions -->
+
+  <extension point="jsx3.amp.main.layout" id="main-layout">
+    <eval load="true">var p = this.getPlugIn(); jsx3.$F(p.paint).bind(p)</eval>
+  </extension>
+
+</plugin>

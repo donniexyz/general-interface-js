@@ -1,0 +1,34 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+
+  <record jsxid="jsxselect" jsxtext="Select"
+      jsxtip="Fires when the user selects this radio button and before the radio group value changes. Canceling this event prevents the selection."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxblur" jsxtext="Blur"
+      jsxtip="Fires after this radio button loses focus.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxfocus" jsxtext="Focus"
+      jsxtip="Fires after this radio button gains focus.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxdestroy" jsxtext="Destroy" always="1"
+      jsxtip="Fires after this radio button is removed from the DOM.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objPARENT" type="jsx3.app.Model"
+        jsxtext="the parent of this radio button before it is removed from the DOM. "/>
+  </record>
+
+</data>

@@ -1,0 +1,88 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+    id="jsx3.ide.palette.properties"
+    name="Properties Palette Plug-In"
+    version="0.1">
+
+  <method id="getPalette"><![CDATA[
+    return this.getEngine().getPlugIn("jsx3.ide.ui").getPalette(this, "props.palette");
+  ]]></method>
+
+  <method id="onLoaded"><![CDATA[
+    this.constructPropertyTypeIndex();
+
+    this.getExtPoint("catalog").processExts(function(ext, xml) {
+      jsx3.ide.registerCatalogAt('prop', ext.getPlugIn().resolveURI(xml.attr('path')));
+    });
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.gui.Matrix"/>
+    <plugin id="jsx3.gui.TextBox"/>
+    <plugin id="jsx3.gui.ImageButton"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="properties.js" eval="true"/>
+    <xml id="contextmenu" path="contextmenu.xml"/>
+    <xml id="ui" path="properties.xml"/>
+    <xml id="colorpicker" path="colorpicker.xml" load="manual"/>
+  </resources>
+
+  <event id="propChanged">
+    <param id="objs"/>
+    <param id="prop"/>
+    <param id="lookup"/>
+  </event>
+
+  <event id="domChanged">
+    <param id="objs"/>
+  </event>
+
+  <subscribe event="jsx3.ide.editor.activeChanged
+                    jsx3.ide.editor.modeChanged"><![CDATA[
+    var content = this.getPalette().getUIObject();
+    if (content && content.onEditorChanged)
+      content.onEditorChanged(evt.editor, evt.previous);
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.selectionChanged"><![CDATA[
+    if (!evt.active) return;
+    var content = this.getPalette().getUIObject();
+    if (content && content.onSelectionChanged)
+      content.onSelectionChanged(evt.editor);
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.focus.moved"><![CDATA[
+    var content = this.getPalette().getUIObject();
+    if (content && content.onSelectionChanged)
+      content.onSelectionChanged(jsx3.ide.getActiveEditor());
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.resourceReloaded"><![CDATA[
+    if (evt.resource.getType() == "jss")
+      this.constructPropertyTypeIndex();
+  ]]></subscribe>
+
+  <extension-point id="catalog">
+    <!-- Adds a properties catalog file. The path attribute is relative to the declaring plug-in.
+         <catalog path="templates/catalog.xml"/>  -->
+  </extension-point>
+
+  <extension point="jsx3.ide.palette.properties.catalog">
+    <catalog path="templates/catalog.xml"/>
+  </extension>
+
+  <extension point="jsx3.ide.ui.palette" id="props.palette">
+    <palette label="Properties Editor" hotkey="ctrl+2"
+             resource="ui" default-position="q4" idegroup="per-node"/>
+  </extension>
+
+</plugin>
+    

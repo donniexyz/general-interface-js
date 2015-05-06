@@ -1,0 +1,140 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <onAfterDeserialize><![CDATA[
+
+objJSX._doClear = function() {
+  jsx_txt_scriptlet_input.setValue("", true);
+};
+
+objJSX._doMinimize = function() {
+  this.doToggleState(jsx3.gui.Dialog.MINIMIZED);
+};
+
+objJSX.getFirstResponder = function() {
+  return jsx_txt_scriptlet_input;
+};
+
+objJSX.onRsrcLoad = function() {
+  objJSX.registerHotKey('_doScriptletExecute', jsx3.gui.Event.KEY_ENTER, false, true, false); // enter
+  objJSX.registerHotKey('_doClear', 'k', false, false, true); // clear on alt-k
+  objJSX.registerHotKey('_doMinimize', 'm', false, true, false); // minimize on ctrl-m
+  objJSX.registerHotKey('doClose', 'w', false, false, true); // close on alt-w
+
+  var barMgr = new jsx3.amp.util.ToolbarManager(toolbar);
+  barMgr.addSection("eval");
+  barMgr.addSection("history");
+  barMgr.addSection("additions", true);
+  this.getPlugIn().getExtPoint("toolbar").processExts().each(function(e) { barMgr.addItem(e); });
+
+  var h = this.getPlugIn().getHistory();
+  if (h) {
+    h = h.concat(); h.reverse();
+    var menu = this.getDescendantOfName('jsx_tbb_history');
+    var xml = menu.getXML();
+    var i = 0;
+    jsx3.$A(h).each(function(e) {
+      var record = xml.createNode(jsx3.xml.Entity.TYPEELEMENT, "record");
+
+      record.setAttribute("jsxid", "h" + (++i));
+      record.setAttribute("jsxtext", jsx3.util.strTruncate(e, 60, null, 2/3));
+      record.setAttribute("script", e);
+      if (record.getAttribute("jsxtext").length < e.length)
+        record.setAttribute("jsxtip", e);
+
+      xml.appendChild(record);
+    });
+  }
+};
+
+objJSX._doScriptletExecute = function() {
+  this.getPlugIn().doScriptletExecute(this);
+};
+
+objJSX._doScriptletHistory = function(strHistoryId) {
+  this.getPlugIn().doScriptletHistory(this, strHistoryId);
+};
+
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+   <dynamics jsxbgcolor="@Solid Medium" />
+   <variants jsxwidth="500" jsxheight="300" jsxoverflow="2"/>
+   <strings jsxname="jsx_dlg_scriptlet" jsxhelpid="ide.scriptlet"/>
+    <object type="jsx3.gui.WindowBar">
+     <dynamics jsxtext="_script_title" />
+     <strings jsxname="jsx_bar" />
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+       <strings jsxname="jsx_tbb" />
+       <events jsxexecute="this.getParent().getParent().doToggleState();" />
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsxtip="jsx3.gui.Dialog.max"/>
+       <variants/>
+       <strings jsxname="max button" jsximage="JSX/images/dialog/max.gif"/>
+       <events jsxexecute="jsx_dlg_scriptlet.doMaximize(this);"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+       <strings jsxname="jsx_tbb" />
+       <events jsxexecute="this.getParent().getParent().doClose();" />
+      </object>
+    </object>
+    <object type="jsx3.gui.Splitter">
+     <variants jsxrelativeposition="0" jsxorientation="1" jsxleft="0" jsxtop="0" />
+     <strings jsxname="jsx_split" jsxsubcontainer1pct="50%" jsxsubcontainer2pct="50%" />
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Inset" />
+       <variants jsxrelativeposition="1" jsxoverflow="2" />
+       <strings jsxwidth="100%" jsxheight="100%" />
+        <object type="jsx3.gui.LayoutGrid">
+         <variants jsxrelativeposition="0" jsxoverflow="2" />
+         <strings jsxname="jsx_layout" jsxwidth="100%" jsxheight="100%" jsxrows="26,*"/>
+          <object type="jsx3.gui.WindowBar">
+           <variants jsxfontsize="10" jsxbartype="1" jsxoverflow="3" jsxrelativeposition="1" />
+           <strings jsxname="toolbar" />
+          </object>
+          <object type="jsx3.gui.Block">
+           <dynamics jsxpadding="@8Pixel"/>
+           <variants jsxoverflow="2"/>
+           <strings jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.TextBox">
+             <dynamics jsxborder="@Inset" jsxbg="@Grid Lines" jsxfontname="@Script FN" jsxfontsize="@Script FS" />
+             <variants jsxtype="1" />
+             <strings jsxname="jsx_txt_scriptlet_input" jsxvalue="" jsxwidth="100%" jsxheight="100%" />
+             <events jsxkeydown="jsx3.ide.doTextEditorKeyDown(objEVENT,this);"/>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Inset" />
+       <variants jsxrelativeposition="1" jsxoverflow="2" />
+       <strings jsxname="jsx_blk_lower" jsxwidth="100%" jsxheight="100%" />
+        <object type="jsx3.gui.LayoutGrid">
+         <variants jsxrelativeposition="0" jsxoverflow="2" />
+         <strings jsxwidth="100%" jsxheight="100%" jsxrows="20,*"/>
+          <object type="jsx3.gui.Block">
+           <dynamics jsxtext="_script_result" jsxfontweight="@Label1 FW" jsxpadding="@8Pixel"/>
+           <variants jsxoverflow="2" />
+           <strings jsxwidth="100%" jsxheight="100%"/>
+          </object>
+          <object type="jsx3.gui.Block">
+           <dynamics jsxpadding="@8Pixel"/>
+           <variants jsxoverflow="2" jsxrelativeposition="1" />
+           <strings jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.TextBox">
+             <dynamics jsxborder="@Inset" jsxfontname="@Script FN" jsxfontsize="@Script FS" />
+             <variants jsxtype="1" />
+             <strings jsxname="jsx_txt_scriptlet_output" jsxwidth="100%" jsxheight="100%" />
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

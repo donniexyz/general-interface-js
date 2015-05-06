@@ -1,0 +1,122 @@
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/"
+  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" 
+  xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
+  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" 
+  xmlns:y="http://example.org/math/" 
+  xmlns:ns="http://example.org/math/types/" 
+  targetNamespace="http://example.org/math/">
+   <types>
+     <xs:schema targetNamespace="http://example.org/math/types/" 
+       xmlns="http://example.org/math/types/" 
+       elementFormDefault="unqualified" attributeFormDefault="unqualified">
+         <xs:complexType name="MathInput">
+            <xs:sequence>
+               <xs:element name="x" type="xs:double"/>
+               <xs:element name="y" type="xs:double"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:complexType name="MathOutput">
+            <xs:sequence>
+               <xs:element name="result" type="xs:double"/>
+            </xs:sequence>
+         </xs:complexType>
+         <xs:element name="Add" type="MathInput"/>
+         <xs:element name="AddResponse" type="MathOutput"/>
+         <xs:element name="Subtract" type="MathInput"/>
+         <xs:element name="SubtractResponse" type="MathOutput"/>
+         <xs:element name="Multiply" type="MathInput"/>
+         <xs:element name="MultiplyResponse" type="MathOutput"/>
+         <xs:element name="Divide" type="MathInput"/>
+         <xs:element name="DivideResponse" type="MathOutput"/>
+      </xs:schema>
+   </types>
+   <message name="AddMessage">
+      <part name="parameters" element="ns:Add"/>
+   </message>
+   <message name="AddResponseMessage">
+      <part name="parameters" element="ns:AddResponse"/>
+   </message>
+   <message name="SubtractMessage">
+      <part name="parameters" element="ns:Subtract"/>
+   </message>
+   <message name="SubtractResponseMessage">
+      <part name="parameters" element="ns:SubtractResponse"/>
+   </message>
+   <message name="MultiplyMessage">
+      <part name="parameters" element="ns:Multiply"/>
+   </message>
+   <message name="MultiplyResponseMessage">
+      <part name="parameters" element="ns:MultiplyResponse"/>
+   </message>
+   <message name="DivideMessage">
+      <part name="parameters" element="ns:Divide"/>
+   </message>
+   <message name="DivideResponseMessage">
+      <part name="parameters" element="ns:DivideResponse"/>
+   </message>
+   <portType name="MathInterface">
+      <operation name="Add">
+         <input message="y:AddMessage"/>
+         <output message="y:AddResponseMessage"/>
+      </operation>
+      <operation name="Subtract">
+         <input message="y:SubtractMessage"/>
+         <output message="y:SubtractResponseMessage"/>
+      </operation>
+      <operation name="Multiply">
+         <input message="y:MultiplyMessage"/>
+         <output message="y:MultiplyResponseMessage"/>
+      </operation>
+      <operation name="Divide">
+         <input message="y:DivideMessage"/>
+         <output message="y:DivideResponseMessage"/>
+      </operation>
+   </portType>
+   <binding name="MathSoapHttpBinding" type="y:MathInterface">
+      <soap:binding style="document" 
+         transport="http://schemas.xmlsoap.org/soap/http"/>
+      <operation name="Add">
+         <soap:operation soapAction="http://example.org/math/#Add"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="Subtract">
+         <soap:operation soapAction="http://example.org/math/#Subtract"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="Multiply">
+         <soap:operation soapAction="http://example.org/math/#Multiply"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+      <operation name="Divide">
+         <soap:operation soapAction="http://example.org/math/#Divide"/>
+         <input>
+            <soap:body use="literal"/>
+         </input>
+         <output>
+            <soap:body use="literal"/>
+         </output>
+      </operation>
+   </binding>
+   <service name="MathService">
+      <port name="MathEndpoint" binding="y:MathSoapHttpBinding">
+         <soap:address location="http://localhost/math/math.asmx"/>
+      </port>
+   </service>
+</definitions>

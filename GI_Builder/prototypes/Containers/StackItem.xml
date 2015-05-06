@@ -1,0 +1,16 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Stack]]></name>
+  <icon><![CDATA[images/prototypes/stack-over.gif]]></icon>
+  <description><![CDATA[Horizontal (under/over) or vertical (side by side) stack item.]]></description>
+  <object type="jsx3.gui.Stack">
+    <strings jsxname="stack" jsxtext="[caption]"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1" jsxloadtype="4"/>
+      <strings jsxname="pane" jsxbgcolor="#ffffff"/>
+    </object>
+  </object>
+</serialization>

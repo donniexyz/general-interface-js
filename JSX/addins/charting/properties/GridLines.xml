@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="gridlines" group="1" jsxtext="GridLines">
+    <record jsxid="inForeground" jsxtext="Draw in Foreground"
+        jsxtip="Sets whether to draw this component in front of or behind the data series."
+        docgetter="getInForeground" docsetter="setInForeground"
+        docdefault="false (jsx3.Boolean.FALSE)"
+        eval="1"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.inForeground = vntValue; objJSX.getChart().repaintParts(jsx3.chart.CartesianChart.PART_GRIDLINES);">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="TRUE"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="FALSE"/>
+    </record>
+    <record jsxid="horizontalAbove" jsxtext="Layering"
+        jsxtip="Sets whether to draw the horizontal fill and strokes above the vertical fill and strokes."
+        docgetter="getHorizontalAbove" docsetter="setHorizontalAbove"
+        docdefault="Horizontal Above Vertical (jsx3.Boolean.TRUE)"
+        eval="1"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Horizontal Above Vertical"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Vertical Above Horizontal"/>
+    </record>
+  </record>
+
+  <record jsxid="fillstroke" group="1" jsxtext="Fill &amp; Stroke">
+    <record jsxid="borderStroke" jsxtext="Border"
+        jsxtip="Sets the vector stroke for the outline of this component. Specified as &lt;i&gt;color width alpha[, color2 width2 alpha2, ...]&lt;/i&gt;. For example, &lt;code&gt;black 1 1&lt;/code&gt;."
+        docgetter="getBorderStroke" docsetter="setBorderStroke"
+        docdefault="Empty"
+        eval="0"
+        jsxmask="jsxtext"/>
+    <record jsxid="fillV" jsxtext="Ver. Fill"
+        jsxtip="Sets the vector fill between vertical major ticks. Specified as &lt;i&gt;color alpha[, color2 alpha2, ...]&lt;/i&gt;. For example, &lt;code&gt;black 1&lt;/code&gt;."
+        docgetter="getFillV" docsetter="setFillV"
+        docdefault="Empty"
+        eval="0"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.fillV = jsx3.chart.splitInputArray(vntValue); objJSX.repaint();"/>
+    <record jsxid="strokeMajorV" jsxtext="Ver. Major Stroke"
+        jsxtip="Sets the vector stroke for the vertical major ticks. Specified as &lt;i&gt;color width alpha[, color2 width2 alpha2, ...]&lt;/i&gt;. For example, &lt;code&gt;black 1 1&lt;/code&gt;."
+        docgetter="getStrokeMajorV" docsetter="setStrokeMajorV"
+        docdefault="Empty"
+        eval="0"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.strokeMajorV = jsx3.chart.splitInputArray(vntValue); objJSX.repaint();"/>
+    <record jsxid="strokeMinorV" jsxtext="Ver. Minor Stroke"
+        jsxtip="Sets the vector stroke for the vertical minor ticks. Specified as &lt;i&gt;color width alpha[, color2 width2 alpha2, ...]&lt;/i&gt;. For example, &lt;code&gt;black 1 1&lt;/code&gt;."
+        docgetter="getStrokeMinorV" docsetter="setStrokeMinorV"
+        docdefault="Empty"
+        eval="0"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.strokeMinorV = jsx3.chart.splitInputArray(vntValue); objJSX.repaint();"/>
+    <record jsxid="fillH" jsxtext="Hor. Fill"
+        jsxtip="Sets the vector fill between horizontal major ticks. Specified as &lt;i&gt;color alpha[, color2 alpha2, ...]&lt;/i&gt;. For example, &lt;code&gt;black 1&lt;/code&gt;."
+        docgetter="getFillH" docsetter="setFillH"
+        docdefault="Empty"
+        eval="0"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.fillH = jsx3.chart.splitInputArray(vntValue); objJSX.repaint();"/>
+    <record jsxid="strokeMajorH" jsxtext="Hor. Major Stroke"
+        jsxtip="Sets the vector stroke for the horizontal major ticks. Specified as &lt;i&gt;color width alpha[, color2 width2 alpha2, ...]&lt;/i&gt;. For example, &lt;code&gt;black 1 1&lt;/code&gt;."
+        docgetter="getStrokeMajorH" docsetter="setStrokeMajorH"
+        docdefault="Empty"
+        eval="0"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.strokeMajorH = jsx3.chart.splitInputArray(vntValue); objJSX.repaint();"/>
+    <record jsxid="strokeMinorH" jsxtext="Hor. Minor Stroke"
+        jsxtip="Sets the vector stroke for the horizontal minor ticks. Specified as &lt;i&gt;color width alpha[, color2 width2 alpha2, ...]&lt;/i&gt;. For example, &lt;code&gt;black 1 1&lt;/code&gt;."
+        docgetter="getStrokeMinorrH" docsetter="setStrokeMinorH"
+        docdefault="Empty"
+        eval="0"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.strokeMinorH = jsx3.chart.splitInputArray(vntValue); objJSX.repaint();"/>
+  </record>
+
+  <record include="master.xml" group="component"/>
+  <record include="master.xml" group="interaction_menuonly"/>
+
+</data>

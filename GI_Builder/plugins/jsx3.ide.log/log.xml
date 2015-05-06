@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.log = function(strMessage, intLevel) {
+  var objGUI = this.getRendered();
+  if (!objGUI) return;
+  var levelClass = intLevel ? (" jsxide_" + jsx3.util.Logger.levelAsString(intLevel)) : "";
+
+  jsx3.html.insertAdjacentHTML(objGUI, 'beforeEnd', 
+      '<pre class="jsxide_sysout' + levelClass + '">' + strMessage + '</pre>');
+
+  this.showLast();
+};
+
+objJSX.showLast = function() {
+  var objGUI = this.getRendered();
+  if (!this._scrollTOID && objGUI.lastChild &&
+       (objGUI.scrollTop >= objGUI.lastChild.offsetTop - parseInt(objGUI.style.height) - 2 * objGUI.lastChild.offsetHeight)) {
+    this._scrollTOID = window.setTimeout(jsx3.$F(function() {
+      this._scrollTOID = null;
+
+      if (objGUI && objGUI.lastChild)
+        objGUI.scrollTop = objGUI.lastChild.offsetTop;
+    }).bind(this), 200);
+  }
+};
+
+objJSX.shift = function(intCount) {
+  if (intCount == null) intCount = 1;
+  
+  var objGUI = this.getRendered();
+  for (var i = 0; i < intCount; i++) {
+    objGUI.removeChild(objGUI.childNodes[0]);
+  };
+};
+
+objJSX.clear = function(intCount) {
+  this.setText("", false);
+  if (this.getRendered())
+    this.getRendered().innerHTML = "";
+};
+
+objJSX.transfer = function(objBlock) {
+  if (this.getRendered()) {
+    objBlock.setText(this.getRendered().innerHTML, true);
+    this.showLast();
+  }
+};
+
+objJSX.getSize = function(strMessage) {
+  var objGUI = this.getRendered();
+  return objGUI.childNodes.length;
+};
+
+ ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxbgcolor="@Solid Light"/>
+      <variants jsxoverflow="1" jsxfontsize="11"/>
+      <strings jsxname="jsx_ide_systemout" jsxwidth="100%" jsxheight="100%" jsxpadding="2 4 2 4"
+          jsxmenu="jsxmenu_systemout"/>
+    </object>
+</serialization>

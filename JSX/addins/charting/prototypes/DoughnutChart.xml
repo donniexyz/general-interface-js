@@ -1,0 +1,57 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <name><![CDATA[Pie - Doughnut]]></name>
+ <icon><![CDATA[icons/doughnut.gif]]></icon>
+ <description><![CDATA[a sample doughnut (multi-series pie) chart]]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.chart.PieChart">
+   <dynamics />
+   <variants jsxleft="0" jsxtop="0" jsxwidth="400" jsxheight="300" borderWidth="1" borderAlpha="1" alpha="1" jsxrelativeposition="1" loadState="1" innerRadius="0.5" seriesPadding="0.3" totalAngle="360" startAngle="0" colors="['#999999','#333333','#CC6666','#663333','#6666FF','#333366']" />
+   <strings jsxname="doughnutChart" titlePlacement="top" legendPlacement="right" dataPadding="14" borderColor="#999999" categoryField="name" colorFunction="jsx3.chart.PieChart.defaultColoring" jsxbgcolor="#FFFFFF" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record name=&quot;Africa&quot; y2004=&quot;884966000&quot; y2025=&quot;1322913000&quot; y2050=&quot;1941196000&quot;/&gt; &lt;record name=&quot;Europe&quot; y2004=&quot;728392000&quot; y2025=&quot;721619000&quot; y2050=&quot;668050000&quot;/&gt; &lt;record name=&quot;Oceania&quot; y2004=&quot;32822000&quot; y2025=&quot;41069000&quot; y2050=&quot;46840000&quot;/&gt; &lt;record name=&quot;N America&quot; y2004=&quot;325653000&quot; y2025=&quot;385580000&quot; y2050=&quot;456855000&quot;/&gt; &lt;record name=&quot;S America&quot; y2004=&quot;364992000&quot; y2025=&quot;449705000&quot; y2050=&quot;502104000&quot;/&gt; &lt;record name=&quot;Asia&quot; y2004=&quot;3874984000&quot; y2025=&quot;4777519000&quot; y2050=&quot;5384847000&quot;/&gt; &lt;/data&gt;" />
+    <object type="jsx3.chart.ChartLabel">
+     <dynamics />
+     <variants labelRotation="0" jsxfontsize="14" />
+     <strings jsxname="title" jsxtext="Doughnut Chart" jsxcolor="#FFFFFF" jsxbgcolor="#666666" jsxpadding="4 0 0 0" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+    </object>
+    <object type="jsx3.chart.PieSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="0" labelOffset="-16" />
+     <strings jsxname="series1" seriesName="2004" field="y2004" tooltipFunction="jsx3.chart.PieSeries.tooltip" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants labelRotation="0" jsxfontsize="12" />
+       <strings jsxname="chartLabel" jsxtext="2004" jsxtextalign="center" jsxfontweight="bold" jsxfontname="Arial" jsxcolor="#FFFFFF" />
+      </object>
+    </object>
+    <object type="jsx3.chart.Legend">
+     <dynamics />
+     <variants boxHeight="10" lineHeight="22" titleSpace="8" boxSpace="6" preferredWidth="110" />
+     <strings jsxname="legend" labelStyle="font-size: 10px; font-weight: bold;" backgroundStroke="#BBBBBB" jsxmargin="10 10 10 4" jsxpadding="10 4 0 4" />
+    </object>
+    <object type="jsx3.chart.PieSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="1" labelOffset="-16" />
+     <strings jsxname="series2" seriesName="2025" tooltipFunction="jsx3.chart.PieSeries.tooltip" field="y2025" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants alpha="1" labelRotation="0" jsxfontsize="12" />
+       <strings jsxname="chartLabel" jsxtext="2025" jsxtextalign="center" jsxfontweight="bold" jsxfontname="Arial" jsxcolor="#FFFFFF" />
+      </object>
+    </object>
+    <object type="jsx3.chart.PieSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="2" labelOffset="-16" />
+     <strings jsxname="series3" seriesName="2050" tooltipFunction="jsx3.chart.PieSeries.tooltip" field="y2050" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants labelRotation="0" jsxfontsize="12" preferredWidth="50" />
+       <strings jsxname="chartLabel" jsxtext="2050" jsxtextalign="center" jsxfontweight="bold" jsxfontname="Arial" jsxcolor="#FFFFFF" />
+      </object>
+    </object>
+  </object>
+</serialization>

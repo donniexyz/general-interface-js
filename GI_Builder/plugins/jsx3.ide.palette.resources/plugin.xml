@@ -1,0 +1,190 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.palette.resources"
+        name="Project Resources Palette Plug-In"
+        version="0.1">
+
+  <method id="getPalette"><![CDATA[
+    return this.getEngine().getPlugIn("jsx3.ide.ui").getPalette(this, "proj.palette");
+  ]]></method>
+
+  <method id="getResourcesTree"><![CDATA[
+    var p = this.getPalette();
+    if (p) {
+      var ui = p.getUIObject();
+      if (ui) {
+        return ui.getTree();
+      }
+    }
+    return null;
+  ]]></method>
+
+  <method id="getSelectedIds"><![CDATA[
+    var tree = this.getResourcesTree();
+    return tree ? tree.getValue() : [];
+  ]]></method>
+
+  <method id="getSelectedRecords"><![CDATA[
+    var tree = this.getResourcesTree();
+    if (tree) {
+      return jsx3.$A(tree.getValue()).map(function(e) {
+        return tree.getRecord(e);
+      });
+    }
+    return [];
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.ide.ui"/>
+    <plugin id="jsx3.amp.util.menumgr"/>
+    <plugin id="jsx3.amp.util.toolbarmgr"/>
+    <plugin id="jsx3.gui.Tree"/>
+    <plugin id="jsx3.gui.ToolbarButton"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="resourcefiles.js" eval="true"/>
+    <xml id="ui" path="resourcefiles.xml"/>
+
+    <xml id="container" path="settings/container.xml" load="manual">
+      <prereq plugin="jsx3.amp.util.prefspanel"/>
+    </xml>
+    <xml id="pane_profile" path="settings/profile.xml" load="manual"/>
+  </resources>
+
+  <event id="changed">
+  </event>
+
+  <event id="selection">
+    <param id="values"/>
+  </event>
+
+  <subscribe event="jsx3.ide.settings.project.saved">
+    this.updateResources();
+  </subscribe>
+
+  <extension-point id="menu">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenu"/>
+  </extension-point>
+
+  <extension-point id="action">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenuItem"/>
+  </extension-point>
+
+  <!-- The palette context menu -->
+  <extension-point id="ctxmenu">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenu"/>
+  </extension-point>
+
+  <!-- The palette context menu items -->
+  <extension-point id="ctxmenu-item">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenuItem"/>
+  </extension-point>
+
+  <!-- Pane for the resource settings dialog -->
+  <extension-point id="pane">
+    <processor type="instantiator" instance-class="jsx3.amp.util.PrefsPane"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.ui.palette" id="proj.palette">
+    <palette label="Project Files" hotkey="ctrl+8"
+             resource="ui" default-position="q1" idegroup="per-project"/>
+  </extension>
+
+  <extension point="jsx3.ide.palette.resources.menu" id="menus">
+    <menu id="new" label="New" path="/" ext-class="jsx3.ide.ui.NewFileMenu"/>
+  </extension>
+
+  <extension point="jsx3.ide.palette.resources.pane" id="default">
+    <pane label="Settings" path="profile.xml" img=""
+          tip="Project settings related to deployment." resource="pane_profile"/>
+  </extension>
+
+  <extension point="jsx3.ide.palette.resources.ctxmenu" id="ctxmenu">
+    <menu id="jsx3.ide.rsrcctx" path="/">
+      <section id="edit"/>
+      <divider id="settings"/>
+      <divider id="load"/>
+      <section id="util"/>
+      <divider id="additions"/>
+    </menu>
+  </extension>
+
+  <extension point="jsx3.ide.palette.resources.ctxmenu-item" id="ctxmenu-item">
+    <action
+        id="edit"
+        label="Edit"
+        menupath="/jsx3.ide.rsrcctx/edit"
+        execute="jsx3.ide.doOpenResources([menu.getContextRecordId()])"
+        img="jsxapp:/images/icon_21.gif"/>
+    <action
+        id="profile"
+        label="Edit Profile..."
+        menupath="/jsx3.ide.rsrcctx/edit"
+        execute="this.getPlugIn().doShowResourceProps(menu.getContextRecordId())"
+        img="jsxapp:/images/icon_76.gif"/>
+
+    <action
+        id="autoload"
+        label="Auto Load"
+        menupath="/jsx3.ide.rsrcctx/settings"
+        execute="this.getPlugIn().doToggleAutoload(menu.getContextParent().getRecord(menu.getContextRecordId()))"
+        enabled="eval" enabled-eval="var r = menu.getContextParent().getRecord(menu.getContextRecordId()); r &amp;&amp; r.supportsLoad == 1"
+        selected="eval" selected-eval="var r = menu.getContextParent().getRecord(menu.getContextRecordId()); r &amp;&amp; r.load == 1"/>
+    <action
+        id="dereference"
+        label="Dereference"
+        menupath="/jsx3.ide.rsrcctx/settings"
+        execute="this.getPlugIn().doDereference([menu.getContextRecordId()])"
+        img="jsxapp:/images/icon_24.gif"/>
+
+    <action
+        id="reload"
+        label="Load/Reload"
+        menupath="/jsx3.ide.rsrcctx/load"
+        execute="this.getPlugIn().doReloadResource(menu.getContextRecordId())"
+        img="jsxapp:/images/icon_22.gif"
+        enabled="eval" enabled-eval="var r = menu.getContextParent().getRecord(menu.getContextRecordId()); r &amp;&amp; r.supportsLoad == 1"/>
+    <action
+        id="copypath"
+        label="Copy Path"
+        menupath="/jsx3.ide.rsrcctx/util"
+        execute="var strPath = menu.getContextParent().getRecord(menu.getContextRecordId()).jsxtip; jsx3.html.copy(strPath);"/>
+  </extension>
+
+  <!-- Toolbar buttons, etc -->
+  <extension-point id="toolbar">
+    <processor type="instantiator" instance-class="jsx3.amp.util.ToolbarItem"/>
+  </extension-point>
+
+  <bindable id="oneSelected" value="this.getSelectedIds().length == 1"
+            subscribe="jsx3.ide.palette.resources.selection"/>
+  <bindable id="oneOrMoreSelected" value="this.getSelectedIds().length > 0"
+            subscribe="jsx3.ide.palette.resources.selection"/>
+  <bindable id="onlyReloadableSelected" value="var recs = this.getSelectedRecords();
+      recs.length > 0 &amp;&amp;
+      jsx3.$A(recs).find(function(e) { return !e.supportsLoad; }) == null"
+            subscribe="jsx3.ide.palette.resources.selection"/>
+
+  <extension point="jsx3.ide.palette.resources.toolbar">
+    <button id="open" img="jsxapp:/images/icon_60.gif" tip="Open file..." section="open"
+            execute="jsx3.ide.open();" enabled="true"/>
+    <button id="edit" img="jsxapp:/images/icon_21.gif" tip="Edit resource" section="edit"
+            execute="jsx3.ide.doOpenResources(this.getPlugIn().getSelectedIds());" enabled="{oneOrMoreSelected}"/>
+    <button id="profile" img="jsxapp:/images/icon_76.gif" tip="Edit resource profile" section="edit"
+            execute="this.getPlugIn().doShowResourceProps(this.getPlugIn().getSelectedIds()[0]);" enabled="{oneSelected}"/>
+    <button id="dereference" img="jsxapp:/images/icon_24.gif" tip="Dereference resource" section="edit"
+            execute="this.getPlugIn().doDereference(this.getPlugIn().getSelectedIds());" enabled="{oneOrMoreSelected}"/>
+    <button id="reload" img="jsxapp:/images/icon_22.gif" tip="Load/reload resource" section="edit"
+            execute="this.getPlugIn().doReloadResource(this.getPlugIn().getSelectedIds());" enabled="{onlyReloadableSelected}"/>
+    <button id="refresh" img="jsxapp:/images/icon_15.gif" tip="Refresh project resources" section="utils"
+            execute="this.getPlugIn().updateResources();" enabled="true"/>
+  </extension>
+
+</plugin>

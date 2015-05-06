@@ -1,0 +1,12 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.5">
+  <name>CDF Mapping Container</name>
+  <icon>images/prototypes/container.gif</icon>
+  <description>Maps descendant form fields to records and attributes in a cached CDF document.</description>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize/>
+    <object type="jsx3.gui.CDF">
+      <strings jsxname="cdf" jsxwidth="100%" jsxheight="100%" jsxcdfid="1" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;
+  &lt;record jsxid=&quot;1&quot; first=&quot;john&quot; last=&quot;public&quot; middle=&quot;q&quot;/&gt;
+&lt;/data&gt;"/>
+    </object>
+</serialization>

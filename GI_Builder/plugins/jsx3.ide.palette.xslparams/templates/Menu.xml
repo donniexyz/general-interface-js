@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record jsxid="jsxleftbuffer"
+      jsxtip="Sets the padding between the left edge of the menu and its text content. The default is 36 (in pixels), allowing room for a user icon and a selected icon. Note: values less than 13 will hide the selected image."/>
+  <record jsxid="jsxsortdirection"
+      jsxtip="The sort direction if the jsxsortpath attribute is provided. Either 'ascending' or 'descending'."/>
+  <record jsxid="jsxsorttype"
+      jsxtip="The sort data type if the jsxsortpath attribute is provided. Either 'text' or 'number'."/>
+  <record jsxid="jsxdisableescape"
+      jsxtip="If 'yes' then the jsxtext attribute of each CDF record is rendered without escaping XML characters."/>
+  <record jsxid="jsx_img_resolve"
+      jsxtip="If '0', the jsximg CDF attribute is not resolved as a URL."/>
+  <record jsxid="jsxtitle"
+      jsxtip="The title of the content of the menu drop-down for use in loading, error, and timeout messages."/>
+</data>

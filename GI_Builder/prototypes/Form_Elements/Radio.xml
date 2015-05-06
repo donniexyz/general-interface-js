@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Radio Button]]></name>
+  <icon><![CDATA[images/prototypes/radio.gif]]></icon>
+  <description><![CDATA[Radio button object, with default property for Radio Group.]]></description>
+  <object type="jsx3.gui.RadioButton">
+    <variants jsxheight="18" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="1"/>
+    <strings jsxname="radio" jsxtext="[radio button text]" jsxgroupname="group1" jsxmargin="0 4 0 0"/>
+  </object>
+</serialization>

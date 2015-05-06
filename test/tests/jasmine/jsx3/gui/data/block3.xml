@@ -1,0 +1,43 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <onAfterDeserialize/>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"/>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="3" jsxwidth="450" jsxheight="110"/>
+      <strings jsxname="block" jsxrelativeposition="1" jsxborder="1px solid #000"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1" jsxwidth="100" jsxheight="48"/>
+        <strings jsxname="block" jsxrelativeposition="1" jsxborder="1px solid #000" jsxmargin="1" jsxtext="name"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1" jsxwidth="100" jsxheight="48"/>
+        <strings jsxname="block" jsxrelativeposition="1" jsxborder="1px solid #000" jsxmargin="1" jsxtext="phone"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1" jsxwidth="100" jsxheight="48"/>
+        <strings jsxname="block" jsxrelativeposition="1" jsxborder="1px solid #000" jsxmargin="1" jsxtext="Id"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1" jsxwidth="100" jsxheight="48"/>
+        <strings jsxname="block" jsxrelativeposition="1" jsxborder="1px solid #000" jsxmargin="1" jsxtext="city"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1" jsxwidth="100" jsxheight="48"/>
+        <strings jsxname="block" jsxrelativeposition="1" jsxborder="1px solid #000" jsxmargin="1" jsxtext="vivianvianvnnv"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1" jsxwidth="100" jsxheight="48"/>
+        <strings jsxname="block" jsxrelativeposition="1" jsxborder="1px solid #000" jsxmargin="1" jsxtext="182101101009"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2" jsxwidth="100" jsxheight="48"/>
+        <strings jsxname="block" jsxrelativeposition="1" jsxborder="1px solid #000" jsxmargin="1" jsxtext="iidididididiidididdddddddddddddddddddd"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1" jsxwidth="100" jsxheight="48"/>
+        <strings jsxname="block" jsxrelativeposition="1" jsxborder="1px solid #000" jsxmargin="1" jsxtext="beijing"/>
+      </object>
+    </object>
+  </object>
+</serialization>

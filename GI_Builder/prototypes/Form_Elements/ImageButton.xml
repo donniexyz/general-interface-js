@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Button - ImageButton]]></name>
+  <icon><![CDATA[images/prototypes/image-button.gif]]></icon>
+  <description><![CDATA[A jsx3.gui.ImageButton object.]]></description>
+  <object type="jsx3.gui.ImageButton">
+    <variants jsxwidth="16" jsxheight="16"/>
+    <strings jsxname="imagebutton" 
+        jsximage="jsx:///images/imagebutton/off.gif"
+        jsxoverimage="jsx:///images/imagebutton/over.gif"
+        jsxdownimage="jsx:///images/imagebutton/down.gif"
+        jsxonimage="jsx:///images/imagebutton/on.gif"
+        jsxdisabledimage="jsx:///images/imagebutton/disabled.gif"
+        />
+    <events jsxexecute="alert('Execute');"/>
+  </object>
+</serialization>

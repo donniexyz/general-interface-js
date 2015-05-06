@@ -1,0 +1,11 @@
+<data jsxid="jsxroot" jsxnamespace="propsbundle">
+
+  <locale key="es">
+    <record jsxid="key1" jsxtext="value_es"/>
+  </locale>
+
+  <locale key="es_ES">
+    <record jsxid="key1" jsxtext="value_es_ES"/>
+  </locale>
+
+</data>

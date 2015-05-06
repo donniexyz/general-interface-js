@@ -1,0 +1,16 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Grid]]></name>
+  <icon><![CDATA[images/prototypes/matrix.gif]]></icon>
+  <description><![CDATA[Grid object with fixed height rows and background image property for alternating row colors.]]></description>
+  <object type="jsx3.gui.Grid">
+    <dynamics jsxbgcolor="@Solid Medium" jsxclassname="@List Fixed Height (Clear)" jsxbg="@Alternating Rows"/>
+    <variants jsxgrowby="1"/>
+    <strings jsxname="grid" jsxsortdirection="ascending" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;
+ &lt;record jsxid=&quot;uniqueid&quot; jsxtext=&quot;Cell Content&quot; jsxtype=&quot;Select Option&quot; jsximg=&quot;JSX/images/icons/logo_16.gif&quot;/&gt;
+&lt;/data&gt;"/>
+  </object>
+</serialization>

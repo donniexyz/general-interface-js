@@ -1,0 +1,30 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+  <record include="master.xml" group="position"/>
+
+  <record jsxid="jsx3button" group="1" jsxtext="Button">
+    <record include="master.xml" group="form" children="1"/>
+  </record>
+
+  <record include="master.xml" group="font">
+    <record include="master.xml" group="jsxdisabledcolor" children="1"/>
+  </record>
+
+  <record include="master.xml" group="box_nobg">
+    <record include="master.xml" group="jsxdisabledbgcolor" children="1"/>
+  </record>
+
+  <record include="master.xml" group="css"/>
+
+  <record include="master.xml" group="interaction">
+    <record include="master.xml" group="jsxkeycode" children="1"/>
+  </record>
+
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>

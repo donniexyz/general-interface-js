@@ -1,0 +1,68 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+objJSX.getJID = function(){
+  return textbox.getValue();
+}
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+    <variants jsxwidth="399" jsxheight="133" jsxwindowstate="1" jsxresize="0" jsxmodal="1" jsxleft="66" jsxtop="103"/>
+    <strings jsxname="jsx_xmpp_add_dialog"/>
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <object type="jsx3.gui.WindowBar">
+      <variants jsxbartype="0"/>
+      <strings jsxname="windowBar" jsxtext="Add Contact"/>
+      <object type="jsx3.gui.ToolbarButton">
+        <variants/>
+        <strings jsxname="btnClose"/>
+        <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2" jsxloadtype="1"/>
+      <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxmargin=""/>
+      <dynamics jsxpadding="@8Pixel"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+        <strings jsxname="layoutRows" jsxrows="30,30,30" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="pane1" jsxwidth="100%" jsxheight="" jsxstyleoverride="height: auto;"/>
+          <dynamics jsxborder="@No jsxborder"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxrelativeposition="1" jsxoverflow="3"/>
+            <strings jsxname="label" jsxtext="Enter Jabber ID" jsxfontweight="bold" jsxpadding=""/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+          <dynamics jsxborder="@No jsxborder"/>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18"/>
+            <strings jsxname="textbox" jsxwidth="100%"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxpadding="0 0 0 0" jsxtextalign="right"/>
+          <object type="jsx3.gui.Button">
+            <variants jsxindex="0" jsxheight="18"/>
+            <strings jsxname="button" jsxtext="Cancel" jsxmargin="0 4 0 0"/>
+            <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+          </object>
+          <object type="jsx3.gui.Button">
+            <variants jsxindex="0" jsxheight="18"/>
+            <strings jsxname="button" jsxtext="Add" jsxmargin="0 4 0 0" jsxfontweight="bold"/>
+            <dynamics jsxbgcolor="@Solid Medium"/>
+            <events jsxexecute="jsx_xmpp_add_dialog.getPlugIn()._doAddContact(objEVENT, jsx_xmpp_add_dialog);"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

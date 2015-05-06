@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record jsxid="jsxsortpath"
+      jsxtip="The CDF attribute to sort records on. If this attribute is not provided, the select entries are rendered in the order that they appear in the CDF document."/>
+  <record jsxid="jsxsortdirection"
+      jsxtip="The sort direction if the jsxsortpath attribute is provided. Either 'ascending' or 'descending'."/>
+  <record jsxid="jsxsorttype"
+      jsxtip="The sort data type if the jsxsortpath attribute is provided. Either 'text' or 'number'."/>
+  <record jsxid="jsxshallowfrom"
+      jsxtip="The jsxid attribute of the CDF record whose child records are rendered as the entries in the select. If provided, only the direct children of the record are rendered. If this attribute is not provided, all descendants of the root data element are rendered."/>
+  <record jsxid="jsx_img_resolve"
+      jsxtip="If '0', the jsximg CDF attribute is not resolved as a URL."/>
+</data>

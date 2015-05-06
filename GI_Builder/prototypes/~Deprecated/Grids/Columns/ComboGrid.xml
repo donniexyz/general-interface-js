@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Select - Combo]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[This Column can be added to a jsx3.gui.Grid, or compatible derivative thereof. It provides a comboBox edit mask that updates the @type attribute on a CDF record. The jsxtext attribute of the CDF document associated with the combo mask object is used for the display value in the combo, the jsxid attribute is placed in the grid cell when selection is made and is set as the value of @type in the grid's CDF document.]]></description>
+  <object type="jsx3.gui.Column">
+    <variants/>
+    <strings jsxname="column (combo)" jsxwidth="100" jsxpath="@type" jsxtext="Combo Mask" jsxmask="myComboMask" jsxxsl="&lt;xsl:attribute name=&quot;style&quot;&gt;position:relative;padding-left:7px;&lt;/xsl:attribute&gt;&lt;xsl:value-of select=&quot;@path@&quot;/&gt;&amp;#160;"/>
+    <object type="jsx3.gui.Select">
+      <dynamics jsxbgcolor="@Solid Selection" jsxborder="@Dashed"/>
+      <variants jsxwidth="99" jsxheight="19" jsxtype="1" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+      <strings jsxname="myComboMask" jsxvisibility="hidden" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;
+ &lt;record jsxid=&quot;Opt1&quot; jsxtext=&quot;Opt1&quot;/&gt;
+ &lt;record jsxid=&quot;Opt2&quot; jsxtext=&quot;Opt2&quot;/&gt;
+ &lt;record jsxid=&quot;Opt3&quot; jsxtext=&quot;Opt3&quot;/&gt;
+&lt;/data&gt;"/>
+      <events jsxselect="if(this.getVisibility() != jsx3.gui.Block.VISIBILITYHIDDEN) {
+  var oGrid = this.getAncestorOfType(jsx3.gui.Grid);
+  oGrid.onAfterEdit(null,this);
+  oGrid.getActiveCell().focus();
+}" jsxkeydown="if((objEVENT.isArrowKey()) &amp;&amp; objEVENT.altKey()) {this.getAncestorOfType(jsx3.gui.Grid).onAfterEdit(null,this);jsx3.gui.Select.hideOptions();} this.getAncestorOfType(jsx3.gui.Grid).doMaskKeyDown();"/>
+    </object>
+  </object>
+</serialization>

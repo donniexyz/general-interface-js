@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+  <record include="master.xml" group="position_fixedsize"/>
+
+  <record jsxid="jsx3menu" group="1" jsxtext="Menu">
+    <record include="master.xml" group="jsxtext" children="1"/>
+    <record include="master.xml" group="form_novalue" children="1"/>
+    <record include="master.xml" group="jsxdivider" children="1"/>
+    <record include="master.xml" group="jsximage" children="1"/>
+  </record>
+
+  <record include="master.xml" group="blockx"/>
+  <record include="master.xml" group="font"/>
+
+  <record jsxid="box" group="1" jsxtext="Box">
+    <record jsxid="jsxbgcolor" jsxtext="BG Color"
+        eval="0"
+        jsxtip="Sets the background color. Accepts CSS values, such as predefined color names, RGB, or hexadecimal values. For example, &lt;code&gt;red&lt;/code&gt;, &lt;code&gt;rgb(255,0,0)&lt;/code&gt;, or &lt;code&gt;#ff0000&lt;/code&gt;."
+        docgetter="getBackgroundColor" docsetter="setBackgroundColor"
+        docdefault="The default background color specified in the static field, &lt;code&gt;DEFAULTBACKGROUNDCOLOR&lt;/code&gt;, of the component class.  For example, the default background color for a list is #f3f2f4 and is specified in &lt;code&gt;jsx3.gui.List.DEFAULTBACKGROUNDCOLOR&lt;/code&gt;. See the API documentation for the component. For some components, this property is empty."
+        disallow="[^-0-9a-zA-Z#\(\);:\/\.,]"
+        jsxexecute="objJSX.setBackgroundColor(vntValue);"
+        jsxmask="jsxcolor"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbg']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxmargin']"/>
+  </record>
+
+  <record include="master.xml" group="css_noclass"/>
+  <record include="master.xml" group="interaction_nomenu"/>
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>

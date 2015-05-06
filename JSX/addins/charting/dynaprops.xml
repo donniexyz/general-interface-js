@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot" jsxns="urn:tibco.com/v3.0/dynamicproperties/1">
+  <record jsxid="@Circle Renderer" type="jsxchartrenderer" jsxtext="jsx3.chart.PointRenderer.CIRCLE"/>
+  <record jsxid="@Cross Renderer" type="jsxchartrenderer" jsxtext="jsx3.chart.PointRenderer.CROSS"/>
+  <record jsxid="@Diamond Renderer" type="jsxchartrenderer" jsxtext="jsx3.chart.PointRenderer.DIAMOND"/>
+  <record jsxid="@Box Renderer" type="jsxchartrenderer" jsxtext="jsx3.chart.PointRenderer.BOX"/>
+  <record jsxid="@Triangle Renderer" type="jsxchartrenderer" jsxtext="jsx3.chart.PointRenderer.TRIANGLE"/>
+
+  <record jsxid="@Percent Formatter" type="jsxchartaxisformatter" jsxtext="jsx3.chart.Axis.percent"/>
+  <record jsxid="@Scientific Formatter" type="jsxchartaxisformatter" jsxtext="jsx3.chart.Axis.scientific"/>
+</data>

@@ -1,0 +1,121 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <name></name>
+  <icon></icon>
+  <description></description>
+  <onBeforeDeserialize></onBeforeDeserialize>
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxrelativeposition="1"></variants>
+    <strings jsxname="root" jsxwidth="100%" jsxheight="100%"></strings>
+    <object type="jsx3.gui.NativeForm">
+      <variants></variants>
+      <strings jsxname="form" jsxaction="#" jsxmethod="get" jsxmulti="0" jsxtarget="0"></strings>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"></variants>
+        <strings jsxname="block" jsxwidth="100%" jsxheight="50%"></strings>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1" jsxwidth="300" jsxheight="30"></variants>
+          <strings jsxname="block" jsxrelativeposition="1" jsxpadding="10" jsxtagname="div"></strings>
+          <object type="jsx3.gui.Label">
+            <variants jsxrelativeposition="1" jsxoverflow="3"></variants>
+            <strings jsxname="formLabel" jsxtext="Name:" jsxfor="#input"></strings>
+            <object type="jsx3.gui.TextBox">
+              <variants jsxheight="18"></variants>
+              <strings jsxname="textbox" jsxmargin="0 4 0 0" jsxvalue=""></strings>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1" jsxwidth="300" jsxheight="30"></variants>
+          <strings jsxname="block" jsxrelativeposition="1" jsxpadding="10" jsxtagname="div"></strings>
+          <object type="jsx3.gui.Label">
+            <variants jsxrelativeposition="1" jsxoverflow="3"></variants>
+            <strings jsxname="formLabel" jsxtext="Sexuality:" jsxfor="#input"></strings>
+          </object>
+          <object type="jsx3.gui.RadioButton">
+            <variants jsxheight="18" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="1"></variants>
+            <strings jsxname="radio" jsxtext="female" jsxgroupname="group1" jsxmargin="0 4 0 0"></strings>
+          </object>
+          <object type="jsx3.gui.RadioButton">
+            <variants jsxheight="18" jsxdefaultselected="1" jsxselected="1" jsxrelativeposition="1"></variants>
+            <strings jsxname="radio" jsxtext="male" jsxgroupname="group1" jsxmargin="0 4 0 0"></strings>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1" jsxwidth="300" jsxheight="30"></variants>
+          <strings jsxname="block" jsxrelativeposition="1" jsxpadding="10" jsxtagname="div"></strings>
+          <object type="jsx3.gui.Label">
+            <variants jsxrelativeposition="1" jsxoverflow="3"></variants>
+            <strings jsxname="formLabel" jsxtext="City:" jsxfor="#input"></strings>
+          </object>
+          <object type="jsx3.gui.Select">
+            <variants jsxwidth="150" jsxheight="18" jsxtype="1" jsxxmlasync="1"></variants>
+            <strings jsxname="combo" jsxvalue="a" jsxxmlurl="jsx:///xml/sample.xml" jsxmargin="0 4 0 0"></strings>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1" jsxwidth="300" jsxheight="30"></variants>
+          <strings jsxname="block" jsxrelativeposition="1" jsxpadding="10" jsxtagname="div"></strings>
+          <object type="jsx3.gui.Label">
+            <variants jsxrelativeposition="1" jsxoverflow="3"></variants>
+            <strings jsxname="formLabel" jsxtext="Birth:" jsxfor="#input"></strings>
+          </object>
+          <object type="jsx3.gui.DatePicker">
+            <variants jsxwidth="100" jsxrelativeposition="1" jsxheight="18"></variants>
+            <strings jsxname="datePicker" jsxmargin="0 4 0 0"></strings>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1" jsxwidth="300" jsxheight="30"></variants>
+          <strings jsxname="block" jsxrelativeposition="1" jsxpadding="10" jsxtagname="div"></strings>
+          <object type="jsx3.gui.Label">
+            <variants jsxrelativeposition="1" jsxoverflow="3"></variants>
+            <strings jsxname="formLabel" jsxtext="Register:" jsxfor="#input"></strings>
+          </object>
+          <object type="jsx3.gui.TimePicker">
+            <variants jsxrelativeposition="1" jsxheight="18" jsxhours="0" jsxminutes="0" jsxseconds="0" jsxmillis="0" jsxshowsecs="0" jsxshowmillis="0"></variants>
+            <strings jsxname="timePicker" jsxmargin="0 4 0 0"></strings>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1" jsxwidth="500" jsxheight="30"></variants>
+          <strings jsxname="block" jsxrelativeposition="1" jsxpadding="10" jsxtagname="div"></strings>
+          <object type="jsx3.gui.Label">
+            <variants jsxrelativeposition="1" jsxoverflow="3"></variants>
+            <strings jsxname="formLabel" jsxtext="Hobby:" jsxfor="#input"></strings>
+          </object>
+          <object type="jsx3.gui.CheckBox">
+            <variants jsxheight="18" jsxdefaultchecked="0"></variants>
+            <strings jsxname="checkbox" jsxtext="Reading" jsxmargin="0 4 0 0"></strings>
+          </object>
+          <object type="jsx3.gui.CheckBox">
+            <variants jsxheight="18" jsxdefaultchecked="0"></variants>
+            <strings jsxname="checkbox" jsxtext="Cooking" jsxmargin="0 4 0 0"></strings>
+          </object>
+          <object type="jsx3.gui.CheckBox">
+            <variants jsxheight="18" jsxdefaultchecked="0"></variants>
+            <strings jsxname="checkbox" jsxtext="Traving" jsxmargin="0 4 0 0"></strings>
+          </object>
+          <object type="jsx3.gui.CheckBox">
+            <variants jsxheight="18" jsxdefaultchecked="0"></variants>
+            <strings jsxname="checkbox" jsxtext="Studing" jsxmargin="0 4 0 0"></strings>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"></variants>
+        <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxpadding="20"></strings>
+        <object type="jsx3.gui.Button">
+          <variants jsxindex="0" jsxheight="18"></variants>
+          <strings jsxname="button" jsxtext="submit" jsxmargin="0 4 0 0"></strings>
+          <events jsxexecute="alert('hello');"></events>
+        </object>
+        <object type="jsx3.gui.Button">
+          <variants jsxindex="0" jsxheight="18"></variants>
+          <strings jsxname="button" jsxtext="reset" jsxmargin="0 4 0 0"></strings>
+          <events jsxexecute="alert('hello');"></events>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

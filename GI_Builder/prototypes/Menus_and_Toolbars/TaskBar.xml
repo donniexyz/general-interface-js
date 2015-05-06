@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Taskbar]]></name>
+  <icon><![CDATA[images/prototypes/taskbar.gif]]></icon>
+  <description><![CDATA[taskBar object.  Will hold an icon representation of open and minimized dialogs.  Use layoutGrid to position at the bottom of your app, or as desired.]]></description>
+  <object type="jsx3.gui.WindowBar">
+    <variants jsxbartype="3"/>
+    <strings jsxname="taskBar"/>
+  </object>
+</serialization>

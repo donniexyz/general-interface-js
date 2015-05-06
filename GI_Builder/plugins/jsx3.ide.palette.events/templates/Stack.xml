@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+
+  <record jsxid="jsxexecute" jsxtext="Execute"
+      jsxtip="Fires after the user clicks this stack to open it or after an equivalent event.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event"
+        jsxtext="the browser event that triggers this event; &lt;code&gt;null&lt;/code&gt; if this event is invoked with &lt;code&gt;doShowStack()&lt;/code&gt;."/>
+  </record>
+
+  <record jsxid="jsxshow" jsxtext="Show"
+      jsxtip="Fires after this stack is made visible within the parent stack group."
+      always="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+  </record>
+
+  <record jsxid="jsxdestroy" jsxtext="Destroy" always="1"
+      jsxtip="Fires after this stack is removed from the DOM.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objPARENT" type="jsx3.app.Model"
+        jsxtext="the parent of this stack before it is removed from the DOM. "/>
+  </record>
+
+</data>

@@ -1,0 +1,16 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Licensed under TIBCO BSD license, see license.txt under directory samples/
+  -->
+<data jsxid="jsxroot" xmax="50" ymax="50">
+  <record jsxid="1"  x="4"  y="2"  m="5"/>
+  <record jsxid="2"  x="14" y="40" m="15"/>
+  <record jsxid="3"  x="42" y="24" m="3"/>
+  <record jsxid="4"  x="20" y="17" m="8"/>
+  <record jsxid="5"  x="42" y="8"  m="11"/>
+  <record jsxid="6"  x="7"  y="44" m="2"/>
+  <record jsxid="7"  x="45" y="38" m="20"/>
+  <record jsxid="8"  x="30" y="35" m="6"/>
+  <record jsxid="9"  x="39" y="17" m="8"/>
+  <record jsxid="10" x="26" y="8"  m="6"/>
+</data>

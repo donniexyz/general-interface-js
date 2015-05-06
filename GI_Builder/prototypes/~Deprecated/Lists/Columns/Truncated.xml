@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Test - Truncated]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[This column renders the value of the column's path attribute as plain text. If the text does not fit in the width of the column, the text is truncated and an ellipsis appears. The entire non-truncated value is visible as a tooltip.]]></description>
+  <object type="jsx3.gui.Column">
+    <variants jsxwidth="120"/>
+    <strings jsxname="column (data)" jsxtext="Data" jsxpath="@jsxtext" jsxxsl="&lt;xsl:attribute name=&quot;style&quot;&gt;text-overflow:ellipsis;&lt;/xsl:attribute&gt;&lt;xsl:attribute name=&quot;title&quot;&gt;&lt;xsl:value-of select=&quot;@path@&quot;/&gt;&lt;/xsl:attribute&gt;&lt;nobr&gt;&lt;xsl:value-of select=&quot;@path@&quot;/&gt;&lt;/nobr&gt;"/>
+  </object>
+</serialization>

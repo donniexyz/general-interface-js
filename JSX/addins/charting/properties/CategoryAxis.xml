@@ -1,0 +1,47 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record include="master.xml" group="axis">
+    <record jsxid="categoryField" jsxtext="Label Field"
+        jsxtip="Sets the attribute of the data provider containing the category label value."
+        docgetter="getCategoryField" docsetter="setCategoryField"
+        eval="0"
+        validate="^([_a-zA-Z]\w*|)$"
+        jsxmask="jsxtext"/>
+    <record jsxid="paddingLow" jsxtext="Padding Low"
+        jsxtip="Sets the padding before the first category, as a multiple of a category width."
+        docgetter="getPaddingLow" docsetter="setPaddingLow"
+        docdefault="&lt;code&gt;0&lt;/code&gt;"
+        eval="1"
+        disallow="[^0-9\.]"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.paddingLow = vntValue; objJSX.getChart().repaint();"/>
+    <record jsxid="paddingHigh" jsxtext="Padding High"
+        jsxtip="Sets the padding after the last category, as a multiple of a category width."
+        docgetter="getPaddingHigh" docsetter="setPaddingHigh"
+        docdefault="&lt;code&gt;0&lt;/code&gt;"
+        eval="1"
+        disallow="[^0-9\.]"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.paddingHigh = vntValue; objJSX.getChart().repaint();"/>
+    <record jsxid="tickAlignment" jsxtext="Mj Tick Alignment"
+        jsxtip="Sets the method for aligning major ticks with respect to each category. If set to between, midpoint of the category is between two major ticks. If set to aligned, midpoint of the category is aligned with a major tick."
+        docgetter="getTickAlignment" docsetter="setTickAlignment"
+        docdefault="between (&lt;code&gt;jsx3.chart.CategoryAxis.TICKS_BETWEEN&lt;/code&gt;)"
+        eval="0" nullable="0"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.tickAlignment = vntValue; objJSX.getChart().repaint();">
+      <enum jsxid="jsx3.chart.CategoryAxis.TICKS_ALIGNED" jsxtext="aligned"/>
+      <enum jsxid="jsx3.chart.CategoryAxis.TICKS_BETWEEN" jsxtext="between"/>
+    </record>
+  </record>
+
+  <record include="master.xml" group="axisticks"/>
+  <record include="master.xml" group="axislabels"/>
+  <record include="master.xml" group="interaction_menuonly"/>
+</data>

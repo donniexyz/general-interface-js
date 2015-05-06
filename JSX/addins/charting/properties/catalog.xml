@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record jsxid="jsx3.chart.AreaChart" jsxtext="AreaChart.xml"/>
+  <record jsxid="jsx3.chart.AreaSeries" jsxtext="AreaSeries.xml"/>
+  <record jsxid="jsx3.chart.BarChart" jsxtext="BarChart.xml"/>
+  <record jsxid="jsx3.chart.BarSeries" jsxtext="BarSeries.xml"/>
+  <record jsxid="jsx3.chart.BubbleSeries" jsxtext="BubbleSeries.xml"/>
+  <record jsxid="jsx3.chart.CategoryAxis" jsxtext="CategoryAxis.xml"/>
+  <record jsxid="jsx3.chart.ChartLabel" jsxtext="ChartLabel.xml"/>
+  <record jsxid="jsx3.chart.ColumnChart" jsxtext="ColumnChart.xml"/>
+  <record jsxid="jsx3.chart.ColumnSeries" jsxtext="ColumnSeries.xml"/>
+  <record jsxid="jsx3.chart.GridLines" jsxtext="GridLines.xml"/>
+  <record jsxid="jsx3.chart.Legend" jsxtext="Legend.xml"/>
+  <record jsxid="jsx3.chart.LinearAxis" jsxtext="LinearAxis.xml"/>
+  <record jsxid="jsx3.chart.LineChart" jsxtext="LineChart.xml"/>
+  <record jsxid="jsx3.chart.LineSeries" jsxtext="LineSeries.xml"/>
+  <record jsxid="jsx3.chart.LogarithmicAxis" jsxtext="LogarithmicAxis.xml"/>
+  <record jsxid="jsx3.chart.PieChart" jsxtext="PieChart.xml"/>
+  <record jsxid="jsx3.chart.PieSeries" jsxtext="PieSeries.xml"/>
+  <record jsxid="jsx3.chart.PlotChart" jsxtext="PlotChart.xml"/>
+  <record jsxid="jsx3.chart.PointSeries" jsxtext="PointSeries.xml"/>
+</data>

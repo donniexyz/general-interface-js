@@ -1,0 +1,50 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.2">
+  <name>Layout (--)</name>
+  <icon/>
+  <description>2 top-over-bottom panes in an adaptive layout grid.</description>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize/>
+  <object type="jsx3.gui.LayoutGrid">
+    <variants jsxrepeat="2" jsxsizearray="['118','*']" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2" jsxbestguess="1" jsxorientation="0"/>
+    <strings jsxname="lytMainLayout" jsxwidth="100%" jsxheight="100%" jsxrows="118,*"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1"/>
+      <strings jsxname="blkAppDescriptionPane" jsxwidth="100%" jsxheight="100%" jsxtext=" &lt;p align=&quot;right&quot;&gt;&lt;b&gt;GUI Layout; version 2.0.1d&lt;/b&gt;&lt;br/&gt; JSX version: 3.4.0&lt;/p&gt; &lt;p&gt;This sample provides two different application canvases to demonstrate better ways how to layout GI components like blocks, layout, dialog, menus etc., on application screens. &lt;/p&gt;"/>
+      <dynamics jsxborder="@Outset" jsxpadding="@8Pixel" jsxbgcolor="@Solid Medium"/>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1"/>
+      <strings jsxname="blkLowerPane" jsxwidth="100%" jsxheight="100%"/>
+      <dynamics jsxborder="@Outset"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrepeat="2" jsxsizearray="['80','*']" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2" jsxbestguess="0" jsxorientation="1"/>
+        <strings jsxname="lytLowerPaneLayout" jsxwidth="100%" jsxheight="100%" jsxcols="80,*"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="blkSelectionPane" jsxwidth="100%" jsxheight="100%"/>
+          <dynamics jsxborder="@Outset"/>
+          <object type="jsx3.gui.Button">
+            <variants jsxindex="0" jsxheight="18"/>
+            <strings jsxname="btnSelectCanvas1" jsxtext="Canvas 1" jsxmargin="margin-top:4px;" jsxwidth="100%" jsxstyleoverride="display: block;"/>
+            <!--<events jsxexecute="eg.guilayout.loadCanvas(this,&quot;components/appCanvas_1.xml&quot;);"/>-->
+          </object>
+          <object type="jsx3.gui.Button">
+            <variants jsxindex="0" jsxheight="18"/>
+            <strings jsxname="btnSelectCanvas2" jsxtext="Canvas 2" jsxmargin="4 0 0 0" jsxwidth="100%" jsxstyleoverride="display:block;"/>
+            <!--<events jsxexecute="eg.guilayout.loadCanvas(this,&quot;components/appCanvas_2.xml&quot;);"/>-->
+          </object>
+          <object type="jsx3.gui.Button">
+            <variants jsxindex="0" jsxheight="18"/>
+            <strings jsxname="btnClear" jsxtext="Clear canvas" jsxmargin="4 0 0 0" jsxwidth="100%"/>
+            <!--<events jsxexecute="this.getServer().getJSXByName('blkContentPane').removeChildren();"/>-->
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxname="blkContentPane" jsxwidth="100%" jsxheight="100%"/>
+          <dynamics jsxborder="@Outset"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

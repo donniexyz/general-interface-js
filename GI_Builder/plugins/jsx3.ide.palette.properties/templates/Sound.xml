@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="jsx3sound" group="1" jsxtext="Sound">
+    <record jsxid="jsxurl" jsxtext="URL"
+        eval="0"
+        jsxtip="Sets the URL of the sound file."
+        docgetter="getURL" docsetter="setURL"
+        jsxmask="jsxpath"/>
+    <record jsxid="jsxvolume" jsxtext="Volume"
+        eval="1"
+        jsxtip="Sets the sound volume (0-100)."
+        docgetter="getVolume" docsetter="setVolume"
+        docdefault="&lt;code&gt;50&lt;/code&gt;"
+        disallow="\D"
+        jsxexecute="objJSX.setVolume(vntValue);"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record include="master.xml" group="metadata"/>
+</data>

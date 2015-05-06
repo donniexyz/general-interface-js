@@ -1,0 +1,93 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.jabber"
+        name="Jabber Plug-In"
+        version="0.1">
+
+  <method id="getPalette"><![CDATA[
+    return this.getEngine().getPlugIn("jsx3.ide.ui").getPalette(this, "xmpp.palette");
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.ide.ui"/>
+    <plugin id="jsx3.gui.Matrix"/>
+  </requires>
+
+  <resources>
+    <script id="xmpp_js" path="palette.js" eval="true"/>
+
+    <xml id="xmpp_settings" path="settings.xml" load="manual">
+      <prereq id="xmpp_js"/>
+      <prereq plugin="jsx3.amp.util.prefspanel"/>
+    </xml>
+
+    <xml id="xmpp_palette" path="palette.xml">
+      <prereq id="xmpp_js"/>
+      <prereq plugin="jsx3.ide.ui"/>
+      <prereq plugin="jsx3.amp.util.menumgr"/>
+      <prereq plugin="jsx3.amp.util.toolbarmgr"/>
+    </xml>
+
+    <xml id="xmpp_chat_dialog" path="chat.xml">
+      <prereq id="xmpp_js"/>
+    </xml>
+    <xml id="xmpp_add_dialog" path="add_dialog.xml" load="manual" />
+    <xml id="xmpp_nick_dialog" path="nick_dialog.xml" load="manual" />
+    <xml id="xmpp_delete_dialog" path="delete_dialog.xml" load="manual" />
+  </resources>
+
+  <subscribe event="jsx3.ide.settings.ide.saved" when="loaded">
+    if (evt.pane.getTitle() == "Chat") {
+      // if connected will shut down, if not connected, will repaint the UI according to whether pw is set
+      this.doShutdown();
+    }
+  </subscribe>
+  
+  <extension point="jsx3.ide.settings.ide.pane" id="default">
+    <pane label="Chat" img="images/xmpp.gif"
+          tip="Settings related to XMPP." resource="xmpp_settings"/>
+  </extension>
+
+  <extension point="jsx3.ide.ui.palette" id="xmpp.palette">
+    <palette label="Chat" hotkey="ctrl+0"
+             resource="xmpp_palette" default-position="q3" default-closed="true" idegroup="per-ide"/>
+  </extension>
+
+  <!-- The palette context menu -->
+  <extension-point id="ctxmenu">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenu"/>
+  </extension-point>
+
+  <!-- The palette context menu items -->
+  <extension-point id="ctxmenu-item">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenuItem"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.jabber.ctxmenu" id="ctxmenu">
+    <menu id="jsx3.ide.xmppctx" path="/">
+      <section id="edit"/>
+    </menu>
+  </extension>
+
+  <extension point="jsx3.ide.jabber.ctxmenu-item" id="ctxmenu-item">
+    <action
+        id="alias"
+        label="Set Nickname"
+        menupath="/jsx3.ide.xmppctx/edit"
+        execute="this.getPlugIn().editNickname(menu.getContextParent().getRecord(menu.getContextParent().getValue()));"
+    />
+    <action
+        id="delete"
+        label="Delete"
+        menupath="/jsx3.ide.xmppctx/edit"
+        execute="this.getPlugIn().deleteFromRoster(menu.getContextParent().getRecord(menu.getContextParent().getValue()));"
+        img="jsxapp:/images/icon_55.gif"/>
+  </extension>
+
+</plugin>

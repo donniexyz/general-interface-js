@@ -1,0 +1,241 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="mtxcdataprops" group="1" jsxtext="CDF Mapping">
+    <record jsxid="jsxpath" jsxtext="Att Name"
+        eval="0"
+        jsxtip="Sets the named attribute on the CDF record to which this column will map. For example, &lt;code&gt;jsxtext&lt;/code&gt;."
+        docgetter="getPath" docsetter="setPath"
+        disallow="[@:]"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setPath(vntValue);">
+    </record>
+    <record jsxid="jsxdatatype" jsxtext="Att Type"
+        eval="0"
+        jsxtip="Sets the data type for the named attribute to which this column is mapped."
+        docgetter="getDataType" docsetter="setDataType"
+        docdefault="Text (&lt;code&gt;jsx3.gui.Column.TYPETEXT&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Matrix.Column.TYPE_TEXT" jsxtext="Text"/>
+      <enum jsxid="jsx3.gui.Matrix.Column.TYPE_NUMBER" jsxtext="Numerical"/>
+    </record>
+    <record jsxid="jsxsortpath" jsxtext="Sort Att Name"
+        eval="0"
+        jsxtip="Sets the named attribute on the CDF record which this column will sort on. For example, &lt;code&gt;jsxtext&lt;/code&gt;."
+        docgetter="getSortPath" docsetter="setSortPath"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setSortPath(vntValue);objJSX.repaint();">
+    </record>
+    <record jsxid="jsxsortdatatype" jsxtext="Sort Att Type"
+        eval="0"
+        jsxtip="Sets the data type for the named sort attribute if one is used."
+        docgetter="getSortType" docsetter="setSortType"
+        docdefault="Text (&lt;code&gt;jsx3.gui.Column.TYPETEXT&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Matrix.Column.TYPE_TEXT" jsxtext="Text"/>
+      <enum jsxid="jsx3.gui.Matrix.Column.TYPE_NUMBER" jsxtext="Numerical"/>
+    </record>
+    <record jsxid="jsxtriggers" jsxtext="Triggers"
+        eval="0"
+        jsxtip="Comma separated list of named attributes that when modified by another column will trigger this column's related cell to repaint."
+        docgetter="getTriggers" docsetter="setTriggers"
+        docdefault="Empty"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="mtxcdatainter" group="1" jsxtext="Interaction">
+    <record jsxid="jsxsort" jsxtext="Sortable"
+        eval="1"
+        jsxtip="Sets whether or not this column is sortable"
+        docgetter="getCanSort" docsetter="setCanSort"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setCanSort(vntValue);">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+    <record jsxid="jsxresize" jsxtext="Resizable"
+        eval="1"
+        jsxtip="Sets whether or not this column is resizable."
+        docgetter="getResizable" docsetter="setResizable"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setResizable(vntValue);">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+  </record>
+
+  <record jsxid="mtxccellprops" group="1" jsxtext="Data Display">
+    <record jsxid="jsxwidth" jsxtext="Width"
+        jsxtip="Sets the width of the control as implied pixels or a percentage. Also supports wildcards(*). Note: Integer values take precedence over percentages."
+        docgetter="getWidth" docsetter="setWidth"
+        docdefault="Empty"
+        eval="0"
+        jsxexecute="objJSX.setWidth((jsx3.util.numIsNaN(vntValue))?vntValue:vntValue-0);"
+        disallow="[^cm^pt^\\.^%^0-9^-^\*]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxvaluetemplate" jsxtext="Value Template"
+        eval="0"
+        jsxtip="The XSL template to generate the cell content. Must be a valid XSL Template or a system-defined template identified by one of: @image (jsximg), @unescape, @empty, or @default."
+        docgetter="getValueTemplate" docsetter="setValueTemplate"
+        docdefault="&lt;code&gt;jsx3.gui.Matrix.TEMPLATES[&quot;default&quot;]&lt;/code&gt;"
+        jsxmask="jsxtextarea"
+        jsxexecute="objJSX.setValueTemplate(vntValue);objJSX.getParent().repaint();">
+    </record>
+    <record jsxid="jsxformathandler" jsxtext="Format Handler"
+        eval="0"
+        jsxtip="Sets the reformatting method to use on the cell data after it has been painted on-screen. Can also point to a named reformatter, including @unescape, @lookup, @message,  @datetime, @date, @time, and @number."
+        docgetter="getFormatHandler" docsetter="setFormatHandler"
+        docdefault="Empty"
+        jsxmask="jsxtextarea"
+        jsxexecute="objJSX.setFormatHandler(vntValue);objJSX.repaint();">
+    </record>
+    <record jsxid="jsxdisplay" jsxtext="Display"
+        eval="0"
+        jsxtip="Sets the CSS display property. When set to None, this column will not be rendered in the view."
+        docgetter="getDisplay" docsetter="setDisplay"
+        docdefault="Block (&lt;code&gt;jsx3.gui.Block.DISPLAYBLOCK&lt;/code&gt;)"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setDisplay(vntValue,true);">
+      <enum jsxid="jsx3.gui.Block.DISPLAYBLOCK" jsxtext="Block"/>
+      <enum jsxid="jsx3.gui.Block.DISPLAYNONE" jsxtext="None"/>
+    </record>
+  </record>
+
+
+  <record jsxid="mtxheaderprops" group="1" jsxtext="Header Props">
+    <record jsxid="jsxtext" jsxtext="Caption"
+        eval="0"
+        jsxtip="Sets the label for the column header."
+        docgetter="getText" docsetter="setText"
+        docdefault="Empty"
+        jsxexecute="objJSX.setText(vntValue,true);"
+        jsxmask="jsxtextarea"/>
+    <record jsxid="jsxwrap" jsxtext="Word Wrap"
+        eval="1"
+        jsxtip="The word wrapping for this object's caption text. If set to &lt;code&gt;True&lt;/code&gt;, text wraps."
+        docgetter="getWrap" docsetter="setWrap"
+        docdefault="&lt;code&gt;false (jsx3.Boolean.FALSE)&lt;/code&gt;"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setWrap(vntValue);">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+    <record include="master.xml" path="/data/record[@jsxid='font']/record[not(@jsxid='jsxoverflow') and not(@jsxid='jsxmargin')]"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[not(@jsxid='jsxoverflow') and not(@jsxid='jsxmargin')]"/>
+    <record jsxid="jsxvalign" jsxtext="V-Align"
+        eval="0"
+        jsxtip="Sets the vertical-align CSS"
+        docgetter="getVAlign" docsetter="setVAlign"
+        docdefault="Empty"
+        disallow="'"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setVAlign(vntValue)"/>
+    <record include="master.xml" group="interaction" children="1"/>
+    <record include="master.xml" path="/data/record[@jsxid='access']/record[not(@jsxid='jsxindex')]"/>
+  </record>
+
+  <record jsxid="mtxdataprops" group="1" jsxtext="Data Cell Props">
+    <record jsxid="jsxcellwrap" jsxtext="Word Wrap"
+        eval="1"
+        jsxtip="The word wrapping for this object's data cells. If set to &lt;code&gt;True&lt;/code&gt;, text wraps."
+        docgetter="getCellWrap" docsetter="setCellWrap"
+        docdefault="&lt;code&gt;false (jsx3.Boolean.FALSE)&lt;/code&gt;"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setCellWrap(vntValue);objJSX.getParent().repaint();">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+    <record jsxid="jsxcellfontname" jsxtext="Font Name"
+        eval="0"
+        jsxtip="Sets the name of the font family."
+        docgetter="getCellFontName" docsetter="setCellFontName"
+        docdefault="&lt;code&gt;jsx3.gui.Block.DEFAULTFONTNAME&lt;/code&gt;"
+        jsxexecute="objJSX.setCellFontName(vntValue);objJSX.getParent().repaint()"
+        disallow="'"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxcellfontsize" jsxtext="Font Size"
+        eval="1"
+        jsxtip="Sets the point size of the font."
+        docgetter="getCellFontSize" docsetter="setCellFontSize"
+        docdefault="&lt;code&gt;jsx3.gui.Block.DEFAULTFONTSIZE&lt;/code&gt;"
+        jsxexecute="objJSX.setCellFontSize(vntValue);objJSX.getParent().repaint()"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxcellfontweight" jsxtext="Font Weight"
+        eval="0"
+        jsxtip="Sets the weight of the font, such as bold or normal."
+        docgetter="getCellFontWeight" docsetter="setCellFontWeight"
+        docdefault="Normal (&lt;code&gt;jsx3.gui.Block.FONTNORMAL&lt;/code&gt;)"
+        jsxexecute="objJSX.setCellFontWeight(vntValue);objJSX.getParent().repaint()"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Block.FONTBOLD" jsxtext="Bold"/>
+      <enum jsxid="jsx3.gui.Block.FONTNORMAL" jsxtext="Normal"/>
+    </record>
+    <record jsxid="jsxcellcolor" jsxtext="Color"
+        jsxtip="Sets the color of the font. Accepts valid CSS values, such as predefined color names, RGB, or hexadecimal values. For example, &lt;code&gt;red&lt;/code&gt;, &lt;code&gt;rgb(255,0,0)&lt;/code&gt;, or &lt;code&gt;#ff0000&lt;/code&gt;."
+        docgetter="getCellColor" docsetter="setCellColor"
+        docdefault="&lt;code&gt;jsx3.gui.Block.DEFAULTCOLOR&lt;/code&gt;"
+        eval="0"
+        jsxexecute="objJSX.setCellColor(vntValue);objJSX.getParent().repaint()"
+        disallow="[^-0-9a-zA-Z#\(\);:\/\.,]"
+        jsxmask="jsxcolor"/>
+    <record jsxid="jsxcellbgcolor" jsxtext="BG Color"
+        eval="0"
+        jsxtip="Sets the background color. Accepts valid CSS values, such as predefined color names, RGB, or hexadecimal values. For example, &lt;code&gt;red&lt;/code&gt;, &lt;code&gt;rgb(255,0,0)&lt;/code&gt;, or &lt;code&gt;#ff0000&lt;/code&gt;."
+        docgetter="getCellBackgroundColor" docsetter="setCellBackgroundColor"
+        docdefault="The default background color specified in the static field, &lt;code&gt;DEFAULTBACKGROUNDCOLOR&lt;/code&gt;, of the component class.  For example, the default background color for a list is #f3f2f4 and is specified in &lt;code&gt;jsx3.gui.List.DEFAULTBACKGROUNDCOLOR&lt;/code&gt;. See the API documentation for the component. For some components, this property is empty."
+        jsxexecute="objJSX.setCellBackgroundColor(vntValue);objJSX.getParent().repaint()"
+        disallow="[^-0-9a-zA-Z#\(\);:\/\.,]"
+        jsxmask="jsxcolor"/>
+    <record jsxid="jsxcellpadding" jsxtext="Padding"
+        eval="0"
+        jsxtip="Sets the white-space gap between the outer edge/border of this object to its inner content. Specified as one or four pixel values (top, right, bottom, and left). For example, &lt;code&gt;5&lt;/code&gt; or &lt;code&gt;8 4 8 4&lt;/code&gt;."
+        docgetter="getCellPadding" docsetter="setCellPadding"
+        docdefault="Empty"
+        disallow="'"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setCellPadding(vntValue);"/>
+    <record jsxid="jsxcellborder" jsxtext="Border"
+        eval="0"
+        jsxtip="Sets the valid CSS border definition. Specified as one or four value sets (top, right, bottom, and left). Specified as: style width color. For example, &lt;code&gt;solid 1px red;dashed 2px red;double 3px black; solid 1px red;&lt;/code&gt;."
+        docgetter="getCellBorder" docsetter="setCellBorder"
+        docdefault="Empty"
+        disallow="'"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setCellBorder(vntValue);"/>
+    <record jsxid="jsxcelltextalign" jsxtext="Text Align"
+        eval="0"
+        jsxtip="Sets the alignment of any contained object or text."
+        docgetter="&lt;code&gt;getTextAlign&lt;/code&gt;" docsetter="setCellTextAlign"
+        docdefault="Left (&lt;code&gt;jsx3.gui.Block.ALIGNLEFT&lt;/code&gt;)"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setCellTextAlign(vntValue);objJSX.getParent().repaint();">
+      <enum jsxid="jsx3.gui.Block.ALIGNLEFT" jsxtext="Left"/>
+      <enum jsxid="jsx3.gui.Block.ALIGNCENTER" jsxtext="Center"/>
+      <enum jsxid="jsx3.gui.Block.ALIGNRIGHT" jsxtext="Right"/>
+    </record>
+    <record jsxid="jsxcellcursor" jsxtext="Cursor"
+        eval="0"
+        jsxtip="Sets the valid CSS cursor definition."
+        docgetter="getCellCursor" docsetter="setCellCursor"
+        docdefault="Empty"
+        disallow="'"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setCellCursor(vntValue);objJSX.getParent().repaint();"/>
+    <record jsxid="jsxcellvalign" jsxtext="V-Align"
+        eval="0"
+        jsxtip="Sets the vertical-align CSS"
+        docgetter="getCellVAlign" docsetter="setCellVAlign"
+        docdefault="Empty"
+        disallow="'"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setCellVAlign(vntValue);objJSX.getParent().repaint();"/>
+  </record>
+
+  <record include="master.xml" group="metadata"/>
+</data>

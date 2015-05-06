@@ -1,0 +1,14 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Toolbar Button]]></name>
+  <icon><![CDATA[images/prototypes/toolbar-button.gif]]></icon>
+  <description><![CDATA[Toolbar Button, contains both text and icon.]]></description>
+  <object type="jsx3.gui.ToolbarButton">
+    <variants/>
+    <strings jsxname="toolBarBtn" jsximage="jsx:///images/tbb/open.gif" jsxtext="[text]"/>
+    <events jsxexecute="window.alert('button clicked');"/>
+  </object>
+</serialization>

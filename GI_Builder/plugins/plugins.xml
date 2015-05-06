@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugins xmlns="http://www.generalinterface.org/gi/amp"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugins.xsd">
+  
+  <plugin id="jsx3.ide.progress"/>
+  <plugin id="jsx3.ide"/>
+  <plugin id="jsx3.io"/>
+  <plugin id="jsx3.io.fso"/>
+  <plugin id="jsx3.io.xpcom"/>
+  <plugin id="jsx3.io.browser"/>
+  <plugin id="jsx3.ide.ui"/>
+  <plugin id="jsx3.ide.project"/>
+  <plugin id="jsx3.ide.project.app"/>
+  <plugin id="jsx3.ide.newhome"/>
+  <plugin id="jsx3.ide.settings.ide"/>
+  <plugin id="jsx3.ide.settings.project"/>
+  <plugin id="jsx3.ide.editor"/>
+  <plugin id="jsx3.ide.editor.component"/>
+  <plugin id="jsx3.ide.editor.focus"/>
+  <plugin id="jsx3.ide.palette.properties"/>
+  <plugin id="jsx3.ide.palette.events"/>
+  <plugin id="jsx3.ide.palette.xslparams"/>
+  <plugin id="jsx3.ide.recycling"/>
+  <plugin id="jsx3.ide.editor.props"/>
+  <plugin id="jsx3.ide.editor.propsbundle"/>
+  <plugin id="jsx3.ide.editor.text"/>
+  <plugin id="jsx3.ide.editor.xml"/>
+  <plugin id="jsx3.ide.editor.cache"/>
+  <plugin id="jsx3.ide.log"/>
+  <plugin id="jsx3.ide.apidoc"/>
+  <plugin id="jsx3.ide.colorpicker"/>
+  <plugin id="jsx3.ide.deploytool"/>
+  <!--<plugin id="jsx3.ide.evaluator"/>-->
+  <plugin id="jsx3.ide.jsconsole"/>
+  <plugin id="jsx3.ide.find"/>
+  <plugin id="jsx3.ide.ui.license"/>
+  <plugin id="jsx3.ide.xsltool"/>
+  <plugin id="jsx3.ide.welcome"/>
+  <plugin id="jsx3.ide.debugger"/>
+  <plugin id="jsx3.ide.palette.prototypes"/>
+  <plugin id="jsx3.ide.palette.cache"/>
+  <plugin id="jsx3.ide.palette.resources"/>
+  <plugin id="jsx3.ide.versioncheck"/>
+  <plugin id="jsx3.ide.amp"/>
+  <plugin id="jsx3.ide.mapping"/>
+  <plugin id="jsx3.ide.charting"/>
+  <plugin id="jsx3.ide.testing"/>
+  <plugin id="jsx3.ide.recorder"/>
+  <plugin id="jsx3.ide.recorder.gipp"/>
+  <plugin id="jsx3.ide.recorder.gitak"/>
+  <plugin id="jsx3.ide.xmpp"/>
+  <plugin id="jsx3.ide.jabber"/>
+  <plugin id="net.sf.editarea"/>
+  <!--<plugin id="com.google.gears"/>-->
+</plugins>

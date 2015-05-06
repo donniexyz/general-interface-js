@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <name><![CDATA[Plot - Point]]></name>
+ <icon><![CDATA[icons/plotPoint.gif]]></icon>
+ <description><![CDATA[a sample point chart]]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.chart.PlotChart">
+   <dynamics />
+   <variants jsxleft="0" jsxtop="0" jsxwidth="400" jsxheight="300" borderWidth="1" borderAlpha="1" alpha="1" jsxrelativeposition="1" loadState="1" maxPointRadius="30" />
+   <strings jsxname="scatterChart" titlePlacement="top" legendPlacement="right" dataPadding="14 10 6 6" borderColor="#999999" magnitudeMethod="radius" jsxbgcolor="#FFFFFF" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record jsxname=&quot;John&quot; w1=&quot;70&quot; h1=&quot;172&quot;/&gt;&lt;record jsxname=&quot;Max&quot; w1=&quot;82&quot; h1=&quot;185&quot;/&gt;&lt;record jsxname=&quot;Matthew&quot; w1=&quot;67&quot; h1=&quot;178&quot;/&gt;&lt;record jsxname=&quot;Justin&quot; w1=&quot;72&quot; h1=&quot;165&quot;/&gt;&lt;record jsxname=&quot;Sara&quot; w2=&quot;60&quot; h2=&quot;165&quot;/&gt;&lt;record jsxname=&quot;Mary&quot; w2=&quot;55&quot; h2=&quot;158&quot;/&gt;&lt;record jsxname=&quot;Elizabeth&quot; w2=&quot;67&quot; h2=&quot;162&quot;/&gt;&lt;record jsxname=&quot;Zelda&quot; w2=&quot;58&quot; h2=&quot;175&quot;/&gt;&lt;/data&gt;" />
+    <object type="jsx3.chart.ChartLabel">
+     <dynamics />
+     <variants labelRotation="0" jsxfontsize="14" />
+     <strings jsxname="title" jsxtext="Point Chart" jsxcolor="#FFFFFF" jsxbgcolor="#666666" jsxpadding="4 0 0 0" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+    </object>
+    <object type="jsx3.chart.LinearAxis">
+     <dynamics />
+     <variants horizontal="1" primary="1" showAxis="1" showLabels="1" labelGap="3" tickLength="3" minorTickDivisions="4" minorTickLength="2" autoAdjust="1" baseAtZero="0" />
+     <strings jsxname="xAxis" axisStroke="#000000 1 1" labelPlacement="axis" tickAlignment="aligned" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="outside" minorTickStroke="#666666 1" labelStyle="font-size: 8px; font-family: Verdana;" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants preferredHeight="14" labelRotation="0" jsxfontsize="12" />
+       <strings jsxname="xTitle" jsxtext="Weight (kg)" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+      </object>
+    </object>
+    <object type="jsx3.chart.LinearAxis">
+     <dynamics />
+     <variants horizontal="0" primary="1" showAxis="1" showLabels="1" labelGap="3" tickLength="3" minorTickDivisions="4" minorTickLength="3" displayWidth="25" autoAdjust="1" baseAtZero="0" />
+     <strings jsxname="yAxis" axisStroke="#000000 1 1" labelPlacement="axis" tickAlignment="aligned" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="none" minorTickStroke="#000000 1 1" labelStyle="font-size: 8px; font-family: Verdana; text-align: right;" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants preferredWidth="14" labelRotation="270" jsxfontsize="12" />
+       <strings jsxname="ytitle" jsxtext="Height (cm)" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+      </object>
+    </object>
+    <object type="jsx3.chart.GridLines">
+     <dynamics />
+     <variants useXPrimary="1" useYPrimary="1" horizontalAbove="1" inForeground="0" strokeMajorV="['#FFFFFF 1 1']" strokeMinorV="['#EEEEEE 1 1']" strokeMajorH="['#FFFFFF 1 1']" strokeMinorH="['#EEEEEE 1 1']" fillV="['#E8E8E8 1']" />
+     <strings jsxname="grid" borderStroke="#CCCCCC 1" />
+    </object>
+    <object type="jsx3.chart.PointSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="0" />
+     <strings jsxname="series1" seriesName="Men" fill="#66CC00" xField="w1" yField="h1" renderer="jsx3.chart.PointRenderer.CIRCLE" tooltipFunction="jsx3.chart.PointSeries.tooltip" />
+    </object>
+    <object type="jsx3.chart.PointSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="1" />
+     <strings jsxname="series2" seriesName="Women" fill="#FF0033" xField="w2" yField="h2" renderer="jsx3.chart.PointRenderer.DIAMOND" tooltipFunction="jsx3.chart.PointSeries.tooltip" />
+    </object>
+    <object type="jsx3.chart.Legend">
+     <dynamics />
+     <variants boxHeight="10" lineHeight="22" titleSpace="8" boxSpace="6" />
+     <strings jsxname="legend" labelStyle="font-size: 10px; font-weight: bold;" backgroundStroke="#BBBBBB" jsxmargin="10 10 10 4" jsxpadding="4 4 0 4" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants labelRotation="0" jsxfontsize="12" />
+       <strings jsxname="legendTitle" jsxtext="Legend" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+      </object>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,12 @@
+<!--
+  ~ Copyright (c) 2001-2008, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Date Text Box]]></name>
+  <icon><![CDATA[images/prototypes/datepicker.gif]]></icon>
+  <description><![CDATA[Date Text Box]]></description>
+  <object type="jsx3.gui.DojoWidget">
+    <strings dijitClassName="dijit.form.DateTextBox" jsxname="dijitDateTextBox" />
+  </object>
+</serialization>

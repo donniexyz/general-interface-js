@@ -1,0 +1,82 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Licensed under TIBCO BSD license, see license.txt under directory samples/
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <name><![CDATA[Sample App Template]]></name>
+ <description><![CDATA[Basic template for sample applications.  Contains a top block for descriptions, and a bottom block for the sample app.]]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+   <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+   <strings jsxname="layoutSample (--)" jsxwidth="100%" jsxheight="100%" jsxrows="160,*"/>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxborder="@Outset" jsxpadding="@8Pixel" jsxbgcolor="@Solid Medium"/>
+     <variants jsxoverflow="1"/>
+     <strings jsxname="blockDescription" jsxwidth="100%" jsxheight="100%" jsxtext="
+&lt;p align=&quot;right&quot;&gt;&lt;b&gt;Charting; version 2.0&lt;/b&gt;&lt;br/&gt;
+JSX version: 3.4.0&lt;/p&gt;
+
+&lt;p&gt;This is an example of a configured line chart. The chart uses data from the project file &lt;b&gt;openhiloclose.xml&lt;/b&gt; and axis formatting functions defined in &lt;b&gt;logic.js&lt;/b&gt;.&lt;/p&gt;
+&lt;p&gt;Click on &lt;b&gt;Launch Stock Price&lt;/b&gt; button for an example of a chart using events for complex interactions.&lt;/p&gt;
+&lt;p&gt;Click on &lt;b&gt;Launch Bubble Chart&lt;/b&gt; button for an example of how to use a context menu with chart components.&lt;/p&gt;"/>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxborder="@Outset" jsxpadding="@8Pixel"/>
+     <variants jsxoverflow="1"/>
+     <strings jsxname="blockApp" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.chart.LineChart">
+       <variants jsxleft="10" jsxtop="10" jsxwidth="400" jsxheight="300" borderWidth="1" borderAlpha="1" alpha="1" jsxrelativeposition="0" loadState="1"/>
+       <strings jsxname="lineChart" titlePlacement="top" legendPlacement="right" dataPadding="14 10 6 6" borderColor="#999999" type="overlay" jsxbgcolor="#FFFFFF" jsxxmlurl="xml/openhiloclose.xml"/>
+        <object type="jsx3.chart.ChartLabel">
+         <variants labelRotation="0" jsxleft="0" jsxtop="0" jsxwidth="398" jsxheight="25" jsxfontsize="14"/>
+         <strings jsxname="title" jsxtext="Stock Price 5/2/05 - 5/13/05" jsxclassname="" jsxcolor="#FFFFFF" jsxbgcolor="#666666" jsxpadding="4 0 0 0" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center"/>
+        </object>
+        <object type="jsx3.chart.CategoryAxis">
+         <variants originX="-55" originY="-14" horizontal="1" primary="1" length="233" showAxis="1" showLabels="1" labelGap="3" labelRotation="0" tickLength="3" minorTickDivisions="4" minorTickLength="2" jsxleft="0" jsxtop="0" jsxwidth="298" jsxheight="273" numCategories="6" numSeries="2"/>
+         <strings jsxname="xAxis" axisStroke="#000000 1 1" labelPlacement="axis" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="outside" minorTickStroke="" labelFunction="eg.chart.dayOfWeek" labelStyle="font-size: 8px; font-family: Verdana;" tickAlignment="between" categoryField="date"/>
+          <object type="jsx3.chart.ChartLabel">
+           <variants preferredHeight="14" labelRotation="0" jsxleft="0" jsxtop="239" jsxwidth="233" jsxheight="14" jsxfontsize="12"/>
+           <strings jsxname="xTitle" jsxtext="Day" jsxclassname="" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center"/>
+          </object>
+        </object>
+        <object type="jsx3.chart.LinearAxis">
+         <variants originX="-55" originY="-14" horizontal="0" primary="1" length="223" showAxis="1" showLabels="1" labelGap="3" labelRotation="0" tickLength="3" minorTickDivisions="4" minorTickLength="3" displayWidth="25" autoAdjust="1" baseAtZero="0" jsxleft="0" jsxtop="0" jsxwidth="298" jsxheight="273" shownMin="0" shownMax="80" shownInterval="10"/>
+         <strings jsxname="yAxis" axisStroke="#000000 1 1" labelPlacement="axis" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="none" minorTickStroke="#000000 1 1" labelFunction="eg.chart.dollarAmount" labelStyle="font-size: 8px; font-family: Verdana; text-align: right;"/>
+          <object type="jsx3.chart.ChartLabel">
+           <variants labelRotation="270" jsxleft="-49" jsxtop="0" jsxwidth="18" jsxheight="223" jsxfontsize="12"/>
+           <strings jsxname="ytitle" jsxtext="Price" jsxclassname="" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center"/>
+          </object>
+        </object>
+        <object type="jsx3.chart.GridLines">
+         <variants jsxleft="55" jsxtop="14" jsxwidth="233" jsxheight="223" useXPrimary="1" useYPrimary="1" horizontalAbove="1" inForeground="0" strokeMajorH="['#DDDDDD 1 1']" strokeMinorH="['#EEEEEE 1 1']"/>
+         <strings jsxname="grid" borderStroke="#CCCCCC 1"/>
+        </object>
+        <object type="jsx3.chart.Legend">
+         <variants boxHeight="13" lineHeight="22" titleSpace="8" boxSpace="6" jsxleft="298" jsxtop="25" jsxwidth="100" jsxheight="273"/>
+         <strings jsxname="legend" labelStyle="font-size: 10px;" backgroundFill="" backgroundStroke="#BBBBBB" jsxmargin="10 10 10 4" jsxpadding="4 4 0 4" margin="10 10 10 4"/>
+          <object type="jsx3.chart.ChartLabel">
+           <variants labelRotation="0" jsxfontsize="12" jsxleft="8" jsxtop="82" jsxwidth="78" jsxheight="18"/>
+           <strings jsxname="legendTitle" jsxtext="Legend" jsxclassname="" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center"/>
+          </object>
+        </object>
+        <object type="jsx3.chart.LineSeries">
+         <variants usePrimaryX="1" usePrimaryY="1" interpolateValues="1" jsxleft="55" jsxtop="14" jsxwidth="233" jsxheight="223" index="1"/>
+         <strings jsxname="open" seriesName="Open" stroke="#FFFFFF 0 0" tooltipFunction="jsx3.chart.LineSeries.tooltip" yField="open" form="segment" pointRenderer="jsx3.chart.PointRenderer.CIRCLE" pointFill="#999999 .8" pointStroke="#666666"/>
+        </object>
+        <object type="jsx3.chart.LineSeries">
+         <variants usePrimaryX="1" usePrimaryY="1" interpolateValues="0" pointRadius="3" jsxleft="55" jsxtop="14" jsxwidth="233" jsxheight="223" index="1"/>
+         <strings jsxname="high" seriesName="High" stroke="#009933" tooltipFunction="jsx3.chart.LineSeries.tooltip" yField="hi" form="segment" pointRenderer="jsx3.chart.PointRenderer.DIAMOND" pointFill="#00FF66 0.75" pointStroke="#009933"/>
+        </object>
+        <object type="jsx3.chart.LineSeries">
+         <variants usePrimaryX="1" usePrimaryY="1" interpolateValues="0" pointRadius="3" jsxleft="55" jsxtop="14" jsxwidth="233" jsxheight="223" index="1"/>
+         <strings jsxname="low" seriesName="Low" stroke="#990000" tooltipFunction="jsx3.chart.LineSeries.tooltip" yField="low" form="segment" pointRenderer="jsx3.chart.PointRenderer.DIAMOND" pointFill="#CC3333 .75" pointStroke="#990000"/>
+        </object>
+        <object type="jsx3.chart.LineSeries">
+         <variants usePrimaryX="1" usePrimaryY="1" interpolateValues="1" jsxleft="55" jsxtop="14" jsxwidth="233" jsxheight="223" index="0"/>
+         <strings jsxname="close" seriesName="Close" stroke="#FFFFFF 0 0" tooltipFunction="jsx3.chart.LineSeries.tooltip" yField="close" form="segment" pointRenderer="jsx3.chart.PointRenderer.CROSS" pointFill="#999999 .8" pointStroke="#666666"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<data jsxid="jsxroot">
+  <record jsxid="POST" jsxtext="POST"/>
+  <record jsxid="GET" jsxtext="GET"/>
+  <record jsxid="PUT" jsxtext="PUT"/>
+  <record jsxid="DELETE" jsxtext="DELETE"/>
+  <record jsxid="SCRIPT" jsxtext="SCRIPT" jsxtip="Use for JSON services that require a JavaScript SCRIPT element for the transport"/>
+</data>

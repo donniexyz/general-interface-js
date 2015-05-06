@@ -1,0 +1,180 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+
+  <record jsxid="jsxexecute" jsxtext="Execute"
+      jsxtip="Fires after the user double-clicks a record or presses the Enter key with focus in a record of this grid.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="strRECORDID" type="String" jsxtext="the CDF jsxid of the selected record."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the column that receives the execute action."/>
+  </record>
+
+  <record jsxid="jsxselect" jsxtext="Select"
+      jsxtip="Fires after cell selection has changed but only if the cell has no edit mask.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="strRECORDID" type="String"
+        jsxtext="CDF jsxid of the selected record, &lt;code&gt;null&lt;/code&gt; if a deselection event."/>
+    <record jsxid="intCOLUMNINDEX" type="int"
+        jsxtext="the index of the column that receives the select action, &lt;code&gt;null&lt;/code&gt; if a deselection event."/>
+  </record>
+
+  <record jsxid="jsxdrag" jsxtext="Drag"
+      jsxtip="Fires when the user drags this grid. Canceling this event prevents the drag from occurring."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="strDRAGTYPE" type="String" jsxtext="the type of drag (JSXDragType)."/>
+    <record jsxid="strDRAGID" type="String" jsxtext="the CDF jsxid of the record to be dragged."/>
+    <record jsxid="objGUI" type="HTMLElement" jsxtext="the HTML element acted upon."/>
+    <record jsxid="strRECORDID" type="String"
+        jsxtext="the CDF jsxid of the record to be dragged, same as &lt;code&gt;strDRAGID&lt;/code&gt;."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the column where the drag begins."/>
+  </record>
+
+  <record jsxid="jsxdrop" jsxtext="Drop"
+      jsxtip="Fires after the user drops a record on this grid. Canceling this event prevents the CDF adoption from occurring."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="objSOURCE" type="jsx3.gui.Block" jsxtext="the object where the drag begins."/>
+    <record jsxid="strDRAGTYPE" type="String" jsxtext="the type of drag (JSXDragType)."/>
+    <record jsxid="strDRAGID" type="String" jsxtext="the CDF jsxid of the dragged record."/>
+    <record jsxid="strRECORDID" type="String" jsxtext="the CDF jsxid of the record that receives the drop."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the column that receives the drop."/>
+    <record jsxid="bALLOWADOPT" type="boolean"
+        jsxtext="whether the source of the dragged CDF record allows the adoption."/>
+  </record>
+
+  <record jsxid="jsxctrldrop" jsxtext="Ctrl Drop"
+      jsxtip="Fires after the user drops a record on this grid while pressing the Ctrl key. Canceling this event prevents the CDF adoption from occurring."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="objSOURCE" type="jsx3.gui.Block" jsxtext="the object where the drag begins."/>
+    <record jsxid="strDRAGTYPE" type="String" jsxtext="the type of drag (JSXDragType)."/>
+    <record jsxid="strDRAGID" type="String" jsxtext="the CDF jsxid of the dragged record."/>
+    <record jsxid="strRECORDID" type="String" jsxtext="the CDF jsxid of the record that receives the drop."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the column that receives the drop."/>
+    <record jsxid="bALLOWADOPT" type="boolean"
+        jsxtext="whether the source of the dragged CDF record allows the adoption."/>
+  </record>
+
+  <record jsxid="jsxadopt" jsxtext="Adopt"
+      jsxtip="Fires before a record from this grid is adopted by another object. Canceling this event prevents the CDF adoption from occurring."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="strRECORDID" type="String" jsxtext="the CDF jsxid of the record to adopt."/>
+    <record jsxid="objTARGET" type="jsx3.gui.Grid" jsxtext="the object that will adopt the record(s)."/>
+    <record jsxid="bCONTROL" type="boolean"
+        jsxtext="&lt;code&gt;true&lt;/code&gt; if control drop, &lt;code&gt;false&lt;/code&gt; otherwise."/>
+  </record>
+
+  <record jsxid="jsxspy" jsxtext="Spyglass"
+      jsxtip="Fires after the user hovers the mouse over this grid and before the spyglass displays. The event script must evaluate to the HTML content to display in the spyglass. Canceling this event prevents the spyglass from displaying."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="strRECORDID" type="String" jsxtext="the CDF jsxid of the spied record."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the column that receives the spy."/>
+  </record>
+
+  <record jsxid="jsxmenu" jsxtext="Menu"
+      jsxtip="Fires after the user right-clicks this grid and before the bound context menu displays. Canceling this event prevents the menu from displaying."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="strRECORDID" type="String" jsxtext="the CDF jsxid of the selected record."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the column that receives the menu action."/>
+    <record jsxid="objMENU" type="jsx3.gui.Menu" vartype="inout" jsxtext="the menu to display."
+        jsxreturntext="use this field to override the default menu with an instance of &lt;code&gt;jsx3.gui.Menu&lt;/code&gt;."/>
+  </record>
+
+  <record jsxid="jsxbeforesort" jsxtext="Before Sort"
+      jsxtip="Fires when the user clicks on the header cell of a sortable column in this grid and before the records are sorted. Canceling this event prevents the sort from occurring."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="intCOLUMNINDEX" type="int" vartype="inout" jsxtext="the index of the column just clicked."
+        jsxreturntext="use this field to sort on a column other than the one that the user clicked on."/>
+  </record>
+
+  <record jsxid="jsxaftersort" jsxtext="After Sort"
+      jsxtip="Fires after the user sorts this grid.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the column that the grid is sorted on."/>
+  </record>
+
+  <record jsxid="jsxbeforeresize" jsxtext="Before Resize"
+      jsxtip="Fires after the user releases the mouse after resizing a column of this grid and before the resize is committed. Canceling this event prevents the resizing from occurring."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the column being resized."/>
+  </record>
+
+  <record jsxid="jsxafterresize" jsxtext="After Resize"
+      jsxtip="Fires after the user resizes a column of this grid. Canceling this event prevents the resizing from occurring."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the column being resized."/>
+    <record jsxid="intDIFF" type="int" jsxtext="the pixel difference in width."/>
+    <record jsxid="intOLDWIDTH" type="int" jsxtext="the old width of the column."/>
+    <record jsxid="vntWIDTH" type="int | String" vartype="inout"
+        jsxtext="the width of the column in implied pixels or percentage."
+        jsxreturntext="use this field to set the resulting column width to a value other than the width at which the user released the mouse."/>
+  </record>
+
+  <record jsxid="jsxbeforeappend" jsxtext="Before Append"
+      jsxtip="Fires when the user adds a new CDF record and before the change is committed."
+      always="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objMASTERRECORD" type="Object&lt;String,String&gt;"
+        jsxtext="the CDF record to append as a JavaScript object."/>
+  </record>
+
+  <record jsxid="jsxafterappend" jsxtext="After Append"
+      jsxtip="Fires after the user adds a CDF record and HTML table record (TR)."
+      always="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objMASTERRECORD" type="Object&lt;String,String&gt;"
+        jsxtext="the CDF record to append as a JavaScript object."/>
+    <record jsxid="objTR" type="HTMLElement" jsxtext="the native HTML object reference to the new element."/>
+  </record>
+
+  <record jsxid="jsxbeforeedit" jsxtext="Before Edit"
+      jsxtip="Fires when the user begins an edit session. Canceling this event prevents the edit mask from displaying."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="strRECORDID" type="String" jsxtext="the CDF jsxid of the selected record."/>
+    <record jsxid="strATTRIBUTENAME" type="String" jsxtext="the CDF attribute name without the leading @ symbol."/>
+    <record jsxid="objMASK" type="jsx3.gui.Block" jsxtext="handle to the edit mask instance."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the affected column."/>
+  </record>
+
+  <record jsxid="jsxafteredit" jsxtext="After Edit"
+      jsxtip="Fires after the user finishes an edit session and before an edit is committed.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="strRECORDID" type="String" jsxtext="the CDF jsxid of the selected record."/>
+    <record jsxid="strATTRIBUTENAME" type="String" jsxtext="the CDF attribute name without the leading @ symbol."/>
+    <record jsxid="strATTRIBUTEVALUE" type="String" jsxtext="the CDF attribute value."/>
+    <record jsxid="objMASK" type="jsx3.gui.Block" jsxtext="the handle to the edit mask instance."/>
+    <record jsxid="objGUI" type="HTMLElement" jsxtext="the HTML Table cell (TD) in the view."/>
+    <record jsxid="intCOLUMNINDEX" type="int" jsxtext="the index of the affected column."/>
+  </record>
+
+  <record jsxid="jsxdestroy" jsxtext="Destroy" always="1"
+      jsxtip="Fires after this grid is removed from the DOM.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objPARENT" type="jsx3.app.Model"
+        jsxtext="the parent of this grid before it is removed from the DOM. "/>
+  </record>
+
+</data>

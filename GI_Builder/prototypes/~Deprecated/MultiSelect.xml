@@ -1,0 +1,31 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Multiselect]]></name>
+  <description><![CDATA[Multi-select object, allows one or more items in a list to be selected.  Customize size by changing block H and W properties.  Define contents by associating the list with an XML string, cache document or file.]]></description>
+  <object type="jsx3.gui.Block">
+    <dynamics jsxborder="@Inset"/>
+    <variants jsxwidth="90" jsxheight="122" jsxoverflow="1"/>
+    <strings jsxname="multiSelect" jsxrelativeposition="1"/>
+    <object type="jsx3.gui.List">
+      <dynamics jsxclassname="@List Fixed Height (Clear)"/>
+      <variants jsxgrowby="1" jsxheaderheight="0"/>
+      <strings jsxname="list" jsxxml="&lt;?xml version=&quot;1.0&quot; ?&gt;
+&lt;data jsxid=&quot;jsxroot&quot;&gt; 
+  &lt;record jsxid=&quot;1&quot; jsxtext=&quot;Choice 1&quot;/&gt;
+  &lt;record jsxid=&quot;2&quot; jsxtext=&quot;Choice 2&quot;/&gt;
+  &lt;record jsxid=&quot;3&quot; jsxtext=&quot;Choice 3&quot;/&gt;
+  &lt;record jsxid=&quot;4&quot; jsxtext=&quot;Choice 4&quot;/&gt;
+  &lt;record jsxid=&quot;5&quot; jsxtext=&quot;Choice 5&quot;/&gt;
+  &lt;record jsxid=&quot;6&quot; jsxtext=&quot;Choice 6&quot;/&gt;
+  &lt;record jsxid=&quot;7&quot; jsxtext=&quot;Choice 7&quot;/&gt;
+&lt;/data&gt;" jsxsortdirection="ascending"/>
+      <object type="jsx3.gui.Column">
+        <variants/>
+        <strings jsxname="column" jsxpath="@jsxtext" jsxwidth="100%"/>
+      </object>
+    </object>
+  </object>
+</serialization>

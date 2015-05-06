@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[IFrame]]></name>
+  <icon><![CDATA[images/prototypes/iframe.gif]]></icon>
+  <description><![CDATA[Displays an HTML resource in a region of the application.]]></description>
+  <object type="jsx3.gui.IFrame">
+    <variants />
+    <strings jsxname="iframe" jsxsrc="about:blank"/>
+  </object>
+</serialization>

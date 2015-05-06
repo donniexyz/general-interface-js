@@ -1,0 +1,63 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+objJSX.setInfo = function(jid, nick) {
+  var user_text = '';
+  if(jid == nick){
+    user_text = jid;
+  } else {
+    user_text = nick + ' (' + jid + ')';
+  }
+  nick_block.setText('Really delete ' + user_text + ' from your roster?');
+  this.jid = jid;
+};
+objJSX.getJID = function() {
+  return textbox.getValue();
+};
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+    <variants jsxwidth="326" jsxheight="101" jsxwindowstate="1" jsxmodal="1" jsxleft="147" jsxtop="76"/>
+    <strings jsxname="jsx_xmpp_delete_dialog"/>
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <object type="jsx3.gui.WindowBar">
+      <variants/>
+      <strings jsxname="windowBar" jsxtext="Delete?"/>
+      <object type="jsx3.gui.ToolbarButton">
+        <variants/>
+        <strings jsxname="btnClose"/>
+        <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2" jsxloadtype="1"/>
+      <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+      <dynamics jsxpadding="@8Pixel"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="1" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+        <strings jsxname="layoutRows" jsxrows="30,30" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="nick_block" jsxwidth="100%" jsxheight="100%" jsxtext="Really delete username from your roster?"/>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+          <object type="jsx3.gui.Button">
+            <variants jsxindex="0" jsxheight="18"/>
+            <strings jsxname="button" jsxtext="Cancel" jsxmargin="0 4 0 0"/>
+            <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+          </object>
+          <object type="jsx3.gui.Button">
+            <variants jsxindex="0" jsxheight="18"/>
+            <strings jsxname="button" jsxtext="Delete" jsxmargin="0 4 0 0" jsxfontweight="bold"/>
+            <events jsxexecute="jsx_xmpp_delete_dialog.getPlugIn()._doDeleteContact(objEVENT, jsx_xmpp_delete_dialog);"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

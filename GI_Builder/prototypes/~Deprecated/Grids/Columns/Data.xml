@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Text]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[This column renders the value of the column's path attribute as plain text. Contains no edit mask.]]></description>
+  <object type="jsx3.gui.Column">
+    <variants jsxwidth="120"/>
+    <strings jsxname="column (data)" jsxtext="Data" jsxpath="@jsxtext" jsxxsl="&lt;xsl:attribute name=&quot;style&quot;&gt;background-color:#e8e8f5;&lt;/xsl:attribute&gt;&lt;xsl:value-of select=&quot;@path@&quot;/&gt;&amp;#160;"/>
+  </object>
+</serialization>

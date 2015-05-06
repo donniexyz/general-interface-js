@@ -1,0 +1,84 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.versioncheck"
+        name="General Interface Version Check Plug-In"
+        version="0.1">
+
+  <method id="check" params="bForce"><![CDATA[
+    if (this._newVchecking) return;
+
+    // only perform check on compiled build
+    if (!bForce && !"@build.gi.version@".match(/\d/)) return;
+
+    var settings = jsx3.ide.getIDESettings();
+    if (bForce)
+      settings.set("prefs", "versioncheck", "ignore", null);
+
+    var doc = new jsx3.xml.Document();
+    doc.setAsync(true);
+    doc.subscribe("*", this, function(objEvent) {
+      this._newVchecking = false;
+
+      if (objEvent.subject == jsx3.xml.Document.ON_RESPONSE && !objEvent.target.hasError()) {
+        var newVersion = objEvent.target.getValue();
+
+        if (newVersion) {
+          var ignoreVersion = settings.get("prefs", "versioncheck", "ignore");
+          var myVersion = jsx3.getVersion();
+
+          this.getLog().debug("VERSION CHECK -- latest version: " + newVersion + ", ignore version: " + ignoreVersion);
+
+          // let the user ignore a version:
+          if (ignoreVersion != newVersion) {
+            if (jsx3.util.compareVersions(newVersion, myVersion) > 0)
+              this.getServer().confirm(
+                "New Version Available", "A new version (" + newVersion + ") of General Interface is available.",
+                function() { window.open("http://www.generalinterface.org/alias/download", "jsxide_newversion"); }, null,
+                "Download", "Later", 1,
+                function(d) { d.doClose(); settings.set("prefs", "versioncheck", "ignore", newVersion); }, "Ignore Version",
+                {nonModal:1}
+              );
+            else if (bForce)
+              this.getServer().alert("Up-To-Date", "Your version (" + myVersion + ") of General Interface is up-to-date.",
+                  null, null, {nonModal:1});
+          }
+        }
+      } else {
+        this.getLog().debug("Version check error: " + objEvent.target.getError());
+
+        if (bForce)
+          this.getServer().alert("Version Check Failed", "The version check failed. Check your network connection and try again.",
+              null, null, {nonModal:1});
+      }
+    });
+
+    doc.load("http://www.generalinterface.org/version/gi.xml?ts=" + new Date().getTime());
+    /* @jsxobf-clobber */
+    this._newVchecking = true;
+  ]]></method>
+
+  <requires>
+  </requires>
+
+  <resources>
+  </resources>
+
+  <extension point="jsx3.ide.ui.action" id="menu.help">
+    <action
+        id="jsx3.ide.help1_4a"
+        label="Check for Updates..."
+        menupath="/jsx3.ide.help/about"
+        execute="this.getPlugIn().check(true);"/>
+  </extension>
+
+  <extension point="jsx3.ide.ui.ready" id="onReady">
+    <eval>this.getPlugIn().check();</eval>
+  </extension>
+
+</plugin>

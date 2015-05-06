@@ -1,0 +1,141 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.onPaletteLoaded = function() {
+  var editor = jsx3.ide.getActiveEditor();
+  if (editor)
+    this.onEditorChanged(editor, null);
+};
+
+objJSX.onEditorChanged = function(newEditor, oldEditor) {
+  var onNow = newEditor && newEditor.getMode() == "component";
+
+  this.makeActive(onNow);
+  if (onNow)
+    this.onSelectionChanged(newEditor);
+};
+
+objJSX.onSelectionChanged = function(objEditor) {
+  var success = this.getPlugIn().onModelEventChange();
+  this.makeActive(success);
+};
+
+objJSX.makeActive = function(bActive) {
+  jsxmodelevents.setDisplay(bActive ? jsx3.gui.Block.DISPLAYBLOCK : jsx3.gui.Block.DISPLAYNONE, true);
+};
+
+objJSX._makeSpy = function(objGrid, strRecordId) {
+  var node = objGrid.getRecordNode(strRecordId);
+  if (node == null) return null;
+  var objJSX = jsx3.ide.getSelected()[0];
+
+  var dep = node.getAttribute("deprecated");
+
+  var strHTML = "";
+  strHTML += "<span class='jsx3ide_eventspy'>";
+  strHTML += "<div class='name" + (dep ? " deprecated" : "") + "'>" + node.getAttribute("jsxtext") + "</div>";
+
+  if (dep)
+    strHTML += "<div class='desc dep'><span class='title'>Deprecated.</span> " + (dep != "1" ? dep : "") + "</div>";
+
+  strHTML += "<div class='desc'>" + node.getAttribute('jsxtip') + "</div>";
+
+  strHTML += "<div class='field'><span class='title'>Event Type:</span> " + node.getAttribute("jsxid") + "</div>";
+
+  if (node.getAttribute('vetoable'))
+    strHTML += "<div class='cancel'><span class='title'>Cancelable:</span> Evaluate to <code>false</code> to cancel event.</div>";
+
+  var i = node.selectNodeIterator('./record[not(@vartype) or not(@vartype="return")]');
+  if (i.hasNext()) {
+    strHTML += "<div class='return'>The following context variables are available in the event scriptlet.</div>";
+    while (i.hasNext()) {
+      var child = i.next();
+      var strType = child.getAttribute("type");
+
+      var dep = child.getAttribute("deprecated");
+      var depText = dep ? "<span class='dep'><span class='title'>Deprecated.</span> " + (dep != "1" ? dep : "") + "</span> " : "";
+
+      if (objJSX != null && strType) strType = strType.replace(/\$class\$/g, objJSX.getClass().getName());
+
+      strHTML += "<div class='var'><b" + (dep ? " class='deprecated'" : "") + ">" + child.getAttribute('jsxid') + "</b>" +
+          (strType != null ? (" {<span class='type'>" + jsx3.util.strEscapeHTML(strType) + "</span>}") : "") +
+          ": " + depText + child.getAttribute('jsxtext') + "</div>";
+    }
+  }
+
+  var i = node.selectNodeIterator('./record[@vartype="return" or @vartype="inout"]');
+  if (i.hasNext()) {
+    strHTML += "<div class='return'>The event may evaluate to an object in order to pass back any of the following fields to the caller.</div>";
+    while (i.hasNext()) {
+      var child = i.next();
+      var strType = child.getAttribute("type");
+
+      var dep = child.getAttribute("deprecated");
+      var depText = dep ? "<span class='dep'><span class='title'>Deprecated.</span> " + (dep != "1" ? dep : "") + "</span> " : "";
+
+      if (objJSX != null && strType) strType = strType.replace(/\$class\$/g, objJSX.getClass().getName());
+
+      var strText = child.getAttribute('jsxreturntext') || child.getAttribute('jsxtext');
+      strHTML += "<div class='var'><b" + (dep ? " class='deprecated'" : "") + ">" + child.getAttribute('jsxid') + "</b>" +
+          (strType != null ? (" {<span class='type'>" + jsx3.util.strEscapeHTML(strType) + "</span>}") : "") +
+          ": " + depText + strText + "</div>";
+    }
+  }
+
+  strHTML += "</span>";
+  return strHTML;
+};
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <!--<dynamics jsxborder="@Outset"/>-->
+      <variants jsxleft="0" jsxtop="0" jsxoverflow="2" />
+      <strings jsxname="eventpal" jsxwidth="100%" jsxheight="100%" jsxhelpid="ide.palette.events"/>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxbgcolor="@Solid Medium"/>
+          <variants jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%" />
+            <object type="jsx3.gui.Matrix">
+              <dynamics jsxbgcolor="@Solid Light" jsxbodyborder="@Outset"/>
+              <variants jsxspy="1" jsxpagingmodel="1" jsxselectionmodel="0" jsxresize="1" jsxreorder="0" jsxsort="0" jsxscalewidth="1"/>
+              <strings jsxname="jsxmodelevents" jsxxmlid="modelevents" jsxspystylekeys="" jsxspystylevalues=""
+                  jsxmenu="jsxmenu_modelevents" jsxrenderingmodel="shallow" jsxfocusstyle=";"/>
+              <events jsxafteredit="eventpal.getPlugIn().onModelEventEdit(this, strRECORDID, strNEWVALUE);"
+                  jsxmenu="objCOLUMN != null &amp;&amp; strRECORDID != ''"
+                  jsxspy="(objCOLUMN == jsxmodelevents_name) ? eventpal._makeSpy(this, strRECORDID) : null;" />
+              <xslparameters jsx_no_tip="1"/>
+                <object type="jsx3.gui.Matrix.Column">
+                  <dynamics jsxtext="_gen_name" jsxbg="@Fade TopDown" jsxborder="@Outset"
+                    jsxcellbgcolor="@Matrix HeaderCol BG" jsxcellborder="@Matrix HeaderCol Border"/>
+                  <strings jsxname="jsxmodelevents_name" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="120" jsxpath="jsxtext"/>
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <dynamics jsxtext="_gen_value" jsxbg="@Fade TopDown" jsxborder="@Outset"
+                    jsxcellbgcolor="@Matrix ValueCol BG" jsxcellborder="@Matrix ValueCol Border"/>
+                  <strings jsxname="jsxmodelevents_value" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="*" jsxpath="value"
+                      jsxvaluetemplate="&lt;xsl:template xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+       &lt;xsl:choose&gt;
+         &lt;xsl:when test=&quot;@value=''&quot;&gt;&lt;span class=&quot;jsx3ide_props_emptystring&quot;&gt;[empty]&lt;/span&gt;&lt;/xsl:when&gt;
+         &lt;xsl:when test=&quot;@jsxmulti&quot;&gt;&lt;span class=&quot;jsx3ide_props_multi&quot;&gt;[multiple values]&lt;/span&gt;&lt;/xsl:when&gt;
+         &lt;xsl:otherwise&gt;&lt;xsl:value-of select=&quot;@value&quot; /&gt;&lt;/xsl:otherwise&gt;
+       &lt;/xsl:choose&gt;
+       &lt;/xsl:template&gt;"/>
+                    <object type="jsx3.gui.TextBox">
+                      <variants jsxheight="60" jsxtype="1"/>
+                      <strings jsxname="myText"/>
+                    </object>
+                </object>
+            </object>
+            <object type="jsx3.gui.Menu">
+              <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxshare="1"/>
+              <strings jsxname="jsxmenu_modelevents" jsxtip="menu..." jsxdisplay="none" jsxxmlid="jsx3.ide.palette.events.contextmenu" jsximage="jsxapp:/images/icon_62.gif"/>
+              <events jsxexecute="eventpal.getPlugIn().onModelEventMenuExecute(this.getContextRecordId());"/>
+             </object>
+        </object>
+    </object>
+</serialization>

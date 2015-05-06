@@ -1,0 +1,239 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[
+
+objJSX.initTool = function() {
+  var path = jsx3.ide.SERVER.getAppPath();
+  var xhtml = jsx3.util.strEndsWith(jsx3.app.Browser.getLocation().getPath().toLowerCase(), ".xhtml");
+  var shell = "shell" + (xhtml ? ".xhtml" : ".html");
+  var uri = jsx3.net.URI.fromParts(null, null, null, null, shell, "jsxapppath=" + path, null);
+
+  inlinedivcontent.setValue(inlinedivcontent.getValue().replace('@APPPATH@', path));
+  launchlinkcontent.setValue(launchlinkcontent.getValue().replace('@SHELLPATH@', uri.toString()));
+};
+
+objJSX.onBrowse = function() {
+  var baseFolder = null;
+  var pageUri = launchpageurl.getValue();
+  if (pageUri) {
+    var currentFile = jsx3.ide.getSystemRelativeFile(pageUri);
+    while (currentFile && currentFile.isDirectory())
+      currentFile = currentFile.getParentFile();
+
+    if (currentFile && currentFile.isDirectory())
+      baseFolder = currentFile;
+  }
+
+  jsx3.ide.getPlugIn("jsx3.io.browser").saveFile(this.getPlugIn().getServer().getRootBlock(), {
+      name:"lupb", modal:true, folder: baseFolder || jsx3.ide.getSystemDirFile(),
+      onChoose: jsx3.$F(function(objFile) { launchpageurl.setValue(jsx3.ide.relativePathTo(objFile)); }).bind(this)
+  });
+};
+
+objJSX.onCreate = function() {
+  var pageUri = launchpageurl.getValue();
+  if (pageUri) {
+    var outFile = jsx3.ide.getSystemRelativeFile(pageUri);
+    var bXHTML = xhtmlbox.getChecked() == jsx3.gui.CheckBox.CHECKED;
+    this.getPlugIn().createLaunchPage(outFile, bXHTML);
+    this.doClose();
+  } else {
+    this.beep();
+  }
+};
+
+objJSX.doMinimize = function() {
+  this.doToggleState(jsx3.gui.Dialog.MINIMIZED);
+};
+
+objJSX.registerHotKey('doMinimize', 'm', false, true, false); // minimize on ctrl-m
+objJSX.registerHotKey('doClose', 'w', false, false, true); // close on alt-w
+objJSX.getDescendantOfName('tab_launchpage').registerHotKey(
+  function() {this.getAncestorOfType(jsx3.gui.Dialog).onCreate();},
+  jsx3.gui.Event.KEY_ENTER, false, false, false); // save on return key
+
+objJSX.onHelp = function() {
+  var tp = tabbedpane;
+  var tab = tp.getChild(tp.getSelectedIndex()) || this;
+  this.getServer().invokeHelp(tab);
+};
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+   <dynamics jsxbgcolor="@Solid Medium"/>
+   <variants jsxwidth="428" jsxheight="287" jsxresize="0" jsxoverflow="2"/>
+   <strings jsxname="jsx_ide_launchutility" jsxhelpid="ide.launchutil"/>
+    <object type="jsx3.gui.WindowBar">
+     <variants/>
+     <strings jsxtext="Deployment Utility"/>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+       <variants/>
+       <strings/>
+       <events jsxexecute="this.getParent().getParent().doToggleState();"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+       <variants/>
+       <strings/>
+       <events jsxexecute="this.getParent().getParent().doClose();"/>
+      </object>
+    </object>
+  <object type="jsx3.gui.LayoutGrid">
+   <variants />
+   <strings jsxrows="*,28"/>
+    <object type="jsx3.gui.TabbedPane">
+     <variants selectedIndex="2" jsxselectedindex="2" jsxloadtype="1"/>
+     <strings jsxname="tabbedpane" jsxtextalign="0"/>
+      <object type="jsx3.gui.Tab">
+       <variants jsxindex="0" jsxheight="18"/>
+       <strings jsxname="tab" jsxtext="HTML Page" jsxbgcolor="#d8d8e5" jsxhelpid="ide.launchutil.page"/>
+        <object type="jsx3.gui.Block">
+         <dynamics jsxbgcolor="@Solid Medium" jsxpadding="@8Pixel"/>
+         <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+         <strings jsxname="tab_launchpage" jsxwidth="100%" jsxheight="100%" jsxdisplay="none"/>
+           <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="1" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxwidth="100%" jsxheight="100%" jsxrows="50,*"/>
+          <object type="jsx3.gui.Block">
+           <variants jsxheight="0" jsxoverflow="1"/>
+           <strings jsxwidth="100%"
+                    jsxtext="Creates an HTML or XHTML launch page for invoking this project as a full console application in a browser. Add additional HTML markup and modify for use as a JSP, ASP, and so on."/>
+          </object>
+          <object type="jsx3.gui.Block">
+           <dynamics jsxborder="@Inset Top"/>
+           <variants jsxheight="40" jsxoverflow="1"/>
+           <strings jsxwidth="100%" jsxtext="" jsxpadding="8 0 0 0" jsxmargin="8 0 0 0"/>
+            <object type="jsx3.gui.LayoutGrid">
+             <variants jsxrelativeposition="1" jsxoverflow="2"/>
+             <strings jsxwidth="100%" jsxheight="100%" jsxbgcolor="" jsxcols="*,40,66,60"/>
+              <object type="jsx3.gui.Block">
+               <variants jsxoverflow="2"/>
+               <strings jsxwidth="100%" jsxheight="100%" jsxpadding="3 0 0 0"/>
+                <object type="jsx3.gui.TextBox">
+                 <variants jsxheight="18" jsxenabled="0" />
+                 <strings jsxname="launchpageurl" jsxwidth="100%"/>
+                </object>
+              </object>
+              <object type="jsx3.gui.Block">
+               <variants jsxoverflow="2"/>
+               <strings jsxwidth="100%" jsxheight="100%" jsxpadding="0 0 0 4"/>
+                <object type="jsx3.gui.ToolbarButton">
+                 <variants/>
+                 <strings jsxname="launchpagechoose" jsximage="jsxapp:/images/icon_60.gif" />
+                 <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).onBrowse();"/>
+                </object>
+              </object>
+               <object type="jsx3.gui.Block">
+                <variants jsxoverflow="2"/>
+                <strings jsxwidth="100%" jsxheight="100%" jsxpadding="3 0 0 0"/>
+                 <object type="jsx3.gui.CheckBox">
+                  <variants jsxindex="0" />
+                  <strings jsxname="xhtmlbox" jsxtext="XHTML" />
+                 </object>
+               </object>
+              <object type="jsx3.gui.Block">
+               <variants jsxoverflow="2"/>
+               <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxpadding="3 0 0 0"/>
+                <object type="jsx3.gui.Button">
+                 <variants jsxindex="0" jsxheight="18"/>
+                 <strings jsxname="launchpagecreate" jsxtext="Create" jsxwidth="100%" jsxfontweight="bold"/>
+                 <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).onCreate();"/>
+                </object>
+              </object>
+            </object>
+          </object>
+           </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Tab">
+       <variants jsxindex="0" jsxheight="18"/>
+       <strings jsxname="tab" jsxtext="Launch Link" jsxbgcolor="#d8d8e5" jsxhelpid="ide.launchutil.link"/>
+        <object type="jsx3.gui.Block">
+         <dynamics jsxbgcolor="@Solid Medium" jsxpadding="@8Pixel"/>
+         <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+         <strings jsxwidth="100%" jsxheight="100%" jsxdisplay="none"/>
+          <object type="jsx3.gui.LayoutGrid">
+           <variants jsxrelativeposition="1" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+           <strings jsxwidth="100%" jsxheight="100%" jsxrows="95,*,25"/>
+            <object type="jsx3.gui.Block">
+             <variants jsxoverflow="2"/>
+             <strings jsxwidth="100%"
+                      jsxtext="Creates a hyperlink or similar trigger to insert into an existing HTML page. When the link is clicked, this GI application loads in a new browser window. &lt;br/&gt;&lt;br/&gt;Copy the generated code and paste into an HTML page. Save into the GI installation directory or modify the path to shell.html accordingly. Modify the project path, HTML code, and link text as needed."
+                      jsxpadding="0 0 8 0" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+             <dynamics jsxborder="@Inset Top"/>
+             <variants jsxoverflow="2" jsxrelativeposition="0"/>
+             <strings jsxwidth="100%" jsxtext="" jsxpadding="8 0 4 0" jsxheight="100%"/>
+              <object type="jsx3.gui.TextBox">
+               <variants jsxtype="1" jsxoverflow="2" jsxrelativeposition="1"/>
+               <strings jsxname="launchlinkcontent" jsxwidth="100%" jsxheight="100%" jsxvalue="&lt;a href=&quot;#&quot; onclick=&quot;window.open('@SHELLPATH@','','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=yes,width=800,height=600,top=0,left=0');&quot;&gt;Launch Application&lt;/a&gt;"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+             <variants jsxoverflow="2"/>
+             <strings jsxwidth="100%" jsxtextalign="right" jsxpadding="2 0 0 0" jsxheight="100%"/>
+              <object type="jsx3.gui.ToolbarButton">
+               <variants/>
+               <strings jsxname="launchlinkcopy" jsximage="jsxapp:/images/icon_85.gif" jsxtext="" jsxtip="copy contents to clipboard"/>
+               <events jsxexecute="var content = this.getParent().getParent().getDescendantOfName('launchlinkcontent').getValue(); jsx3.html.copy(content);"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Tab">
+       <variants jsxindex="0" jsxheight="20"/>
+       <strings jsxname="tab" jsxtext="Inline DIV" jsxbgcolor="#e8e8f5" jsxhelpid="ide.launchutil.div"/>
+        <object type="jsx3.gui.Block">
+         <dynamics jsxbgcolor="@Solid Medium" jsxpadding="@8Pixel"/>
+         <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+         <strings jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.LayoutGrid">
+           <variants jsxrelativeposition="1" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+           <strings jsxwidth="100%" jsxheight="100%" jsxrows="95,*,25"/>
+            <object type="jsx3.gui.Block">
+             <variants jsxoverflow="1"/>
+             <strings jsxwidth="100%"
+                      jsxtext="Creates an inline DIV for inserting this GI application into an existing HTML page. Use this option when running multiple applications in the same browser window. &lt;br/&gt;&lt;br/&gt;Copy the generated code and paste where appropriate into an existing HTML page. Modify the project path and HTML code as needed."
+                      jsxpadding="0 0 8 0" jsxheight="100%"/>
+            </object>
+            <object type="jsx3.gui.Block">
+             <dynamics jsxborder="@Inset Top"/>
+             <variants jsxoverflow="2" jsxrelativeposition="0"/>
+             <strings jsxwidth="100%" jsxtext="" jsxpadding="8 0 4 0" jsxheight="100%"/>
+              <object type="jsx3.gui.TextBox">
+               <variants jsxtype="1" jsxrelativeposition="1" jsxoverflow="2"/>
+               <strings jsxname="inlinedivcontent" jsxwidth="100%" jsxheight="100%" jsxvalue="&lt;div style=&quot;width:100%;height:400px;&quot;&gt;&lt;script type=&quot;text/javascript&quot; src=&quot;JSX/js/JSX30.js&quot; jsxapppath=&quot;@APPPATH@&quot;&gt;&lt;/script&gt;&lt;/div&gt;"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+             <variants jsxoverflow="2"/>
+             <strings jsxwidth="100%" jsxtextalign="right" jsxpadding="2 0 0 0" jsxheight="100%"/>
+              <object type="jsx3.gui.ToolbarButton">
+               <variants/>
+               <strings jsxname="inlinedivcopy" jsximage="jsxapp:/images/icon_85.gif" jsxtext="" jsxtip="copy contents to clipboard"/>
+               <events jsxexecute="var content = this.getParent().getParent().getDescendantOfName('inlinedivcontent').getValue(); jsx3.html.copy(content);"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="2"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxpadding="6 10 0 0"/>
+      <object type="jsx3.gui.ImageButton">
+       <variants jsxindex="0" jsxheight="16" jsxwidth="16"/>
+       <strings jsxname="helpBtn" jsximage="jsxapp:/images/icon_59.gif"/>
+       <events jsxexecute="jsx_ide_launchutility.onHelp();"/>
+      </object>
+    </object>
+  </object>
+  </object>
+</serialization>

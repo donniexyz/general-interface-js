@@ -1,0 +1,39 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.4">
+  <name>Component 1</name>
+  <icon>icon.gif</icon>
+  <description>Component Description</description>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize/>
+  <object type="jsx3.app.Model">
+    <variants v1="1" v2="2" a1="[1, 2, 3, 4]"/>
+    <strings jsxname="root" s1="1" s2="2"/>
+    <object type="jsx3.app.Model">
+      <variants />
+      <strings jsxname="child1"/>
+    </object>
+    <object type="jsx3.gui.Painted">
+      <variants f1="1"/>
+      <strings jsxname="child2"/>
+      <object type="jsx3.app.Model">
+        <variants f1="2"/>
+        <strings jsxname="child2"/>
+        <object type="jsx3.app.Model">
+          <variants f1="3"/>
+          <strings jsxname="nestedChild"/>
+        </object>
+        <object type="jsx3.app.Model">
+          <variants f1="4"/>
+          <strings jsxname="nestedChild"/>
+        </object>
+      </object>
+    </object>
+    <object type="jsx3.app.Model">
+      <variants f1="3"/>
+      <strings jsxname="10"/>
+    </object>
+    <object type="jsx3.app.Model">
+      <variants />
+      <strings jsxname="lastChild"/>
+    </object>
+  </object>
+</serialization>

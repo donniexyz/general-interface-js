@@ -1,0 +1,28 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.charting"
+        name="Charting Add-in Plug-In"
+        version="0.1">
+
+  <requires>
+  </requires>
+
+  <resources>
+  </resources>
+
+  <extension point="jsx3.ide.palette.properties.catalog">
+    <catalog path="jsx:///addins/charting/properties/catalog.xml"/>
+  </extension>
+
+  <extension point="jsx3.ide.palette.events.catalog">
+    <catalog path="jsx:///addins/charting/events/catalog.xml"/>
+  </extension>
+
+</plugin>
+    

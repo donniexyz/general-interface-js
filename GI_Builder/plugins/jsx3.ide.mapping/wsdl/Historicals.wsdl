@@ -1,0 +1,1398 @@
+<?xml version="1.0"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://www.xignite.com/services/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://www.xignite.com/services/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.xignite.com/services/">
+      <s:element name="GetLastClosingPrice">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="IdentifierTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="Symbol"/>
+          <s:enumeration value="CIK"/>
+          <s:enumeration value="CUSIP"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetLastClosingPriceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLastClosingPriceResult" type="tns:HistoricalQuote"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="HistoricalQuote">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string"/>
+              <s:element minOccurs="1" maxOccurs="1" name="Last" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="Open" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="LastClose" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="High" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="Low" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="ChangeFromOpen" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="PercentChangeFromOpen" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="ChangeFromLastClose" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="PercentChangeFromLastClose" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="Volume" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="SplitRatio" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="LastAdjusted" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="OpenAdjusted" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="LastCloseAdjusted" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="HighAdjusted" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="LowAdjusted" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="ChangeFromOpenAdjusted" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="ChangeFromLastCloseAdjusted" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="VolumeAdjusted" type="s:double"/>
+              <s:element minOccurs="1" maxOccurs="1" name="NotTraded" type="s:boolean"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Common">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Outcome" type="tns:OutcomeTypes"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Identity" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Delay" type="s:double"/>
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="OutcomeTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="Success"/>
+          <s:enumeration value="SystemError"/>
+          <s:enumeration value="RequestError"/>
+          <s:enumeration value="RegistrationError"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="Security">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="CIK" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Cusip" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Market" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="CategoryOrIndustry" type="s:string"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="Header" type="tns:Header"/>
+      <s:complexType name="Header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Tracer" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetLastClosingPrices">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifiers" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLastClosingPricesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLastClosingPricesResult" type="tns:ArrayOfHistoricalQuote"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfHistoricalQuote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="HistoricalQuote" nillable="true" type="tns:HistoricalQuote"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetHistoricalQuote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes"/>
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalQuoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoricalQuoteResult" type="tns:HistoricalQuote"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalQuotes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifiers" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes"/>
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalQuotesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoricalQuotesResult" type="tns:ArrayOfHistoricalQuote"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalQuotesAsOf">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes"/>
+            <s:element minOccurs="1" maxOccurs="1" name="EndDate" type="s:dateTime"/>
+            <s:element minOccurs="1" maxOccurs="1" name="PeriodType" type="tns:PeriodTypes"/>
+            <s:element minOccurs="1" maxOccurs="1" name="Periods" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:simpleType name="PeriodTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="Day"/>
+          <s:enumeration value="Week"/>
+          <s:enumeration value="Month"/>
+          <s:enumeration value="Quarter"/>
+          <s:enumeration value="Year"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetHistoricalQuotesAsOfResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoricalQuotesAsOfResult" type="tns:HistoricalQuotes"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="HistoricalQuotes">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security"/>
+              <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Quotes" type="tns:ArrayOfHistoricalQuote"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetHistoricalQuotesRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes"/>
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalQuotesRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoricalQuotesRangeResult" type="tns:HistoricalQuotes"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalMonthlyQuotesRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes"/>
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalMonthlyQuotesRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoricalMonthlyQuotesRangeResult" type="tns:HistoricalQuotes"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTopMovers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTopMoversResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTopMoversResult" type="tns:ArrayOfTop"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTop">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Top" nillable="true" type="tns:Top"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Top">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Rank" type="s:int"/>
+              <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:TopTypes"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Quote" type="tns:HistoricalQuote"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="TopTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="Gainers"/>
+          <s:enumeration value="Losers"/>
+          <s:enumeration value="Movers"/>
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetTopGainers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTopGainersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTopGainersResult" type="tns:ArrayOfTop"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTopLosers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTopLosersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTopLosersResult" type="tns:ArrayOfTop"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSplitHistory">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes"/>
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSplitHistoryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSplitHistoryResult" type="tns:SplitHistory"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SplitHistory">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security"/>
+              <s:element minOccurs="0" maxOccurs="1" name="Splits" type="tns:ArrayOfSplit"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfSplit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Split" nillable="true" type="tns:Split"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Split">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Ratio" type="s:double"/>
+          <s:element minOccurs="1" maxOccurs="1" name="CumulatedRatio" type="s:double"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAllSplits">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllSplitsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllSplitsResult" type="tns:ArrayOfSplitHistory"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSplitHistory">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SplitHistory" nillable="true" type="tns:SplitHistory"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetSplitRatio">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Identifier" type="s:string"/>
+            <s:element minOccurs="1" maxOccurs="1" name="IdentifierType" type="tns:IdentifierTypes"/>
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSplitRatioResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSplitRatioResult" type="tns:SplitRatio"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SplitRatio">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Security" type="tns:Security"/>
+              <s:element minOccurs="1" maxOccurs="1" name="Ratio" type="s:double"/>
+              <s:element minOccurs="0" maxOccurs="1" name="FromDate" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="ToDate" type="s:string"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetAdvancesAndDeclines">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdvancesAndDeclinesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAdvancesAndDeclinesResult" type="tns:AdvancesAndDeclines"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="AdvancesAndDeclines">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string"/>
+              <s:element minOccurs="0" maxOccurs="1" name="MarketChanges" type="tns:ArrayOfMarketChange"/>
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfMarketChange">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="MarketChange" nillable="true" type="tns:MarketChange"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="MarketChange">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:int"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="HistoricalQuote" nillable="true" type="tns:HistoricalQuote"/>
+      <s:element name="ArrayOfHistoricalQuote" nillable="true" type="tns:ArrayOfHistoricalQuote"/>
+      <s:element name="HistoricalQuotes" nillable="true" type="tns:HistoricalQuotes"/>
+      <s:element name="ArrayOfTop" nillable="true" type="tns:ArrayOfTop"/>
+      <s:element name="SplitHistory" nillable="true" type="tns:SplitHistory"/>
+      <s:element name="ArrayOfSplitHistory" nillable="true" type="tns:ArrayOfSplitHistory"/>
+      <s:element name="SplitRatio" nillable="true" type="tns:SplitRatio"/>
+      <s:element name="AdvancesAndDeclines" nillable="true" type="tns:AdvancesAndDeclines"/>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetLastClosingPriceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLastClosingPrice"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPriceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLastClosingPriceResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPriceHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPricesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLastClosingPrices"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPricesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLastClosingPricesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPricesHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuoteSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistoricalQuote"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuoteSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoricalQuoteResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuoteHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistoricalQuotes"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoricalQuotesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesAsOfSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistoricalQuotesAsOf"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesAsOfSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoricalQuotesAsOfResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesAsOfHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistoricalQuotesRange"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoricalQuotesRangeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesRangeHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalMonthlyQuotesRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistoricalMonthlyQuotesRange"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalMonthlyQuotesRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoricalMonthlyQuotesRangeResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalMonthlyQuotesRangeHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopMoversSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTopMovers"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopMoversSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTopMoversResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopMoversHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopGainersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTopGainers"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopGainersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTopGainersResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopGainersHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopLosersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTopLosers"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopLosersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTopLosersResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopLosersHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistorySoapIn">
+    <wsdl:part name="parameters" element="tns:GetSplitHistory"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistorySoapOut">
+    <wsdl:part name="parameters" element="tns:GetSplitHistoryResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistoryHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllSplitsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllSplits"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllSplitsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllSplitsResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllSplitsHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitRatioSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSplitRatio"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitRatioSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSplitRatioResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitRatioHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetAdvancesAndDeclinesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAdvancesAndDeclines"/>
+  </wsdl:message>
+  <wsdl:message name="GetAdvancesAndDeclinesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAdvancesAndDeclinesResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetAdvancesAndDeclinesHeader">
+    <wsdl:part name="Header" element="tns:Header"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPriceHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPriceHttpGetOut">
+    <wsdl:part name="Body" element="tns:HistoricalQuote"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPricesHttpGetIn">
+    <wsdl:part name="Identifiers" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPricesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfHistoricalQuote"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuoteHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="AsOfDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuoteHttpGetOut">
+    <wsdl:part name="Body" element="tns:HistoricalQuote"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesHttpGetIn">
+    <wsdl:part name="Identifiers" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="AsOfDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfHistoricalQuote"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesAsOfHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+    <wsdl:part name="PeriodType" type="s:string"/>
+    <wsdl:part name="Periods" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesAsOfHttpGetOut">
+    <wsdl:part name="Body" element="tns:HistoricalQuotes"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesRangeHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="StartDate" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesRangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:HistoricalQuotes"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalMonthlyQuotesRangeHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="StartDate" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalMonthlyQuotesRangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:HistoricalQuotes"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopMoversHttpGetIn">
+    <wsdl:part name="AsOfDate" type="s:string"/>
+    <wsdl:part name="Count" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopMoversHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTop"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopGainersHttpGetIn">
+    <wsdl:part name="AsOfDate" type="s:string"/>
+    <wsdl:part name="Count" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopGainersHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTop"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopLosersHttpGetIn">
+    <wsdl:part name="AsOfDate" type="s:string"/>
+    <wsdl:part name="Count" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopLosersHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTop"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistoryHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="StartDate" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistoryHttpGetOut">
+    <wsdl:part name="Body" element="tns:SplitHistory"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllSplitsHttpGetIn">
+    <wsdl:part name="StartDate" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllSplitsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSplitHistory"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitRatioHttpGetIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="StartDate" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitRatioHttpGetOut">
+    <wsdl:part name="Body" element="tns:SplitRatio"/>
+  </wsdl:message>
+  <wsdl:message name="GetAdvancesAndDeclinesHttpGetIn">
+    <wsdl:part name="AsOfDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetAdvancesAndDeclinesHttpGetOut">
+    <wsdl:part name="Body" element="tns:AdvancesAndDeclines"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPriceHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPriceHttpPostOut">
+    <wsdl:part name="Body" element="tns:HistoricalQuote"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPricesHttpPostIn">
+    <wsdl:part name="Identifiers" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetLastClosingPricesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfHistoricalQuote"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuoteHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="AsOfDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuoteHttpPostOut">
+    <wsdl:part name="Body" element="tns:HistoricalQuote"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesHttpPostIn">
+    <wsdl:part name="Identifiers" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="AsOfDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfHistoricalQuote"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesAsOfHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+    <wsdl:part name="PeriodType" type="s:string"/>
+    <wsdl:part name="Periods" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesAsOfHttpPostOut">
+    <wsdl:part name="Body" element="tns:HistoricalQuotes"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesRangeHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="StartDate" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalQuotesRangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:HistoricalQuotes"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalMonthlyQuotesRangeHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="StartDate" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalMonthlyQuotesRangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:HistoricalQuotes"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopMoversHttpPostIn">
+    <wsdl:part name="AsOfDate" type="s:string"/>
+    <wsdl:part name="Count" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopMoversHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTop"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopGainersHttpPostIn">
+    <wsdl:part name="AsOfDate" type="s:string"/>
+    <wsdl:part name="Count" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopGainersHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTop"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopLosersHttpPostIn">
+    <wsdl:part name="AsOfDate" type="s:string"/>
+    <wsdl:part name="Count" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetTopLosersHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfTop"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistoryHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="StartDate" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitHistoryHttpPostOut">
+    <wsdl:part name="Body" element="tns:SplitHistory"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllSplitsHttpPostIn">
+    <wsdl:part name="StartDate" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetAllSplitsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfSplitHistory"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitRatioHttpPostIn">
+    <wsdl:part name="Identifier" type="s:string"/>
+    <wsdl:part name="IdentifierType" type="s:string"/>
+    <wsdl:part name="StartDate" type="s:string"/>
+    <wsdl:part name="EndDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetSplitRatioHttpPostOut">
+    <wsdl:part name="Body" element="tns:SplitRatio"/>
+  </wsdl:message>
+  <wsdl:message name="GetAdvancesAndDeclinesHttpPostIn">
+    <wsdl:part name="AsOfDate" type="s:string"/>
+  </wsdl:message>
+  <wsdl:message name="GetAdvancesAndDeclinesHttpPostOut">
+    <wsdl:part name="Body" element="tns:AdvancesAndDeclines"/>
+  </wsdl:message>
+  <wsdl:portType name="XigniteHistoricalSoap">
+    <wsdl:operation name="GetLastClosingPrice">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns last closing price for a security.</documentation>
+      <wsdl:input message="tns:GetLastClosingPriceSoapIn"/>
+      <wsdl:output message="tns:GetLastClosingPriceSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastClosingPrices">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns last closing price for a collection of securities.</documentation>
+      <wsdl:input message="tns:GetLastClosingPricesSoapIn"/>
+      <wsdl:output message="tns:GetLastClosingPricesSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuote">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a quote as of a historical date. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalQuoteSoapIn"/>
+      <wsdl:output message="tns:GetHistoricalQuoteSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotes">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a quote as of a historical date. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalQuotesSoapIn"/>
+      <wsdl:output message="tns:GetHistoricalQuotesSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesAsOf">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns a range of quotes for a security.</documentation>
+      <wsdl:input message="tns:GetHistoricalQuotesAsOfSoapIn"/>
+      <wsdl:output message="tns:GetHistoricalQuotesAsOfSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns a complete range of stock quotes for a US equity. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalQuotesRangeSoapIn"/>
+      <wsdl:output message="tns:GetHistoricalQuotesRangeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalMonthlyQuotesRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns a complete range of stock quotes for a US equity. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalMonthlyQuotesRangeSoapIn"/>
+      <wsdl:output message="tns:GetHistoricalMonthlyQuotesRangeSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMovers">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns quote information about the top moving equities from NYSE, NASDAQ and AMEX.</documentation>
+      <wsdl:input message="tns:GetTopMoversSoapIn"/>
+      <wsdl:output message="tns:GetTopMoversSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopGainers">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns quote information about the top gaining equities from NYSE, NASDAQ and AMEX.</documentation>
+      <wsdl:input message="tns:GetTopGainersSoapIn"/>
+      <wsdl:output message="tns:GetTopGainersSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopLosers">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns quote information about the top losing equities from NYSE, NASDAQ and AMEX.</documentation>
+      <wsdl:input message="tns:GetTopLosersSoapIn"/>
+      <wsdl:output message="tns:GetTopLosersSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Get split history for a stock for a date range.</documentation>
+      <wsdl:input message="tns:GetSplitHistorySoapIn"/>
+      <wsdl:output message="tns:GetSplitHistorySoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSplits">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Get all splits for a date range.</documentation>
+      <wsdl:input message="tns:GetAllSplitsSoapIn"/>
+      <wsdl:output message="tns:GetAllSplitsSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitRatio">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Return the cumulative split ratio for a security between two dates. For instance, if a security saw a 3:1 split and 2:1 split during the period, the split ratio 6 is returned. Returns 1 if no split occurred.</documentation>
+      <wsdl:input message="tns:GetSplitRatioSoapIn"/>
+      <wsdl:output message="tns:GetSplitRatioSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdvancesAndDeclines">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns numbers of advancing and declining stocks by price and volume across exchanges. For more information, go to http://www.xignite.com/</documentation>
+      <wsdl:input message="tns:GetAdvancesAndDeclinesSoapIn"/>
+      <wsdl:output message="tns:GetAdvancesAndDeclinesSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="XigniteHistoricalHttpGet">
+    <wsdl:operation name="GetLastClosingPrice">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns last closing price for a security.</documentation>
+      <wsdl:input message="tns:GetLastClosingPriceHttpGetIn"/>
+      <wsdl:output message="tns:GetLastClosingPriceHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastClosingPrices">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns last closing price for a collection of securities.</documentation>
+      <wsdl:input message="tns:GetLastClosingPricesHttpGetIn"/>
+      <wsdl:output message="tns:GetLastClosingPricesHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuote">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a quote as of a historical date. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalQuoteHttpGetIn"/>
+      <wsdl:output message="tns:GetHistoricalQuoteHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotes">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a quote as of a historical date. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalQuotesHttpGetIn"/>
+      <wsdl:output message="tns:GetHistoricalQuotesHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesAsOf">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns a range of quotes for a security.</documentation>
+      <wsdl:input message="tns:GetHistoricalQuotesAsOfHttpGetIn"/>
+      <wsdl:output message="tns:GetHistoricalQuotesAsOfHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns a complete range of stock quotes for a US equity. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalQuotesRangeHttpGetIn"/>
+      <wsdl:output message="tns:GetHistoricalQuotesRangeHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalMonthlyQuotesRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns a complete range of stock quotes for a US equity. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalMonthlyQuotesRangeHttpGetIn"/>
+      <wsdl:output message="tns:GetHistoricalMonthlyQuotesRangeHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMovers">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns quote information about the top moving equities from NYSE, NASDAQ and AMEX.</documentation>
+      <wsdl:input message="tns:GetTopMoversHttpGetIn"/>
+      <wsdl:output message="tns:GetTopMoversHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopGainers">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns quote information about the top gaining equities from NYSE, NASDAQ and AMEX.</documentation>
+      <wsdl:input message="tns:GetTopGainersHttpGetIn"/>
+      <wsdl:output message="tns:GetTopGainersHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopLosers">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns quote information about the top losing equities from NYSE, NASDAQ and AMEX.</documentation>
+      <wsdl:input message="tns:GetTopLosersHttpGetIn"/>
+      <wsdl:output message="tns:GetTopLosersHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Get split history for a stock for a date range.</documentation>
+      <wsdl:input message="tns:GetSplitHistoryHttpGetIn"/>
+      <wsdl:output message="tns:GetSplitHistoryHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSplits">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Get all splits for a date range.</documentation>
+      <wsdl:input message="tns:GetAllSplitsHttpGetIn"/>
+      <wsdl:output message="tns:GetAllSplitsHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitRatio">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Return the cumulative split ratio for a security between two dates. For instance, if a security saw a 3:1 split and 2:1 split during the period, the split ratio 6 is returned. Returns 1 if no split occurred.</documentation>
+      <wsdl:input message="tns:GetSplitRatioHttpGetIn"/>
+      <wsdl:output message="tns:GetSplitRatioHttpGetOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdvancesAndDeclines">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns numbers of advancing and declining stocks by price and volume across exchanges. For more information, go to http://www.xignite.com/</documentation>
+      <wsdl:input message="tns:GetAdvancesAndDeclinesHttpGetIn"/>
+      <wsdl:output message="tns:GetAdvancesAndDeclinesHttpGetOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="XigniteHistoricalHttpPost">
+    <wsdl:operation name="GetLastClosingPrice">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns last closing price for a security.</documentation>
+      <wsdl:input message="tns:GetLastClosingPriceHttpPostIn"/>
+      <wsdl:output message="tns:GetLastClosingPriceHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastClosingPrices">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns last closing price for a collection of securities.</documentation>
+      <wsdl:input message="tns:GetLastClosingPricesHttpPostIn"/>
+      <wsdl:output message="tns:GetLastClosingPricesHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuote">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a quote as of a historical date. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalQuoteHttpPostIn"/>
+      <wsdl:output message="tns:GetHistoricalQuoteHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotes">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a quote as of a historical date. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalQuotesHttpPostIn"/>
+      <wsdl:output message="tns:GetHistoricalQuotesHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesAsOf">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns a range of quotes for a security.</documentation>
+      <wsdl:input message="tns:GetHistoricalQuotesAsOfHttpPostIn"/>
+      <wsdl:output message="tns:GetHistoricalQuotesAsOfHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns a complete range of stock quotes for a US equity. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalQuotesRangeHttpPostIn"/>
+      <wsdl:output message="tns:GetHistoricalQuotesRangeHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalMonthlyQuotesRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns a complete range of stock quotes for a US equity. This includes split and dividend adjusted price. </documentation>
+      <wsdl:input message="tns:GetHistoricalMonthlyQuotesRangeHttpPostIn"/>
+      <wsdl:output message="tns:GetHistoricalMonthlyQuotesRangeHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMovers">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns quote information about the top moving equities from NYSE, NASDAQ and AMEX.</documentation>
+      <wsdl:input message="tns:GetTopMoversHttpPostIn"/>
+      <wsdl:output message="tns:GetTopMoversHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopGainers">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns quote information about the top gaining equities from NYSE, NASDAQ and AMEX.</documentation>
+      <wsdl:input message="tns:GetTopGainersHttpPostIn"/>
+      <wsdl:output message="tns:GetTopGainersHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopLosers">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This operation returns quote information about the top losing equities from NYSE, NASDAQ and AMEX.</documentation>
+      <wsdl:input message="tns:GetTopLosersHttpPostIn"/>
+      <wsdl:output message="tns:GetTopLosersHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Get split history for a stock for a date range.</documentation>
+      <wsdl:input message="tns:GetSplitHistoryHttpPostIn"/>
+      <wsdl:output message="tns:GetSplitHistoryHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSplits">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Get all splits for a date range.</documentation>
+      <wsdl:input message="tns:GetAllSplitsHttpPostIn"/>
+      <wsdl:output message="tns:GetAllSplitsHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitRatio">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Return the cumulative split ratio for a security between two dates. For instance, if a security saw a 3:1 split and 2:1 split during the period, the split ratio 6 is returned. Returns 1 if no split occurred.</documentation>
+      <wsdl:input message="tns:GetSplitRatioHttpPostIn"/>
+      <wsdl:output message="tns:GetSplitRatioHttpPostOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdvancesAndDeclines">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns numbers of advancing and declining stocks by price and volume across exchanges. For more information, go to http://www.xignite.com/</documentation>
+      <wsdl:input message="tns:GetAdvancesAndDeclinesHttpPostIn"/>
+      <wsdl:output message="tns:GetAdvancesAndDeclinesHttpPostOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="XigniteHistoricalSoap" type="tns:XigniteHistoricalSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="GetLastClosingPrice">
+      <soap:operation soapAction="http://www.xignite.com/services/GetLastClosingPrice" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetLastClosingPriceHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastClosingPrices">
+      <soap:operation soapAction="http://www.xignite.com/services/GetLastClosingPrices" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetLastClosingPricesHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuote">
+      <soap:operation soapAction="http://www.xignite.com/services/GetHistoricalQuote" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetHistoricalQuoteHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotes">
+      <soap:operation soapAction="http://www.xignite.com/services/GetHistoricalQuotes" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetHistoricalQuotesHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesAsOf">
+      <soap:operation soapAction="http://www.xignite.com/services/GetHistoricalQuotesAsOf" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetHistoricalQuotesAsOfHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesRange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetHistoricalQuotesRange" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetHistoricalQuotesRangeHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalMonthlyQuotesRange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetHistoricalMonthlyQuotesRange" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetHistoricalMonthlyQuotesRangeHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMovers">
+      <soap:operation soapAction="http://www.xignite.com/services/GetTopMovers" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetTopMoversHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopGainers">
+      <soap:operation soapAction="http://www.xignite.com/services/GetTopGainers" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetTopGainersHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopLosers">
+      <soap:operation soapAction="http://www.xignite.com/services/GetTopLosers" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetTopLosersHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <soap:operation soapAction="http://www.xignite.com/services/GetSplitHistory" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetSplitHistoryHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSplits">
+      <soap:operation soapAction="http://www.xignite.com/services/GetAllSplits" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetAllSplitsHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitRatio">
+      <soap:operation soapAction="http://www.xignite.com/services/GetSplitRatio" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetSplitRatioHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdvancesAndDeclines">
+      <soap:operation soapAction="http://www.xignite.com/services/GetAdvancesAndDeclines" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+        <soap:header message="tns:GetAdvancesAndDeclinesHeader" part="Header" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="XigniteHistoricalHttpGet" type="tns:XigniteHistoricalHttpGet">
+    <http:binding verb="GET"/>
+    <wsdl:operation name="GetLastClosingPrice">
+      <http:operation location="/GetLastClosingPrice"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastClosingPrices">
+      <http:operation location="/GetLastClosingPrices"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuote">
+      <http:operation location="/GetHistoricalQuote"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotes">
+      <http:operation location="/GetHistoricalQuotes"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesAsOf">
+      <http:operation location="/GetHistoricalQuotesAsOf"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesRange">
+      <http:operation location="/GetHistoricalQuotesRange"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalMonthlyQuotesRange">
+      <http:operation location="/GetHistoricalMonthlyQuotesRange"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMovers">
+      <http:operation location="/GetTopMovers"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopGainers">
+      <http:operation location="/GetTopGainers"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopLosers">
+      <http:operation location="/GetTopLosers"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <http:operation location="/GetSplitHistory"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSplits">
+      <http:operation location="/GetAllSplits"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitRatio">
+      <http:operation location="/GetSplitRatio"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdvancesAndDeclines">
+      <http:operation location="/GetAdvancesAndDeclines"/>
+      <wsdl:input>
+        <http:urlEncoded/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="XigniteHistoricalHttpPost" type="tns:XigniteHistoricalHttpPost">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="GetLastClosingPrice">
+      <http:operation location="/GetLastClosingPrice"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLastClosingPrices">
+      <http:operation location="/GetLastClosingPrices"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuote">
+      <http:operation location="/GetHistoricalQuote"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotes">
+      <http:operation location="/GetHistoricalQuotes"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesAsOf">
+      <http:operation location="/GetHistoricalQuotesAsOf"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalQuotesRange">
+      <http:operation location="/GetHistoricalQuotesRange"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalMonthlyQuotesRange">
+      <http:operation location="/GetHistoricalMonthlyQuotesRange"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopMovers">
+      <http:operation location="/GetTopMovers"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopGainers">
+      <http:operation location="/GetTopGainers"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopLosers">
+      <http:operation location="/GetTopLosers"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitHistory">
+      <http:operation location="/GetSplitHistory"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllSplits">
+      <http:operation location="/GetAllSplits"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetSplitRatio">
+      <http:operation location="/GetSplitRatio"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdvancesAndDeclines">
+      <http:operation location="/GetAdvancesAndDeclines"/>
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="XigniteHistorical">
+    <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">This web service provides historical security pricing.</documentation>
+    <wsdl:port name="XigniteHistoricalSoap" binding="tns:XigniteHistoricalSoap">
+      <soap:address location="http://www.xignite.com/xHistorical.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="XigniteHistoricalHttpGet" binding="tns:XigniteHistoricalHttpGet">
+      <http:address location="http://www.xignite.com/xHistorical.asmx"/>
+    </wsdl:port>
+    <wsdl:port name="XigniteHistoricalHttpPost" binding="tns:XigniteHistoricalHttpPost">
+      <http:address location="http://www.xignite.com/xHistorical.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

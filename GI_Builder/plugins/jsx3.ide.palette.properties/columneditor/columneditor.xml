@@ -1,0 +1,144 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.5">
+  <name>Dialog</name>
+  <icon>images/prototypes/dialog.gif</icon>
+  <description>Dialog box.  (Set Modal property for a modal dialog).</description>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize>
+
+//creates [+] symbol on autorow and removes the up/down arrows from the autorow
+function myAutoRowFormatter(objDiv, strCDFKey, objMatrix, objMatrixColumn, intRowNumber, objServer) {
+  if(strCDFKey == "jsxautorow") {
+    if(objMatrixColumn.getChildIndex() == 0) {
+      objDiv.innerHTML = '&lt;div title="add new row" class="jsx3ide_dynprops_autorow" onclick="' + objMatrix.getServer().getEnv("namespace") + '.getJSXById(\'' + objMatrix.getId() + '\').commitAutoRowSession(jsx3.gui.Event.wrap(event));"&gt;&amp;#160;&lt;/div&gt;';
+    } else {
+      //mask the up/down image buttons that prioritize/deprioritize a row
+      objDiv.style.left = "-1px";
+      objDiv.style.top = "-1px";
+      objDiv.style.width = "20px";
+      objDiv.innerHTML = '&lt;div class="jsx3ide_dynprops_autorow_emptycell" onclick="jsx3.gui.Event.wrap(event).cancelAll();"&gt;&amp;#160;&lt;/div&gt;';
+    }
+  }
+}
+
+//bind functions to mappings control
+var objMatrix = objJSX.getDescendantsOfType(jsx3.gui.Matrix)[0];
+objMatrix.getChild(0).setFormatHandler(myAutoRowFormatter);
+objMatrix.getChild(1).setFormatHandler(myAutoRowFormatter);
+objMatrix.getChild(2).setFormatHandler(myAutoRowFormatter);
+
+
+</onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+    <variants jsxwidth="600" jsxheight="400" jsxwindowstate="1" jsxminx="400" jsxminy="200" jsxmaxx="800" jsxmaxy="600" jsxmodal="1"/>
+    <strings jsxname="dialog" jsxhelpid="ide.palette.props"/>
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <object type="jsx3.gui.WindowBar">
+      <variants/>
+      <strings jsxname="windowBar" jsxtext="Column Editor"/>
+    </object>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+      <strings jsxrows="25,*,35" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxpadding="6" jsxtext="Each row in the &lt;b&gt;Column Editor&lt;/b&gt; represents a column. Rows can be added, removed, and reordered."/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxbgcolor="@Solid Light"/>
+        <object type="jsx3.gui.Matrix">
+          <variants jsxpagingmodel="0" jsxselectionmodel="0" jsxjsxxmlasync="1" jsxautorow="2" jsxfixedcolumnindex="1" jsxscalewidth="1" jsxresize="0" jsxsort="0"/>
+          <strings jsxname="matrix1" jsxbodyborder="1px solid #dfdfef" jsxheaderborder="1px solid #dfdfef" jsxfocusstyle="."/>
+          <dynamics jsxbgcolor="@Solid Light"/>
+          <xslparameters jsx_autorow_style="background-color:#f0f0f8;color:#0000ff;"/>
+          <object type="jsx3.gui.Matrix.Column">
+            <variants jsxwidth="20" jsxresize="0"/>
+            <strings jsxname="colDelete" jsxpadding="2 3 0 3" jsxcellpadding="1" jsxvaluetemplate="@empty"/>
+            <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset" jsxcellborder="@Matrix AllCol Border"/>
+            <object type="jsx3.gui.ImageButton">
+              <variants jsxenabled="1" jsxprefetch="1" jsxtype="0" jsxstate="0" jsxwidth="16" jsxheight="16"/>
+              <strings jsxname="ibRem" jsximage="columneditor/images/rem.gif"/>
+              <events jsxexecute="this.getParent().getParent().deleteRecord(this.emGetSession().recordId, true);"/>
+            </object>
+          </object>
+          <object type="jsx3.gui.Matrix.Column">
+            <variants jsxwidth="20"/>
+            <strings jsxname="jsxcol" jsxtext="&amp;#160;" jsxvaluetemplate="@empty" jsxcellpadding="1" jsxpadding="2 3 0 3" jsxtip="prioritize row"/>
+            <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset" jsxcellborder="@Matrix AllCol Border"/>
+            <object type="jsx3.gui.ImageButton">
+              <variants jsxwidth="16" jsxheight="16" jsxenabled="1" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+              <strings jsxname="ibUp" jsximage="columneditor/images/up.gif" jsxtip="prioritize row"/>
+            </object>
+          </object>
+          <object type="jsx3.gui.Matrix.Column">
+            <variants jsxwidth="20"/>
+            <strings jsxname="jsxcol" jsxtext="&amp;#160;" jsxvaluetemplate="@empty" jsxcellpadding="1" jsxpadding="2 3 0 3" jsxtip="deprioritize row"/>
+            <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset" jsxcellborder="@Matrix AllCol Border"/>
+            <object type="jsx3.gui.ImageButton">
+              <variants jsxwidth="16" jsxheight="16" jsxenabled="1" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+              <strings jsxname="ibDown" jsximage="columneditor/images/down.gif" jsxtip="deprioritize row"/>
+            </object>
+          </object>
+          <object type="jsx3.gui.Matrix.Column">
+            <variants/>
+            <strings jsxname="colText" jsxtext="Column Label" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxtext" jsxtip="The text/HTML to use for the column label" jsxwidth="*"/>
+            <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled" jsxcellborder="@Matrix AllCol Border"/>
+            <object type="jsx3.gui.TextBox">
+              <variants jsxheight="80" jsxtype="1" jsxrelativeposition="0" jsxleft="60" jsxtop="0"/>
+              <strings jsxname="textareaMask" jsxdisplay="none"/>
+              <events jsxkeydown="1;"/>
+            </object>
+          </object>
+          <object type="jsx3.gui.Matrix.Column">
+            <variants jsxwidth="46"/>
+            <strings jsxname="colWidth" jsxtext="Width" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxwidth" jsxtip="The width of the column. Can be empty, int, or a percent. For example, 25%"/>
+            <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled" jsxcellborder="@Matrix AllCol Border"/>
+            <object type="jsx3.gui.TextBox">
+              <variants jsxrelativeposition="0" jsxleft="319" jsxtop="0" jsxwidth="46" jsxheight="20"/>
+              <strings jsxname="tb1" jsxdisplay="none"/>
+              <events jsxkeydown="1;"/>
+            </object>
+          </object>
+          <object type="jsx3.gui.Matrix.Column">
+            <variants jsxwidth="65"/>
+            <strings jsxname="colPath" jsxtext="Att Name" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxpath" jsxtip="The named attribute mapped to this column. For example, jsxtext."/>
+            <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled" jsxcellborder="@Matrix AllCol Border"/>
+            <object type="jsx3.gui.TextBox">
+              <variants jsxrelativeposition="0" jsxleft="365" jsxtop="24" jsxwidth="65" jsxheight="20"/>
+              <strings jsxname="tb1" jsxdisplay="none" jsxvalue="ghi"/>
+              <events jsxkeydown="1;"/>
+            </object>
+          </object>
+          <object type="jsx3.gui.Matrix.Column">
+            <variants jsxwidth="100"/>
+            <strings jsxname="colPathType" jsxtext="Att Data Type" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxpathtype" jsxtip="The data type for the mapped attribute. If no selection is made, 'text' is assumed."/>
+            <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled" jsxcellborder="@Matrix AllCol Border"/>
+            <object type="jsx3.gui.Select">
+              <variants jsxrelativeposition="0" jsxleft="430" jsxtop="20" jsxwidth="100" jsxheight="20"/>
+              <strings jsxname="selectMask" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record jsxid=&quot;text&quot; jsxtext=&quot;Text&quot;/&gt;&lt;record jsxid=&quot;number&quot; jsxtext=&quot;Number&quot;/&gt;&lt;/data&gt;" jsxdisplay="none"/>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="mybuttonbar" jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxpadding="8 8 0 0"/>
+        <dynamics jsxborder="@Inset Top"/>
+        <object type="jsx3.gui.Button">
+          <variants jsxindex="0" jsxheight="18"/>
+          <strings jsxname="execBtn" jsxtext="Update" jsxmargin="0 8 0 0" jsxfontweight="bold"/>
+        </object>
+        <object type="jsx3.gui.Button">
+          <variants jsxindex="0" jsxheight="18"/>
+          <strings jsxname="cancelBtn" jsxtext="Cancel" jsxmargin="0 8 0 0" jsxkeycode="ctrl+."/>
+        </object>
+        <object type="jsx3.gui.ImageButton">
+          <variants jsxwidth="16" jsxheight="16" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+          <strings jsxname="helpBtn" jsximage="jsxapp:/images/icon_59.gif"/>
+          <events jsxexecute="this.getServer().invokeHelp(this.getAncestorOfType(jsx3.gui.Dialog));"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

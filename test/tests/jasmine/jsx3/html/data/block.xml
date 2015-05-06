@@ -1,0 +1,12 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"></variants>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%"></strings>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1" jsxwidth="100" jsxheight="30"></variants>
+      <strings jsxname="test_block" jsxrelativeposition="1" jsxtext="test block" jsxbgcolor="#A29F9F"></strings>
+      <events jsxclick="this.getRendered().style.backgroundColor='red'"></events>
+    </object>
+  </object>
+</serialization>

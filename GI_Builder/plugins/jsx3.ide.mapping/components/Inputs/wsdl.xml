@@ -1,0 +1,49 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[
+    //now that the main structure of the mapper has loaded (this one), initialize and ready for use
+    objJSX.getAncestorOfType(jsx3.ide.mapper.Mapper).INITIALIZED = true;
+]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+   <variants jsxleft="0" jsxtop="0" jsxoverflow="2" jsxrelativeposition="0"/>
+   <strings jsxwidth="100%" jsxheight="100%" jsxrows="26,30,*"/>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxpadding="@8Pixel"/>
+     <variants jsxoverflow="3"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxtext="Enter the URL for the WSDL that will be used to generate the mapping rules."/>
+    </object>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="2"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxpadding="0 8 0 90" jsxtextalign="right"/>
+      <object type="jsx3.gui.Block">
+       <variants jsxleft="0" jsxtop="8" jsxwidth="52" jsxoverflow="2" jsxrelativeposition="0"/>
+       <strings jsxtext="URL" jsxtextalign="right" jsxheight="12" jsxfontweight="bold" jsxtip="relative to the project root or absolute (http/s:, jsx:, jsxapp:)"/>
+      </object>
+      <object type="jsx3.gui.TextBox">
+       <dynamics jsxborder="@Inset"/>
+       <variants jsxleft="60" jsxtop="6" jsxindex="0" jsxrelativeposition="0" jsxenabled="1"/>
+       <strings jsxwidth="100%" jsxname="jsx_schema_wsdlurl" jsxvalue="jsxplugin://jsx3.ide.mapping/samples/Address.wsdl"/>
+       <events jsxblur="" jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.Mapper).parseWSDL(this.getValue());"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <variants jsxleft="8" jsxtop="8" jsxrelativeposition="1" jsxenabled="1"/>
+       <strings jsxname="jsx_schema_alternatestuburl_tbb" jsxtip="browse project workspace for local copy of the document" jsximage="images/open_file.gif" groupName="jsx_soaptester"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.Mapper).browseURL(&quot;jsx_schema_wsdlurl&quot;);"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxpadding="@8Pixel"/>
+     <variants jsxoverflow="1"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxtextalign="right"/>
+      <object type="jsx3.gui.Button">
+       <variants/>
+       <strings jsxname="jsx_schema_parsewsdl" jsxtip="click to parse the document and begin the mapping process" jsxtext="Parse Document"/>
+       <events jsxexecute="var oMap = this.getAncestorOfType(jsx3.ide.mapper.Mapper);
+oMap.parseWSDL(oMap.getDescendantOfName(&quot;jsx_schema_wsdlurl&quot;).getValue());"/>
+      </object>
+    </object>
+  </object>
+</serialization>

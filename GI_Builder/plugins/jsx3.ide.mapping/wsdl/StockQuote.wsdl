@@ -1,0 +1,366 @@
+<?xml version="1.0"?>
+<definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://ws.cdyne.com/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://ws.cdyne.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ws.cdyne.com/">
+      <s:import namespace="http://www.w3.org/2001/XMLSchema"/>
+      <s:element name="GetQuote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StockSymbol" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQuoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetQuoteResult" type="s0:QuoteData"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="QuoteData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="StockSymbol" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="LastTradeAmount" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="LastTradeDateTime" type="s:dateTime"/>
+          <s:element minOccurs="1" maxOccurs="1" name="StockChange" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="OpenAmount" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DayHigh" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="DayLow" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="StockVolume" type="s:int"/>
+          <s:element minOccurs="0" maxOccurs="1" name="MktCap" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PrevCls" type="s:decimal"/>
+          <s:element minOccurs="0" maxOccurs="1" name="ChangePercent" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="FiftyTwoWeekRange" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="EarnPerShare" type="s:decimal"/>
+          <s:element minOccurs="1" maxOccurs="1" name="PE" type="s:decimal"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CompanyName" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="QuoteError" type="s:boolean"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetQuickQuote">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StockSymbol" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQuickQuoteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetQuickQuoteResult" type="s:decimal"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQuoteDataSet">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StockSymbols" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetQuoteDataSetResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetQuoteDataSetResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema"/>
+                  <s:any/>
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ImportantMessage">
+        <s:complexType/>
+      </s:element>
+      <s:element name="ImportantMessageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ImportantMessageResult" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="QuoteData" type="s0:QuoteData"/>
+      <s:element name="decimal" type="s:decimal"/>
+      <s:element name="DataSet" nillable="true">
+        <s:complexType>
+          <s:sequence>
+            <s:element ref="s:schema"/>
+            <s:any/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string"/>
+    </s:schema>
+  </types>
+  <message name="GetQuoteSoapIn">
+    <part name="parameters" element="s0:GetQuote"/>
+  </message>
+  <message name="GetQuoteSoapOut">
+    <part name="parameters" element="s0:GetQuoteResponse"/>
+  </message>
+  <message name="GetQuickQuoteSoapIn">
+    <part name="parameters" element="s0:GetQuickQuote"/>
+  </message>
+  <message name="GetQuickQuoteSoapOut">
+    <part name="parameters" element="s0:GetQuickQuoteResponse"/>
+  </message>
+  <message name="GetQuoteDataSetSoapIn">
+    <part name="parameters" element="s0:GetQuoteDataSet"/>
+  </message>
+  <message name="GetQuoteDataSetSoapOut">
+    <part name="parameters" element="s0:GetQuoteDataSetResponse"/>
+  </message>
+  <message name="ImportantMessageSoapIn">
+    <part name="parameters" element="s0:ImportantMessage"/>
+  </message>
+  <message name="ImportantMessageSoapOut">
+    <part name="parameters" element="s0:ImportantMessageResponse"/>
+  </message>
+  <message name="GetQuoteHttpGetIn">
+    <part name="StockSymbol" type="s:string"/>
+    <part name="LicenseKey" type="s:string"/>
+  </message>
+  <message name="GetQuoteHttpGetOut">
+    <part name="Body" element="s0:QuoteData"/>
+  </message>
+  <message name="GetQuickQuoteHttpGetIn">
+    <part name="StockSymbol" type="s:string"/>
+    <part name="LicenseKey" type="s:string"/>
+  </message>
+  <message name="GetQuickQuoteHttpGetOut">
+    <part name="Body" element="s0:decimal"/>
+  </message>
+  <message name="GetQuoteDataSetHttpGetIn">
+    <part name="StockSymbols" type="s:string"/>
+    <part name="LicenseKey" type="s:string"/>
+  </message>
+  <message name="GetQuoteDataSetHttpGetOut">
+    <part name="Body" element="s0:DataSet"/>
+  </message>
+  <message name="ImportantMessageHttpGetIn"/>
+  <message name="ImportantMessageHttpGetOut">
+    <part name="Body" element="s0:string"/>
+  </message>
+  <message name="GetQuoteHttpPostIn">
+    <part name="StockSymbol" type="s:string"/>
+    <part name="LicenseKey" type="s:string"/>
+  </message>
+  <message name="GetQuoteHttpPostOut">
+    <part name="Body" element="s0:QuoteData"/>
+  </message>
+  <message name="GetQuickQuoteHttpPostIn">
+    <part name="StockSymbol" type="s:string"/>
+    <part name="LicenseKey" type="s:string"/>
+  </message>
+  <message name="GetQuickQuoteHttpPostOut">
+    <part name="Body" element="s0:decimal"/>
+  </message>
+  <message name="GetQuoteDataSetHttpPostIn">
+    <part name="StockSymbols" type="s:string"/>
+    <part name="LicenseKey" type="s:string"/>
+  </message>
+  <message name="GetQuoteDataSetHttpPostOut">
+    <part name="Body" element="s0:DataSet"/>
+  </message>
+  <message name="ImportantMessageHttpPostIn"/>
+  <message name="ImportantMessageHttpPostOut">
+    <part name="Body" element="s0:string"/>
+  </message>
+  <portType name="DelayedStockQuoteSoap">
+    <operation name="GetQuote">
+      <documentation>This method retrieves a current stock quote.  Use a license key of 0 for testing.</documentation>
+      <input message="s0:GetQuoteSoapIn"/>
+      <output message="s0:GetQuoteSoapOut"/>
+    </operation>
+    <operation name="GetQuickQuote">
+      <documentation>This method retrieves just a stock price.  Use a license key of 0 for testing.</documentation>
+      <input message="s0:GetQuickQuoteSoapIn"/>
+      <output message="s0:GetQuickQuoteSoapOut"/>
+    </operation>
+    <operation name="GetQuoteDataSet">
+      <documentation>This method retrieves the stock information and returns it in a dataset.  Use a , to diplay multiple quotes.  Use a license key of 0 for testing.</documentation>
+      <input message="s0:GetQuoteDataSetSoapIn"/>
+      <output message="s0:GetQuoteDataSetSoapOut"/>
+    </operation>
+    <operation name="ImportantMessage">
+      <input message="s0:ImportantMessageSoapIn"/>
+      <output message="s0:ImportantMessageSoapOut"/>
+    </operation>
+  </portType>
+  <portType name="DelayedStockQuoteHttpGet">
+    <operation name="GetQuote">
+      <documentation>This method retrieves a current stock quote.  Use a license key of 0 for testing.</documentation>
+      <input message="s0:GetQuoteHttpGetIn"/>
+      <output message="s0:GetQuoteHttpGetOut"/>
+    </operation>
+    <operation name="GetQuickQuote">
+      <documentation>This method retrieves just a stock price.  Use a license key of 0 for testing.</documentation>
+      <input message="s0:GetQuickQuoteHttpGetIn"/>
+      <output message="s0:GetQuickQuoteHttpGetOut"/>
+    </operation>
+    <operation name="GetQuoteDataSet">
+      <documentation>This method retrieves the stock information and returns it in a dataset.  Use a , to diplay multiple quotes.  Use a license key of 0 for testing.</documentation>
+      <input message="s0:GetQuoteDataSetHttpGetIn"/>
+      <output message="s0:GetQuoteDataSetHttpGetOut"/>
+    </operation>
+    <operation name="ImportantMessage">
+      <input message="s0:ImportantMessageHttpGetIn"/>
+      <output message="s0:ImportantMessageHttpGetOut"/>
+    </operation>
+  </portType>
+  <portType name="DelayedStockQuoteHttpPost">
+    <operation name="GetQuote">
+      <documentation>This method retrieves a current stock quote.  Use a license key of 0 for testing.</documentation>
+      <input message="s0:GetQuoteHttpPostIn"/>
+      <output message="s0:GetQuoteHttpPostOut"/>
+    </operation>
+    <operation name="GetQuickQuote">
+      <documentation>This method retrieves just a stock price.  Use a license key of 0 for testing.</documentation>
+      <input message="s0:GetQuickQuoteHttpPostIn"/>
+      <output message="s0:GetQuickQuoteHttpPostOut"/>
+    </operation>
+    <operation name="GetQuoteDataSet">
+      <documentation>This method retrieves the stock information and returns it in a dataset.  Use a , to diplay multiple quotes.  Use a license key of 0 for testing.</documentation>
+      <input message="s0:GetQuoteDataSetHttpPostIn"/>
+      <output message="s0:GetQuoteDataSetHttpPostOut"/>
+    </operation>
+    <operation name="ImportantMessage">
+      <input message="s0:ImportantMessageHttpPostIn"/>
+      <output message="s0:ImportantMessageHttpPostOut"/>
+    </operation>
+  </portType>
+  <binding name="DelayedStockQuoteSoap" type="s0:DelayedStockQuoteSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="GetQuote">
+      <soap:operation soapAction="http://ws.cdyne.com/GetQuote" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="GetQuickQuote">
+      <soap:operation soapAction="http://ws.cdyne.com/GetQuickQuote" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="GetQuoteDataSet">
+      <soap:operation soapAction="http://ws.cdyne.com/GetQuoteDataSet" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="ImportantMessage">
+      <soap:operation soapAction="http://ws.cdyne.com/ImportantMessage" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <binding name="DelayedStockQuoteHttpGet" type="s0:DelayedStockQuoteHttpGet">
+    <http:binding verb="GET"/>
+    <operation name="GetQuote">
+      <http:operation location="/GetQuote"/>
+      <input>
+        <http:urlEncoded/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+    <operation name="GetQuickQuote">
+      <http:operation location="/GetQuickQuote"/>
+      <input>
+        <http:urlEncoded/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+    <operation name="GetQuoteDataSet">
+      <http:operation location="/GetQuoteDataSet"/>
+      <input>
+        <http:urlEncoded/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+    <operation name="ImportantMessage">
+      <http:operation location="/ImportantMessage"/>
+      <input>
+        <http:urlEncoded/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+  </binding>
+  <binding name="DelayedStockQuoteHttpPost" type="s0:DelayedStockQuoteHttpPost">
+    <http:binding verb="POST"/>
+    <operation name="GetQuote">
+      <http:operation location="/GetQuote"/>
+      <input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+    <operation name="GetQuickQuote">
+      <http:operation location="/GetQuickQuote"/>
+      <input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+    <operation name="GetQuoteDataSet">
+      <http:operation location="/GetQuoteDataSet"/>
+      <input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+    <operation name="ImportantMessage">
+      <http:operation location="/ImportantMessage"/>
+      <input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="DelayedStockQuote">
+    <port name="DelayedStockQuoteSoap" binding="s0:DelayedStockQuoteSoap">
+      <soap:address location="http://ws.cdyne.com/delayedstockquote/delayedstockquote.asmx"/>
+    </port>
+    <port name="DelayedStockQuoteHttpGet" binding="s0:DelayedStockQuoteHttpGet">
+      <http:address location="http://ws.cdyne.com/delayedstockquote/delayedstockquote.asmx"/>
+    </port>
+    <port name="DelayedStockQuoteHttpPost" binding="s0:DelayedStockQuoteHttpPost">
+      <http:address location="http://ws.cdyne.com/delayedstockquote/delayedstockquote.asmx"/>
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,14 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Block - Absolute]]></name>
+  <icon><![CDATA[images/prototypes/block-abs.gif]]></icon>
+  <description><![CDATA[Simple block, absolutely positioned with overflow=scroll.]]></description>
+  <object type="jsx3.gui.Block">
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <variants jsxleft="0" jsxtop="0" jsxwidth="100" jsxheight="100" jsxoverflow="1" jsxrelativeposition="0"/>
+    <strings jsxname="block"/>
+  </object>
+</serialization>

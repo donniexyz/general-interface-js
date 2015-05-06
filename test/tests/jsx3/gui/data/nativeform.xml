@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <name/>
+  <icon/>
+  <description/>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize><![CDATA[
+
+]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxrelativeposition="1"/>
+    <strings jsxname="root" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.NativeForm">
+      <variants jsxmulti="1"/>
+      <strings jsxname="form" jsxaction="nowhere.cgi" jsxmethod="post" jsxtarget="0"/>
+      <object type="jsx3.gui.NativeHidden">
+        <variants jsxindex="0"/>
+        <strings jsxname="hidden" jsxvalue=""/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxrelativeposition="1" jsxoverflow="3"/>
+        <strings jsxname="fieldSet1" jsxtagname="fieldset" jsxwidth="90%"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxrelativeposition="1" jsxoverflow="3"/>
+          <strings jsxname="formLegend" jsxtagname="legend" jsxtext="New in 3.9" jsxwidth="100%"/>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1" jsxheight="90"/>
+          <strings jsxname="block1" jsxwidth="100%" jsxrelativeposition="1"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="layoutCols" jsxcols="90,*" jsxwidth="100%" jsxheight="100%" jsxrows="30,30,30"/>
+            <object type="jsx3.gui.Label">
+              <variants jsxrelativeposition="1" jsxoverflow="3"/>
+              <strings jsxname="formLabel" jsxtext="File Upload:" jsxfor="#file1"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+              <object type="jsx3.gui.NativeFileUpload">
+                <variants jsxindex="0"/>
+                <strings jsxname="file1" jsxmargin="0 4 0 0"/>
+                <events jsxchange="jsx3.log('Value changed to: ' + this.getValue());"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Label">
+              <variants jsxrelativeposition="1" jsxoverflow="3"/>
+              <strings jsxname="formLabel" jsxtext="Native Select:" jsxfor="#select"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+              <object type="jsx3.gui.NativeSelect">
+                <variants jsxwidth="150" jsxxmlasync="1"/>
+                <strings jsxname="select" jsxmargin="0 4 0 0" jsxxml="&lt;data&gt; &lt;record jsxid=&quot;1&quot; jsxtext=&quot;One&quot; jsxtip=&quot;Uno Un Ichi&quot;/&gt; &lt;record jsxid=&quot;2&quot; jsxtext=&quot;Two&quot;/&gt; &lt;record jsxtext=&quot;Group&quot;&gt; &lt;record jsxid=&quot;3&quot; jsxtext=&quot;Three&quot; jsxstyle=&quot;color:red;&quot;/&gt; &lt;record jsxid=&quot;4&quot; jsxtext=&quot;Four&quot;/&gt; &lt;/record&gt; &lt;/data&gt;"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Label">
+              <variants jsxrelativeposition="1" jsxoverflow="3"/>
+              <strings jsxname="formLabel" jsxtext="Native Button:" jsxfor="#button"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+              <object type="jsx3.gui.NativeButton">
+                <variants jsxindex="0"/>
+                <strings jsxname="button" jsxvalue="Button Value" jsxmargin="0 4 0 0"/>
+                <events jsxexecute="alert('hello');"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxrelativeposition="1" jsxoverflow="3"/>
+        <strings jsxname="fieldSet2" jsxtagname="fieldset" jsxwidth="90%"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxrelativeposition="1" jsxoverflow="3"/>
+          <strings jsxname="formLegend" jsxtagname="legend" jsxtext="Other Form Fields"/>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1" jsxheight="120"/>
+          <strings jsxname="block2" jsxwidth="100%" jsxrelativeposition="1"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="layoutCols" jsxcols="90,*" jsxwidth="100%" jsxheight="100%" jsxrows="30,30,30,30"/>
+            <object type="jsx3.gui.Label">
+              <variants jsxrelativeposition="1" jsxoverflow="3"/>
+              <strings jsxname="formLabel" jsxtext="Text Box:" jsxfor="#textbox"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+              <object type="jsx3.gui.TextBox">
+                <variants jsxheight="18"/>
+                <strings jsxname="textbox" jsxmargin="0 4 0 0" jsxvalue=""/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Label">
+              <variants jsxrelativeposition="1" jsxoverflow="3"/>
+              <strings jsxname="formLabel" jsxtext="Check Box:" jsxfor="#checkbox"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+              <object type="jsx3.gui.CheckBox">
+                <variants jsxheight="18" jsxdefaultchecked="0" jsxchecked="1"/>
+                <strings jsxname="checkbox" jsxmargin="0 4 0 0"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Label">
+              <variants jsxrelativeposition="1" jsxoverflow="3"/>
+              <strings jsxname="formLabel" jsxtext="Radio Button:"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+              <object type="jsx3.gui.RadioButton">
+                <variants jsxheight="18" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="1"/>
+                <strings jsxname="radio1" jsxtext="Choice 1" jsxgroupname="group1" jsxmargin="0 4 0 0"/>
+              </object>
+              <object type="jsx3.gui.RadioButton">
+                <variants jsxheight="18" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="1"/>
+                <strings jsxname="radio2" jsxtext="Choice 2" jsxgroupname="group1" jsxmargin="0 4 0 0"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Label">
+              <variants jsxrelativeposition="1" jsxoverflow="3"/>
+              <strings jsxname="formLabel" jsxtext="Date Picker:" jsxfor="#datePicker"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+              <object type="jsx3.gui.DatePicker">
+                <variants jsxwidth="100" jsxrelativeposition="1" jsxheight="18"/>
+                <strings jsxname="datePicker" jsxmargin="0 4 0 0"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="block" jsxwidth="100%" jsxrelativeposition="1" jsxpadding="8"/>
+        <object type="jsx3.gui.Button">
+          <variants jsxindex="0" jsxheight="18"/>
+          <strings jsxname="button" jsxtext="Reset" jsxmargin="0 4 0 0"/>
+          <events jsxexecute="form.reset()"/>
+        </object>
+        <object type="jsx3.gui.Button">
+          <variants jsxindex="0" jsxheight="18"/>
+          <strings jsxname="button" jsxtext="Submit" jsxmargin="0 4 0 0"/>
+          <events jsxexecute="form.submit()"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

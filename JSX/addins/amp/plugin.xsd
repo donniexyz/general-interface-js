@@ -1,0 +1,883 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://www.generalinterface.org/gi/amp" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:amp="http://www.generalinterface.org/gi/amp">
+
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+      XML schema that covers the various XML formats of the General Interface Asynchronous Modular
+      Platform (AMP).
+    </xs:documentation>
+  </xs:annotation>
+
+  <xs:element name="plugin" type="amp:pluginType" xmlns:amp="http://www.generalinterface.org/gi/amp">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        The top-level element of the plugin.xml plug-in descriptor file.
+      </xs:documentation>
+    </xs:annotation>
+  </xs:element>
+
+  <!-- <plugin> -->
+  <xs:complexType name="pluginType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        The top-level element of the plugin.xml plug-in descriptor file; also the nested element of the plugins.xml
+        plug-in registration file. If the latter, this element may either be simply a pointer to the plugin.xml
+        file or it may be the entire exploded contents of the plugin.xml file. If this is a pointer then only the id
+        (required) and path attributes are allowed. If it is the entire contents then either the class attribute or
+        at least one child element are required.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="script" type="amp:scriptType"/>
+        <xs:element name="field" type="amp:fieldType"/>
+        <xs:element name="method" type="amp:methodType"/>
+      </xs:choice>
+      <xs:element name="requires" type="amp:requiresType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="resources" type="amp:resourcesType" minOccurs="0" maxOccurs="1"/>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="event" type="amp:eventType"/>
+        <xs:element name="subscribe" type="amp:subscribeType"/>
+        <xs:element name="extension-point" type="amp:extensionPointType"/>
+        <xs:element name="extension" type="amp:extensionType"/>
+        <xs:element name="bindable" type="amp:bindableType"/>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The required unique identifier of the plug-in. This value must be unique across all plug-ins registered
+          in a single AMP application.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="name" type="xs:string" use="optional"/>
+    <xs:attribute name="version" type="xs:string" use="optional"/>
+    <xs:attribute name="class" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The fully-qualified name of a class to instantiate to create this plug-in. This class should be
+          a subclass of jsx3.amp.PlugIn or at least implement the minimal plug-in interface.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="property" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The name of a property (may be nested with ".") of the application loading this plug-in
+          whose value AMP will set to this plug-in instance. This property becomes a shortcut for
+          calling <code>jsx3.amp.Engine.getInstance(app).getPlugIn(id)</code>. If this plug-in is a global
+          plug-in then the nested property is set on the top-level window object rather than the application
+          instance.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="global" type="xs:boolean" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          If true, this one instance of this plug-in is shared among all engines that register it. This is
+          appropriate for library plug-ins. The getEngine() and getServer() methods of this plug-in will return
+          null.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="locales" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The whitespace-separated list of locales for which this plugin.xml file is localized. For each locale, LL,
+          listed here, there must exist a plugin.LL.xml file. The contents of the localized file are merged into
+          the master file (plugin.xml) when the plug-in is registered.
+        </xs:documentation>
+      </xs:annotation>
+
+      <xs:simpleType>
+        <xs:list itemType="xs:string"/>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="path" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          This attribute is only allowed when this element is a pointer inside of the plugins element. If provided,
+          this attribute is the relative path from the default plugins directory to the directory containing the
+          directory of the plug-in referenced by this pointer. The default is the empty string which means that by
+          default plug-in directories are located in the plugins directory of the base directory of the application.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- <script>, <field>, <method> -->
+  <xs:complexType name="scriptType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Declares JavaScript code that is evaluated in the context of the enclosing element. For example, if this
+        element is enclosed by a plugin element, "this" refers to the plug-in instance.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="fieldType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Declares a field on the object defined by the enclosing element. The text content of this element is
+        evaluated in the global context, the result of which is taken as the value of the field.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="id" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              The name of the field.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:complexType name="methodType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Declares a method on the object defined by the enclosing element. The text content of this element is
+        taken as the body block of a method.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="id" type="xs:string" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              The name of the method.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="params" type="xs:string" use="optional">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              The comma-separated list of method parameters.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="async" type="xs:boolean" use="optional" default="false">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Whether the method is defined to be asynchronous. If this attribute is <code>true</code> then the method
+              is wrapped with jsx3.$Y() and should follow the contract of this utility.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="lazy" type="xs:boolean" use="optional" default="false">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Whether the method is defined to be lazy. If this attribute is <code>true</code> then the method
+              is defined as a simple lazy delegate that loads the plug-in and then calls the method again with the
+              same parameters. Loading the plug-in must redefine the method to prevent an endless loop. A lazy
+              method should have an empty body.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <!-- <requires> -->
+  <xs:complexType name="requiresType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines the list of plug-ins that must load before this plug-in.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:sequence>
+      <xs:element name="plugin" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            A plug-in that must load before this plug-in loads.
+          </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+          <xs:attribute name="id" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">
+                The unique identifier of the required plug-in.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <!-- <resources> -->
+  <xs:complexType name="resourcesType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines the list of resources of this plug-in. AMP manages the loading of any resource referenced here.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="script" type="amp:scriptRsrcType"/>
+        <xs:element name="xml" type="amp:xmlRsrcType"/>
+        <xs:element name="xsl" type="amp:xslRsrcType"/>
+        <xs:element name="css" type="amp:cssRsrcType"/>
+        <xs:element name="jss" type="amp:jssRsrcType"/>
+        <xs:element name="propsbundle" type="amp:propsBundleRsrcType"/>
+      </xs:choice>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="baseXmlRsrcType">
+    <xs:sequence>
+      <xs:element name="prereq" type="amp:rsrcPrereqType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="data" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Defines the inline XML, XSL or JSS resource. The first child of this element is taken as the root element
+            of the resource. Care should be taken to define the namespace correctly for the root resource element;
+            it may need xmlns="".
+          </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="1" processContents="skip"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The unique identifier of this resource. This identifier must be unique across all resources in the
+          same plug-in.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="path" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The path of this resource. This path is relative to the directory of the plug-in defining this resource.
+          If this resource is inlined then this attribute should not be specified.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="load" type="amp:rsrcLoadType" use="optional" default="normal"/>
+    <xs:attribute name="locales" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The whitespace-separated list of locales for which this resource is localized. For each locale, LL,
+          listed here, there must exist a resource file whose path is equal to the path of this resource with ".LL"
+          inserted before the file extension.
+        </xs:documentation>
+      </xs:annotation>
+
+      <xs:simpleType>
+        <xs:list itemType="xs:string"/>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="baseNoInlineRsrcType">
+    <xs:sequence>
+      <xs:element name="prereq" type="amp:rsrcPrereqType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The unique identifier of this resource. This identifier must be unique across all resources in the
+          same plug-in.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="path" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The path of this resource. This path is relative to the directory of the plug-in defining this resource.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="load" type="amp:rsrcLoadType" use="optional" default="normal"/>
+  </xs:complexType>
+
+  <xs:complexType name="rsrcPrereqType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines a dependency between this resource and another resource or plug-in. The resource or plug-in
+        referenced here must load before this resource loads.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:attribute name="id" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The id attribute of another resource defined in this plug-in. This attibute is the non-qualified
+          id of the resource (not prepended with the plug-in identifier). Only specify this attribute if not
+          specifying the plugin attribute.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="plugin" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The unique identifier of a plug-in that must load before this resource. Only specify this attribute if not
+          specifying the id attribute.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:simpleType name="rsrcLoadType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        The allowed values for the load attribute of a plug-in resource.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="early">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            The resource loads before its plug-in is instantiated and registered.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="normal">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            The resource loads before its plug-in is loaded.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="manual">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            The resource loads when it is loaded programmatically or before a dependent resource loads.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="rsrcCacheType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        The allowed values for the cache attribute of an XML or XSL plug-in resource.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="shared">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            The resource is stored in the shared system cache.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="system">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            The resource is stored in the private system cache.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="application">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            The resource is stored in the application cache.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="baseInlinedRsrcType" mixed="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines a JavaScript plug-in resource. The resource may either be contained in a separate file, inlined
+        as the text content of this element, or inlined as the text content of the child data element of this
+        element.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:sequence>
+      <xs:element name="prereq" type="amp:rsrcPrereqType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="data" type="xs:string" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Optionally, the inlined content of the JavaScript resource.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The unique identifier of this resource. This identifier must be unique across all resources in the
+          same plug-in.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="path" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The path of this resource. This path is relative to the directory of the plug-in defining this resource.
+          If this resource is inlined then this attribute should not be specified.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="load" type="amp:rsrcLoadType" use="optional" default="normal"/>
+    <xs:attribute name="locales" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The whitespace-separated list of locales for which this resource is localized. For each locale, LL,
+          listed here, there must exist a resource file whose path is equal to the path of this resource with ".LL"
+          inserted before the file extension.
+        </xs:documentation>
+      </xs:annotation>
+
+      <xs:simpleType>
+        <xs:list itemType="xs:string"/>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="scriptRsrcType" mixed="true">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines a JavaScript plug-in resource. The resource may either be contained in a separate file, inlined
+        as the text content of this element, or inlined as the text content of the child data element of this
+        element.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:complexContent>
+      <xs:extension base="amp:baseInlinedRsrcType">
+        <xs:attribute name="eval" type="xs:boolean" use="optional" default="false">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              If true then the contents of this resource are evaluated in the context of the plug-in object. If this
+              resource is inlined then the script must be evaluated, though in the context of <code>jsx3</code> rather than the
+              plug-in object. If true the script is evaluated once for each engine that loads the plug-in, otherwise
+              the script is only included or evaluated once for all engines. Note that setting this attribute equal to
+              true is incompatible with load="early" since the plug-in will not have been instantiated.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="xmlRsrcType" mixed="false">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines an XML plug-in resource. The resource may either be contained in a separate file or inlined under
+        the data child element of this element. When this resource is loaded the document is stored in the
+        application cache under the fully-qualified identifier of this resource. The fully-qualified identifier
+        is the ID of this resource appended to the plug-in ID, separated with a ".".
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:complexContent>
+      <xs:extension base="amp:baseXmlRsrcType">
+        <xs:attribute name="cache" type="amp:rsrcCacheType" use="optional" default="application"/>
+        <xs:attribute name="cachekey" type="xs:string" use="optional">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              If provided then the resource is stored in the cache under this ID rather than under the
+              fully-qualified ID of the resource.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="xslRsrcType">
+    <xs:complexContent>
+      <xs:extension base="amp:baseXmlRsrcType">
+        <xs:attribute name="cache" type="amp:rsrcCacheType" use="optional" default="application"/>
+        <xs:attribute name="cachekey" type="xs:string" use="optional">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              If provided then the resource is stored in the cache under this ID rather than under the
+              fully-qualified ID of the resource.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="cssRsrcType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines a CSS plug-in resource.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:complexContent>
+      <xs:extension base="amp:baseInlinedRsrcType"/>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="jssRsrcType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines a dynamic properties (JSS) plug-in resource.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:complexContent>
+      <xs:extension base="amp:baseXmlRsrcType"/>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="propsBundleRsrcType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines a properties bundle plug-in resource.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:sequence>
+      <xs:element name="prereq" type="amp:rsrcPrereqType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="data" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Defines the inline properties bundle for the default locale. The first child of this element is taken as
+            the root element bundle. Care should be taken to define the namespace correctly for the root resource element;
+            it may need xmlns="".
+          </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+          <xs:sequence>
+            <xs:any minOccurs="0" maxOccurs="1" processContents="skip"/>
+          </xs:sequence>
+
+          <xs:attribute name="path" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">
+                The original path of the resource before it was inlined.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The unique identifier of this resource. This identifier must be unique across all resources in the
+          same plug-in.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="path" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The path of this resource. This path is relative to the directory of the plug-in defining this resource.
+          If this resource is inlined then this attribute should not be specified.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="load" type="amp:rsrcLoadType" use="optional" default="normal"/>
+  </xs:complexType>
+
+  <!-- <event> -->
+  <xs:complexType name="eventType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Declares that a plug-in publishes events of a particular type.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:sequence>
+      <xs:element name="param" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            Declares a parameter to the event. Parameters are stored as fields of the event object. This element
+            is for documentation purposes only and is not checked at runtime.
+          </xs:documentation>
+        </xs:annotation>
+
+        <xs:complexType>
+          <xs:attribute name="id" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">
+                The name of the event parameter; the field of the event object where the parameter is stored.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="type" type="xs:string" use="optional">
+            <xs:annotation>
+              <xs:documentation xml:lang="en">
+                The parameter type, such as String, int, etc.
+              </xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The event subject. This value must be unique across all events that a plug-in declares. This value
+          must be a valid JavaScript name (matching <code>[_$a-zA-Z][_$a-zA-Z0-9]*</code>). The plug-in
+          should at some point publish an event with the code:
+          <code> this.publish({subject:id});</code>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- <subscribe> -->
+  <xs:complexType name="subscribeType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Declaratively subscribes this plug-in to the event of another plug-in. The text content of this element
+        is taken as a script that will be evaluated in the context of the plug-in object when the event is
+        published. In this context, the evt object is defined as the event object. Thus, event parameter p is
+        available in the script as <code>evt.p</code>.
+        <p/>
+        Alternately, the handler attribute is taken as the name of a method on the plug-in object that should be
+        called when the event is published. In this case, the event object is passed at the only argument of this
+        method.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="event" use="required">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              The fully-qualified ID of the event to subscribe to. The fully-qualified ID is the id attribute of
+              the event element appended to the ID of its plug-in, separated by a ".". This attribute may contain
+              more than one event ID, in which case they should be separated by whitespace.
+            </xs:documentation>
+          </xs:annotation>
+
+          <xs:simpleType>
+            <xs:list itemType="xs:string"/>
+          </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="when" type="amp:subscribeWhenType" use="optional" default="always">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              The condition under which to process the subscription.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="handler" type="xs:string" use="optional">
+          <xs:annotation>
+            <xs:documentation xml:lang="en">
+              The name of a method of the plug-in that will be called when the event is published. This should
+              only be specified in place of the text content of the element.
+            </xs:documentation>
+          </xs:annotation>
+        </xs:attribute>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+
+  <xs:simpleType name="subscribeWhenType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        The allowed values for the when attribute of an event subscription.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="always">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            The subscription is always processed.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="load">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            If the plug-in is not loaded then the plug-in is loaded and the subscription is processed, 
+            otherwise the subscription is processed immediately.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="loaded">
+        <xs:annotation>
+          <xs:documentation xml:lang="en">
+            The subscription is only processed if the plug-in is already loaded.
+          </xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- <extension-point> -->
+  <xs:complexType name="extensionPointType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Declares an extension point of the plug-in. In addition to the allowed child elements of the extension-point
+        element, any element is allowed if its namespace is not the AMP namespace.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:sequence>
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="script" type="amp:scriptType"/>
+        <xs:element name="field" type="amp:fieldType"/>
+        <xs:element name="method" type="amp:methodType"/>
+      </xs:choice>
+      <xs:element name="processor" type="amp:processorType" minOccurs="0" maxOccurs="1"/>
+      <xs:any namespace="##other" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The local ID of this extension point. This ID must be unique across all extension points of the same
+          plug-in.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="name" type="xs:string" use="optional"/>
+    <xs:attribute name="class" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The fully-qualified name of a class to instantiate to create this extension point. This class should be
+          a subclass of <code>jsx3.amp.ExtPoint</code>.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="processorType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Defines the default extension processor for this extension point.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:attribute name="type" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The processor type. This may be one of the built-in types (eval, return, return-async, instantiator)
+          or any type registered with the <code>jsx3.amp.ExtProc.addProcessorFactory()</code> method.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+
+    <xs:anyAttribute namespace="##any" processContents="skip"/>
+  </xs:complexType>
+
+  <!-- <extension> -->
+  <xs:complexType name="extensionType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Declares an extension of the plug-in. Any content is allowed in the extension element. The script, method,
+        and field elements in the AMP namespace are recognized by AMP.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:sequence>
+<!-- Note: These elements cause the XSD validation to fail because they conflict with the xs:any element.
+      <xs:choice minOccurs="0" maxOccurs="unbounded">
+        <xs:element name="script" type="amp:scriptType"/>
+        <xs:element name="field" type="amp:fieldType"/>
+        <xs:element name="method" type="amp:methodType"/>
+      </xs:choice> -->
+      <xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded" processContents="skip">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">
+              Any content is allowed in the extension element. The script, method, and field elements in the AMP
+              namespace are recognized by AMP. They would be documented in this schema but they conflict with this
+              any element.
+            </xs:documentation>
+          </xs:annotation>
+       </xs:any>
+    </xs:sequence>
+    <xs:attribute name="point" type="xs:string" use="required">
+      <xs:annotation>
+         <xs:documentation xml:lang="en">
+           The fully-qualified ID of the extension point that this extension extends. The fully-qualified ID is
+           the id attribute of the <code>extension-point</code> element appended to the ID of its plug-in,
+           separated by a ".".
+         </xs:documentation>
+       </xs:annotation>
+     </xs:attribute>
+    <xs:attribute name="id" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The local ID of this extension. This ID must be unique across all extensions of the same
+          plug-in.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="name" type="xs:string" use="optional"/>
+    <xs:attribute name="class" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The fully-qualified name of a class to instantiate to create this extension. This class should be
+          a subclass of <code>jsx3.amp.Ext</code>.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <!-- <bindable> -->
+  <xs:complexType name="bindableType">
+    <xs:annotation>
+      <xs:documentation xml:lang="en">
+        Declares a bindable property of this plug-in.
+        <p/>
+        Implicitly declares an event of the same id. The schema of the event is {subject:<i>id</i>,
+        oldValue:<i>oldValue</i>, value:<i>newValue</i>}.
+      </xs:documentation>
+    </xs:annotation>
+
+    <xs:attribute name="id" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The name of the bindable property.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="value" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The value of the bindable property. This is an expression that is evaluated in the context of the
+          plug-in instance. The actual value of the property is equal to the result of evaluating this expression.
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="subscribe" use="optional">
+      <xs:annotation>
+        <xs:documentation xml:lang="en">
+          The white-space separated list of AMP event IDs that will cause the value of the property to be recalculated.
+        </xs:documentation>
+      </xs:annotation>
+
+      <xs:simpleType>
+        <xs:list itemType="xs:string"/>
+      </xs:simpleType>
+    </xs:attribute>
+  </xs:complexType>
+
+</xs:schema>

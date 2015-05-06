@@ -1,0 +1,15 @@
+<data jsxnamespace="propsbundle" locales="es">
+
+  <locale>
+    <record jsxid="key1" jsxtext="value_default"/>
+  </locale>
+
+  <locale key="en_US">
+    <record jsxid="key1" jsxtext="value_en_US"/>
+  </locale>
+
+  <locale key="en_UK">
+    <record jsxid="key1" jsxtext="value_en_UK"/>
+  </locale>
+
+</data>

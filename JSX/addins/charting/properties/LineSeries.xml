@@ -1,0 +1,41 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="series" include="master.xml" group="series_xy">
+    <record jsxid="form" jsxtext="Type"
+        jsxtip="Sets the method for connecting the line between data points."
+        docgetter="getForm" docsetter="setForm"
+        docdefault="segment (&lt;code&gt;jsx3.chart.LineSeries.FORM_SEGMENT&lt;/code&gt;)"
+        eval="0" nullable="0"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.chart.LineSeries.FORM_SEGMENT" jsxtext="segment"/>
+      <enum jsxid="jsx3.chart.LineSeries.FORM_STEP" jsxtext="step"/>
+      <enum jsxid="jsx3.chart.LineSeries.FORM_REVSTEP" jsxtext="reverseStep"/>
+      <enum jsxid="jsx3.chart.LineSeries.FORM_HORIZONTAL" jsxtext="horizontal"/>
+      <enum jsxid="jsx3.chart.LineSeries.FORM_VERTICAL" jsxtext="vertical"/>
+    </record>
+    <record jsxid="interpolateValues" jsxtext="Interpolate Values"
+        jsxtip="Sets whether to connect data points spanning one or more categories with missing data points."
+        docgetter="getInterpolateValues" docsetter="setInterpolateValues"
+        docdefault="&lt;code&gt;FALSE (jsx3.Boolean.FALSE)&lt;/code&gt;"
+        eval="1"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="TRUE"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="FALSE"/>
+    </record>
+  </record>
+
+  <record include="master.xml" group="seriesfill_nofill"/>
+
+  <record include="master.xml" group="point">
+    <record include="master.xml" group="colorFunction" children="1"/>
+  </record>
+
+  <record include="master.xml" group="component"/>
+  <record include="master.xml" group="interaction"/>
+</data>

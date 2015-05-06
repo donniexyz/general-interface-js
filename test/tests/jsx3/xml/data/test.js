@@ -1,0 +1,4 @@
+
+function nothingSpecial() {
+  return "nothing";
+};

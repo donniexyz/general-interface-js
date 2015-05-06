@@ -1,0 +1,107 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.getVisibleCodeEditor = function() {
+  if (swap_pane.getChild(swap_pane.getSelectedIndex()).getName() == "mode_source")
+    return this.getDescendantOfName('jsxcodeeditor');
+};
+
+objJSX.getModePane = function() {
+  return swap_pane;
+};
+
+jsxtab_componenteditor_main.doDeleteDom = function() {
+  objJSX.getEditor().doRecycle();
+};
+
+jsxtab_componenteditor_main.registerHotKey('doDeleteDom', jsx3.gui.Event.KEY_DELETE, false, true, false); // delete
+jsxtab_componenteditor_main.registerHotKey('doDeleteDom',  8, false, true, false); // backspace
+
+  ]]></onAfterDeserialize>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxbgcolor="@Solid Medium" />
+          <variants jsxoverflow="2" />
+          <strings jsxname="content" jsxpadding="8 0 0 0" jsxhelpid="ide.editor.component"/>
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="0" />
+              <strings jsxname="jsxtab_component_layout" jsxrows="*,22"/>
+                <object type="jsx3.gui.TabbedPane">
+                  <variants jsxshowtabs="0" />
+                  <strings jsxname="swap_pane" />
+                  <events jsxdrop="content.getEditor().onTPDrop(objEVENT);" jsxctrldrop="content.getEditor().onTPDrop(objEVENT, true);"/>
+                    <object type="jsx3.gui.Tab">
+                      <variants jsxindex="0" />
+                      <strings jsxname="mode_component" />
+                      <events jsxshow="content.getEditor().onShowComponentMode();"/>
+                        <object type="jsx3.gui.Block">
+                          <dynamics jsxbgcolor="@Solid Disabled" jsxborder="@Inset Top" />
+                          <variants jsxoverflow="2"/>
+                          <strings jsxname="jsxtab_componenteditor_main" jsxtext="&lt;div style=&quot;font-weight:bold;font-size:18px;text-align:center;padding-top:30px;&quot;&gt;Loading...&lt;/div&gt;"/>
+                          <events jsxclick="content.getEditor().doDomClick(objEVENT);"/>
+                        </object>
+                    </object>
+                </object>
+              <object type="jsx3.gui.LayoutGrid">
+                <variants jsxrelativeposition="0" />
+                <strings jsxname="jsxtab_component_layout" jsxborder="solid 1px #9898a5;solid 0px;solid 0px;solid 0px" jsxbgcolor="#d8d8e5" jsxcols="15,*,130"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxpadding="3 0 0 4"/>
+                  <object type="jsx3.gui.ImageButton">
+                    <variants jsxindex="0" jsxheight="12" jsxwidth="11"/>
+                    <strings jsximage="jsxapp:/images/icon_15s.gif" jsxoverimage="jsxapp:/images/icon_15so.gif"/>
+                    <events jsxexecute="content.getEditor().refreshStats();"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2" jsxspy="1"/>
+                  <strings jsxname="compeditorstats" jsxtext="" jsxpadding="4 3 0 3"/>
+                  <events jsxspy="jsx3.ide.ComponentEditor.COMPONENT_EDITOR_STATS_SPY"/>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2" />
+                  <strings jsxname="mychild1" jsxtextalign="right" />
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="2" />
+                      <strings jsxname="jsx_ide_componenteditor_btns" jsxborder="solid 0px;solid 0px;solid 0px;solid 1px #9898a5" jsxmargin="0 0 0 -1" jsxbgcolor="#eeeeff" />
+                        <object type="jsx3.gui.ToolbarButton">
+                          <dynamics jsxtip="_edit_view_live" />
+                          <variants jsxtype="2" jsxstate="1" />
+                          <strings jsxname="btnViewComp" jsximage="jsxapp:/images/icon_46.gif" jsxtext="" jsxmargin="-1 -1 0 0" jsxgroupname="editmode" />
+                          <events jsxexecute="content.getEditor().setMode('component');" />
+                        </object>
+                        <object type="jsx3.gui.ToolbarButton">
+                          <dynamics jsxtip="_edit_view_expert" />
+                          <variants jsxtype="2" jsxstate="0" />
+                          <strings jsxname="btnViewSource" jsximage="jsxapp:/images/icon_21.gif" jsxtext="" jsxmargin="-1 -1 0 0" jsxgroupname="editmode" />
+                          <events jsxexecute="content.getEditor().setMode('source');" />
+                        </object>
+                        <object type="jsx3.gui.ToolbarButton">
+                          <dynamics jsxtip="_edit_view_formatted" />
+                          <variants jsxtype="2" jsxstate="0" />
+                          <strings jsxname="btnViewSourceFmt" jsximage="jsxapp:/images/icon_20.gif" jsxtext="" jsxmargin="-1 -1 0 0" jsxgroupname="editmode" />
+                          <events jsxexecute="content.getEditor().setMode('sourcefmt');" />
+                        </object>
+                        <object type="jsx3.gui.ToolbarButton">
+                          <dynamics jsxtip="_edit_view_html" />
+                          <variants jsxtype="2" jsxstate="0" />
+                          <strings jsxname="btnViewHTML" jsximage="jsxapp:/images/icon_25.gif" jsxtext="" jsxmargin="-1 -1 0 0" jsxgroupname="editmode" />
+                          <events jsxexecute="content.getEditor().setMode('html');" />
+                        </object>
+                        <object type="jsx3.gui.ToolbarButton">
+                          <dynamics jsxtip="_edit_view_profile" />
+                          <variants jsxtype="2" jsxstate="0" />
+                          <strings jsxname="btnViewProfile" jsximage="jsxapp:/images/icon_76.gif" jsxtext="" jsxmargin="-1 -1 0 0" jsxgroupname="editmode" />
+                          <events jsxexecute="content.getEditor().setMode('profile');" />
+                        </object>
+                    </object>
+                </object>
+              </object>
+            </object>
+        </object>
+</serialization>

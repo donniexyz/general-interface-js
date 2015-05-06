@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record include="master.xml" group="series">
+    <record jsxid="columnWidth" jsxtext="Column Width"
+        jsxtip="Sets the pixel width to use for each column in a column chart with two value axes."
+        docgetter="getColumnWidth" docsetter="setColumnWidth"
+        docdefault="DEFAULT_COLUMNWIDTH (&lt;code&gt;jsx3.chart.ColumnSeries.DEFAULT_COLUMNWIDTH&lt;/code&gt;)"
+        eval="1"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.columnWidth = vntValue; objJSX.getChart().repaint();"/>
+  </record>
+
+  <record include="master.xml" group="seriesfill">
+    <record include="master.xml" group="colorFunction" children="1"/>
+  </record>
+
+  <record include="master.xml" group="component"/>
+  <record include="master.xml" group="interaction"/>
+</data>

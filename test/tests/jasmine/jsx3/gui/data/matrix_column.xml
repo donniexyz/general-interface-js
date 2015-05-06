@@ -1,0 +1,18 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1" jsxrelativeposition="0" jsxtop="0"></variants>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxmargin="" jsxstyleoverride="" jsxdisplay="" jsxleft=""></strings>
+    <object type="jsx3.gui.Matrix">
+      <variants jsxpagingmodel="1" jsxselectionmodel="2" jsxjsxxmlasync="1" jsxreorder="0" jsxsort="1" jsxfixedcolumnindex="2"></variants>
+      <strings jsxname="matrix1" jsxbodyborder="1px solid #dfdfef" jsxheaderborder="1px solid #dfdfef" jsxbgcolor="#efefff" jsxxml="&#xA;      &lt;data jsxid=&quot;jsxroot&quot;&gt;&#xA;        &lt;record index=&quot;1&quot; jsxid=&quot;US&quot; jsxtext=&quot;United States&quot;/&gt;&#xA;        &lt;record index=&quot;2&quot; jsxid=&quot;UK&quot; jsxtext=&quot;United Kingdom&quot;/&gt;&#xA;        &lt;record index=&quot;3&quot; jsxid=&quot;AG&quot; jsxtext=&quot;Afghanistan&quot;/&gt;&#xA;        &lt;record index=&quot;4&quot; jsxid=&quot;AL&quot; jsxtext=&quot;Albania&quot;/&gt;&#xA;        &lt;record index=&quot;5&quot; jsxid=&quot;AR&quot; jsxtext=&quot;Algeria&quot;/&gt;&#xA;        &lt;record index=&quot;6&quot; jsxid=&quot;AS&quot; jsxtext=&quot;American Samoa&quot;/&gt;&#xA;        &lt;record index=&quot;7&quot; jsxid=&quot;AD&quot; jsxtext=&quot;Andorra&quot;/&gt;&#xA;        &lt;record index=&quot;8&quot; jsxid=&quot;AO&quot; jsxtext=&quot;Angola&quot;/&gt;&#xA;        &lt;record index=&quot;9&quot; jsxid=&quot;AU&quot; jsxtext=&quot;Anguilla&quot;/&gt;&#xA;        &lt;record index=&quot;10&quot; jsxid=&quot;AX&quot; jsxtext=&quot;Antarctica&quot;/&gt;&#xA;        &lt;record index=&quot;11&quot; jsxid=&quot;AT&quot; jsxtext=&quot;Antigua and Barbuda&quot;/&gt;&#xA;        &lt;record index=&quot;12&quot; jsxid=&quot;AE&quot; jsxtext=&quot;Argentina&quot;/&gt;&#xA;        &lt;record index=&quot;13&quot; jsxid=&quot;AM&quot; jsxtext=&quot;Armenia&quot;/&gt;&#xA;        &lt;record index=&quot;14&quot; jsxid=&quot;AB&quot; jsxtext=&quot;Aruba&quot;/&gt;&#xA;        &lt;record index=&quot;15&quot; jsxid=&quot;AA&quot; jsxtext=&quot;Australia&quot;/&gt;&#xA;        &lt;record index=&quot;16&quot; jsxid=&quot;AI&quot; jsxtext=&quot;Austria&quot;/&gt;&#xA;        &lt;record index=&quot;17&quot; jsxid=&quot;AZ&quot; jsxtext=&quot;Azerbaijan&quot;/&gt;&#xA;      &lt;/data&gt;&#xA;    " jsxsortpath="jsxtext" jsxsorttype="text" jsxsortdirection="ascending" jsxrenderingmodel="shallow"></strings>
+      <events jsxbeforeedit="jsx3.log('EVENT: (jsxbeforeedit). Record: ' + strRECORDID);" jsxafteredit="jsx3.log('EVENT: (jsxafteredit). Record: ' + strRECORDID + '. New Value: ' + strNEWVALUE);"></events>
+      <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#efefff"></xslparameters>
+      <object type="jsx3.gui.Matrix.Column">
+        <variants></variants>
+        <strings jsxname="textColumn" jsxwidth="100" jsxtext="Text" jsxpadding="2" jsxcellpadding="3" jsxpath="jsxtext"></strings>
+        <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"></dynamics>
+      </object>
+    </object>
+  </object>
+</serialization>

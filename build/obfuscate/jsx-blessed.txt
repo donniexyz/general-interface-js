@@ -1,0 +1,16 @@
+# Top-Level functions and properties
+escape
+eval
+isNaN
+parseFloat
+parseInt
+unescape
+null
+isFinite
+NaN
+undefined
+taint
+untaint
+event
+window
+document

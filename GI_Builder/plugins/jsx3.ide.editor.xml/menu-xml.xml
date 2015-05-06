@@ -1,0 +1,80 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot" jsxassignids="1">
+  <record jsxtext="XML Header" jsxtip="(Optional) XML Schema declaration.">
+    <syntax>&lt;?xml version="1.0" ?&gt;
+</syntax>
+  </record>
+  <record jsxtext="CDF Document"
+      jsxtip="Base element for CDF record file.">
+    <syntax>&lt;?xml version="1.0" ?&gt;
+&lt;data jsxid="jsxroot"&gt;
+  &lt;record /&gt;
+&lt;/data&gt;
+</syntax>
+  </record>
+  <record jsxtext="record"
+      jsxtip="Element declaration for a CDF Record.">
+    <syntax>&lt;record jsxid="uniqueid" jsxtext="text"/&gt;</syntax>
+  </record>
+  <record jsxtext="Attributes">
+    <record jsxtext="jsxid"
+        jsxtip="The unique identifier (primary key) of this record.">
+      <syntax>jsxid="uniqueid"</syntax>
+    </record>
+    <record jsxtext="jsxtext"
+        jsxtip="The displayed text of this record. ">
+      <syntax>jsxtext="text"</syntax>
+    </record>
+    <record jsxtext="jsximg"
+        jsxtip="Associates an image with this record. ">
+      <syntax>jsximg="imgURL"</syntax>
+    </record>
+    <record jsxtext="jsxvalue"
+        jsxtip="Assigns a value to this record. A value can be different than the displayed value (jsxtext). ">
+      <syntax>jsxvalue="value"</syntax>
+    </record>
+    <record jsxtext="jsxdivider"
+        jsxtip="Create a visual separation between this record and the previous one.">
+      <syntax>jsxdivider="1"</syntax>
+    </record>
+    <record jsxtext="jsxdisabled"
+        jsxtip="Disables this record.">
+      <syntax>jsxdisabled="0 | 1"</syntax>
+    </record>
+    <record jsxtext="jsxexecute"
+        jsxtip="Registers code that will be called when this record receives an execute event. ">
+      <syntax>jsxexecute="function-or-code-to-execute;"</syntax>
+    </record>
+    <record jsxtext="jsxselected"
+        jsxtip="Makes this record selected by default. ">
+      <syntax>jsxselected="1"</syntax>
+    </record>
+    <record jsxtext="jsxstyle"
+        jsxtip="Adds free form CSS markup to this record. ">
+      <syntax>jsxstyle="css-style;"</syntax>
+    </record>
+    <record jsxtext="jsxgroupname"
+        jsxtip="Groups this record with other records in this document that have the same value for this attribute.">
+      <syntax>jsxgroupname="text"</syntax>
+    </record>
+    <record jsxtext="jsxunselectable"
+        jsxtip="Makes theis record unselectable by the user. ">
+      <syntax>jsxunselectable="1"</syntax>
+    </record>
+    <record jsxtext="jsxkeycode"
+        jsxtip="Registers a key shortcut to invoke the execute event on this record. ">
+      <syntax>jsxkeycode="keycode"</syntax>
+    </record>
+    <record jsxtext="jsxtip"
+        jsxtip="Renders additional information when the cursor &quot;hovers&quot; above the record.">
+      <syntax>jsxtip="text"</syntax>
+    </record>
+    <record jsxtext="user defined"
+        jsxtip="An attribute can be applied to the CDF record for user defined use. Any valid name with a value can be used. ">
+      <syntax>name="value"</syntax>
+    </record>
+  </record>
+</data>

@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Radio Button]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[ This Column can be added to a jsx3.gui.List, jsx3.gui.Grid, or compatible subclass. It provides the embedded XSLT necessary to generate a persistent radio button in the on-screen view. By default it is set to interact with a CDF attribute, named mystate for the state of the radio button, and an attribute named jsxtext for the label. This can be modifed in the path property and in the XSL template for the column. Note that this is only effective if the CDF document in the list/grid implements the attribute, jsxgroupname, to designate the various radio groups]]></description>
+  <object type="jsx3.gui.Column">
+    <variants jsxwidth="106"/>
+    <strings jsxname="column (radio)" jsxpath="@mystate" jsxtext="Radio Mask" jsxxsl="&lt;xsl:attribute name=&quot;style&quot;&gt;position:relative; padding-left:20px;&lt;/xsl:attribute&gt;
+&lt;xsl:attribute name=&quot;onkeydown&quot;&gt;var objEVENT = jsx3.gui.Event.wrap(event);if(objEVENT.enterKey() || objEVENT.spaceKey()) jsx3.gui.List.onRadio('&lt;xsl:value-of select=&quot;$myjsxid&quot;/&gt;','@path@',this.childNodes.item(0),true,['true','false']);&lt;/xsl:attribute&gt;
+&lt;input style=&quot;position:absolute;left:2px;top:-1px;&quot; onmousedown=&quot;jsx3.gui.List.onRadio('{$myjsxid}','@path@',this,true,['true','false']);&quot; type=&quot;radio&quot;&gt;&lt;xsl:attribute name=&quot;name&quot;&gt;&lt;xsl:choose&gt;&lt;xsl:when test=&quot;@jsxgroupname&quot;&gt;&lt;xsl:value-of select=&quot;@jsxgroupname&quot;/&gt;&lt;/xsl:when&gt;&lt;xsl:otherwise&gt;{$jsxid}-@path@&lt;/xsl:otherwise&gt;&lt;/xsl:choose&gt;&lt;/xsl:attribute&gt;&lt;xsl:if test=&quot;@path@='true'&quot;&gt;
+  &lt;xsl:attribute name=&quot;CHECKED&quot;&gt;true&lt;/xsl:attribute&gt;&lt;/xsl:if&gt;
+&lt;/input&gt;
+&amp;#160;
+&lt;xsl:value-of select=&quot;@jsxtext&quot;/&gt;"/>
+  </object>
+</serialization>

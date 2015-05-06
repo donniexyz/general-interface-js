@@ -1,0 +1,49 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.project"
+        name="Project Type Plug-In"
+        version="0.1">
+
+  <method id="showNew">
+    var dialog = this.getServer().getJSXByName(this._dialogid);
+    if (dialog) {
+      dialog.focus();
+    } else {
+      this.getResource("wizard").load().when(jsx3.$F(function() {
+        var dialog = this.loadRsrcComponent("wizard", this.getServer().getRootBlock());
+        this._dialogid = dialog.getName();
+      }).bind(this));
+    }
+  </method>
+
+  <requires>
+  </requires>
+
+  <resources>
+    <script id="js" path="project.js" eval="true"/>
+    <xml id="wizard" path="wizard.xml" load="manual">
+      <prereq id="js"/>
+    </xml>
+    <xml id="first-pane" path="first-pane.xml" load="manual"/>
+  </resources>
+
+  <extension-point id="project-type">
+    <processor type="instantiator" instance-class="jsx3.ide.ProjectType"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.ui.action" id="menu.project">
+    <action
+        id="jsx3.ide.newproj"
+        label="New Project..."
+        menupath="/jsx3.ide.project/new" hotkey="{hk.newProject}" hkconfig="true"
+        execute="this.getPlugIn().showNew();"
+        enabled="home"/>
+  </extension>
+  
+</plugin>

@@ -1,0 +1,46 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<!--
+
+A JsUnit test page that runs all tests defined in a single JavaScript file referenced with the
+"extjs" query parameter sent to this page.
+
+-->
+<html>
+<head>
+
+  <script language="JavaScript" type="text/javascript" src="jsunit.js"></script>
+
+  <script type="text/javascript">
+
+window.location.href.match(/[\?&]extjs=([^&]*)/);
+if (RegExp.$1) {
+  var giScripts = gi.test.jsunit.decodeURI(RegExp.$1).split(",");
+  giScripts.unshift("../jsunit/app/jsUnitCore.js");
+
+  var loadNext = function() {
+    if (giScripts.length > 0) {
+      eval("isUserTestsLoaded = false;");
+      var next = giScripts.shift();
+      gi.test.jsunit.loadScript(next, loadNext);
+    } else {
+      gi.test.jsunit.loadGI();
+      eval("isUserTestsLoaded = true;");
+    }
+  };
+
+  loadNext();
+} else {
+  window.alert("A test JavaScript file must be specified with the extjs query parameter.");
+}
+
+  </script>
+
+</head>
+<body>
+
+</body>
+</html>

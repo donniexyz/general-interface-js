@@ -1,0 +1,104 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.7">
+  <onAfterDeserialize><![CDATA[
+
+this.onSearchForums = function() {
+  if (input.getValue()) {
+    var uri = new jsx3.net.URI.fromParts("http", null, "www.generalinterface.org", null,
+        "/forums/search.php", "keywords=" + input.getValue(), null);
+    jsx3.ide.openConsoleWindow(uri.toString(),'jsxide_forums',null,null,'yes','yes','yes','yes','yes');
+    this.doClose();
+  } else {
+    this.beep();
+    input.focus();
+  }
+};
+
+this.onOpenForums = function() {
+  jsx3.ide.openConsoleWindow('http://www.generalinterface.org/alias/forums','jsxide_forums',null,null,'yes','yes','yes','yes','yes');
+  this.doClose();
+};
+
+this.onRsrcLoad = function() {
+  window.setTimeout(function() {
+    input.focus();
+  }, 250);
+}
+
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+    <variants jsxwidth="330" jsxheight="110" jsxresize="0"/>
+    <strings jsxname="forumSearchDialog"/>
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <object type="jsx3.gui.WindowBar">
+      <variants/>
+      <strings jsxname="bar" jsxtext="Search Forums"/>
+      <object type="jsx3.gui.ToolbarButton">
+        <variants/>
+        <strings jsxname="btnClose"/>
+        <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1" jsxloadtype="1"/>
+      <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+      <dynamics jsxpadding="@8Pixel"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+        <strings jsxname="layoutRows" jsxrows="*,22" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="layoutCols" jsxcols="80,*" jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%" jsxtext="Search Text:" jsxtextalign="right" jsxpadding="0 6 0 0"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.TextBox">
+                <variants jsxheight="18"/>
+                <strings jsxname="input" jsxmargin="0 4 0 0" jsxvalue="" jsxwidth="100%"/>
+                <events jsxexecute="forumSearchDialog.onSearchForums();"/>
+              </object>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+            <strings jsxname="layoutCols" jsxcols="80,*" jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxname="pane1" jsxwidth="100%" jsxheight="100%"/>
+              <object type="jsx3.gui.Button">
+                <variants jsxindex="0" jsxheight="18"/>
+                <strings jsxname="button" jsxtext="Cancel" jsxmargin="0 4 0 0"/>
+                <events jsxexecute="forumSearchDialog.doClose();"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1"/>
+              <strings jsxname="pane2" jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+              <object type="jsx3.gui.Button">
+                <variants jsxindex="0" jsxheight="18"/>
+                <strings jsxname="button" jsxtext="Open Forums" jsxmargin="0 8 0 0"/>
+                <events jsxexecute="forumSearchDialog.onOpenForums();"/>
+              </object>
+              <object type="jsx3.gui.Button">
+                <variants jsxindex="0" jsxheight="18"/>
+                <strings jsxname="button" jsxtext="Search" jsxfontweight="bold"/>
+                <events jsxexecute="forumSearchDialog.onSearchForums();"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

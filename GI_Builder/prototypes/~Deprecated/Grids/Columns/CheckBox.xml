@@ -1,0 +1,18 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Checkbox]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[ This Column can be added to a jsx3.gui.List, jsx3.gui.Grid, or compatible subclass. It provides the embedded XSLT necessary to generate a persistent checkbox in the on-screen view. By default it is set to interact with the CDF attribute eval for the state of the checkbox and the CDF attribute jsxtext for the label.  Change eval to another attribute by editing the column properties, change jsxtext in the XSL template property.]]></description>
+  <object type="jsx3.gui.Column">
+    <variants jsxwidth="106"/>
+    <strings jsxname="column (check)" jsxpath="@eval" jsxtext="Check Mask" jsxxsl="&lt;xsl:attribute name=&quot;style&quot;&gt;position:relative; padding-left:20px;&lt;/xsl:attribute&gt;
+&lt;xsl:attribute name=&quot;onkeydown&quot;&gt;var objEVENT = jsx3.gui.Event.wrap(event);if(objEVENT.enterKey() || objEVENT.spaceKey()) jsx3.gui.List.onCheck('&lt;xsl:value-of select=&quot;$myjsxid&quot;/&gt;','@path@',this.childNodes.item(0),true,[1,0]);&lt;/xsl:attribute&gt;&lt;input style=&quot;position:absolute;left:2px;top:-1px;&quot; onmousedown=&quot;jsx3.gui.List.onCheck('{$myjsxid}','@path@',this,true,[1,0]);&quot; type=&quot;checkbox&quot;&gt;&lt;xsl:if test=&quot;@path@='1'&quot;&gt;
+&lt;xsl:attribute name=&quot;CHECKED&quot;&gt;true&lt;/xsl:attribute&gt;&lt;/xsl:if&gt;&lt;/input&gt;
+&amp;#160;
+&lt;xsl:value-of select=&quot;@jsxtext&quot;/&gt;"/>
+  </object>
+</serialization>

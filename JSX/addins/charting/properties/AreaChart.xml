@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+  <record include="master.xml" group="position"/>
+
+  <record jsxid="areachart" group="1" jsxtext="AreaChart">
+    <record jsxid="type" jsxtext="Type"
+        jsxtip="Sets the type of area chart."
+        docgetter="getType" docsetter="setType"
+        docdefault="overlay (&lt;code&gt;jsx3.chart.AreaChart.TYPE_OVERLAY&lt;/code&gt;)"
+        eval="0" nullable="0"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setType(vntValue); objJSX.repaint()">
+      <enum jsxid="jsx3.chart.AreaChart.TYPE_OVERLAY" jsxtext="overlay"/>
+      <enum jsxid="jsx3.chart.AreaChart.TYPE_STACKED" jsxtext="stacked"/>
+      <enum jsxid="jsx3.chart.AreaChart.TYPE_STACKED100" jsxtext="stacked 100%"/>
+    </record>
+  </record>
+
+  <record include="master.xml" group="blockx"/>
+  <record include="master.xml" group="background"/>
+  <record include="master.xml" group="chart"/>
+  <record include="master.xml" group="interaction_menuonly"/>
+</data>

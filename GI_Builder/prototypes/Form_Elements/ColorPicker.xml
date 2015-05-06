@@ -1,0 +1,14 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Color Picker]]></name>
+  <icon><![CDATA[images/prototypes/colorpicker.gif]]></icon>
+  <description><![CDATA[An HSB color picker GUI control, instance of jsx3.gui.ColorPicker.]]></description>
+  <object type="jsx3.gui.ColorPicker">
+    <dynamics jsxborder="@Outset"/>
+    <variants jsxrgb="0xFF0000"/>
+    <strings jsxname="colorPicker"/>
+  </object>
+</serialization>

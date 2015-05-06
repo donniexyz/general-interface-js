@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+  <record include="master.xml" group="position_fixedsize"/>
+
+  <record jsxid="jsx3tbutton" group="1" jsxtext="ToolbarButton">
+    <record include="master.xml" group="jsxtext" children="1"/>
+    <record include="master.xml" group="form_novalue" children="1"/>
+    <record include="master.xml" group="jsxdivider" children="1"/>
+    <record include="master.xml" group="jsximage" children="1"/>
+    <record jsxid="jsxtype" jsxtext="Type"
+        eval="1"
+        jsxtip="Sets the button type."
+        docgetter="getType" docsetter="setType"
+        docdefault="Normal (&lt;code&gt;jsx3.gui.ToolbarButton.TYPENORMAL&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.ToolbarButton.TYPENORMAL" jsxtext="Normal"/>
+      <enum jsxid="jsx3.gui.ToolbarButton.TYPECHECK" jsxtext="Check/Toggle"/>
+      <enum jsxid="jsx3.gui.ToolbarButton.TYPERADIO" jsxtext="Radio Group"/>
+    </record>
+    <record jsxid="jsxstate" jsxtext="State"
+        eval="1"
+        jsxtip="For Radio and Check/Toggle buttons, designates whether or not the button is in an &lt;code&gt;ON&lt;/code&gt; state."
+        docgetter="getState" docsetter="setState"
+        docdefault="Off (&lt;code&gt;jsx3.gui.ToolbarButton.STATEOFF&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.ToolbarButton.STATEOFF" jsxtext="Off"/>
+      <enum jsxid="jsx3.gui.ToolbarButton.STATEON" jsxtext="On"/>
+    </record>
+
+    <record jsxid="jsxgroupname" jsxtext="Group Name"
+        jsxtip="Sets the group name when the button type is &lt;code&gt;Radio Group&lt;/code&gt;."
+        docgetter="getGroupName" docsetter="setGroupName"
+        eval="0"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record include="master.xml" group="font"/>
+
+  <record jsxid="box" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxmargin']"/>
+  </record>
+
+  <record include="master.xml" group="css_noclass"/>
+
+  <record include="master.xml" group="interaction">
+    <record include="master.xml" group="jsxkeycode" children="1"/>
+  </record>
+
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>

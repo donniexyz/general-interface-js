@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <onAfterDeserialize><![CDATA[
+
+objJSX._doClear = function() {
+  scriptConsole.clear();
+};
+
+objJSX._doMinimize = function() {
+  this.doToggleState(jsx3.gui.Dialog.MINIMIZED);
+};
+
+objJSX._doFocus = function() {
+  scriptConsole.focus();
+};
+
+scriptConsole.focus = function() {
+  this.getRenderedBox("jsConsolePrompt").focus();
+};
+
+objJSX.getFirstResponder = function() {
+  return scriptConsole;
+};
+
+objJSX.onRsrcLoad = function() {
+
+  scriptConsole.recoverHistory();
+
+  objJSX.registerHotKey('_doClear', 'k', false, true, false); // clear on ctrl-k
+  objJSX.registerHotKey('_doMinimize', 'm', false, true, false); // minimize on ctrl-m
+  objJSX.registerHotKey('doClose', 'w', false, false, true); // close on alt-w
+  objJSX.registerHotKey('_doFocus', 'i', false, false, true); // focus on alt-i
+};
+
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+   <dynamics jsxbgcolor="@Solid Medium" />
+   <variants jsxwidth="600" jsxheight="280" jsxoverflow="2"/>
+   <strings jsxname="jsx_dlg_scriptlet" jsxhelpid="ide.jsconsole"/>
+    <object type="jsx3.gui.WindowBar">
+     <strings jsxname="jsx_bar" jsxtext="Javascript Console"/>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+       <strings jsxname="jsx_tbb" />
+       <events jsxexecute="this.getParent().getParent().doToggleState();" />
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsxtip="jsx3.gui.Dialog.max"/>
+       <variants/>
+       <strings jsxname="max button" jsximage="JSX/images/dialog/max.gif"/>
+       <events jsxexecute="jsx_dlg_scriptlet.doMaximize(this);"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+       <strings jsxname="jsx_tbb" />
+       <events jsxexecute="this.getParent().getParent().doClose();" />
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics/>
+     <variants jsxrelativeposition="1" jsxoverflow="2" />
+     <strings jsxwidth="100%" jsxheight="100%" />
+      <object type="jsx3.ide.jsconsole.Console">
+       <dynamics jsxbg="@Grid Lines" jsxfontname="@Script FN" jsxfontsize="@Script FS" />
+       <variants jsxtype="1" />
+       <strings jsxname="scriptConsole" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxmenu="clearHistoryMenu"/>
+        <object type="jsx3.gui.Menu">
+          <variants jsxshare="1"/>
+          <strings jsxname="clearHistoryMenu" jsxxmlid="jsx3.ide.jsconsole.menu" jsxdisplay="none" />
+          <events jsxexecute="scriptConsole.clear();"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,147 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+var TYPE_MAP = {script:"js", css:"css", xml:"xml", xsl:"xml", cache:"xml"};
+
+objJSX.doIncrSearch = function(strFind, strReplace, bCase, bReg) {
+  if (!this._eainited)
+    this._tryEAInit();
+
+  if (this._eacomplete)
+    return editAreaLoader.doIncrSearch(jsxcodeeditor_content.getRendered().id, strFind, strReplace, bCase, bReg);
+};
+
+objJSX.getTextArea = function() {
+  return jsxcodeeditor_content;
+};
+
+objJSX.getTextValue = function() {
+  return typeof(editAreaLoader) != "undefined" && jsxcodeeditor_content.getRendered() ?
+      editAreaLoader.getValue(jsxcodeeditor_content.getRendered().id) :
+      jsxcodeeditor_content.getValue();
+};
+
+objJSX.setTextValue = function(s) {
+  typeof(editAreaLoader) != "undefined" ?
+      this._setEAVal(s) :
+      jsxcodeeditor_content.setValue(s);
+};
+
+objJSX._setEAVal = function(s) {
+  if (jsxcodeeditor_content.getRendered())
+    editAreaLoader.setValue(jsxcodeeditor_content.getRendered().id, s);
+  else {
+    // set this value so that an immediate call to getTextValue() returns the right thing
+    jsxcodeeditor_content.setValue(s);
+    jsx3.sleep(function() {
+      if (jsxcodeeditor_content.getRendered())
+        editAreaLoader.setValue(jsxcodeeditor_content.getRendered().id, s);
+    });
+  }
+};
+
+objJSX._getPlugIn = function() {
+  var n = this;
+  while (n) {
+    if (typeof(n.getPlugIn) == "function")
+      return n.getPlugIn();
+    n = n.getParent();
+  }
+};
+
+objJSX.initAsType = function(strType) {
+  var eaType = TYPE_MAP[strType] || "txt";
+  var eaPI = this._getPlugIn().getEngine().getPlugIn("net.sf.editarea");
+
+  if (eaPI) {
+    eaPI.load().when(jsx3.$F(function() {
+      this._eatype = eaType;
+      // Sleep so that the TextArea is rendered before calling this function.
+      jsx3.sleep(this._tryEAInit, null, this);
+    }).bind(this));
+  }
+};
+
+objJSX._onFocus = function() {
+  this._tryEAInit();
+};
+
+objJSX._tryEAInit = function() {
+  if (!this._eainited) {
+    // This check will make sure that the code editor is actually visible since EA seems to have problems
+    // initing a textarea that is hidden in the DOM.
+    var textarea = jsxcodeeditor_content.getRendered();
+    var pos = jsx3.html.getRelativePosition(null, textarea);
+    if (pos.W <= 0) return;
+
+    this._eainited = true;
+    this._eacomplete = false;
+    var me = this;
+
+    editAreaLoader.window_loaded();
+    editAreaLoader.init({
+      id: textarea.id,
+      start_highlight: true,
+      allow_resize: "no",
+      allow_toggle: false,
+      language: "en",
+      syntax: this._eatype,
+      browsers: "all",
+      allow_toggle: false,
+      replace_tab_by_spaces: 4,
+      font_size: 11,
+      font_family: "Monaco, Courier New, monospace",
+
+      EA_load_callback: function() {
+        // private API
+        var editArea = window.frames["frame_" + textarea.id].editArea;
+
+        // private API hack
+        editArea.settings.plugins.push("keycapture");
+
+        window.frames["frame_" + textarea.id].editArea.add_plugin("keycapture", {onkeydown:function(e) {
+          var objEvent = jsx3.gui.Event.wrap(e);
+          
+          if (objEvent.hasModifier()) {
+            var node = objJSX;
+            while (node) {
+              if (node.checkHotKeys(objEvent)) {
+                return false;
+              }
+              node = node.getParent();
+            }
+          }
+
+          objJSX._onKeyDown();
+        }});
+
+        me._eacomplete = true;
+      }
+    });
+  }
+};
+
+objJSX._onKeyDown = function() {
+  this.publish({subject:"keyDown"});
+};
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="2"/>
+    <strings jsxname="jsxcodeeditor" jsxheight="100%" jsxwidth="100%"/>
+    <object type="jsx3.gui.TextBox">
+      <dynamics jsxbgcolor="@Solid Light" jsxfontname="@Script FN" jsxfontsize="@Script FS"/>
+      <variants jsxtype="1" jsxrelativeposition="1" jsxleft="0" jsxtop="0" jsxwrap="0"/>
+      <strings jsxname="jsxcodeeditor_content" jsxwidth="100%" jsxheight="100%"
+               jsxborder="solid 0px;solid 0px;solid 0px;solid 0px"
+               jsxoverflow="scroll" jsxmargin="-1 0 0 0" jsxpadding="2 2 2 2"/>
+      <events jsxkeydown="jsxcodeeditor._onKeyDown(this, objEVENT);"
+              jsxfocus="jsxcodeeditor._onFocus();"/>
+    </object>
+  </object>
+</serialization>

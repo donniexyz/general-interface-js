@@ -1,0 +1,87 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"></variants>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%"></strings>
+    <object type="jsx3.gui.CDF">
+      <variants></variants>
+      <strings jsxname="cdf" jsxwidth="100%" jsxheight="100%" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;     &lt;record jsxid=&quot;1&quot; first=&quot;Bob&quot; last=&quot;Jones&quot; middle=&quot;Q&quot;/&gt;   &lt;record jsxid=&quot;2&quot; first=&quot;Tom&quot; last=&quot;Pink&quot; middle=&quot;R&quot;/&gt;   &lt;record jsxid=&quot;3&quot; first=&quot;Zelda&quot; last=&quot;Bingo&quot; middle=&quot;P&quot;/&gt;   &lt;/data&gt;" jsxxmlid="master_xml"></strings>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"></variants>
+        <strings jsxname="cdf-layout" jsxrows="200,200"></strings>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"></variants>
+          <strings jsxname="paneTop"></strings>
+          <object type="jsx3.gui.Matrix">
+            <variants jsxscalewidth="1" jsxjsxxmlasync="1" jsxxmlasync="0" jsxxmlbind="1"></variants>
+            <strings jsxname="matrix1" jsxbodyborder="1px solid #dfdfef" jsxheaderborder="1px solid #dfdfef" jsxbgcolor="#efefff" jsxfocusstyle="." jsxxmlid="master_xml" jsxsortpath="first" jsxsorttype="text" jsxsortdirection="ascending"></strings>
+            <events jsxselect="this.getAncestorOfType(&quot;jsx3.gui.CDF&quot;).setCDFId(strRECORDID);"></events>
+            <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#efefff"></xslparameters>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants></variants>
+              <strings jsxname="first" jsxtext="First" jsxpadding="2" jsxwidth="*" jsxcellpadding="2" jsxpath="first"></strings>
+              <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"></dynamics>
+            </object>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants></variants>
+              <strings jsxname="middle" jsxtext="Middle" jsxpadding="2" jsxwidth="*" jsxcellpadding="2" jsxpath="middle"></strings>
+              <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"></dynamics>
+            </object>
+            <object type="jsx3.gui.Matrix.Column">
+              <variants></variants>
+              <strings jsxname="last" jsxtext="Last" jsxpadding="2" jsxwidth="*" jsxcellpadding="2" jsxpath="last"></strings>
+              <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"></dynamics>
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants></variants>
+          <strings jsxname="paneBottom" jsxpadding="8"></strings>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"></variants>
+            <strings jsxname="layout2" jsxrows="35,35,*" jsxcols="150,*"></strings>
+            <object type="jsx3.gui.Block">
+              <variants></variants>
+              <strings jsxname="label" jsxtext="First Name"></strings>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants></variants>
+              <strings jsxname="block"></strings>
+              <object type="jsx3.gui.TextBox">
+                <variants jsxheight="18"></variants>
+                <strings jsxname="firstName" jsxmargin="0 4 0 0" jsxcdfattribute="first"></strings>
+                <events jsxchange="var oCDF = this.getAncestorOfType(&quot;jsx3.gui.CDF&quot;); var oMatrix = oCDF.getDescendantsOfType(&quot;jsx3.gui.Matrix&quot;)[0]; oMatrix.insertRecordProperty(oCDF.getCDFId(),this.getCDFAttribute(),this.getValue(),true); "></events>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants></variants>
+              <strings jsxname="label" jsxtext="Middle Initial"></strings>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants></variants>
+              <strings jsxname="block"></strings>
+              <object type="jsx3.gui.TextBox">
+                <variants jsxheight="18"></variants>
+                <strings jsxname="middleInitial" jsxmargin="0 4 0 0" jsxcdfattribute="middle"></strings>
+                <events jsxchange="var oCDF = this.getAncestorOfType(&quot;jsx3.gui.CDF&quot;); var oMatrix = oCDF.getDescendantsOfType(&quot;jsx3.gui.Matrix&quot;)[0]; oMatrix.insertRecordProperty(oCDF.getCDFId(),this.getCDFAttribute(),this.getValue(),true); "></events>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants></variants>
+              <strings jsxname="label" jsxtext="Last Name"></strings>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants></variants>
+              <strings jsxname="block"></strings>
+              <object type="jsx3.gui.TextBox">
+                <variants jsxheight="18"></variants>
+                <strings jsxname="lastName" jsxmargin="0 4 0 0" jsxcdfattribute="last"></strings>
+                <events jsxchange="var oCDF = this.getAncestorOfType(&quot;jsx3.gui.CDF&quot;); var oMatrix = oCDF.getDescendantsOfType(&quot;jsx3.gui.Matrix&quot;)[0]; oMatrix.insertRecordProperty(oCDF.getCDFId(),this.getCDFAttribute(),this.getValue(),true); "></events>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

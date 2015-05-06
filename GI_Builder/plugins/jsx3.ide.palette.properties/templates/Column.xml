@@ -1,0 +1,119 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="jsxwidth" jsxtext="Width"
+      jsxtip="Sets the width. This value is applied as an implied pixel or a percentage. For example, &lt;code&gt;100&lt;/code&gt; or &lt;code&gt;25%&lt;/code&gt;."
+      docgetter="getWidth" docsetter="setWidth"
+      docdefault="&lt;code&gt;jsx3.gui.Column.DEFAULTWIDTH&lt;/code&gt;"
+      eval="0"
+      jsxexecute="objJSX.setWidth((jsx3.util.numIsNaN(vntValue))?vntValue:vntValue-0);objJSX.getParent().resetXslCacheData();objJSX.getParent().repaint();"
+      disallow="[^%^0-9]"
+      jsxmask="jsxtext"/>
+
+  <record jsxid="jsx3column" group="1" jsxtext="Column">
+    <record jsxid="jsxtext" jsxtext="Text/HTML"
+        eval="0"
+        jsxtip="Sets the text/HTML content to be displayed on-screen."
+        docgetter="getText" docsetter="setText"
+        docdefault="Empty"
+        jsxexecute="objJSX.setText(vntValue);objJSX.repaint();"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxmask" jsxtext="Mask Name"
+        jsxtip="The jsxname property for the edit mask that this column should use."
+        docgetter="getEditMask" docsetter="setEditMask"
+        eval="0"
+        jsxmask="jsxtext"/>
+    <record include="master.xml" group="jsxpath" children="1"/>
+    <record jsxid="jsxsort" jsxtext="Sortable"
+        eval="1"
+        jsxtip="Sets whether the parent list/grid can be sorted on this column. Choose Parent-Specified to have the parent list/grid specify if this column is sortable."
+        docgetter="getCanSort" docsetter="setCanSort"
+        docdefault="Parent-Specified (&lt;code&gt;jsx3.Boolean.TRUE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Parent-Specified"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Fixed"/>
+    </record>
+    <record jsxid="jsxsortpath" jsxtext="Sort Path"
+        jsxtip="Sets the CDF attribute to use to sort the data of the list when sorting on this column."
+        docgetter="getSortPath" docsetter="setSortPath"
+        docdefault="&lt;code&gt;@path&lt;/code&gt;"
+        eval="0"
+        disallow="'"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxdatatype" jsxtext="Sort Data Type"
+        eval="0"
+        jsxtip="Sets the assumed data type of this column, which affects the sort order if this column is used for sorting the data."
+        docgetter="getDataType" docsetter="setDataType"
+        docdefault="Text (&lt;code&gt;jsx3.gui.Column.TYPETEXT&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Column.TYPETEXT" jsxtext="Text"/>
+      <enum jsxid="jsx3.gui.Column.TYPENUMBER" jsxtext="Numerical"/>
+    </record>
+    <record jsxid="jsxresize" jsxtext="Resizable"
+        eval="1"
+        jsxtip="Sets whether or not the column can be resized. Choose Parent-Specified to have the parent list/grid specify if this column is resizable."
+        docgetter="getResizable" docsetter="setResizable"
+        docdefault="Parent-Specified (&lt;code&gt;jsx3.Boolean.TRUE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Parent-Specified"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Fixed"/>
+    </record>
+
+    <record jsxid="jsxvalign" jsxtext="Vertical Align"
+        eval="0"
+        jsxtip="Sets the vertical alignment for the header cell text."
+        docgetter="getVAlign" docsetter="setVAlign"
+        docdefault="Top (&lt;code&gt;jsx3.gui.Column.VALIGNTOP&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Column.VALIGNTOP" jsxtext="Top"/>
+      <enum jsxid="jsx3.gui.Column.VALIGNMIDDLE" jsxtext="Middle"/>
+    </record>
+
+    <record jsxid="jsxwrap" jsxtext="Word Wrap"
+        eval="1"
+        jsxtip="Sets the word wrapping for the header cell text."
+        docgetter="getWrap" docsetter="setWrap"
+        docdefault="Truncate (&lt;code&gt;jsx3.Boolean.FALSE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Wrap"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Truncate"/>
+    </record>
+  </record>
+
+  <record include="master.xml" group="font"/>
+
+  <record jsxid="box" group="1" jsxtext="Box">
+    <record include="master.xml"
+        path="/data/record[@jsxid='box']/record[@jsxid='jsxbgcolor' or @jsxid='jsxtextalign']"/>
+  </record>
+
+  <record include="master.xml" path="/data/record[@jsxid='css']/record[@jsxid='jsxstyleoverride']"/>
+  <record jsxid="jsxdisplay" jsxtext="Display"
+      eval="0"
+      jsxexecute="objJSX.setDisplay(vntValue);var p=objJSX.getParent(); if(p){p.resetXslCacheData();p.repaint();}"
+      jsxtip="Sets the CSS display property. When set to None, content is hidden AND the container collapses."
+      docgetter="getDisplay" docsetter="setDisplay"
+      docdefault="Block (&lt;code&gt;jsx3.gui.Block.DISPLAYBLOCK&lt;/code&gt;)"
+      jsxmask="jsxselect">
+    <enum jsxid="jsx3.gui.Block.DISPLAYBLOCK" jsxtext="Block"/>
+    <enum jsxid="jsx3.gui.Block.DISPLAYNONE" jsxtext="None"/>
+  </record>
+
+  <record include="master.xml" group="interaction"/>
+
+  <record jsxid="access" group="1" jsxtext="Accessibility">
+    <record include="master.xml" path="/data/record[@jsxid='access']/record[@jsxid='jsxtip']"/>
+  </record>
+
+  <record jsxid="datarows" group="1" jsxtext="Data Row">
+    <record include="master.xml" group="jsxxsl" children="1"/>
+    <record include="master.xml" path="/data/record[@jsxid='css']/record[@jsxid='jsxclassname']"/>
+  </record>
+
+  <record include="master.xml" group="metadata"/>
+</data>

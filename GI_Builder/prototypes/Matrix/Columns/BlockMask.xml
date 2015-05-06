@@ -1,0 +1,25 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Mask - Block]]></name>
+  <icon><![CDATA[images/prototypes/matrix-columnmask.gif]]></icon>
+  <description><![CDATA[Example of using a block as an edit mask for a matrix column. A block with a single child of type
+  jsx3.gui.Form is supported out-of-the-box. For more complex behavior implement the methods getMaskValue(), setMaskValue(),
+  and getMaskFirstResponder(). See the API documenation for jsx3.gui.Matrix.BlockMask.]]></description>
+  <object type="jsx3.gui.Matrix.Column">
+    <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"/>
+    <strings jsxname="blockMaskColumn" jsxwidth="150" jsxtext="Value"
+        jsxpadding="2" jsxcellpadding="2" jsxpath="jsxvalue"/>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxbgcolor="@Solid Medium" jsxborder="@Dashed"/>
+      <variants jsxwidth="200" jsxheight="25"/>
+      <strings jsxname="block" jsxpadding="5"/>
+      <object type="jsx3.gui.Slider">
+        <variants jsxvalue="0" jsxrelativeposition="1" jsxorientation="0"/>
+        <strings jsxname="slider" jsxlength="100%"/>
+      </object>
+    </object>
+  </object>
+</serialization>

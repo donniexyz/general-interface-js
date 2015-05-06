@@ -1,0 +1,19 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot" jsxns="urn:tibco.com/v3.0/dynamicproperties/1">
+  <record jsxid="@Matrix HeaderCol BG" jsxtext="#c8c8d5"/>
+  <record jsxid="@Matrix HeaderCol Border" jsxtext="0px;1px solid #a8a8b5;1px solid #a8a8b5;0px"/>
+  <record jsxid="@Matrix ValueCol BG" jsxtext="#fffeff"/>
+  <record jsxid="@Matrix ValueCol Border" jsxtext="0px;0px;1px solid #b8b8c5;0px"/>
+  <record jsxid="@Matrix AllCol Border" jsxtext="0px;1px solid #d8d8e5;1px solid #d8d8e5;0px"/>
+  <record jsxid="@Matrix AllCol BG" jsxtext="#fffeff"/>
+  <record jsxid="@Matrix AllCol Light Border" jsxtext="0px;0px;1px solid #d8d8e5;0px"/>
+  <record jsxid="@Matrix AllCol Light BG" jsxtext="#fffeff"/>
+  <record jsxid="@Outset NoRight" type="jsxborder" jsxtext="1px solid #d8d8e5;0px solid;1px solid #9898a5;1px solid #d8d8e5"/>
+  <record jsxid="@Outset NoLeft" type="jsxborder" jsxtext="1px solid #d8d8e5;1px solid #9898a5;1px solid #9898a5;0px solid"/>
+  <record jsxid="@Outset NoBottom" type="jsxborder" jsxtext="1px solid #d8d8e5;1px solid #9898a5;0px solid;1px solid #d8d8e5"/>
+  <record jsxid="@Matrix Edit Color" type="jsxcolor" jsxtext="#003399"/>
+  <record jsxid="@Tree Padding" type="jsxpadding" jsxtext="5 5 5 3"/>
+</data>

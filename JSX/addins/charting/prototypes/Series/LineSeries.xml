@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <name><![CDATA[Line]]></name>
+ <icon><![CDATA[icons/lineSeries.gif]]></icon>
+ <description><![CDATA[the series type for a line chart]]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.chart.LineSeries">
+   <dynamics />
+   <variants usePrimaryX="1" usePrimaryY="1" interpolateValues="0"/>
+   <strings jsxname="lineSeries" seriesName="Line Series" tooltipFunction="jsx3.chart.LineSeries.tooltip" form="segment"/>
+  </object>
+</serialization>

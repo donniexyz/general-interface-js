@@ -1,0 +1,11 @@
+  <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+    <soap:Body>
+      <soap:Fault>
+        <faultcode >9999</faultcode>
+        <faultstring>Something wrong happened</faultstring>
+        <detail>
+		 <data></data>
+        </detail>
+      </soap:Fault>
+    </soap:Body>
+  </soap:Envelope>

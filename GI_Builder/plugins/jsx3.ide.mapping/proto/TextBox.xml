@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <name><![CDATA[AutoMap Text Box]]></name>
+ <description><![CDATA[Default prototype used when the mapper auto-generates and auto-maps DOM fields. This prototype provides a textbox and label.]]></description>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+   <dynamics jsxbgcolor="@Solid Medium" jsxpadding="@8Pixel" />
+   <variants jsxleft="0" jsxtop="0" jsxheight="40" jsxoverflow="2" jsxrelativeposition="1" />
+   <strings jsxtagname="div" jsxwidth="100%" jsxtext="&amp;#160;"/>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" />
+     <variants jsxrelativeposition="1" jsxoverflow="2" jsxwidth="100" jsxheight="30" />
+     <strings jsxname="label" jsxtext="[untitled]" />
+    </object>
+    <object type="jsx3.gui.TextBox">
+     <variants jsxheight="18" jsxwidth="200"/>
+     <strings jsxname="textbox" jsxmargin="0 4 0 0" />
+    </object>
+  </object>
+</serialization>

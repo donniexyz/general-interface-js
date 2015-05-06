@@ -1,0 +1,165 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.palette.prototypes"
+        name="Prototypes Palette Plug-In"
+        version="0.1">
+
+  <method id="getPalette"><![CDATA[
+    return this.getEngine().getPlugIn("jsx3.ide.ui").getPalette(this, "complibs.palette");
+  ]]></method>
+
+  <method id="getRootObject"><![CDATA[
+    var p = this.getPalette();
+    if (p) {
+      return p.getUIObject();
+    }
+  ]]></method>
+
+  <method id="getSystemTree"><![CDATA[
+    var p = this.getPalette();
+    if (p) {
+      var ui = p.getUIObject();
+      if (ui) {
+        return ui.getSystemTree();
+      }
+    }
+    return null;
+  ]]></method>
+
+  <method id="getUserTree"><![CDATA[
+    var p = this.getPalette();
+    if (p) {
+      var ui = p.getUIObject();
+      if (ui) {
+        return ui.getUserTree();
+      }
+    }
+    return null;
+  ]]></method>
+
+  <method id="getOnlineList"><![CDATA[
+    var p = this.getPalette();
+    if (p) {
+      var ui = p.getUIObject();
+      if (ui) {
+        return ui.getOnlineList();
+      }
+    }
+    return null;
+  ]]></method>
+
+  <method id="addFolder" params="path, resolver, label">
+    if (!this._otherFolders)
+      this._otherFolders = jsx3.$A();
+    this._otherFolders.push({path:path, resolver:resolver, label:label});
+  </method>
+
+  <method id="onLoaded" params="">
+    this.getExtPoint("folder").processExts(jsx3.$F(function(ext, xml) {
+      this.addFolder(xml.attr("path"), ext.getPlugIn(), xml.attr("label"));
+    }).bind(this));
+  </method>
+
+  <requires>
+    <plugin id="jsx3.ide.ui"/>
+    <plugin id="jsx3.amp.util.menumgr"/>
+    <plugin id="jsx3.amp.util.toolbarmgr"/>
+    <plugin id="jsx3.gui.Matrix"/>
+    <plugin id="jsx3.gui.TabbedPane"/>
+    <plugin id="jsx3.gui.ToolbarButton"/>
+    <plugin id="jsx3.gui.CheckBox"/>
+  </requires>
+
+  <resources>
+    <script id="system" path="prototypes.js" eval="true"/>
+    <script id="user" path="user.js" eval="true"/>
+    <script id="online" path="online.js" eval="true"/>
+    <xml id="ui" path="prototypes.xml">
+      <prereq id="system"/>
+      <prereq id="user"/>
+      <prereq id="online"/>
+    </xml>
+    <xml id="menu-filters" path="menu-filters.xml"/>
+    <xml id="menu-feeds" path="menu-feeds.xml"/>
+  </resources>
+
+  <event id="reloaded"/>
+  <event id="user_reloaded"/>
+  <event id="online_reloaded"/>
+  <event id="selection">
+    <param id="value"/>
+  </event>
+
+  <subscribe event="jsx3.ide.editor.activeChanged
+                    jsx3.ide.editor.modeChanged"><![CDATA[
+    var content = this.getPalette().getUIObject();
+    if (content)
+      content.onEditorChanged(evt.editor, evt.previous);
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.palette.prototypes.reloaded"><![CDATA[
+    var content = this.getPalette().getUIObject();
+    if (content)
+      content.onSystemReloaded();
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.palette.prototypes.user_reloaded"><![CDATA[
+    var content = this.getPalette().getUIObject();
+    if (content)
+      content.onUserReloaded();
+  ]]></subscribe>
+
+  <!-- The palette context menu -->
+  <extension-point id="folder">
+    <!-- Expects any number of child elements, each with a @path attribute defined.
+         The @path attribute is the relative path from the plug-in directory to a directory that
+         contains prototypes to show in the prototypes palette. An optional @label attribute overrides
+         the name of this folder in the tree. -->
+  </extension-point>
+
+  <!-- The system palette context menu -->
+  <extension-point id="ctxmenu">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenu"/>
+  </extension-point>
+
+  <!-- The system palette context menu items -->
+  <extension-point id="ctxmenu-item">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenuItem"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.ui.palette" id="complibs.palette">
+    <palette label="Component Libraries" hotkey="ctrl+6"
+             resource="ui" default-position="q3" idegroup="per-project"/>
+  </extension>
+
+  <extension point="jsx3.ide.palette.prototypes.ctxmenu" id="ctxmenu">
+    <menu id="jsx3.ide.prototypesctx" path="/">
+      <section id="util"/>
+      <divider id="additions"/>
+    </menu>
+  </extension>
+
+  <extension point="jsx3.ide.palette.prototypes.ctxmenu-item" id="ctxmenu-item">
+    <action
+        id="copypath"
+        label="Copy Path"
+        menupath="/jsx3.ide.prototypesctx/edit"
+        execute="jsx3.html.copy(menu.getContextParent().getRecord(menu.getContextRecordId()).path);"/>
+  </extension>
+
+  <!-- Toolbar buttons, etc -->
+  <extension-point id="system_toolbar">
+    <processor type="instantiator" instance-class="jsx3.amp.util.ToolbarItem"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.palette.prototypes.system_toolbar">
+    <button id="system_refresh" img="jsxapp:/images/icon_15.gif" tip="Refresh the list of prototypes" section="utils"
+            execute="this.getPlugIn().reloadSystemLibraries(this.getPlugIn().getSystemTree());" enabled="true"/>
+  </extension>
+</plugin>

@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Text Box]]></name>
+  <icon><![CDATA[images/prototypes/textbox.gif]]></icon>
+  <description><![CDATA[Text box object.]]></description>
+  <object type="jsx3.gui.TextBox">
+    <variants jsxheight="18"/>
+    <strings jsxname="textbox" jsxmargin="0 4 0 0"/>
+  </object>
+</serialization>

@@ -1,0 +1,44 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Licensed under TIBCO BSD license, see license.txt under directory samples/
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <name><![CDATA[]]></name>
+ <description><![CDATA[]]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[eg.chart.launchStockPrice(objJSX);]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+   <dynamics jsxborder="@Outset"/>
+   <variants jsxoverflow="1" jsxrelativeposition="0"/>
+   <strings jsxname="blockApp" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.LayoutGrid">
+     <variants jsxwidth="750" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+     <strings jsxname="layout ( | )" jsxheight="100%" jsxcols="150,*"/>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Outset"/>
+       <variants jsxoverflow="2"/>
+       <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxpadding="4" jsxtextalign="center"/>
+        <object type="jsx3.gui.Button">
+         <variants jsxindex="0" jsxheight="18"/>
+         <strings jsxname="button" jsxtext="Launch Stock Price" jsxmargin="4 0 0 0" jsxwidth="100%"/>
+         <events jsxexecute="eg.chart.launchStockPrice(this);"/>
+        </object>
+        <object type="jsx3.gui.Button">
+         <variants jsxindex="0" jsxheight="18"/>
+         <strings jsxname="button" jsxtext="Launch Events" jsxmargin="4 0 0 0" jsxwidth="100%"/>
+         <events jsxexecute="eg.chart.launchChartEvent(this);"/>
+        </object>
+        <object type="jsx3.gui.Button">
+         <variants jsxindex="0" jsxheight="18"/>
+         <strings jsxname="button" jsxtext="Launch Bubble Chart" jsxmargin="4 0 0 0" jsxwidth="100%"/>
+         <events jsxexecute="eg.chart.launchBubble(this)"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Outset"/>
+       <variants jsxoverflow="1"/>
+       <strings jsxname="workArea" jsxwidth="100%" jsxheight="100%"/>
+      </object>
+    </object>
+  </object>
+</serialization>

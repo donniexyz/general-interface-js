@@ -1,0 +1,237 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[
+ 
+objJSX.getFirstResponder = function() {
+  return jsxsetting_outputcharset;
+};
+
+objJSX.savePrefs = function() {
+  var settings = jsx3.ide.getIDESettings();
+
+  // save builder settings
+  var fields = this.findDescendants(function(o) {return o.getName() && o.getName().indexOf('jsxsetting_') == 0}, null, true);
+  for (var i = 0; i < fields.length; i++) {
+    var field = fields[i];
+    var name = field.getName().substring('jsxsetting_'.length);
+    if (field instanceof jsx3.gui.TextBox) {
+      settings.set('prefs', 'builder', name, field.getValue());
+    } else if (field instanceof jsx3.gui.Select) {
+      settings.set('prefs', 'builder', name, field.getValue());
+    } else if (field instanceof jsx3.gui.CheckBox) {
+      settings.set('prefs', 'builder', name, field.getChecked() == jsx3.gui.CheckBox.CHECKED);
+    }
+  }
+  settings.save();
+  
+  return true;
+};
+
+objJSX.loadPrefs = function() {
+  var settings = jsx3.ide.getIDESettings();
+
+  // save builder settings
+  var fields = this.findDescendants(function(o) {return o.getName() && o.getName().indexOf('jsxsetting_') == 0}, null, true);
+  for (var i = 0; i < fields.length; i++) {
+    var field = fields[i];
+    var name = field.getName().substring('jsxsetting_'.length);
+    var value = settings.get('prefs','builder',name);
+
+    if (field instanceof jsx3.gui.TextBox) {
+      field.setValue(value);
+    } else if (field instanceof jsx3.gui.Select) {
+      field.setValue(value);
+    } else if (field instanceof jsx3.gui.CheckBox) {
+      if (value != null)
+        field.setChecked(value ? jsx3.gui.CheckBox.CHECKED : jsx3.gui.CheckBox.UNCHECKED);
+    }
+  }
+
+  this.updateControlState();
+};
+
+objJSX.makeDirty = function() {
+  this.getPane().setDirty(true);
+};
+
+objJSX.updateControlState = function() {
+  var checkbox = jsxsetting_xmlencodeas;
+  var enabled = checkbox.getChecked() == jsx3.gui.CheckBox.CHECKED ?
+      jsx3.gui.Form.STATEENABLED : jsx3.gui.Form.STATEDISABLED;
+  jsxsetting_xmloutputcharset.setEnabled(enabled, true);
+  btn_test_xml.setEnabled(enabled, true);
+};
+
+objJSX.testCharset = function(bXML) {
+  var testText = "abcdefghijklmnopqrstuvwxyz0123456789;:<>.,'\"[]{}|&()$!";
+  var charset = this.getDescendantOfName(bXML ? "jsxsetting_xmloutputcharset" : "jsxsetting_outputcharset").getValue();
+  var testFile = jsx3.ide.getHomeRelativeFile(bXML ? ".tmp.charsettest.xml" : ".tmp.charsettest");
+
+  var alerter = this.getAncestorOfType(jsx3.gui.Dialog);
+  var encphrase = charset ? "the character encoding '" + charset + "'" : "the default character encoding";
+
+  var toWrite = null;
+  if (bXML) {
+    var d = new jsx3.xml.Document();
+    d.loadXML("<data/>");
+    d.getRootNode().setAttribute("jsxid", testText);
+    toWrite = d.serialize(true, charset);
+  } else {
+    toWrite = testText + "\n";
+  }
+
+  if (testFile.write(toWrite, {charset:charset})) {
+    var readText = null;
+    if (bXML) {
+      var rd = new jsx3.xml.Document();
+      rd.load(testFile.toURI());
+      if (rd.hasError()) {
+        alerter.alert("Test Failure", "A test file was written using " + encphrase +
+            " but reading the file caused an error: " + rd.getError());
+        return;
+      } else {
+        readText = rd.getRootNode().getAttribute("jsxid");
+      }
+    } else {
+      readText = jsx3.util.strTrim(testFile.read());
+    }
+
+    if (readText == testText) {
+      alerter.alert("Test Success", "A test file was successfully written using " + encphrase + ".");
+      testFile.deleteFile();
+    } else {
+      alerter.alert("Test Failure", "A test file was written using " + encphrase +
+          " but reading the file failed (" + readText + ").");
+    }
+  } else {
+    alerter.alert("Test Failure", "A test file could not be written using " + encphrase +
+        ". Check the system log for a more detailed message.");
+  }
+};
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <dynamics jsxpadding="@8Pixel"/>
+   <variants jsxoverflow="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+   <strings jsxname="prefspane" jsxwidth="100%" jsxheight="100%" jsxhelpid="ide.prefs.builder"/>
+    <object type="jsx3.gui.LayoutGrid">
+     <variants jsxrelativeposition="1"/>
+     <strings jsxrows="86,136,*"/>
+      <object type="jsx3.gui.Block">
+       <variants jsxoverflow="2"/>
+       <strings/>
+         <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxheight="18"/>
+          <strings jsxname="a" jsxwidth="100%"/>
+           <object type="jsx3.gui.TextBox">
+            <variants jsxwidth="50" jsxrelativeposition="0" jsxtop="0" jsxleft="0" />
+            <strings jsxname="jsxsetting_outputcharset"/>
+            <events jsxincchange="prefspane.makeDirty(this);"/>
+           </object>
+           <object type="jsx3.gui.Block">
+            <variants jsxoverflow="2" jsxrelativeposition="0" jsxtop="0" jsxleft="55" jsxwidth="165"/>
+            <strings jsxname="ab" jsxtext="Output character encoding" jsxpadding="4 0 0 0"/>
+           </object>
+            <object type="jsx3.gui.Button">
+             <variants jsxrelativeposition="0" jsxtop="0" jsxleft="220"/>
+             <strings jsxname="btn_test" jsxtext="Test" />
+              <events jsxexecute="prefspane.testCharset();"/>
+            </object>
+         </object>
+         <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="21" jsxheight="18"/>
+          <strings jsxname="a" jsxwidth="100%"/>
+           <object type="jsx3.gui.Select">
+            <variants jsxwidth="105" jsxrelativeposition="0" jsxtop="0" jsxleft="0" />
+            <strings jsxname="jsxsetting_outputlinesep" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record jsxid=&quot;dos&quot; jsxtext=&quot;Windows (\r\n)&quot;/&gt;&lt;record jsxid=&quot;mac&quot; jsxtext=&quot;Mac OS (\r)&quot;/&gt;&lt;record jsxid=&quot;unix&quot; jsxtext=&quot;Unix (\n)&quot;/&gt;&lt;/data&gt;"/>
+            <events jsxselect="prefspane.makeDirty(this);"/>
+           </object>
+           <object type="jsx3.gui.Block">
+            <variants jsxoverflow="2" jsxrelativeposition="0" jsxtop="0" jsxleft="110" jsxwidth="200"/>
+            <strings jsxname="ab" jsxtext="Output line separator" jsxpadding="4 0 0 0"/>
+           </object>
+         </object>
+         <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="42" jsxheight="18"/>
+          <strings jsxname="a" jsxwidth="100%"/>
+            <object type="jsx3.gui.CheckBox">
+             <variants jsxheight="20" jsxchecked="0" jsxrelativeposition="0" jsxleft="0" jsxwidth="190" jsxtop="0" />
+             <strings jsxname="jsxsetting_xmlencodeas" jsxtext="Instead encode XML files as: " />
+             <events jsxtoggle="var p = prefspane; p.updateControlState(); p.makeDirty();"/>
+            </object>
+           <object type="jsx3.gui.TextBox">
+            <variants jsxwidth="50" jsxrelativeposition="0" jsxtop="0" jsxleft="195" jsxenabled="0" />
+            <strings jsxname="jsxsetting_xmloutputcharset"/>
+            <events jsxincchange="prefspane.makeDirty(this);"/>
+           </object>
+            <object type="jsx3.gui.Button">
+             <variants jsxrelativeposition="0" jsxtop="0" jsxleft="265" jsxenabled="0"/>
+             <strings jsxname="btn_test_xml" jsxtext="Test" />
+              <events jsxexecute="prefspane.testCharset(true);"/>
+            </object>
+         </object>
+         <object type="jsx3.gui.CheckBox">
+          <variants jsxheight="20" jsxchecked="1" jsxrelativeposition="0" jsxleft="0" jsxtop="61" />
+          <strings jsxname="jsxsetting_addcharset" jsxtext="Add character encoding to XML declarations" jsxwidth="100%" />
+          <events jsxtoggle="prefspane.makeDirty();"/>
+         </object>
+      </object>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Inset Top"/>
+       <variants jsxoverflow="2"/>
+       <strings jsxpadding="8 0 0 0"/>
+        <object type="jsx3.gui.CheckBox">
+         <variants jsxheight="20" jsxchecked="0"/>
+         <strings jsxname="jsxsetting_domfocus" jsxtext="Give DOM focus to newly-added GUI objects" jsxwidth="100%" jsxtip="when a new item is added to the DOM (via cloning or dragging and dropping from the component libraries) give the new item DOM focus"/>
+         <events jsxtoggle="prefspane.makeDirty();"/>
+        </object>
+        <object type="jsx3.gui.CheckBox">
+         <variants jsxheight="20" jsxchecked="0"/>
+         <strings jsxname="jsxsetting_dereferencewarn" jsxtext="Warn before dereferencing a project resource file" jsxwidth="100%" jsxtip="prompt user to confirm their choice"/>
+         <events jsxtoggle="prefspane.makeDirty();"/>
+        </object>
+        <object type="jsx3.gui.CheckBox">
+         <variants jsxheight="20" jsxchecked="0"/>
+         <strings jsxname="jsxsetting_cachewarn" jsxtext="Warn before removing documents from the local XML Cache" jsxwidth="100%" jsxtip="prompt user to confirm their choice"/>
+         <events jsxtoggle="prefspane.makeDirty();"/>
+        </object>
+        <object type="jsx3.gui.CheckBox">
+         <variants jsxheight="20" jsxchecked="0"/>
+         <strings jsxname="jsxsetting_domdeletewarn" jsxtext="Warn before deleting objects from Component Hierarchy" jsxwidth="100%" jsxtip="prompt user to confirm delete"/>
+         <events jsxtoggle="prefspane.makeDirty();"/>
+        </object>
+        <object type="jsx3.gui.CheckBox">
+         <variants jsxheight="20" jsxchecked="1"/>
+         <strings jsxname="jsxsetting_openlastproject" jsxtext="Open last project when launching General Interface Builder" jsxwidth="100%" jsxtip="whether to open the last open project automatically when launching General Interface Builder"/>
+         <events jsxtoggle="prefspane.makeDirty();"/>
+        </object>
+        <object type="jsx3.gui.CheckBox">
+         <variants jsxheight="25" jsxchecked="1"/>
+         <strings jsxname="jsxsetting_welcome" jsxtext="Show welcome splash screen on start" jsxwidth="100%" jsxtip=""/>
+         <events jsxtoggle="prefspane.makeDirty();"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Inset Top"/>
+       <variants jsxoverflow="1"/>
+       <strings />
+        <object type="jsx3.gui.Block">
+         <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="8" jsxheight="18"/>
+         <strings jsxname="a" jsxwidth="100%"/>
+          <object type="jsx3.gui.TextBox">
+           <variants jsxwidth="25" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+           <strings jsxname="jsxsetting_snapto"/>
+           <events jsxincchange="prefspane.makeDirty(this);"/>
+          </object>
+          <object type="jsx3.gui.Block">
+           <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="25" jsxtop="0" jsxwidth="200"/>
+           <strings jsxname="ab" jsxtext="Snap-to spacing" jsxpadding="4 0 0 6"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

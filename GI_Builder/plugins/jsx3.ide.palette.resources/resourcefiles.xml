@@ -1,0 +1,82 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+var amp = jsx3.amp;
+
+objJSX._onSelect = function(objTree) {
+  this.getPlugIn().publish({subject:"selection", values:objTree.getValue()});
+};
+
+objJSX.onPaletteLoaded = function() {
+  var plugIn = this.getPlugIn();
+
+  var mm = new jsx3.amp.util.MenuManager();
+  mm.addMenuBar("/", menuBar);
+  plugIn.getExtPoint("menu").processExts().each(function(e) { mm.addMenu(e); });
+  plugIn.getExtPoint("action").processExts().each(function(e) { mm.addItem(e); });
+  mm.finishInit();
+  
+  mm = new jsx3.amp.util.MenuManager();
+  mm.addMenuBar("/", ctxMenuBar);
+  plugIn.getExtPoint("ctxmenu").processExts().each(function(e) { mm.addMenu(e); });
+  plugIn.getExtPoint("ctxmenu-item").processExts().each(function(e) { mm.addItem(e); });
+  mm.finishInit();
+
+  var barMgr = new jsx3.amp.util.ToolbarManager(buttonBar);
+  barMgr.addSection("open");
+  barMgr.addSection("edit", true);
+  barMgr.addSection("utils", true);
+  barMgr.addSection("additions", true);
+  plugIn.getExtPoint("toolbar").processExts().each(function(e) { barMgr.addItem(e); });
+
+  plugIn.updateResources();
+};
+
+objJSX.getTree = function() {
+  return jsxresources;
+};
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <dynamics/>
+      <variants jsxleft="0" jsxtop="0" jsxoverflow="2" />
+      <strings jsxname="rsrcpal" jsxwidth="100%" jsxheight="100%" jsxbgcolor="#ffffff" jsxhelpid="ide.palette.files"/>
+        <object type="jsx3.gui.Block">
+          <strings jsxname="ctxMenuBar" jsxdisplay="none"/>
+        </object>
+        <object type="jsx3.gui.LayoutGrid">
+          <variants jsxrelativeposition="0" jsxoverflow="2" />
+          <strings jsxname="jsx_ide_cache_layout" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+          <events />
+          <properties />
+            <object type="jsx3.gui.WindowBar">
+              <dynamics jsxbgcolor="@Solid Medium" jsxborder="@Outset"/>
+              <variants jsxfontsize="10" jsxbartype="2" jsxoverflow="3" jsxrelativeposition="1" />
+              <strings jsxname="jsx_ide_cache_bar" />
+              <object type="jsx3.gui.Block">
+                <strings jsxname="menuBar" />
+              </object>
+              <object type="jsx3.gui.Block">
+                <strings jsxname="buttonBar" jsxstyleoverride="vertical-align:top;"/>
+              </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <dynamics jsxborder="@Outset"/>
+              <variants jsxleft="0" jsxtop="0" jsxoverflow="2" />
+              <strings jsxname="jsx_ide_cache_treeblock" jsxwidth="100%" jsxheight="100%"/>
+                <object type="jsx3.gui.Tree">
+                  <dynamics jsxpadding="@Tree Padding" jsxbgcolor="@Solid Light"/>
+                  <variants jsxuseroot="1" jsxmultiselect="1" />
+                  <strings jsxmenu="jsx3.ide.rsrcctx" jsxname="jsxresources" jsxwidth="100%" jsxheight="100%" />
+                  <events jsxexecute="jsx3.ide.doOpenResources(this.getValue());" jsxchange="rsrcpal._onSelect(this);"/>
+                  <xslparameters jsxsortpath="sorton" jsxindent="12"/>
+                </object>
+            </object>
+        </object>
+    </object>
+</serialization>

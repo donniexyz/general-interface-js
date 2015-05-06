@@ -1,0 +1,20 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Button - ToolbarButton]]></name>
+  <icon><![CDATA[images/prototypes/matrix-columnmask.gif]]></icon>
+  <description><![CDATA[Renders a clickable button in each row of a column using the jsx3.gui.ToolbarButton class.
+    In the EXECUTE event, the
+    CDF record id is available with this.emGetSession().recordId. Honors the @jsxdisabled and @jsxnomask CDF attributes.]]></description>
+  <object type="jsx3.gui.Matrix.Column">
+    <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"/>
+    <strings jsxname="tbButtonColumn" jsxwidth="100" jsxtext="ToolbarButton"
+        jsxpadding="3" jsxcellpadding="0" jsxvaluetemplate="@empty"/>
+    <object type="jsx3.gui.ToolbarButton">
+      <strings jsxname="tbButtonMask" jsximage="jsx:///images/tbb/open.gif" jsxmargin="0 0 0 0"/>
+      <events jsxexecute="jsx3.log('Clicked on button mask in row ' + this.emGetSession().recordId + '.');"/>
+    </object>
+  </object>
+</serialization>

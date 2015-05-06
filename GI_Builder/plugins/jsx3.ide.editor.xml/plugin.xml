@@ -1,0 +1,56 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.editor.xml"
+        name="XML Editor Plug-In"
+        version="0.1"
+        property="XmlEditorPlugin">
+
+  <script><![CDATA[
+    this.loaded().when(jsx3.$F(function() {
+      this.loadRsrcComponent("menus", this.getServer().getRootBlock());
+    }).bind(this));
+  ]]></script>
+
+  <requires>
+    <plugin id="jsx3.ide.editor.text"/>
+    <plugin id="jsx3.gui.Menu"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="XmlEditor.js"/>
+    <xml id="editor" path="tab_xmleditor.xml"/>
+    <xml id="mode_readonly" path="text-xmlro.xml" load="manual"/>
+
+    <xml id="menus">
+      <data>
+        <serialization xmlns="urn:tibco.com/v3.0">
+          <object type="jsx3.gui.Menu">
+            <variants jsxxmlasync="1"/>
+            <strings jsxname="jsxmenu_typeaheadxsl" jsxxmlurl="menu-xml.xml" jsxdisplay="none" />
+            <events jsxexecute="jsx3.ide.doInsertCode(objRECORD,this.getContextParent(),'xsl');"/>
+          </object>
+          <object type="jsx3.gui.Menu">
+            <variants jsxxmlasync="1"/>
+            <strings jsxname="jsxmenu_typeaheadxml" jsxxmlurl="menu-xsl.xml" jsxdisplay="none" />
+            <events jsxexecute="jsx3.ide.doInsertCode(objRECORD,this.getContextParent(),'xml');"/>
+          </object>
+        </serialization>
+      </data>
+    </xml>
+  </resources>
+
+  <extension point="jsx3.ide.editor.type">
+    <type class="jsx3.ide.XmlEditor">
+      <filetype id="xml"/>
+      <filetype id="xsl"/>
+    </type>
+  </extension>
+  
+</plugin>
+    

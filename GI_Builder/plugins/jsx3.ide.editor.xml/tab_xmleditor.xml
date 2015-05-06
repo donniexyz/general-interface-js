@@ -1,0 +1,91 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+var objTab = objJSX;
+
+objJSX.getVisibleCodeEditor = function() {
+  if (swap_pane.getSelectedIndex() == 0)
+    return this.getDescendantOfName('jsxcodeeditor');
+};
+
+objJSX.getTextValue = function() {
+  return this.getDescendantOfName('jsxcodeeditor').getTextValue();
+};
+
+objJSX.setTextValue = function(s) {
+  this.getDescendantOfName('jsxcodeeditor').setTextValue(s);
+};
+
+objJSX.getDescendantOfName('jsxcodeeditor').subscribe("keyDown", function(e) {
+  objJSX.getEditor().onKeyDown();
+});
+
+jsx3.sleep(function() {
+  objJSX.getDescendantOfName('jsxcodeeditor').initAsType(objJSX.getEditor().getFileType());
+});
+
+objJSX.setButtonState = function(strButton) {
+  this.getDescendantOfName(strButton).setState(jsx3.gui.ToolbarButton.STATEON, true);
+};
+
+objJSX.getModePane = function() {
+  return swap_pane;
+};
+
+]]></onAfterDeserialize>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxbgcolor="@Solid Medium" />
+          <variants jsxoverflow="2" jsxrelativeposition="0" />
+          <strings jsxname="content" jsxwidth="100%" jsxheight="100%" jsxpadding="8 0 0 0" jsxhelpid="ide.editor.xml"/>
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="1" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+              <strings jsxname="mylayout" jsxwidth="100%" jsxheight="100%" jsxbgcolor="" jsxrows="*,22"/>
+                <object type="jsx3.gui.TabbedPane">
+                  <variants jsxshowtabs="0" />
+                  <strings jsxname="swap_pane" jsxwidth="100%" jsxheight="100%" />
+                    <object type="jsx3.gui.Tab">
+                      <variants jsxindex="0" />
+                      <strings jsxname="mode_readwrite" />
+                        <include src="jsxplugin://jsx3.ide.editor/code_editor.xml" async="false"/>
+                    </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2" />
+                  <strings jsxname="mychild1" jsxwidth="100%" jsxheight="100%" jsxborder="solid 1px #9898a5;solid 0px;solid 0px;solid 0px" jsxbgcolor="#d8d8e5" jsxtextalign="right" />
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="2" jsxrelativeposition="1" />
+                      <strings jsxname="jsx_ide_componenteditor_btns" jsxborder="solid 0px;solid 0px;solid 0px;solid 1px #9898a5" jsxmargin="0 0 0 -1" jsxbgcolor="#eeeeff" />
+                        <object type="jsx3.gui.ToolbarButton">
+                          <variants jsxleft="0" jsxtop="0" jsxtype="2" jsxrelativeposition="1" jsxenabled="0" />
+                          <strings jsxname="btnViewComp" jsximage="jsxapp:/images/icon_46.gif" jsxtext="" jsxmargin="-1 -1 0 0" jsxgroupname="editmode" />
+                        </object>
+                        <object type="jsx3.gui.ToolbarButton">
+                          <dynamics jsxtip="_edit_view_expert" />
+                          <variants jsxleft="0" jsxtop="0" jsxtype="2" jsxstate="1" jsxrelativeposition="1" />
+                          <strings jsxname="btnViewRW" jsximage="jsxapp:/images/icon_21.gif" jsxtext="" jsxmargin="-1 -1 0 0" jsxgroupname="editmode" />
+                          <events jsxexecute="content.getEditor().setMode('readwrite');" />
+                        </object>
+                        <object type="jsx3.gui.ToolbarButton">
+                          <dynamics jsxtip="_edit_view_formatted" />
+                          <variants jsxleft="0" jsxtop="0" jsxtype="2" jsxrelativeposition="1" />
+                          <strings jsxname="btnViewRO" jsxtip="Formatted XML (Read-Only)" jsximage="jsxapp:/images/icon_20.gif" jsxtext="" jsxmargin="-1 -1 0 0" jsxgroupname="editmode" />
+                          <events jsxexecute="content.getEditor().setMode('readonly');" />
+                        </object>
+                        <object type="jsx3.gui.ToolbarButton">
+                          <variants jsxleft="0" jsxtop="0" jsxtype="2" jsxstate="0" jsxrelativeposition="1" jsxenabled="0" />
+                          <strings jsxname="btnViewHTML" jsximage="jsxapp:/images/icon_25.gif" jsxtext="" jsxmargin="-1 -1 0 0" jsxgroupname="editmode" />
+                        </object>
+                        <object type="jsx3.gui.ToolbarButton">
+                          <variants jsxleft="0" jsxtop="0" jsxtype="2" jsxstate="0" jsxrelativeposition="1" jsxenabled="0"/>
+                          <strings jsxname="btnViewProfile" jsximage="jsxapp:/images/icon_76.gif" jsxtext="" jsxmargin="-1 -1 0 0" jsxgroupname="editmode" />
+                        </object>
+                    </object>
+                </object>
+            </object>
+        </object>
+</serialization>

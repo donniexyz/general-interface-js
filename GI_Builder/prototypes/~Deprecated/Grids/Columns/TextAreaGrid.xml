@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Text Area]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[ This Column can be added to a jsx3.gui.Grid, or compatible derivative thereof. It provides a text edit mask that updates the CDF attribute @jsxtext.]]></description>
+  <object type="jsx3.gui.Column">
+    <variants jsxwidth="131"/>
+    <strings jsxname="column (text)" jsxpath="@jsxtext" jsxtext="Text Mask" jsxmask="myTextMask"/>
+    <object type="jsx3.gui.TextBox">
+      <dynamics jsxborder="@Dashed" jsxbg="@Selection BG" jsxbgcolor="@Solid Selection"/>
+      <variants jsxleft="0" jsxtop="0" jsxwidth="10" jsxrelativeposition="0" jsxheight="19" jsxtype="1"/>
+      <strings jsxname="myTextMask" jsxpadding="3 2 2 2" jsxvisibility="hidden" jsxoverflow="auto"/>
+      <events jsxmousedown="objEVENT.cancelBubble();" jsxclick="objEVENT.cancelBubble();" jsxdblclick="this.setHeight(this.getHeight()+60,true);objEVENT.cancelBubble();" jsxblur="var o = this.getAncestorOfType(jsx3.gui.Grid); if(o._jsxisblur == null) o.onAfterEdit(null,this);" jsxkeydown="this.getAncestorOfType(jsx3.gui.Grid).doMaskKeyDown();objEVENT.cancelBubble();"/>
+    </object>
+  </object>
+</serialization>

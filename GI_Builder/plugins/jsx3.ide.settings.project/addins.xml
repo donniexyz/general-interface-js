@@ -1,0 +1,105 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.getFirstResponder = function() {
+};
+
+objJSX.savePrefs = function() {
+  var addinKeys = [];
+  var addinList = addinlist;
+
+  var records = addinList.getXML().selectNodes("/data/record[@enabled='1']");
+  for (var i = records.iterator(); i.hasNext(); )
+    addinKeys.push(i.next().getAttribute("jsxid"));
+
+  var objSettings = jsx3.ide.PROJECT.getSettings(true);
+  objSettings.set("addins", addinKeys);
+  objSettings.save();
+
+  return {title: "Restart Required",
+      message: "You must restart General Interface Builder for the changes to take effect."};
+};
+
+objJSX.loadPrefs = function() {
+  var installedAddins = jsx3.ide.getJsxAddins();
+  var projectAddins = jsx3.ide.PROJECT.getSettings().get("addins") || [];
+
+  var addinList = addinlist;
+  addinList.clearXmlData();
+
+  for (var i = 0; i < installedAddins.length; i++) {
+    var addin = installedAddins[i];
+    var objRecord = {
+      jsxid: addin.getKey(),
+      enabled: jsx3.util.arrIndexOf(projectAddins, addin.getKey()) >= 0 ? "1" : "0",
+      name: addin.getName(),
+      version: addin.getVersion(),
+      description: addin.getDescription(),
+      jsxtip: addin.getSettings().get("long_description") || addin.getDescription()
+    };
+    addinList.insertRecord(objRecord, null, false);
+  }
+
+  addinList.repaintData();
+};
+
+objJSX.makeDirty = function() {
+  this.getPane().setDirty(true);
+};
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+      <strings jsxname="prefspane" jsxwidth="100%" jsxheight="100%" jsxpadding="8 8 4 8" jsxhelpid="ide.projset.addins"/>
+    <object type="jsx3.gui.LayoutGrid">
+     <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxrows="32,*"/>
+      <object type="jsx3.gui.Block">
+       <dynamics />
+       <variants jsxoverflow="2"/>
+       <strings jsxwidth="100%" jsxheight="100%" jsxtext="Select which add-ins to load for this project from this list. Changes take effect after restarting the IDE."/>
+      </object>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxborder="@Inset"/>
+          <variants jsxoverflow="1"/>
+          <strings jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.Matrix">
+              <dynamics jsxbgcolor="@Solid Medium"/>
+              <variants jsxselectionmodel="0" jsxresize="1" jsxreorder="0" jsxscalewidth="1"/>
+              <strings jsxname="addinlist" jsxbodyborder="1px solid #d8d8e5" jsxfocusstyle=";"/>
+              <!--<xslparameters jsx_rowbg1="#ffffff"/>-->
+                <object type="jsx3.gui.Matrix.Column">
+                  <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"
+                        jsxcellbgcolor="@Matrix AllCol Light BG" jsxcellborder="@Matrix AllCol Light Border"/>
+                  <strings jsxname="abclist_col1" jsxpadding="2 3 0 3" jsxwidth="30" jsxpath="enabled" jsxtext="On"
+                      jsxvaluetemplate="@empty" jsxcelltextalign="center"/>
+                    <object type="jsx3.gui.CheckBox">
+                      <strings jsxname="checkbox"/>
+                      <events jsxtoggle="prefspane.makeDirty();"/>
+                    </object>
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"
+                        jsxcellbgcolor="@Matrix AllCol Light BG" jsxcellborder="@Matrix AllCol Light Border"/>
+                  <strings jsxname="abclist_col2" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="110" jsxpath="name" jsxtext="Name"/>
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"
+                        jsxcellbgcolor="@Matrix AllCol Light BG" jsxcellborder="@Matrix AllCol Light Border"/>
+                  <strings jsxname="abclist_col2" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="57" jsxpath="version" jsxtext="Version"/>
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"
+                        jsxcellbgcolor="@Matrix AllCol Light BG" jsxcellborder="@Matrix AllCol Light Border"/>
+                  <strings jsxname="abclist_col3" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="*" jsxpath="description" jsxtext="Description"/>
+                </object>
+            </object>
+        </object>
+       </object>
+    </object>
+</serialization>

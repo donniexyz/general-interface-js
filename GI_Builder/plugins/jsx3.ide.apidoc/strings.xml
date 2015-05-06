@@ -1,0 +1,38 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxnamespace="propsbundle" locales="">
+
+  <locale>
+    <record jsxid="jsx3.ide.apidoc.m1" jsxtext="API Documentation"/>
+    <record jsxid="jsx3.ide.apidoc.m2" jsxtext="Settings"/>
+    <record jsxid="jsx3.ide.apidoc.m2t" jsxtext="API Documentation settings"/>
+
+    <record jsxid="jsx3.ide.apidoc.mi1" jsxtext="Online User Guides"/>
+    <record jsxid="jsx3.ide.apidoc.mi2" jsxtext="Open"/>
+    <record jsxid="jsx3.ide.apidoc.mi3" jsxtext="... In Dialog"/>
+    <record jsxid="jsx3.ide.apidoc.mi4" jsxtext="... In Separate Window"/>
+    <record jsxid="jsx3.ide.apidoc.mi5" jsxtext="... HTML Version"/>
+    <record jsxid="jsx3.ide.apidoc.mi6" jsxtext="GUI Property Reference"/>
+    <record jsxid="jsx3.ide.apidoc.mi7" jsxtext="GUI Event Reference"/>
+    <record jsxid="jsx3.ide.apidoc.mi8" jsxtext="XSL Parameter Reference"/>
+
+    <record jsxid="jsx3.ide.apidoc.s1" jsxtext="Show Inherited Members"/>
+    <record jsxid="jsx3.ide.apidoc.s2" jsxtext="Show Deprecated Classes and Members"/>
+
+    <record jsxid="jsx3.ide.apidoc.title" jsxtext="API Documentation"/>
+    <record jsxid="jsx3.ide.apidoc.tog1" jsxtext="Move to external browser window"/>
+    <record jsxid="jsx3.ide.apidoc.tog2" jsxtext="Move back to main window as dialog"/>
+
+    <record jsxid="jsx3.ide.apidoc.prev" jsxtext="Go to previous screen"/>
+    <record jsxid="jsx3.ide.apidoc.next" jsxtext="Go to next screen"/>
+    <record jsxid="jsx3.ide.apidoc.search" jsxtext="Search:"/>
+    <record jsxid="jsx3.ide.apidoc.searchtip" jsxtext="Enter search text and press the Enter key to perform a case-insensitive search. This field also accepts regular expressions in the form: /regex/gi."/>
+    <record jsxid="jsx3.ide.apidoc.typetip" jsxtext="Search globally over all classes or only in the current class"/>
+    <record jsxid="jsx3.ide.apidoc.clear" jsxtext="Clear the search text and results"/>
+    <record jsxid="jsx3.ide.apidoc.tglobal" jsxtext="global"/>
+    <record jsxid="jsx3.ide.apidoc.tclass" jsxtext="class"/>
+  </locale>
+
+</data>

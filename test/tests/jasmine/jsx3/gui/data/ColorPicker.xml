@@ -1,0 +1,16 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"></variants>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%"></strings>
+    <object type="jsx3.gui.NativeForm">
+      <variants></variants>
+      <strings jsxname="form" jsxaction="#" jsxmethod="get" jsxmulti="0" jsxtarget="0"></strings>
+      <object type="jsx3.gui.ColorPicker">
+        <variants jsxrgb="16711680"></variants>
+        <strings jsxname="colorPicker"></strings>
+        <dynamics jsxborder="@Outset"></dynamics>
+      </object>
+    </object>
+  </object>
+</serialization>

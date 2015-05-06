@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data>
+
+  <!-- TODO: determine from ??? -->
+  <record jsxid="number.currency" jsxtext="$"/>
+
+  <!-- TODO: determine from ??? -->
+  <record jsxid="format.locale.displayname" jsxtext="{0} ({1})"/>
+
+  <!-- according to CLDR the default first day of the week is Monday -->
+  <record jsxid="date.firstWeekDay" eval="1" jsxtext="1"/>
+
+  <!-- according to CLDR the default world clock is 24-hours -->
+  <record jsxid="time.24hour" eval="1" jsxtext="true"/>
+
+  <!-- these may not be determinable from the data of the default locale -->
+  <record jsxid="time.sep.sec-milli" jsxtext="."/>
+  <record jsxid="time.sep.ampm" jsxtext=" "/>
+
+  <!-- when doing case-insensitive comparison, transform lc to uc -->
+  <record jsxid="jsx3.lc" jsxtext="abcdefghijklmnopqrstuvwxyz"/>
+  <record jsxid="jsx3.uc" jsxtext="ABCDEFGHIJKLMNOPQRSTUVWXYZ"/>
+  
+  <!-- Localize the other GUI controls -->
+  <!-- jsx3.gui.Select -->
+  <record jsxid="jsx3.gui.Select.defaultText" jsxtext="- Select -"/>
+  <record jsxid="jsx3.gui.Select.dataUnavailable" jsxtext="- Data Unavailable -"/>
+  <record jsxid="jsx3.gui.Select.noMatch" jsxtext="- No Match Found -"/>
+  <record jsxid="jsx3.gui.Select.sel" jsxtext="Selected"/>
+
+  <!-- jsx3.gui.Menu -->
+  <record jsxid="jsx3.gui.Menu.noData" jsxtext="- No Data -"/>
+  <record jsxid="jsx3.gui.Menu.sel" jsxtext="Selected"/>
+
+  <!-- jsx3.gui.Matrix -->
+  <record jsxid="jsx3.gui.Matrix.seek" jsxtext="Viewing rows {0} to {1} of {2}"/>
+
+  <!-- jsx3.app.Server, context sensitive help -->
+  <record jsxid="jsx3.app.Server.help" jsxtext="alt+F1"/>
+  <record jsxid="jsx3.app.Server.help.macosx" jsxtext="meta+/"/>
+
+  <!-- jsx3.gui.BlockX -->
+  <record jsxid="jsx3.gui.BlockX.loading" jsxtext="Loading XSL..."/>
+  <record jsxid="jsx3.gui.BlockX.timeout" jsxtext="XSL Timeout"/>
+  <record jsxid="jsx3.gui.BlockX.error" jsxtext="XSL Error"/>
+
+  <!-- jsx3.xml.Cacheable -->
+  <record jsxid="jsx3.xml.Cacheable.loading" jsxtext="Loading {0}..."/>
+  <record jsxid="jsx3.xml.Cacheable.timeout" jsxtext="Loading {0} timed out"/>
+  <record jsxid="jsx3.xml.Cacheable.error" jsxtext="Error loading {0}"/>
+  <record jsxid="jsx3.xml.Cacheable.data" jsxtext="data"/>
+
+  <!-- jsx3.gui.Table -->
+  <record jsxid="jsx3.gui.Table.noData" jsxtext="&amp;#160;"/>
+
+  <!-- jsx3.gui.Dialog -->
+  <record jsxid="jsx3.gui.Dialog.close" jsxtext="Close"/>
+  <record jsxid="jsx3.gui.Dialog.min" jsxtext="Toggle Display"/>
+  <record jsxid="jsx3.gui.Dialog.max" jsxtext="Toggle Maximized"/>
+  <record jsxid="jsx3.gui.Dialog.restore" jsxtext="Restore Down"/>
+
+  <!-- jsx3.gui.DatePicker -->
+  <record jsxid="jsx3.gui.DatePicker.nextm" jsxtext="Next Month"/>
+  <record jsxid="jsx3.gui.DatePicker.prevm" jsxtext="Previous Month"/>
+  <record jsxid="jsx3.gui.DatePicker.nexty" jsxtext="Next Year"/>
+  <record jsxid="jsx3.gui.DatePicker.prevy" jsxtext="Previous Year"/>
+
+  <!-- jsx3.gui.TimePicker -->
+  <record jsxid="jsx3.gui.TimePicker.up" jsxtext="Increment"/>
+  <record jsxid="jsx3.gui.TimePicker.down" jsxtext="Decrement"/>
+
+  <!-- jsx3.gui.ColorPicker -->
+  <record jsxid="jsx3.gui.ColorPicker.handle" jsxtext="Slider"/>
+
+  <!-- jsx3.gui.Tree -->
+  <record jsxid="jsx3.gui.Tree.exp" jsxtext="Expand Branch"/>
+  <record jsxid="jsx3.gui.Tree.col" jsxtext="Collapse Branch"/>
+
+</data>

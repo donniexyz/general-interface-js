@@ -1,0 +1,19 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.9">
+  <onAfterDeserialize/>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"/>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1" jsxheight="30"/>
+      <strings jsxname="block1" jsxwidth="50%" jsxrelativeposition="1" jsxpadding="10" jsxmargin="10" jsxborder="1px solid #000"/>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1" jsxheight="100"/>
+      <strings jsxname="block2" jsxwidth="50%" jsxrelativeposition="1" jsxmargin="10" jsxborder="1px solid #000" jsxpadding="10"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxborder="1px solid #000"/>
+      </object>
+    </object>
+  </object>
+</serialization>

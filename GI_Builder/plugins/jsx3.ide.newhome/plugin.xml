@@ -1,0 +1,24 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.newhome"
+        name="New Home Plug-In"
+        class="jsx3.ide.ui.DialogToolPlugIn"
+        version="0.1">
+
+  <requires>
+    <plugin id="jsx3.ide.ui"/>
+    <plugin id="jsx3.gui.Select"/>
+    <plugin id="jsx3.gui.TextBox"/>
+    <plugin id="jsx3.gui.Dialog"/>
+  </requires>
+
+  <resources>
+    <xml id="ui" path="newhome.xml"/>
+  </resources>
+  
+</plugin>

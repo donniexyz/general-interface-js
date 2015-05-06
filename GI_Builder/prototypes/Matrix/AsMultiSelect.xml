@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<component classpath="jsx3.gui" xmlns:id="http://xsd.tns.tibco.com/gi/cif/2006/inlinedata" xmlns:e="http://xsd.tns.tibco.com/gi/cif/2006/events" xmlns:d="http://xsd.tns.tibco.com/gi/cif/2006/dynamics" xmlns:p="http://xsd.tns.tibco.com/gi/cif/2006/property" xmlns:pe="http://xsd.tns.tibco.com/gi/cif/2006/property.eval" xmlns:x="http://xsd.tns.tibco.com/gi/cif/2006/xslparameters" xmlns:v="http://xsd.tns.tibco.com/gi/cif/2006/view" xmlns:u="http://xsd.tns.tibco.com/gi/cif/2006/userdefined" xmlns:ue="http://xsd.tns.tibco.com/gi/cif/2006/userdefined.eval" xmlns="http://xsd.tns.tibco.com/gi/cif/2006">
+  <meta name="name"><![CDATA[Multiselect]]></meta>
+  <meta name="description"><![CDATA[Matrix instance configured to allow for multiselect-type functionality.]]></meta>
+  <meta name="icon"><![CDATA[images/prototypes/matrixlist.gif]]></meta>
+  <Matrix
+      p:name="matrix1"
+      p:bgcolor="#efefff"
+      pe:headerheight="0"
+      pe:pagingmodel="1"
+      pe:selectionmodel="2"
+      pe:jsxxmlasync="1"
+      e:select="jsx3.log('EVENT: (jsxselect). Record: ' + strRECORDID);"
+      id:xml="xml"
+      x:jsx_rowbg1="#ffffff"
+      x:jsx_rowbg2="#efefff">
+
+    <id:data href="xml"><![CDATA[
+      <data jsxid="jsxroot">
+        <record jsxid="AG" jsxtext="Afghanistan"/>
+        <record jsxid="AL" jsxtext="Albania"/>
+        <record jsxid="AR" jsxtext="Algeria"/>
+        <record jsxid="AS" jsxtext="American Samoa"/>
+        <record jsxid="AD" jsxtext="Andorra"/>
+        <record jsxid="AO" jsxtext="Angola"/>
+        <record jsxid="AU" jsxtext="Anguilla"/>
+        <record jsxid="AX" jsxtext="Antarctica"/>
+        <record jsxid="AT" jsxtext="Antigua and Barbuda"/>
+        <record jsxid="AE" jsxtext="Argentina"/>
+        <record jsxid="AM" jsxtext="Armenia"/>
+        <record jsxid="AB" jsxtext="Aruba"/>
+        <record jsxid="AA" jsxtext="Australia"/>
+        <record jsxid="AI" jsxtext="Austria"/>
+        <record jsxid="AZ" jsxtext="Azerbaijan"/>
+      </data>
+    ]]></id:data>
+
+    <MatrixColumn p:name="mc1"
+        p:width="*"
+        p:cellpadding="2"
+        p:path="jsxtext"/>
+  </Matrix>
+</component>

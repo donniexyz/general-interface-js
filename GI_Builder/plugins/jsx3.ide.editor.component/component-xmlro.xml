@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+
+objJSX.onShowMe = function() {
+  var editor = jsx3.ide.getActiveEditor();
+  var tab = editor.getContent();
+  var firstChild = editor.getServer().getRootObjects()[0];
+  var profileProps = this.readFromJSX(firstChild);
+
+  //set 'prettified' content
+  var root = editor.getServer().getBodyBlock();
+
+  if (root.getChild(0) == null) profileProps.children = true;
+  component_asxml_content.setText(root != null ?
+      this.makePretty((root.getChild(0) || root).toXMLDoc(profileProps)).toString() : "", true);
+};
+
+
+objJSX.readFromJSX = function(obj) {
+  //reads the profile properties of the JSX GUI object, '@obj', and returns as a hash
+  var objP = {};
+  if (obj) {
+    objP.icon = obj.getMetaValue('icon');
+    objP.name = obj.getMetaValue('name');
+    objP.description = obj.getMetaValue('description');
+    objP.onafter = obj.getMetaValue('onafter');
+    objP.onbefore = obj.getMetaValue('onbefore');
+    objP.unicode = obj.getMetaValue('unicode');
+  }
+  return objP;
+};
+
+objJSX.makePretty = function(doc) {
+  if (! doc.hasError()) {
+    var blockX = contentx;
+    blockX.setSourceXML(doc);
+    return blockX.doTransform();
+  } else {
+    var e = doc.getError();
+    this.getPlugIn().getLog().debug("xml error: " + e);
+    return "<pre>" + jsx3.util.strEscapeHTML(doc.getError()) + "</pre>";
+  }
+};
+
+
+ ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Tab">
+      <variants jsxindex="0" />
+      <strings jsxname="mode_sourcefmt" jsxhelpid="ide.editor.component.xmlro"/>
+      <events jsxshow="this.onShowMe();" />
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="0" />
+          <strings jsxname="bordertop" jsxwidth="100%" jsxheight="100%" jsxbgcolor="#ffffff" jsxborder="inset 1px;0px;0px;0px" />
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1" jsxrelativeposition="0" jsxfontsize="11" />
+              <strings jsxname="component_asxml_content" jsxwidth="100%" jsxheight="100%" jsxpadding="4" />
+            </object>
+            <object type="jsx3.gui.BlockX">
+              <variants jsxoverflow="2" jsxrelativeposition="0" jsxfontsize="11" />
+              <strings jsxname="contentx" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxxslid="jsx:///xsl/xml.xsl" jsxxslurl="jsx:///xsl/xml.xsl" />
+            </object>
+        </object>
+    </object>
+</serialization>

@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.welcome"
+        name="Welcome Dialog Plug-In"
+        class="jsx3.ide.ui.DialogToolPlugIn"
+        version="0.1">
+
+  <requires>
+    <plugin id="jsx3.ide"/> <!-- for CSS -->
+    <plugin id="jsx3.ide.ui"/>
+    <plugin id="jsx3.amp.util.menumgr"/>
+    <plugin id="jsx3.gui.BlockX"/>
+    <plugin id="jsx3.gui.CheckBox"/>
+    <plugin id="jsx3.gui.ImageButton"/>
+  </requires>
+
+  <resources>
+    <xml id="ui" path="welcome.xml"/>
+  </resources>
+
+  <extension point="jsx3.ide.ui.action" id="menu.help">
+    <action
+        id="jsx3.ide.help1_4"
+        label="Welcome Screen"
+        menupath="/jsx3.ide.help/about" hkconfig="true"
+        execute="this.getPlugIn().openTool();"/>
+  </extension>
+
+</plugin>

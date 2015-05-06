@@ -1,0 +1,85 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.settings.ide"
+        name="IDE Settings Plug-In"
+        version="0.1">
+
+  <script><![CDATA[
+
+var amp = jsx3.amp;
+
+this.showPane = function(intPane) {
+  this._openDialog(intPane);
+};
+
+this._openDialog = function(intPane) {
+  var server = this.getServer();
+  var dialog = server.getJSXByName('jsx_ide_settings');
+
+  if (!dialog) {
+    dialog = this.loadRsrcComponent("container", server.getRootBlock());
+
+    var controller = new amp.util.Prefs();
+    this.getExtPoint("pane").processExts().each(function(e) { controller.addPane(e); });
+
+    dialog.getPrefs = function() { return controller; };
+    dialog.openPrefs(intPane);
+  } else {
+    if (intPane != null)
+      dialog.showPrefs(intPane);
+  }
+
+  dialog.focus();
+};
+
+  ]]></script>
+
+  <requires>
+    <plugin id="jsx3.amp.util.prefspanel"/>
+    <plugin id="jsx3.gui.CheckBox"/>
+    <plugin id="jsx3.gui.Button"/>
+    <plugin id="jsx3.gui.TextBox"/>
+    <plugin id="jsx3.gui.Select"/>
+    <plugin id="jsx3.gui.Matrix"/>
+    <plugin id="jsx3.gui.ImageButton"/>
+  </requires>
+
+  <resources>
+    <xml id="container" path="container.xml"/>
+    <xml id="pane_builder" path="builder.xml" load="manual"/>
+    <xml id="pane_home" path="home.xml" load="manual"/>
+    <xml id="pane_hotkeys" path="hotkeys.xml" load="manual"/>
+  </resources>
+
+  <event id="saved">
+    <param id="pane"/>
+  </event>
+
+  <extension-point id="pane">
+    <processor type="instantiator" instance-class="jsx3.amp.util.PrefsPane"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.settings.ide.pane" id="default">
+    <pane label="IDE Settings" img="images/builder.gif"
+          tip="Settings related to General Interface Builder." resource="pane_builder"/>
+    <pane label="IDE Hot Keys" img="images/hotkeys.gif"
+          tip="Customize hot key shortcuts of General Interface Builder." resource="pane_hotkeys"/>
+    <pane label="Paths" img="images/paths.gif"
+          tip="Set the user home directory and the local HTTP server root." resource="pane_home"/>
+  </extension>
+
+  <extension point="jsx3.ide.ui.action" id="menu.tools">
+    <action
+        id="jsx3.ide.settings"
+        label="IDE Settings..."
+        menupath="/jsx3.ide.tools/settings" hotkey="{hk.settings}"
+        execute="this.getPlugIn()._openDialog()"/>
+  </extension>
+
+</plugin>

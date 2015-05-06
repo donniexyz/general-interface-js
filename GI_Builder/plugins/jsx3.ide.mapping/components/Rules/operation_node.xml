@@ -1,0 +1,129 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name>operation_node.xml</name>
+  <icon></icon>
+  <description></description>
+  <onBeforeDeserialize></onBeforeDeserialize>
+  <onAfterDeserialize><![CDATA[
+
+//replaces the 'delete row' image button with simple HTML that, when clicked, commits a new http header
+var objMatrix = objJSX.getDescendantOfName("jsx_schema_mapnode_headers");
+objMatrix.getChild(0).setFormatHandler(
+  function(objDiv, strCDFKey, objMatrix, objMatrixColumn, intRowNumber, objServer) {
+    if(strCDFKey == "jsxautorow")
+      objDiv.innerHTML = '<div title="add new row" class="jsx3ide_dynprops_autorow" onclick="jsx3.IDE.getJSXById(\'' + objMatrix.getId() + '\').commitAutoRowSession(jsx3.gui.Event.wrap(event));">&#160;</div>';
+  }
+);
+
+//called by [-] symbol on a given concrete row to remove the row
+objMatrix.removeMapperBinding = function(strRecordId) {
+  this.deleteRecord(strRecordId);
+  var objMapper = this.getAncestorOfType(jsx3.ide.mapper.Mapper);
+  objMapper.writeMappings(true);
+  objMapper.getEditor().setDirty(true);
+}
+
+
+]]></onAfterDeserialize>
+  <objects>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants/>
+      <strings jsxrows="62,62,36,*,12"/>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxpadding="@8Pixel" jsxborder="@Dashed Bottom"/>
+        <variants jsxoverflow="2"/>
+        <strings/>
+        <object type="jsx3.gui.Block">
+          <variants jsxheight="20"/>
+          <strings jsxtagname="div" jsxfontweight="bold" jsxtext="&lt;div&gt;Endpoint URL&lt;span class=&quot;jsx3ide_mapper_tiptext&quot; title=&quot;URL for service.&quot;&gt;[?]&lt;/span&gt;&lt;/div&gt;"/>
+        </object>
+        <object type="jsx3.gui.TextBox">
+          <variants jsxtype="0"/>
+          <strings jsxname="jsx_schema_mapnode_endpoint" jsxwidth="100%"/>
+          <events jsxblur="this.getAncestorOfType(jsx3.ide.mapper.Mapper).writeMappings(true);"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxpadding="@8Pixel" jsxborder="@Dashed Bottom"/>
+        <variants jsxoverflow="2"/>
+        <strings/>
+        <object type="jsx3.gui.Block">
+          <variants jsxheight="20"/>
+          <strings jsxname="label" jsxtagname="div" jsxfontweight="bold" jsxtext="&lt;div&gt;Method&lt;span class=&quot;jsx3ide_mapper_tiptext&quot; title=&quot;If XML content will be sent, use POST&quot;&gt;[?]&lt;/span&gt;&lt;/div&gt;"/>
+        </object>
+        <object type="jsx3.gui.Select">
+          <variants jsxwidth="80" jsxheight="18" jsxrelativeposition="0" jsxleft="8" jsxtop="28"/>
+          <strings jsxname="jsx_schema_mapnode_method" jsxvalue="POST" jsxmargin="0 4 0 0" jsxxmlurl="xml/http_methods.xml"/>
+          <events jsxselect="this.getAncestorOfType(jsx3.ide.mapper.Mapper).onMethodChange(this);this.getAncestorOfType(jsx3.ide.mapper.Mapper).writeMappings(true);"/>
+        </object>
+        <object type="jsx3.gui.CheckBox">
+          <variants jsxheight="20" jsxrelativeposition="0" jsxleft="100" jsxtop="28" jsxchecked="1"/>
+          <strings jsxname="jsx_schema_mapnode_jsonp" jsxtext="Use JSONP" jsxtip="if checked, the mapper adds a callback pointer (&amp;#38;callback=) to the endpoint url"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxpadding="@8Pixel"/>
+        <strings jsxfontweight="bold" jsxtext="&lt;div&gt;HTTP Headers&lt;span class=&quot;jsx3ide_mapper_tiptext&quot; title=&quot;Sent with the HTTP request.&quot;&gt;[?]&lt;/span&gt;&lt;/div&gt;"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxpadding="0 8 0 8"/>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+          <variants jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%"/>
+
+          <object type="jsx3.gui.Matrix">
+            <dynamics jsxbg="@Alternating Rows" jsxbgcolor="@Solid Medium"/>
+            <variants jsxgrowby="0" jsxshare="0" jsxautorow="2" jsxsort="0" jsxreorder="0" jsxresize="0" jsxscalewidth="1" jsxpagingmodel="0" jsxselectionmodel="0"/>
+            <strings jsxbodyborder="1px solid #d8d8e5" jsxname="jsx_schema_mapnode_headers" jsxxmlid="jsx_schema_mapnode_headers_XML" jsxxslid="jsx_schema_mapnode_headers_XSL" jsxrenderingmodel="shallow"/>
+            <events jsxafteredit="this.getAncestorOfType(jsx3.ide.mapper.Mapper).getEditor().setDirty(true);" jsxbeforeappend="this.getAncestorOfType(jsx3.ide.mapper.Mapper).insertRow(&quot;headers&quot;,objRECORD);" jsxafterappend="this.getAncestorOfType(jsx3.ide.mapper.Mapper).onInsertRow();"/>
+            <xslparameters jsx_autorow_style="background-color:#f0f0f8;color:#0000ff;"/>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+              <variants jsxwidth="20"/>
+              <strings jsxname="jsxcol" jsxtext="&amp;#160;" jsxvaluetemplate="@empty" jsxcellpadding="1" jsxpadding="2 3 0 3"/>
+              <object type="jsx3.gui.ImageButton">
+                <variants jsxwidth="16" jsxheight="16"/>
+                <strings jsxname="imagebutton" jsximage="images/rem.gif"/>
+                <events jsxexecute="this.emGetSession().matrix.removeMapperBinding(this.emGetSession().recordId);"/>
+              </object>
+            </object>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+              <variants jsxwidth="140"/>
+              <strings jsxpadding="2 3 0 3" jsxcellpadding="3" jsxtip="http header name. For example, Content-Type" jsxname="jsxcol" jsxpath="name" jsxtext="Name*"/>
+              <object type="jsx3.gui.TextBox">
+                <dynamics jsxcolor="@Matrix Edit Color"/>
+                <variants jsxtype="1" jsxheight="40"/>
+                <strings jsxname="jsxTextMask" jsxpadding="2" jsxdisplay="none" jsxoverflow="auto"/>
+                <events jsxdblclick="this.setHeight(this.getHeight()+20,true);objEVENT.cancelBubble();"/>
+              </object>
+            </object>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset NoRight"/>
+              <strings jsxpadding="2 3 0 3" jsxcellpadding="3" jsxtip="http header value. For example, text/xml" jsxname="jsxcol" jsxpath="value" jsxtext="Value*" jsxwidth="*"/>
+              <object type="jsx3.gui.TextBox">
+                <dynamics jsxcolor="@Matrix Edit Color"/>
+                <variants jsxtype="1" jsxheight="40"/>
+                <strings jsxname="jsxTextMask" jsxpadding="2" jsxdisplay="none" jsxoverflow="auto"/>
+                <events jsxdblclick="this.setHeight(this.getHeight()+20,true);objEVENT.cancelBubble();"/>
+              </object>
+            </object>
+
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <strings jsxname="jsxpane" jsxtextalign="right" jsxpadding="0 8 0 0"/>
+      </object>
+    </object>
+  </objects>
+</serialization>

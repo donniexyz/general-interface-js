@@ -1,0 +1,314 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.ui"
+        name="UI Plug-In"
+        class="jsx3.ide.ui.PlugIn"
+        version="0.1">
+
+  <requires>
+    <plugin id="jsx3.gui.Alerts.alert"/>
+    <plugin id="jsx3.gui.Image"/>
+    <plugin id="jsx3.gui.LayoutGrid"/>
+    <plugin id="jsx3.gui.Menu"/>
+    <plugin id="jsx3.gui.WindowBar"/>
+    <plugin id="jsx3.gui.Dialog"/>
+    <plugin id="jsx3.gui.Sound"/>
+    <plugin id="jsx3.gui.Splitter"/>
+    <plugin id="jsx3.gui.StackGroup"/>
+    <plugin id="jsx3.ide"/>
+    <plugin id="jsx3.io"/>
+    <plugin id="jsx3.amp.util.menumgr"/>
+  </requires>
+
+  <resources>
+    <xml id="layout" path="layout.xml"/>
+    <xml id="mainContent" path="layout_1.xml"/>
+    <script id="main" path="PlugIn.js" load="early"/>
+    <script id="Menus" path="Menus.js"/>
+    <script id="PaletteManager" path="PaletteManager.js">
+      <prereq id="Menus"/>
+    </script>
+    <xml id="palette-menu" path="palette-menu.xml" load="manual"/>
+    <xml id="palette-dialog" path="palette-dialog.xml" load="manual">
+      <prereq id="palette-menu"/>
+    </xml>
+    <xml id="palette-stack" path="palette-stack.xml" load="manual">
+      <prereq id="palette-menu"/>
+    </xml>
+    <xml id="menu-path" path="menu-path.xml"/>
+    <xml id="search-forums" path="search-forums.xml" load="manual"/>
+  </resources>
+
+  <event id="paletteMoved">
+    <param id="container"/>
+    <param id="previousParent"/>
+  </event>
+
+  <subscribe event="jsx3.ide.ui.paletteMoved">
+    jsx3.sleep(jsx3.$F(jsx3.ide.rebalancePaletteDocks).bind(null, [evt.container, evt.previousParent]), 
+        "jsx3.ide.rebalancePaletteDocks", null, true);
+  </subscribe>
+
+  <!-- Extension Points -->
+
+  <extension-point id="menu">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenu"/>
+  </extension-point>
+
+  <extension-point id="action">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenuItem"/>
+  </extension-point>
+
+  <extension-point id="layout">
+    <!-- This should return a function with the following signature:
+         function(parent : jsx3.app.Model)
+        -->
+    <processor type="return"/>
+  </extension-point>
+
+  <extension-point id="menubar-ext">
+    <!-- This should return an object of type jsx3.gui.Painted -->
+    <processor type="return"/>
+  </extension-point>
+
+  <extension-point id="taskbar-ext">
+    <!-- This should return an object of type jsx3.gui.Painted -->
+    <processor type="return"/>
+  </extension-point>
+
+  <extension-point id="palette">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.Palette"/>
+  </extension-point>
+
+  <extension-point id="ready" name="UI Ready Extension Point">
+    <processor type="eval"/>
+  </extension-point>
+
+  <!-- Extensions -->
+
+  <extension point="jsx3.amp.main.layout" id="main-layout">
+    <eval load="true">var p = this.getPlugIn(); jsx3.$F(p.paintLayout).bind(p)</eval>
+  </extension>
+
+  <extension point="jsx3.ide.ui.layout" id="content-layout">
+    <eval>var p = this.getPlugIn(); jsx3.$F(p.paintIDELayout).bind(p)</eval>
+  </extension>
+
+  <extension point="jsx3.ide.ui.menubar-ext" id="menubar-items">
+    <eval>this.getPlugIn().createMenuLogo()</eval>
+  </extension>
+
+  <extension point="jsx3.ide.ui.taskbar-ext" id="taskbar-items">
+    <eval>this.getPlugIn().createAmpProgress()</eval>
+    <eval>this.getPlugIn().createProjectPathExt()</eval>
+    <eval>this.getPlugIn().createSnapBtnsExt()</eval>
+  </extension>
+
+  <extension point="jsx3.amp.main.progress">
+    <eval>this.getPlugIn()</eval>
+  </extension>
+
+  <extension point="jsx3.ide.ui.menu" id="menus">
+    <menu id="jsx3.ide.project" label="Project" path="/">
+      <section id="new"/>
+      <section id="open"/>
+      <section id="recent"/>
+      <divider id="settings"/>
+      <section id="additions"/>
+      <divider id="run"/>
+    </menu>
+    <menu id="recentProjects" label="Recent Projects" path="/jsx3.ide.project/recent"
+        ext-class="jsx3.ide.ui.RecentProjMenu" enabled="home"/>
+    <menu id="userProjects" label="User Projects" path="/jsx3.ide.project/recent"
+        ext-class="jsx3.ide.ui.UserProjMenu" enabled="home"/>
+    <menu id="jsx3.ide.file" label="File" path="/">
+      <section id="new"/>
+      <section id="recent"/>
+      <divider id="close"/>
+      <divider id="save"/>
+      <section id="additions"/>
+    </menu>
+    <menu id="new" label="New" path="/jsx3.ide.file/new" enabled="project"
+        ext-class="jsx3.ide.ui.NewFileMenu"/>
+    <menu id="recentFiles" label="Recent Files" path="/jsx3.ide.file/recent"
+        ext-class="jsx3.ide.ui.RecentFilesMenu" enabled="project"/>
+    <menu id="jsx3.ide.tools" label="Tools" path="/">
+      <section id="ide"/>
+      <divider id="links"/>
+      <section id="additions"/>
+      <divider id="settings"/>
+    </menu>
+    <menu id="jsx3.ide.palettes" label="Palettes" path="/">
+      <section id="per-file"/>
+      <divider id="per-node"/>
+      <divider id="per-project"/>
+      <section id="per-ide"/>
+      <divider id="misc"/>
+      <section id="additions"/>
+    </menu>
+    <menu id="jsx3.ide.help" label="Help" path="/">
+      <section id="api"/>
+      <section id="apisub"/>
+      <section id="additions"/>
+      <divider id="links"/>
+      <divider id="about"/>
+      <divider id="license"/>
+    </menu>
+  </extension>
+
+  <extension point="jsx3.ide.ui.action" id="menu.project">
+    <action
+        id="jsx3.ide.openProject"
+        label="Open Project..."
+        menupath="/jsx3.ide.project/open" hkconfig="true"
+        execute="jsx3.ide.openProject(false)"/>
+    <action
+        id="jsx3.ide.run"
+        label="Run Project..."
+        tip="Run project in a new browser window"
+        menupath="/jsx3.ide.project/run" hkconfig="true"
+        execute="jsx3.ide.runProject(false)"
+        enabled="project"/>
+    <action
+        id="jsx3.ide.runhttp"
+        label="Run Project From HTTP..."
+        tip="Run project from a local HTTP server in a new browser window"
+        menupath="/jsx3.ide.project/run" hkconfig="true"
+        execute="jsx3.ide.runProject(true)"
+        enabled="project"/>
+
+  </extension>
+
+  <extension point="jsx3.ide.ui.action" id="menu.file">
+    <action
+        id="jsx3.ide.open"
+        label="Open..." img="jsxapp:/images/icon_60.gif"
+        menupath="/jsx3.ide.file/new" hotkey="{hk.open}" hkconfig="true"
+        execute="jsx3.ide.open()"
+        enabled="project"/>
+
+    <!-- sleep this commands because of editarea ...
+         Removing the IFRAME invalidates the Event object which is in a loop for check hot keys.
+         There is no way of escaping the loop when the event is suddenly invalid. -->
+    <action
+        id="jsx3.ide.close"
+        label="Close"
+        menupath="/jsx3.ide.file/close" hotkey="{hk.close}" hkconfig="true"
+        execute="jsx3.sleep(jsx3.ide.close)"
+        enabled="editor"/>
+    <action
+        id="jsx3.ide.closeall"
+        label="Close All"
+        menupath="/jsx3.ide.file/close" hotkey="{hk.closeAll}" hkconfig="true"
+        execute="jsx3.sleep(jsx3.ide.closeAll)"
+        enabled="editor"/>
+    <action
+        id="jsx3.ide.revert"
+        label="Revert..."
+        menupath="/jsx3.ide.file/close" hkconfig="true"
+        execute="jsx3.sleep(jsx3.ide.revert)"
+        enabled="editor"/>
+    <action
+        id="jsx3.ide.revertall"
+        label="Revert All..."
+        menupath="/jsx3.ide.file/close" hkconfig="true"
+        execute="jsx3.sleep(jsx3.ide.revertAll)"
+        enabled="editor"/>
+
+    <action
+        id="jsx3.ide.save"
+        label="Save" img="jsxapp:/images/icon_13.gif"
+        menupath="/jsx3.ide.file/save" hotkey="{hk.save}" hkconfig="true"
+        execute="jsx3.ide.save()"
+        enabled="editor"/>
+    <action
+        id="jsx3.ide.savereload"
+        label="Save and Reload" img="jsxapp:/images/icon_72.gif"
+        menupath="/jsx3.ide.file/save"
+        execute="jsx3.sleep(jsx3.ide.saveAndReload)" hkconfig="true"
+        enabled="editor reload"/>
+    <action
+        id="jsx3.ide.saveas"
+        label="Save As..." img="jsxapp:/images/icon_14.gif"
+        menupath="/jsx3.ide.file/save" hkconfig="true"
+        execute="jsx3.ide.saveAs()"
+        enabled="editor"/>
+    <action
+        id="jsx3.ide.savecopy"
+        label="Save a Copy to Library..."
+        menupath="/jsx3.ide.file/save" hkconfig="true"
+        execute="jsx3.ide.saveCopyToLib()"
+        enabled="eval" enabled-eval="var ce = jsx3.ide.ComponentEditor; ce &amp;&amp; jsx3.ide.getActiveEditor() instanceof ce"/>
+    <action
+        id="jsx3.ide.saveall"
+        label="Save All" img="jsxapp:/images/icon_75.gif"
+        menupath="/jsx3.ide.file/save" hotkey="{hk.saveAll}" hkconfig="true"
+        execute="jsx3.ide.saveAll()"
+        enabled="editor"/>
+
+  </extension>
+
+  <extension point="jsx3.ide.ui.action" id="menu.tools">
+    <action
+        id="jsx3.ide.gitak"
+        label="Test Automation Kit (GITAK)"
+        menupath="/jsx3.ide.tools/links"
+        execute="jsx3.ide.openConsoleWindow('http://www.generalinterface.org/alias/gitak','jsxide_gitak',null,null,'yes','yes','yes','yes','yes')"/>
+    <action
+        id="jsx3.ide.gipp"
+        label="Performance Profiler (GIPP)"
+        menupath="/jsx3.ide.tools/links"
+        execute="jsx3.ide.openConsoleWindow('http://www.generalinterface.org/alias/gipp','jsxide_gipp',null,null,'yes','yes','yes','yes','yes')"/>
+  </extension>
+
+  <extension point="jsx3.ide.ui.action" id="menu.help">
+    <action
+        id="jsx3.ide.help8a"
+        label="Learning Center"
+        menupath="/jsx3.ide.help/links"
+        execute="jsx3.ide.openConsoleWindow('http://www.generalinterface.org/alias/learning', 'jsxide_power',null,null,'yes','yes','yes','yes','yes');"/>
+    <action
+        id="jsx3.ide.help8b"
+        label="&amp;#160; &amp;#160;Sample Applications"
+        menupath="/jsx3.ide.help/links"
+        execute="jsx3.ide.openConsoleWindow('http://www.generalinterface.org/alias/samples','jsxide_samples',null,null,'yes','yes','yes','yes','yes');"/>
+    <action
+        id="jsx3.ide.help8b1"
+        label="&amp;#160; &amp;#160;Tutorials"
+        menupath="/jsx3.ide.help/links"
+        execute="jsx3.ide.openConsoleWindow('http://www.generalinterface.org/alias/tutorials','jsxide_tutorials',null,null,'yes','yes','yes','yes','yes');"/>
+
+    <action
+        id="jsx3.ide.help8c"
+        label="Forums"
+        menupath="/jsx3.ide.help/links"
+        execute="jsx3.ide.openConsoleWindow('http://www.generalinterface.org/alias/forums','jsxide_forums',null,null,'yes','yes','yes','yes','yes');"/>
+    <action
+        id="jsx3.ide.help8d"
+        label="&amp;#160; &amp;#160;Search Forums..."
+        menupath="/jsx3.ide.help/links"
+        execute="this.getPlugIn().searchForums();"/>
+
+    <action
+        id="jsx3.ide.help9a"
+        label="Open Source Project"
+        menupath="/jsx3.ide.help/links"
+        execute="jsx3.ide.openConsoleWindow('http://www.generalinterface.org/alias/os_home','jsxide_gios',null,null,'yes','yes','yes','yes','yes');"/>
+    <action
+        id="jsx3.ide.help9b"
+        label="&amp;#160; &amp;#160;Bug and Enhancement Tracking"
+        menupath="/jsx3.ide.help/links"
+        execute="jsx3.ide.openConsoleWindow('http://www.generalinterface.org/alias/bugs','jsxide_jira',null,null,'yes','yes','yes','yes','yes');"/>
+  </extension>
+
+  <extension point="jsx3.ide.editor.container" id="editor-container">
+    <container id="jsx_tpan_component"/>
+  </extension>
+
+</plugin>

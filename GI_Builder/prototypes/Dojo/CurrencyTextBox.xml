@@ -1,0 +1,12 @@
+<!--
+  ~ Copyright (c) 2001-2008, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Currency Text Box]]></name>
+  <icon><![CDATA[images/prototypes/textbox.gif]]></icon>
+  <description><![CDATA[Currency Text Box]]></description>
+  <object type="jsx3.gui.DojoWidget">
+    <strings jsxname="dijitCurrencyTextBox" dijitClassName="dijit.form.CurrencyTextBox"/>
+  </object>
+</serialization>

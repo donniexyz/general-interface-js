@@ -1,0 +1,51 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.io.browser"
+        name="File System Browser Plug-In"
+        version="0.1">
+
+  <method id="chooseFile" params="container, objParam"><![CDATA[
+    this.open("TYPE_OPEN_FILE", container, objParam);
+  ]]></method>
+
+  <method id="chooseFiles" params="container, objParam"><![CDATA[
+    this.open("TYPE_OPEN_FILES", container, objParam);
+  ]]></method>
+
+  <method id="chooseFolder" params="container, objParam"><![CDATA[
+    this.open("TYPE_OPEN_FOLDER", container, objParam);
+  ]]></method>
+
+  <method id="saveFile" params="container, objParam"><![CDATA[
+    this.open("TYPE_SAVE_FILE", container, objParam);
+  ]]></method>
+
+  <method id="open" params="type, container, objParam"><![CDATA[
+    this.load().when(jsx3.$F(function() {
+      try {
+        var dialog = container.loadXML(this.getResource("ui").getData(), false, this);
+        dialog.showFileDialog(jsx3.io.FileDialog[type], objParam);
+      } catch (e) {
+        this.getLog().error("Error opening file dialog", jsx3.NativeError.wrap(e));
+      }
+    }).bind(this));
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.gui.Matrix"/>
+    <plugin id="jsx3.gui.ImageButton"/>
+    <plugin id="jsx3.io"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="FileDialog.js"/>
+    <xml id="ui" path="browser.xml"/>
+  </resources>
+
+</plugin>

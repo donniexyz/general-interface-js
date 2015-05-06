@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Text]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[This column renders the value of the CDF @jsxtext attribute as plain text. Contains no edit mask.]]></description>
+  <object type="jsx3.gui.Column">
+    <variants jsxwidth="120"/>
+    <strings jsxname="column (data)" jsxpath="@jsxtext" jsxtext="Data"/>
+  </object>
+</serialization>

@@ -1,0 +1,156 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.getFirstResponder = function() {
+  return path;
+};
+
+objJSX.savePrefs = function() {
+  var s = jsx3.ide.getIDESettings();
+  var id = this.getPlugIn().getId();
+  var retValue = true;
+
+  if (s.get(id, "path") != path.getValue())
+    s.set(id, "path", path.getValue());
+
+  if (s.get(id, "pathGitak") != pathGitak.getValue())
+    s.set(id, "pathGitak", pathGitak.getValue());
+
+  return retValue;
+};
+
+objJSX.loadPrefs = function() {
+  path.setValue(this.getPlugIn().getGIPPPath());
+  pathGitak.setValue(this.getPlugIn().getGITAKPath());
+};
+
+objJSX.doBrowse = function() {
+  var strValue = path.getValue();
+  var objFolder = jsx3.ide.getPlugIn("jsx3.io").getFileForURI(strValue);
+
+  if (!(objFolder && objFolder.isDirectory()))
+    objFolder = jsx3.ide.getSystemRelativeFile("");
+
+  jsx3.ide.getPlugIn("jsx3.io.browser").chooseFolder(this.getServer().getRootBlock(), {
+      name:"findgipp", modal:true, title:"Choose a GIPP Installation", okLabel:"Choose",
+      folder: objFolder, onChoose: jsx3.$F(function(objFile) { this._onBrowseChoose(objFile); }).bind(this)
+  });
+};
+
+objJSX.doBrowseGitak = function() {
+  var strValue = pathGitak.getValue();
+  var objFolder = jsx3.ide.getPlugIn("jsx3.io").getFileForURI(strValue);
+
+  if (!(objFolder && objFolder.isDirectory()))
+    objFolder = jsx3.ide.getSystemRelativeFile("");
+
+  jsx3.ide.getPlugIn("jsx3.io.browser").chooseFolder(this.getServer().getRootBlock(), {
+      name:"findgipp", modal:true, title:"Choose a GITAK Installation", okLabel:"Choose",
+      folder: objFolder, onChoose: jsx3.$F(function(objFile) { this._onBrowseChooseGitak(objFile); }).bind(this)
+  });
+};
+
+objJSX._onBrowseChoose = function(objFile) {
+  if (this.getPlugIn().isValidGIPP(objFile)) {
+    path.setValue(objFile.toURI());
+    this.makeDirty();
+  } else {
+    this.getAncestorOfType(jsx3.gui.Dialog).alert(null, "Invalid GIPP directory: " + objFile);
+  }
+};
+
+objJSX._onBrowseChooseGitak = function(objFile) {
+  if (this.getPlugIn().isValidGITAK(objFile)) {
+    pathGitak.setValue(objFile.toURI());
+    this.makeDirty();
+  } else {
+    this.getAncestorOfType(jsx3.gui.Dialog).alert(null, "Invalid GITAK directory: " + objFile);
+  }
+};
+
+objJSX.makeDirty = function(objInput) {
+  this.getPane().setDirty(true);
+};
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+    <strings jsxname="prefspane" jsxwidth="100%" jsxheight="100%" jsxpadding="8" jsxhelpid="ide.prefs.gipp"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2" jsxrelativeposition="1" jsxheight="25"/>
+      <strings jsxwidth="100%"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="1" jsxoverflow="2"/>
+        <strings jsxcols="60,*,30"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxtext="GIPP:" jsxfontweight="bold" jsxtextalign="right"
+                   jsxwidth="100%" jsxheight="100%" jsxpadding="5 6 0 0"/>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="3"/>
+          <strings jsxwidth="100%" jsxpadding="2 0 0 0"/>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxenabled="1" jsxrelativeposition="1"/>
+            <strings jsxname="path" jsxwidth="100%"/>
+            <events jsxincchange="prefspane.makeDirty(this);"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxtextalign="right" jsxwidth="100%" jsxheight="100%" jsxpadding="0 0 0 0"/>
+          <object type="jsx3.gui.ToolbarButton">
+            <variants/>
+            <strings jsxname="btnBrowse" jsximage="jsxapp:/images/icon_60.gif"/>
+            <events jsxexecute="prefspane.doBrowse();"/>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2" jsxrelativeposition="1"/>
+      <strings jsxwidth="100%" jsxpadding="0 0 0 60"
+               jsxtext="Choose the directory of the General Interface Performance Profiler installation in which to launch projects."/>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2" jsxrelativeposition="1" jsxheight="25"/>
+      <strings jsxwidth="100%" jsxmargin="12 0 0 0"/>
+      <object type="jsx3.gui.LayoutGrid">
+        <variants jsxrelativeposition="1" jsxoverflow="2"/>
+        <strings jsxcols="60,*,30"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxtext="GITAK:" jsxfontweight="bold" jsxtextalign="right"
+                   jsxwidth="100%" jsxheight="100%" jsxpadding="5 6 0 0"/>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="3"/>
+          <strings jsxwidth="100%" jsxpadding="2 0 0 0"/>
+          <object type="jsx3.gui.TextBox">
+            <variants jsxheight="18" jsxenabled="1" jsxrelativeposition="1"/>
+            <strings jsxname="pathGitak" jsxwidth="100%"/>
+            <events jsxincchange="prefspane.makeDirty(this);"/>
+          </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="1"/>
+          <strings jsxtextalign="right" jsxwidth="100%" jsxheight="100%" jsxpadding="0 0 0 0"/>
+          <object type="jsx3.gui.ToolbarButton">
+            <variants/>
+            <strings jsxname="btnBrowse" jsximage="jsxapp:/images/icon_60.gif"/>
+            <events jsxexecute="prefspane.doBrowseGitak();"/>
+          </object>
+        </object>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2" jsxrelativeposition="1"/>
+      <strings jsxwidth="100%" jsxpadding="0 0 0 60"
+               jsxtext="Choose the directory of the General Interface Test Automation Kit installation in which to launch projects."/>
+    </object>
+  </object>
+</serialization>

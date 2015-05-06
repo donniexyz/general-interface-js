@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <name><![CDATA[Line]]></name>
+ <icon><![CDATA[icons/overlayLine.gif]]></icon>
+ <description><![CDATA[a sample line chart of type 'Overlay']]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.chart.LineChart">
+   <dynamics />
+   <variants jsxleft="0" jsxtop="0" jsxwidth="400" jsxheight="300" borderWidth="1" borderAlpha="1" alpha="1" jsxrelativeposition="1" loadState="1" />
+   <strings jsxname="lineChart" titlePlacement="top" legendPlacement="right" dataPadding="14 10 6 6" borderColor="#999999" type="overlay" jsxbgcolor="#FFFFFF" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record x1=&quot;70&quot; x2=&quot;10&quot;/&gt;&lt;record x1=&quot;30&quot; x2=&quot;20&quot;/&gt;&lt;record x1=&quot;20&quot; x2=&quot;40&quot;/&gt;&lt;record x1=&quot;40&quot; x2=&quot;30&quot;/&gt;&lt;record x1=&quot;10&quot; x2=&quot;10&quot;/&gt;&lt;record x1=&quot;50&quot; x2=&quot;10&quot;/&gt;&lt;/data&gt;" />
+    <object type="jsx3.chart.ChartLabel">
+     <dynamics />
+     <variants labelRotation="0" jsxfontsize="14" />
+     <strings jsxname="title" jsxtext="Line Chart" jsxcolor="#FFFFFF" jsxbgcolor="#666666" jsxpadding="4 0 0 0" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+    </object>
+    <object type="jsx3.chart.CategoryAxis">
+     <dynamics />
+     <variants horizontal="1" primary="1" showAxis="1" showLabels="1" labelGap="3" tickLength="3" minorTickDivisions="4" minorTickLength="2" numCategories="6" numSeries="2" />
+     <strings jsxname="xAxis" axisStroke="#000000 1 1" labelPlacement="axis" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="outside" labelStyle="font-size: 8px; font-family: Verdana;" tickAlignment="between" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants preferredHeight="14" labelRotation="0" jsxfontsize="12" />
+       <strings jsxname="xTitle" jsxtext="Hour" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+      </object>
+    </object>
+    <object type="jsx3.chart.LinearAxis">
+     <dynamics />
+     <variants horizontal="0" primary="1" showAxis="1" showLabels="1" labelGap="3" tickLength="3" minorTickDivisions="4" minorTickLength="3" displayWidth="15" autoAdjust="1" baseAtZero="1" />
+     <strings jsxname="yAxis" axisStroke="#000000 1 1" labelPlacement="axis" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="none" minorTickStroke="#000000 1 1" labelStyle="font-size: 8px; font-family: Verdana; text-align: right;" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants labelRotation="270" jsxfontsize="12" />
+       <strings jsxname="ytitle" jsxtext="Events" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+      </object>
+    </object>
+    <object type="jsx3.chart.GridLines">
+     <dynamics />
+     <variants useXPrimary="1" useYPrimary="1" horizontalAbove="1" inForeground="0" strokeMajorH="['#DDDDDD 1 1']" strokeMinorH="['#EEEEEE 1 1']" />
+     <strings jsxname="grid" borderStroke="#CCCCCC 1" />
+    </object>
+    <object type="jsx3.chart.LineSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="0" interpolateValues="1" />
+     <strings jsxname="series1" seriesName="Errors" stroke="#999999" yField="x1" form="segment" pointRenderer="jsx3.chart.PointRenderer.CIRCLE" pointFill="#FF0000" pointStroke="#990000" tooltipFunction="jsx3.chart.LineSeries.tooltip" />
+    </object>
+    <object type="jsx3.chart.LineSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="1" interpolateValues="1" />
+     <strings jsxname="series2" seriesName="Warnings" stroke="#999999" yField="x2" form="segment" pointRenderer="jsx3.chart.PointRenderer.DIAMOND" pointFill="#FFFF00" pointStroke="#999900" tooltipFunction="jsx3.chart.LineSeries.tooltip" />
+    </object>
+    <object type="jsx3.chart.Legend">
+     <dynamics />
+     <variants boxHeight="13" lineHeight="22" titleSpace="8" boxSpace="6" />
+     <strings jsxname="legend" labelStyle="font-size: 10px; font-weight: bold;" backgroundStroke="#BBBBBB" jsxmargin="10 10 10 4" jsxpadding="4 4 0 4" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants labelRotation="0" jsxfontsize="12" />
+       <strings jsxname="legendTitle" jsxtext="Legend" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+      </object>
+    </object>
+  </object>
+</serialization>

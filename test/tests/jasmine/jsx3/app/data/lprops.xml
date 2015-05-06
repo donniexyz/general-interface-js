@@ -1,0 +1,10 @@
+<data jsxnamespace="propsbundle" locales="en,en_US,de">
+
+  <locale>
+    <record jsxid="key1" jsxtext="key1_default"/>
+    <record jsxid="key2" jsxtext="key2_default"/>
+    <record jsxid="key3" jsxtext="key3_default"/>
+    <record jsxid="key4" jsxtext="key4_default"/>
+  </locale>
+
+</data>

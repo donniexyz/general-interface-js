@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://www.atomic-x.com/xmlservices/LatLon" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://www.atomic-x.com/xmlservices/LatLon" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.atomic-x.com/xmlservices/LatLon">
+      <s:import namespace="http://www.w3.org/2001/XMLSchema" />
+      <s:element name="SearchByState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="state" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchByStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchByStateResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchByCity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="city" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchByCityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchByCityResult">
+              <s:complexType>
+                <s:sequence>
+                  <s:element ref="s:schema" />
+                  <s:any />
+                </s:sequence>
+              </s:complexType>
+            </s:element>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SearchByStateSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchByState" />
+  </wsdl:message>
+  <wsdl:message name="SearchByStateSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchByStateResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchByCitySoapIn">
+    <wsdl:part name="parameters" element="tns:SearchByCity" />
+  </wsdl:message>
+  <wsdl:message name="SearchByCitySoapOut">
+    <wsdl:part name="parameters" element="tns:SearchByCityResponse" />
+  </wsdl:message>
+  <wsdl:portType name="LatLonSoap">
+    <wsdl:operation name="SearchByState">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Find latitude and longitude by state.</documentation>
+      <wsdl:input message="tns:SearchByStateSoapIn" />
+      <wsdl:output message="tns:SearchByStateSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchByCity">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Find latitude and longitude by city name.</documentation>
+      <wsdl:input message="tns:SearchByCitySoapIn" />
+      <wsdl:output message="tns:SearchByCitySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LatLonSoap" type="tns:LatLonSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <wsdl:operation name="SearchByState">
+      <soap:operation soapAction="http://www.atomic-x.com/xmlservices/LatLon/SearchByState" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchByCity">
+      <soap:operation soapAction="http://www.atomic-x.com/xmlservices/LatLon/SearchByCity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="LatLon">
+    <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Find latitude/longitude coordinates by city or state!</documentation>
+    <wsdl:port name="LatLonSoap" binding="tns:LatLonSoap">
+      <soap:address location="http://www.atomic-x.com/xmlservices/latlon.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,81 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.2">
+  <name/>
+  <icon/>
+  <description/>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize/>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"/>
+    <strings jsxname="blkCanvas1RootPane" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrepeat="3" jsxsizearray="['150','*','50']" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2" jsxbestguess="1" jsxorientation="0"/>
+      <strings jsxname="lytCanvas1Layout" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="blkTopPane" jsxwidth="100%" jsxheight="100%" jsxtext="Top area, often used for branding.  &lt;p&gt;Notice the Padding property of this pane (jsx3.gui.Block) is set to 8px so that the text is set off from the border a little bit.&lt;/p&gt;&lt;p&gt;Set properties in the layout parent for # children (Cell Count) and their sizes (Size Array).&lt;/p&gt;" jsxbgcolor="lightgreen"/>
+        <dynamics jsxborder="@Outset" jsxpadding="@8Pixel"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="blkMiddlePane" jsxwidth="100%" jsxheight="100%"/>
+        <dynamics jsxborder="@Outset"/>
+        <object type="jsx3.gui.LayoutGrid">
+          <variants jsxrepeat="2" jsxsizearray="['100','*']" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2" jsxbestguess="1" jsxorientation="1"/>
+          <strings jsxname="lytCanvas1MiddlePaneLayout" jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.Block">
+            <variants jsxoverflow="2"/>
+            <strings jsxname="blkCanvas1LeftPane" jsxwidth="100%" jsxheight="100%" jsxtext="Left side is fixed width, could be used for navigation buttons, a set of form elements for data entry, or whatever else you might have." jsxbgcolor="pink"/>
+            <dynamics jsxborder="@Outset"/>
+          </object>
+          <object type="jsx3.gui.Block">
+            <variants jsxoverflow="1"/>
+            <strings jsxname="blkCanvas1RightPane" jsxwidth="100%" jsxheight="100%" jsxtext="Main content area, width is 100% so it scales with the browser. (or even with the amount of application workspace in the middle of GI Builder."/>
+            <dynamics jsxborder="@Outset"/>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="blkBottomPane" jsxwidth="100%" jsxheight="100%" jsxbgcolor="lightblue" jsxtext="Bottom area for copyright notice, alerts, whatever else you might have"/>
+        <dynamics jsxborder="@Outset"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxleft="60" jsxtop="290" jsxwidth="180" jsxheight="150" jsxoverflow="1" jsxrelativeposition="0"/>
+      <strings jsxname="blkFloatingPane" jsxbgcolor="lightyellow" jsxtext="For the middle area of the app that contains the pink and white blocks, height is 100% so it takes up everything it can on screen.  The middle pane contains a Layout (|) with 2 child panes."/>
+      <dynamics jsxpadding="@8Pixel" jsxborder="@Outset"/>
+    </object>
+    <object type="jsx3.gui.Dialog">
+      <variants jsxwidth="350" jsxheight="170" jsxzindex="5000" jsxwindowstate="1" jsxleft="311" jsxtop="213" jsxoverflow="2" jsxresize="0"/>
+      <strings jsxname="dlgCanvas1Dialog"/>
+      <dynamics jsxbgcolor="@Solid Medium"/>
+      <object type="jsx3.gui.WindowBar">
+        <variants/>
+        <strings jsxname="winbarCanvas1DialogTitle" jsxtext="FYI"/>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants/>
+          <strings jsxname="tbbCanvas2MinimizeDialog"/>
+          <dynamics jsximage="@Min Icon" jsxtip="@Min Tip"/>
+          <!--<events jsxexecute="this.getParent().getParent().doToggleState();"/>-->
+        </object>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants/>
+          <strings jsxname="tbbCanvas2MaximizeDialog" jsximage="JSX/images/dialog/max.gif"/>
+          <dynamics jsxtip="@Max Tip"/>
+          <!--<events jsxexecute="this.getAncestorOfType(&quot;jsx3.Dialog&quot;).doMaximize(this);"/>-->
+        </object>
+        <object type="jsx3.gui.ToolbarButton">
+          <variants/>
+          <strings jsxname="tbbCanvas1CloseDialog"/>
+          <dynamics jsximage="@Close Icon" jsxtip="@Close Tip"/>
+          <!--<events jsxexecute="this.getParent().getParent().doClose();"/>-->
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="1"/>
+        <strings jsxname="blkCanvas1DialogContent" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1" jsxtext="If you save this component (or one that you like better) to your user component library, you'll have an application template from which you can start each new project.&lt;p&gt; Right-click the Tab and choose Save As.  Navigate to user/prototypes and save the component.  You can create folders if you like for organizing components.  Then refresh the component library palette and look for your custom component at the bottom of the library.&lt;/p&gt;"/>
+        <dynamics jsxpadding="@8Pixel"/>
+      </object>
+    </object>
+  </object>
+</serialization>

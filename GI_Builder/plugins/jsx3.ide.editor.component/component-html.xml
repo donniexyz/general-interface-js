@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+ 
+objJSX.onShowMe = function() {
+  var editor = jsx3.ide.getActiveEditor();
+  var body = editor.getServer().getBodyBlock();
+  content.setText(body ? this.makePretty(body.paint()) : "", true);
+};
+
+objJSX.makePretty = function(strCode) {
+  strCode = strCode.replace(/&/g,"&amp;");
+  var doc = new jsx3.xml.Document();
+  doc.loadXML(strCode);
+
+  if (! doc.hasError()) {
+    var blockX = contentx;
+    blockX.setSourceXML(doc);
+    return blockX.doTransform();
+  } else {
+    var e = doc.getError();
+    this.getPlugIn().getLog().warn("Error parsing XHTML. " + e.description);
+    return jsx3.util.strEscapeHTML(strCode);
+  }
+}
+
+ ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Tab">
+      <variants jsxindex="0" />
+      <strings jsxname="mode_html" jsxhelpid="ide.editor.component.html"/>
+      <events jsxshow="this.onShowMe();" />
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="0" />
+          <strings jsxname="bordertop" jsxwidth="100%" jsxheight="100%" jsxbgcolor="#ffffff" jsxborder="inset 1px;0px;0px;0px" />
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="1" jsxrelativeposition="0" jsxfontsize="11" />
+              <strings jsxname="content" jsxwidth="100%" jsxheight="100%" jsxpadding="4" />
+            </object>
+            <object type="jsx3.gui.BlockX">
+              <variants jsxoverflow="2" jsxrelativeposition="0" jsxfontsize="11" />
+              <strings jsxname="contentx" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxxslid="jsx:///xsl/xml.xsl" jsxxslurl="jsx:///xsl/xml.xsl" />
+            </object>
+        </object>
+    </object>
+</serialization>

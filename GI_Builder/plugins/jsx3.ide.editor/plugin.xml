@@ -1,0 +1,95 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.editor"
+        name="Editor Plug-In"
+        version="0.1"
+        class="jsx3.ide.ui.EditorManager"
+        property="EDITOR_MGR">
+
+  <script><![CDATA[
+    this.loaded().when(jsx3.$F(function() {
+      this.loadRsrcComponent("menus", this.getServer().getRootBlock());
+    }).bind(this));
+  ]]></script>
+
+  <requires>
+    <plugin id="jsx3.gui.Tab"/>
+    <plugin id="jsx3.gui.Dialog"/>
+    <plugin id="jsx3.gui.Menu"/>
+  </requires>
+
+  <resources>
+    <script id="EditorManager" path="EditorManager.js" load="early"/>
+    <script id="js" path="Editor.js" load="early"/>
+    <xml id="container_tab" path="container_tab.xml"/>
+
+    <xml id="menus">
+      <data>
+        <object type="jsx3.gui.Menu" xmlns="urn:tibco.com/v3.0">
+          <variants jsxxmlasync="1"/>
+          <strings jsxname="jsxmenu_component" jsxxmlurl="menu-tab.xml" jsxdisplay="none" />
+          <events jsxmenu="this.getPlugIn().onComponentTabMenu(this, jsx3.ide.getEditorForTab(this.getContextParent()));"/>
+        </object>
+      </data>
+    </xml>
+
+    <xml id="tabbedpane">
+      <data>
+        <object type="jsx3.gui.TabbedPane" xmlns="urn:tibco.com/v3.0">
+          <dynamics jsxbgcolor="@Solid Shadow" />
+          <variants jsxtabheight="18" jsxrelativeposition="0"/>
+          <strings jsxname="jsx_tpan_component"/>
+          <events jsxchange="this.setBackgroundColor(this.getServer().getDynamicProperty(this.getChildren().length > 0 ? '@Solid Disabled' : '@Solid Shadow'),true);
+                             this.getPlugIn()._onTabChanged(this);" />
+        </object>
+      </data>
+    </xml>
+  </resources>
+  
+  <event id="activeChanged">
+    <param id="editor"/>
+    <param id="previous"/>
+  </event>
+
+  <event id="selectionChanged">
+    <param id="editor"/>
+    <param id="active" type="boolean"/>
+  </event>
+
+  <event id="opened">
+    <param id="editor"/>
+  </event>
+
+  <event id="closed">
+    <param id="editor"/>
+  </event>
+
+  <event id="reverted">
+    <param id="editor"/>
+  </event>
+
+  <event id="saved">
+    <param id="editor"/>
+  </event>
+
+  <event id="renamed">
+    <param id="editor"/>
+  </event>
+
+  <event id="modeChanged">
+    <param id="editor"/>
+  </event>
+
+  <extension-point id="container">
+  </extension-point>
+
+  <extension-point id="type">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.EditorType"/>
+  </extension-point>
+  
+</plugin>

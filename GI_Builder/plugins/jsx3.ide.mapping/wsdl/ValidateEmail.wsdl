@@ -1,0 +1,86 @@
+<?xml version="1.0"?>
+<wsdl:definitions targetNamespace="http://www.wsdirect.net/axis/services/mailvalidatordoc" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://www.wsdirect.net/axis/services/mailvalidatordoc" xmlns:intf="http://www.wsdirect.net/axis/services/mailvalidatordoc" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!--WSDL created by Apache Axis version: 1.2RC2
+Built on Nov 16, 2004 (12:19:44 EST)-->
+  <wsdl:types>
+    <schema elementFormDefault="qualified" targetNamespace="http://www.wsdirect.net/axis/services/mailvalidatordoc" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="ValidateEMail">
+        <complexType>
+          <sequence>
+            <element name="key" type="xsd:string"/>
+            <element name="email" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="ValidateEMailResponse">
+        <complexType>
+          <sequence>
+            <element name="ValidateEMailReturn" type="xsd:int"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetDescription">
+        <complexType>
+          <sequence>
+            <element name="code" type="xsd:int"/>
+          </sequence>
+        </complexType>
+      </element>
+      <element name="GetDescriptionResponse">
+        <complexType>
+          <sequence>
+            <element name="GetDescriptionReturn" type="xsd:string"/>
+          </sequence>
+        </complexType>
+      </element>
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="GetDescriptionResponse">
+    <wsdl:part element="impl:GetDescriptionResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetDescriptionRequest">
+    <wsdl:part element="impl:GetDescription" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ValidateEMailResponse">
+    <wsdl:part element="impl:ValidateEMailResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="ValidateEMailRequest">
+    <wsdl:part element="impl:ValidateEMail" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="MailValidatorService">
+    <wsdl:operation name="ValidateEMail">
+      <wsdl:input message="impl:ValidateEMailRequest" name="ValidateEMailRequest"/>
+      <wsdl:output message="impl:ValidateEMailResponse" name="ValidateEMailResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetDescription">
+      <wsdl:input message="impl:GetDescriptionRequest" name="GetDescriptionRequest"/>
+      <wsdl:output message="impl:GetDescriptionResponse" name="GetDescriptionResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="mailvalidatordocSoapBinding" type="impl:MailValidatorService">
+    <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="ValidateEMail">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="ValidateEMailRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ValidateEMailResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDescription">
+      <wsdlsoap:operation soapAction=""/>
+      <wsdl:input name="GetDescriptionRequest">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="GetDescriptionResponse">
+        <wsdlsoap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MailValidatorServiceService">
+    <wsdl:port binding="impl:mailvalidatordocSoapBinding" name="mailvalidatordoc">
+      <wsdlsoap:address location="http://www.wsdirect.net/axis/services/mailvalidatordoc"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

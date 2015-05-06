@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Image]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[This column renders the value of the CDF jsximg attribute as an HTML IMG element]]></description>
+  <object type="jsx3.gui.Column">
+    <variants/>
+    <strings jsxname="column (image)" jsxwidth="50" jsxtext="Image" jsxpath="@jsximg" jsxxsl="&lt;nobr&gt;&lt;xsl:choose&gt;&lt;xsl:when test=&quot;@jsximg&quot;&gt;&lt;img style=&quot;width:16px;height:16px;&quot;&gt;&lt;xsl:attribute name=&quot;src&quot;&gt;&lt;xsl:value-of select=&quot;@jsximg&quot; /&gt;&lt;/xsl:attribute&gt;&lt;/img&gt;&lt;/xsl:when&gt;&lt;/xsl:choose&gt;&amp;#160;&lt;/nobr&gt;"/>
+  </object>
+</serialization>

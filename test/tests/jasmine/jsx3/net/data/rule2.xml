@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<data jsxid="jsxroot" jsxnamespace="jsx3.ide.mapper.Mapper" jsxversion="1.0">
+  <record jsxid="x10840" jsxtext="Operation (Transaction)" type="T" jsxopen="1" opname="jsxtransaction">
+    <headers jsxid="x43641">
+      <record jsxid="x44202" name="Content-Type" value="text/xml"/>
+    </headers>
+    <record jsxid="x32759" jsxtext="Input (request)" type="I" jsxopen="1"
+            src="jsx:///../GI_Builder/addins/mapping/samples/XML.xml" jsxselected="1">
+      <record jsxtext="dogs" tns="" jsxid="x67225" type="C" jsxopen="1">
+        <record jsxtext="dog" tns="" jsxid="x31041" type="C" jsxopen="1">
+          <record jsxtext="name" tns="" jsxid="x16589" type="E">
+            <mappings jsxid="x4046">
+              <record jsxid="x20920" name="CDF Attribute" value="jsxtext"/>
+            </mappings>
+          </record>
+          <mappings jsxid="x10195">
+            <record jsxid="x78860" name="CDF Record"/>
+          </mappings>
+          <record jsxid="x5604" jsxtext="dog" type="E" xpointer="">
+            <mappings jsxid="x7770">
+              <record jsxid="x82700" name="CDF Record" value="x31041"/>
+            </mappings>
+          </record>
+        </record>
+        <mappings jsxid="x4236">
+          <record jsxid="x7816" name="CDF Document" value="abc_xml"/>
+        </mappings>
+      </record>
+    </record>
+    <record jsxid="x96752" jsxtext="Output (response)" type="O" jsxopen="1"
+            src="jsx:///../GI_Builder/addins/mapping/samples/CDF.xsd">
+      <record jsxid="x25554" jsxtext="data" jsxopen="1" type="C" datatype="" tns=""
+              jsxSelectMask="CDF Document">
+        <mappings jsxid="x68031">
+          <record jsxid="x35771" name="CDF Document" value="def_xml"/>
+        </mappings>
+        <record jsxid="x82702" jsxtext="jsxid" jsxopen="1" type="A"
+                datatype="string" simple="1"
+                jsxSelectMask="CDF Document">
+          <restrictions jsxid="x57398">
+            <record jsxid="x46045" name="enumeration" value="jsxroot"/>
+          </restrictions>
+          <mappings jsxid="x49297"/>
+        </record>
+        <record jsxid="x410" jsxtext="record" jsxopen="1" type="C"
+                datatype="cdfrecord"
+                ttns="">
+          <restrictions jsxid="x85221">
+            <record jsxid="x86529" name="maxoccur" value="unbounded"/>
+          </restrictions>
+          <mappings jsxid="x31197">
+            <record jsxid="x54394" name="CDF Record" value=""/>
+          </mappings>
+          <record jsxid="x25473" jsxtext="jsxid" jsxopen="1" type="A"
+                  datatype="string" simple="1"
+                  jsxSelectMask="CDF Document">
+            <mappings jsxid="x45460">
+              <record jsxid="x98540" name="CDF Attribute" value="jsxid"/>
+            </mappings>
+          </record>
+          <record jsxid="x60103" jsxtext="jsxtext" jsxopen="1" type="A"
+                  datatype="string" simple="1"
+                  jsxSelectMask="CDF Record">
+            <mappings jsxid="x9393">
+              <record jsxid="x69546" name="CDF Attribute" value="jsxtext"/>
+            </mappings>
+          </record>
+          <record jsxid="x27095" jsxtext="record" jsxopen="1" type="E"
+                  datatype="" ttns=""
+                  jsxSelectMask="CDF Record">
+            <restrictions jsxid="x41911"/>
+            <mappings jsxid="x44207">
+              <record jsxid="x2103" name="CDF Record" value="x410"/>
+            </mappings>
+          </record>
+        </record>
+      </record>
+    </record>
+  </record>
+</data>

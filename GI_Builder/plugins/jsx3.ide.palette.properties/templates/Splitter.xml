@@ -1,0 +1,63 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="position" group="1" jsxtext="Positioning">
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxrelativeposition']"/>
+  </record>
+
+
+  <record jsxid="jsx3splitter" group="1" jsxtext="Splitter">
+    <record jsxid="jsxorientation" jsxtext="Orientation"
+        eval="1"
+        jsxtip="Sets whether this splitter is rendered top-over (--) or side-by-side (|)."
+        docgetter="getOrientation" docsetter="setOrientation"
+        docdefault="Top-over (&lt;code&gt;jsx3.gui.Splitter.ORIENTATIONV&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Splitter.ORIENTATIONV" jsxtext="Top-over (--)"/>
+      <enum jsxid="jsx3.gui.Splitter.ORIENTATIONH" jsxtext="Side-by-side (|)"/>
+    </record>
+    <record jsxid="jsxsubcontainer1pct" jsxtext="Container Dimensions"
+        eval="0"
+        jsxtip="Sets the percentage of total splitter width that the first container represents. For example, &lt;code&gt;23.567%&lt;/code&gt;. If pixels are the preferred unit, you may use an integer and a wild card (*) to apply the value.  For example, &lt;code&gt;100,*&lt;/code&gt; or  &lt;code&gt;*,250&lt;/code&gt;."
+        docgetter="getSubcontainer1Pct" docsetter="setSubcontainer1Pct"
+        docdefault="&lt;code&gt;50&lt;/code&gt;"
+        jsxexecute="objJSX.setSubcontainer1Pct(vntValue,true);"
+        disallow="[^0-9^\.^%^,^\*]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxsubcontainer1min" jsxtext="Container 1 Min"
+        eval="1"
+        jsxtip="Sets the minimum size for the first container in pixels (applied after a drag)."
+        docgetter="getSubcontainer1Min" docsetter="setSubcontainer1Min"
+        docdefault="&lt;code&gt;1&lt;/code&gt;"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxsubcontainer2min" jsxtext="Container 2 Min"
+        eval="1"
+        jsxtip="Sets the minimum size for the second container in pixels (applied after a drag)."
+        docgetter="getSubcontainer2Min" docsetter="setSubcontainer2Min"
+        docdefault="&lt;code&gt;8&lt;/code&gt;"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxenabled" jsxtext="Enabled"
+        jsxtip="Sets whether or not the user is able to resize the control."
+        docgetter="getEnabled" docsetter="setEnabled"
+        docdefault="Enabled (&lt;code&gt;jsx3.gui.Form.STATEENABLED&lt;/code&gt;)"
+        jsxexecute="objJSX.setEnabled(vntValue);" eval="1"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Form.STATEENABLED" jsxtext="Enabled"/>
+      <enum jsxid="jsx3.gui.Form.STATEDISABLED" jsxtext="Disabled"/>
+    </record>
+  </record>
+
+  <record jsxid="box" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbgcolor']"/>
+  </record>
+
+  <record include="master.xml" group="css_noclass"/>
+  <record include="master.xml" group="metadata"/>
+</data>

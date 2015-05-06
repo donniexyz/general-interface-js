@@ -1,0 +1,1262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://www.xignite.com/services/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://www.xignite.com/services/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.xignite.com/services/">
+      <s:element name="ListExchanges">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListExchangesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListExchangesResult" type="tns:ArrayOfExchange" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfExchange">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Exchange" nillable="true" type="tns:Exchange" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="Exchange">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Supported" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="Common">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Outcome" type="tns:OutcomeTypes" />
+          <s:element minOccurs="0" maxOccurs="1" name="Message" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Identity" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Delay" type="s:double" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="OutcomeTypes">
+        <s:restriction base="s:string">
+          <s:enumeration value="Success" />
+          <s:enumeration value="SystemError" />
+          <s:enumeration value="RequestError" />
+          <s:enumeration value="RegistrationError" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="Header" type="tns:Header" />
+      <s:complexType name="Header">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Tracer" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetFuture">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFutureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFutureResult" type="tns:Future" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Future">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="ListFutures">
+        <s:complexType />
+      </s:element>
+      <s:element name="ListFuturesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListFuturesResult" type="tns:ArrayOfFuture" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFuture">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="Future" nillable="true" type="tns:Future" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ListFuturesByExchange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Exchange" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ListFuturesByExchangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ListFuturesByExchangeResult" type="tns:ArrayOfFuture" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDelayedFuture">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDelayedFutureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDelayedFutureResult" type="tns:FutureQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FutureQuote">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Future" type="tns:Future" />
+              <s:element minOccurs="0" maxOccurs="1" name="Date" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Time" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Open" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="High" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Low" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Last" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Volume" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="OpenInterest" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PreviousClose" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="Change" type="s:double" />
+              <s:element minOccurs="1" maxOccurs="1" name="PercentChange" type="s:double" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetAllDelayedFutures">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllDelayedFuturesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllDelayedFuturesResult" type="tns:ArrayOfFutureQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFutureQuote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FutureQuote" nillable="true" type="tns:FutureQuote" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetDelayedFutures">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbols" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDelayedFuturesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDelayedFuturesResult" type="tns:ArrayOfFutureQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDelayedSpot">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDelayedSpotResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDelayedSpotResult" type="tns:FutureQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDelayedSpots">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbols" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDelayedSpotsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDelayedSpotsResult" type="tns:ArrayOfFutureQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalFuture">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalFutureResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoricalFutureResult" type="tns:FutureQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalFutures">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbols" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalFuturesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoricalFuturesResult" type="tns:ArrayOfFutureQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllHistoricalFutures">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AsOfDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAllHistoricalFuturesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAllHistoricalFuturesResult" type="tns:ArrayOfFutureQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalFutureRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="Month" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="Year" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalFutureRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoricalFutureRangeResult" type="tns:FutureQuotes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="FutureQuotes">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:Common">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Future" type="tns:Future" />
+              <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Quotes" type="tns:ArrayOfFutureQuote" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetHistoricalSpotRange">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Symbol" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StartDate" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="EndDate" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHistoricalSpotRangeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHistoricalSpotRangeResult" type="tns:FutureQuotes" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ArrayOfExchange" nillable="true" type="tns:ArrayOfExchange" />
+      <s:element name="Future" nillable="true" type="tns:Future" />
+      <s:element name="ArrayOfFuture" nillable="true" type="tns:ArrayOfFuture" />
+      <s:element name="FutureQuote" nillable="true" type="tns:FutureQuote" />
+      <s:element name="ArrayOfFutureQuote" nillable="true" type="tns:ArrayOfFutureQuote" />
+      <s:element name="FutureQuotes" nillable="true" type="tns:FutureQuotes" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="ListExchangesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListExchanges" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListExchangesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetFutureSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFuture" />
+  </wsdl:message>
+  <wsdl:message name="GetFutureSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFutureResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFutureHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesSoapIn">
+    <wsdl:part name="parameters" element="tns:ListFutures" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesSoapOut">
+    <wsdl:part name="parameters" element="tns:ListFuturesResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesByExchangeSoapIn">
+    <wsdl:part name="parameters" element="tns:ListFuturesByExchange" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesByExchangeSoapOut">
+    <wsdl:part name="parameters" element="tns:ListFuturesByExchangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesByExchangeHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFutureSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDelayedFuture" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFutureSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDelayedFutureResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFutureHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDelayedFuturesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllDelayedFutures" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDelayedFuturesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllDelayedFuturesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDelayedFuturesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFuturesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDelayedFutures" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFuturesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDelayedFuturesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFuturesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDelayedSpot" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDelayedSpotResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDelayedSpots" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDelayedSpotsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotsHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistoricalFuture" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoricalFutureResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFuturesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistoricalFutures" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFuturesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoricalFuturesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFuturesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetAllHistoricalFuturesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAllHistoricalFutures" />
+  </wsdl:message>
+  <wsdl:message name="GetAllHistoricalFuturesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAllHistoricalFuturesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAllHistoricalFuturesHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistoricalFutureRange" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoricalFutureRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureRangeHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalSpotRangeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHistoricalSpotRange" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalSpotRangeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHistoricalSpotRangeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalSpotRangeHeader">
+    <wsdl:part name="Header" element="tns:Header" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesHttpGetIn" />
+  <wsdl:message name="ListExchangesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfExchange" />
+  </wsdl:message>
+  <wsdl:message name="GetFutureHttpGetIn">
+    <wsdl:part name="Symbol" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFutureHttpGetOut">
+    <wsdl:part name="Body" element="tns:Future" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesHttpGetIn" />
+  <wsdl:message name="ListFuturesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFuture" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesByExchangeHttpGetIn">
+    <wsdl:part name="Exchange" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesByExchangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFuture" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFutureHttpGetIn">
+    <wsdl:part name="Symbol" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFutureHttpGetOut">
+    <wsdl:part name="Body" element="tns:FutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDelayedFuturesHttpGetIn">
+    <wsdl:part name="Symbol" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDelayedFuturesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFuturesHttpGetIn">
+    <wsdl:part name="Symbols" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFuturesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotHttpGetIn">
+    <wsdl:part name="Symbol" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotHttpGetOut">
+    <wsdl:part name="Body" element="tns:FutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotsHttpGetIn">
+    <wsdl:part name="Symbols" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotsHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureHttpGetIn">
+    <wsdl:part name="Symbol" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+    <wsdl:part name="AsOfDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureHttpGetOut">
+    <wsdl:part name="Body" element="tns:FutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFuturesHttpGetIn">
+    <wsdl:part name="Symbols" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+    <wsdl:part name="AsOfDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFuturesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetAllHistoricalFuturesHttpGetIn">
+    <wsdl:part name="Symbol" type="s:string" />
+    <wsdl:part name="AsOfDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllHistoricalFuturesHttpGetOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureRangeHttpGetIn">
+    <wsdl:part name="Symbol" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureRangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:FutureQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalSpotRangeHttpGetIn">
+    <wsdl:part name="Symbol" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalSpotRangeHttpGetOut">
+    <wsdl:part name="Body" element="tns:FutureQuotes" />
+  </wsdl:message>
+  <wsdl:message name="ListExchangesHttpPostIn" />
+  <wsdl:message name="ListExchangesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfExchange" />
+  </wsdl:message>
+  <wsdl:message name="GetFutureHttpPostIn">
+    <wsdl:part name="Symbol" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetFutureHttpPostOut">
+    <wsdl:part name="Body" element="tns:Future" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesHttpPostIn" />
+  <wsdl:message name="ListFuturesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFuture" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesByExchangeHttpPostIn">
+    <wsdl:part name="Exchange" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ListFuturesByExchangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFuture" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFutureHttpPostIn">
+    <wsdl:part name="Symbol" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFutureHttpPostOut">
+    <wsdl:part name="Body" element="tns:FutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDelayedFuturesHttpPostIn">
+    <wsdl:part name="Symbol" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllDelayedFuturesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFuturesHttpPostIn">
+    <wsdl:part name="Symbols" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedFuturesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotHttpPostIn">
+    <wsdl:part name="Symbol" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotHttpPostOut">
+    <wsdl:part name="Body" element="tns:FutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotsHttpPostIn">
+    <wsdl:part name="Symbols" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDelayedSpotsHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureHttpPostIn">
+    <wsdl:part name="Symbol" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+    <wsdl:part name="AsOfDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureHttpPostOut">
+    <wsdl:part name="Body" element="tns:FutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFuturesHttpPostIn">
+    <wsdl:part name="Symbols" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+    <wsdl:part name="AsOfDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFuturesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetAllHistoricalFuturesHttpPostIn">
+    <wsdl:part name="Symbol" type="s:string" />
+    <wsdl:part name="AsOfDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAllHistoricalFuturesHttpPostOut">
+    <wsdl:part name="Body" element="tns:ArrayOfFutureQuote" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureRangeHttpPostIn">
+    <wsdl:part name="Symbol" type="s:string" />
+    <wsdl:part name="Month" type="s:string" />
+    <wsdl:part name="Year" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalFutureRangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:FutureQuotes" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalSpotRangeHttpPostIn">
+    <wsdl:part name="Symbol" type="s:string" />
+    <wsdl:part name="StartDate" type="s:string" />
+    <wsdl:part name="EndDate" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetHistoricalSpotRangeHttpPostOut">
+    <wsdl:part name="Body" element="tns:FutureQuotes" />
+  </wsdl:message>
+  <wsdl:portType name="XigniteFuturesSoap">
+    <wsdl:operation name="ListExchanges">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List commmodities future exchanges.</documentation>
+      <wsdl:input message="tns:ListExchangesSoapIn" />
+      <wsdl:output message="tns:ListExchangesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFuture">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List futures information.</documentation>
+      <wsdl:input message="tns:GetFutureSoapIn" />
+      <wsdl:output message="tns:GetFutureSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List futures information.</documentation>
+      <wsdl:input message="tns:ListFuturesSoapIn" />
+      <wsdl:output message="tns:ListFuturesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListFuturesByExchange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List futures information by exchange.</documentation>
+      <wsdl:input message="tns:ListFuturesByExchangeSoapIn" />
+      <wsdl:output message="tns:ListFuturesByExchangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFuture">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a 30 minute delayed quote for a future contract.</documentation>
+      <wsdl:input message="tns:GetDelayedFutureSoapIn" />
+      <wsdl:output message="tns:GetDelayedFutureSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDelayedFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns all 30 minute future contract delayed quotes for a commodity.</documentation>
+      <wsdl:input message="tns:GetAllDelayedFuturesSoapIn" />
+      <wsdl:output message="tns:GetAllDelayedFuturesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns 30 minute delayed quotes for multiple future contract.</documentation>
+      <wsdl:input message="tns:GetDelayedFuturesSoapIn" />
+      <wsdl:output message="tns:GetDelayedFuturesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpot">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a 30 minute delayed spot quote for a commodity. </documentation>
+      <wsdl:input message="tns:GetDelayedSpotSoapIn" />
+      <wsdl:output message="tns:GetDelayedSpotSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpots">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns 30 minute delayed quotes for multiple commodities.</documentation>
+      <wsdl:input message="tns:GetDelayedSpotsSoapIn" />
+      <wsdl:output message="tns:GetDelayedSpotsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFuture">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a historical quote for a future contract.</documentation>
+      <wsdl:input message="tns:GetHistoricalFutureSoapIn" />
+      <wsdl:output message="tns:GetHistoricalFutureSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns historical quotes for a set of future contracts. </documentation>
+      <wsdl:input message="tns:GetHistoricalFuturesSoapIn" />
+      <wsdl:output message="tns:GetHistoricalFuturesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllHistoricalFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns historical quotes for all contracts for a commodity as of a specific date.</documentation>
+      <wsdl:input message="tns:GetAllHistoricalFuturesSoapIn" />
+      <wsdl:output message="tns:GetAllHistoricalFuturesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutureRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a range of future quotes.</documentation>
+      <wsdl:input message="tns:GetHistoricalFutureRangeSoapIn" />
+      <wsdl:output message="tns:GetHistoricalFutureRangeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalSpotRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a range of commodity spot prices.</documentation>
+      <wsdl:input message="tns:GetHistoricalSpotRangeSoapIn" />
+      <wsdl:output message="tns:GetHistoricalSpotRangeSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="XigniteFuturesHttpGet">
+    <wsdl:operation name="ListExchanges">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List commmodities future exchanges.</documentation>
+      <wsdl:input message="tns:ListExchangesHttpGetIn" />
+      <wsdl:output message="tns:ListExchangesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFuture">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List futures information.</documentation>
+      <wsdl:input message="tns:GetFutureHttpGetIn" />
+      <wsdl:output message="tns:GetFutureHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List futures information.</documentation>
+      <wsdl:input message="tns:ListFuturesHttpGetIn" />
+      <wsdl:output message="tns:ListFuturesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListFuturesByExchange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List futures information by exchange.</documentation>
+      <wsdl:input message="tns:ListFuturesByExchangeHttpGetIn" />
+      <wsdl:output message="tns:ListFuturesByExchangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFuture">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a 30 minute delayed quote for a future contract.</documentation>
+      <wsdl:input message="tns:GetDelayedFutureHttpGetIn" />
+      <wsdl:output message="tns:GetDelayedFutureHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDelayedFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns all 30 minute future contract delayed quotes for a commodity.</documentation>
+      <wsdl:input message="tns:GetAllDelayedFuturesHttpGetIn" />
+      <wsdl:output message="tns:GetAllDelayedFuturesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns 30 minute delayed quotes for multiple future contract.</documentation>
+      <wsdl:input message="tns:GetDelayedFuturesHttpGetIn" />
+      <wsdl:output message="tns:GetDelayedFuturesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpot">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a 30 minute delayed spot quote for a commodity. </documentation>
+      <wsdl:input message="tns:GetDelayedSpotHttpGetIn" />
+      <wsdl:output message="tns:GetDelayedSpotHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpots">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns 30 minute delayed quotes for multiple commodities.</documentation>
+      <wsdl:input message="tns:GetDelayedSpotsHttpGetIn" />
+      <wsdl:output message="tns:GetDelayedSpotsHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFuture">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a historical quote for a future contract.</documentation>
+      <wsdl:input message="tns:GetHistoricalFutureHttpGetIn" />
+      <wsdl:output message="tns:GetHistoricalFutureHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns historical quotes for a set of future contracts. </documentation>
+      <wsdl:input message="tns:GetHistoricalFuturesHttpGetIn" />
+      <wsdl:output message="tns:GetHistoricalFuturesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllHistoricalFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns historical quotes for all contracts for a commodity as of a specific date.</documentation>
+      <wsdl:input message="tns:GetAllHistoricalFuturesHttpGetIn" />
+      <wsdl:output message="tns:GetAllHistoricalFuturesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutureRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a range of future quotes.</documentation>
+      <wsdl:input message="tns:GetHistoricalFutureRangeHttpGetIn" />
+      <wsdl:output message="tns:GetHistoricalFutureRangeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalSpotRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a range of commodity spot prices.</documentation>
+      <wsdl:input message="tns:GetHistoricalSpotRangeHttpGetIn" />
+      <wsdl:output message="tns:GetHistoricalSpotRangeHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="XigniteFuturesHttpPost">
+    <wsdl:operation name="ListExchanges">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List commmodities future exchanges.</documentation>
+      <wsdl:input message="tns:ListExchangesHttpPostIn" />
+      <wsdl:output message="tns:ListExchangesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFuture">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List futures information.</documentation>
+      <wsdl:input message="tns:GetFutureHttpPostIn" />
+      <wsdl:output message="tns:GetFutureHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List futures information.</documentation>
+      <wsdl:input message="tns:ListFuturesHttpPostIn" />
+      <wsdl:output message="tns:ListFuturesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ListFuturesByExchange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">List futures information by exchange.</documentation>
+      <wsdl:input message="tns:ListFuturesByExchangeHttpPostIn" />
+      <wsdl:output message="tns:ListFuturesByExchangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFuture">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a 30 minute delayed quote for a future contract.</documentation>
+      <wsdl:input message="tns:GetDelayedFutureHttpPostIn" />
+      <wsdl:output message="tns:GetDelayedFutureHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDelayedFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns all 30 minute future contract delayed quotes for a commodity.</documentation>
+      <wsdl:input message="tns:GetAllDelayedFuturesHttpPostIn" />
+      <wsdl:output message="tns:GetAllDelayedFuturesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns 30 minute delayed quotes for multiple future contract.</documentation>
+      <wsdl:input message="tns:GetDelayedFuturesHttpPostIn" />
+      <wsdl:output message="tns:GetDelayedFuturesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpot">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a 30 minute delayed spot quote for a commodity. </documentation>
+      <wsdl:input message="tns:GetDelayedSpotHttpPostIn" />
+      <wsdl:output message="tns:GetDelayedSpotHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpots">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns 30 minute delayed quotes for multiple commodities.</documentation>
+      <wsdl:input message="tns:GetDelayedSpotsHttpPostIn" />
+      <wsdl:output message="tns:GetDelayedSpotsHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFuture">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a historical quote for a future contract.</documentation>
+      <wsdl:input message="tns:GetHistoricalFutureHttpPostIn" />
+      <wsdl:output message="tns:GetHistoricalFutureHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns historical quotes for a set of future contracts. </documentation>
+      <wsdl:input message="tns:GetHistoricalFuturesHttpPostIn" />
+      <wsdl:output message="tns:GetHistoricalFuturesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllHistoricalFutures">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns historical quotes for all contracts for a commodity as of a specific date.</documentation>
+      <wsdl:input message="tns:GetAllHistoricalFuturesHttpPostIn" />
+      <wsdl:output message="tns:GetAllHistoricalFuturesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutureRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a range of future quotes.</documentation>
+      <wsdl:input message="tns:GetHistoricalFutureRangeHttpPostIn" />
+      <wsdl:output message="tns:GetHistoricalFutureRangeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalSpotRange">
+      <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Returns a range of commodity spot prices.</documentation>
+      <wsdl:input message="tns:GetHistoricalSpotRangeHttpPostIn" />
+      <wsdl:output message="tns:GetHistoricalSpotRangeHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="XigniteFuturesSoap" type="tns:XigniteFuturesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <wsdl:operation name="ListExchanges">
+      <soap:operation soapAction="http://www.xignite.com/services/ListExchanges" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListExchangesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFuture">
+      <soap:operation soapAction="http://www.xignite.com/services/GetFuture" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetFutureHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListFutures">
+      <soap:operation soapAction="http://www.xignite.com/services/ListFutures" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListFuturesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListFuturesByExchange">
+      <soap:operation soapAction="http://www.xignite.com/services/ListFuturesByExchange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:ListFuturesByExchangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFuture">
+      <soap:operation soapAction="http://www.xignite.com/services/GetDelayedFuture" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetDelayedFutureHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDelayedFutures">
+      <soap:operation soapAction="http://www.xignite.com/services/GetAllDelayedFutures" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetAllDelayedFuturesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFutures">
+      <soap:operation soapAction="http://www.xignite.com/services/GetDelayedFutures" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetDelayedFuturesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpot">
+      <soap:operation soapAction="http://www.xignite.com/services/GetDelayedSpot" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetDelayedSpotHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpots">
+      <soap:operation soapAction="http://www.xignite.com/services/GetDelayedSpots" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetDelayedSpotsHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFuture">
+      <soap:operation soapAction="http://www.xignite.com/services/GetHistoricalFuture" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetHistoricalFutureHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutures">
+      <soap:operation soapAction="http://www.xignite.com/services/GetHistoricalFutures" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetHistoricalFuturesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllHistoricalFutures">
+      <soap:operation soapAction="http://www.xignite.com/services/GetAllHistoricalFutures" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetAllHistoricalFuturesHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutureRange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetHistoricalFutureRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetHistoricalFutureRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalSpotRange">
+      <soap:operation soapAction="http://www.xignite.com/services/GetHistoricalSpotRange" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetHistoricalSpotRangeHeader" part="Header" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="XigniteFuturesHttpGet" type="tns:XigniteFuturesHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="ListExchanges">
+      <http:operation location="/ListExchanges" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFuture">
+      <http:operation location="/GetFuture" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListFutures">
+      <http:operation location="/ListFutures" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListFuturesByExchange">
+      <http:operation location="/ListFuturesByExchange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFuture">
+      <http:operation location="/GetDelayedFuture" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDelayedFutures">
+      <http:operation location="/GetAllDelayedFutures" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFutures">
+      <http:operation location="/GetDelayedFutures" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpot">
+      <http:operation location="/GetDelayedSpot" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpots">
+      <http:operation location="/GetDelayedSpots" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFuture">
+      <http:operation location="/GetHistoricalFuture" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutures">
+      <http:operation location="/GetHistoricalFutures" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllHistoricalFutures">
+      <http:operation location="/GetAllHistoricalFutures" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutureRange">
+      <http:operation location="/GetHistoricalFutureRange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalSpotRange">
+      <http:operation location="/GetHistoricalSpotRange" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="XigniteFuturesHttpPost" type="tns:XigniteFuturesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="ListExchanges">
+      <http:operation location="/ListExchanges" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFuture">
+      <http:operation location="/GetFuture" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListFutures">
+      <http:operation location="/ListFutures" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ListFuturesByExchange">
+      <http:operation location="/ListFuturesByExchange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFuture">
+      <http:operation location="/GetDelayedFuture" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllDelayedFutures">
+      <http:operation location="/GetAllDelayedFutures" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedFutures">
+      <http:operation location="/GetDelayedFutures" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpot">
+      <http:operation location="/GetDelayedSpot" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDelayedSpots">
+      <http:operation location="/GetDelayedSpots" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFuture">
+      <http:operation location="/GetHistoricalFuture" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutures">
+      <http:operation location="/GetHistoricalFutures" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllHistoricalFutures">
+      <http:operation location="/GetAllHistoricalFutures" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalFutureRange">
+      <http:operation location="/GetHistoricalFutureRange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHistoricalSpotRange">
+      <http:operation location="/GetHistoricalSpotRange" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="XigniteFutures">
+    <documentation xmlns="http://schemas.xmlsoap.org/wsdl/">Provide real-time commodity quote information.</documentation>
+    <wsdl:port name="XigniteFuturesSoap" binding="tns:XigniteFuturesSoap">
+      <soap:address location="http://www.xignite.com/xFutures.asmx" />
+    </wsdl:port>
+    <wsdl:port name="XigniteFuturesHttpGet" binding="tns:XigniteFuturesHttpGet">
+      <http:address location="http://www.xignite.com/xFutures.asmx" />
+    </wsdl:port>
+    <wsdl:port name="XigniteFuturesHttpPost" binding="tns:XigniteFuturesHttpPost">
+      <http:address location="http://www.xignite.com/xFutures.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

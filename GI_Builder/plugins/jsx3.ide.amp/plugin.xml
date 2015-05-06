@@ -1,0 +1,18 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.amp"
+        name="AMP Support Plug-In"
+        version="0.1">
+
+  <extension point="jsx3.ide.project.app.project-template">
+    <template id="amp" label="AMP Project"
+              description="An empty AMP project."
+              path="sample-project"/>
+  </extension>
+
+</plugin>

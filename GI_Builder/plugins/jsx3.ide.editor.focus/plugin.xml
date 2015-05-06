@@ -1,0 +1,74 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.editor.focus"
+        name="Focus Rectangle Plug-In"
+        version="0.1">
+
+  <method id="isSettingOn">
+    var settings = jsx3.ide.getIDESettings();
+    return settings.get('prefs', 'dom', 'showFocus');
+  </method>
+
+  <method id="isSnapOn">
+    var settings = jsx3.ide.getIDESettings();
+    return settings.get('prefs', 'dom', 'snapTo');
+  </method>
+  
+  <method id="toggleFocusRectangle" lazy="true"/>
+
+  <method id="toggleSnapToGrid" lazy="true"/>
+
+  <method id="showFocusRectangle" params="bShow">
+    if (bShow || this.isSettingOn()) {
+      this.load().when(jsx3.$F(function() {
+        this.showFocusRectangle(bShow);
+      }).bind(this));
+    }
+  </method>
+
+  <requires>
+  </requires>
+
+  <resources>
+    <script id="js" path="focus.js" eval="true"/>
+  </resources>
+
+  <event id="moved">
+    <param id="targets" type="Array&lt;jsx3.gui.Block&gt;"/>
+  </event>
+
+  <subscribe event="jsx3.ide.editor.focus.moved">
+    jsx3.ide.getActiveEditor().setDirty(true);
+  </subscribe>
+
+  <bindable id="rectangleOn" value="this.isSettingOn()"/>
+  <bindable id="snapOn" value="this.isSnapOn()"/>
+
+  <bindable id="isComponentMode" value="var e = jsx3.ide.getActiveEditor(); e &amp;&amp; e.getMode() == 'component'"
+            subscribe="jsx3.ide.editor.activeChanged
+                       jsx3.ide.editor.modeChanged"/>
+
+  <subscribe event="jsx3.ide.palette.properties.propChanged"><![CDATA[
+    this.showFocusRectangle();
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.selectionChanged"><![CDATA[
+    if (evt.active)
+      this.showFocusRectangle();
+  ]]></subscribe>
+
+  <extension point="jsx3.ide.editor.component.dom-toolbar">
+    <button id="focus" img="jsxapp:/images/icon_36.gif" tip="Toggle the focus rectangle" section="additions"
+            execute="this.getPlugIn().toggleFocusRectangle();" enabled="{isComponentMode}" state="{rectangleOn ? 1 : 0}"/>
+    <button id="snap" img="jsxapp:/images/icon_90.gif" tip="Snap to grid when moving objects in the component editor" section="additions"
+            execute="this.getPlugIn().toggleSnapToGrid();" enabled="{isComponentMode}" state="{this.isSnapOn() || snapOn ? 1 : 0}"/> <!-- Redundant to get an initial value even before plug-in loads. -->
+  </extension>
+
+</plugin>
+    

@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+
+  <record jsxid="jsxexecute" jsxtext="Execute"
+      jsxtip="Fires after the user clicks this button or when this button has focus and the user presses the spacebar or Enter key. Also fired after the user presses the bound hot key (Key Binding property), if any. This event is also fired by the &lt;code&gt;doExecute()&lt;/code&gt; method of the &lt;code&gt;ToolbarButton&lt;/code&gt; class. Canceling this event prevents the Change event from firing."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxchange" jsxtext="Change"
+      jsxtip="Fires after the state of this button has changed through user interaction.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxdestroy" jsxtext="Destroy" always="1"
+      jsxtip="Fires after this toolbar button is removed from the DOM.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objPARENT" type="jsx3.app.Model"
+        jsxtext="the parent of this toolbar button before it is removed from the DOM."/>
+  </record>
+
+</data>

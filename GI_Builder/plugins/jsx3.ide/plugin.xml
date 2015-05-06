@@ -1,0 +1,111 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+    id="jsx3.ide"
+    name="IDE Plug-In"
+    version="0.1">
+
+  <method id="getFileTypes">
+    if (!this._types)
+      this._types = this.getExtPoint("file-type").processExts();
+    return this._types;
+  </method>
+
+  <method id="getFileType" params="id">
+    return this.getFileTypes().find(function(e) { return e.getId() == id; }) || this.getDefaultFileType();
+  </method>
+
+  <method id="getTypeForFile" params="objFile">
+    var t = this.getFileTypes();
+
+    var xml = new jsx3.xml.Document().load(objFile.toURI());
+    if (xml.hasError()) xml = null;
+
+    var matching = t.filter(function(e) { return e.isTypeOf(objFile, xml); });
+    matching.sort(function(a, b) {
+      var va = a.getPrecedence(), vb = b.getPrecedence();
+      return va > vb ? 1 : (va == vb ? 0 : -1);
+    });
+
+    return matching[matching.length - 1];
+  </method>
+
+  <method id="getDefaultFileType">
+    if (!this._defaulttype) {
+      this._defaulttype = new jsx3.ide.FileType(this.getExt("type.component"),
+          new jsx3.amp.XML({"@id":"_default", "@reloadable":"false",
+              "@label":"Unknown", "@img":"jsxapp:/images/resourcefiles/other.gif"}));
+    }
+    return this._defaulttype;
+  </method>
+
+  <requires>
+    <plugin id="jsx3.app.UserSettings"/>
+    <plugin id="jsx3.gui.Dialog"/>
+  </requires>
+  
+  <resources>
+    <script id="filetype" path="../../js/jsx3/ide/FileType.js" load="early"/>
+    <script id="prefs" path="../../js/jsx3/ide/Preferences.js"/>
+    <script id="ide" path="../../js/ide.js"/>
+    <script id="addins" path="../../js/ide_addins.js"/>
+    <script id="dom" path="../../js/ide_dom.js">
+      <prereq id="ide"/>
+    </script>
+    <script id="editor" path="../../js/ide_editor.js"/>
+    <script id="home" path="../../js/ide_home.js"/>
+    <script id="palettes" path="../../js/ide_palettes.js"/>
+    <script id="projects" path="../../js/ide_projects.js"/>
+    <script id="resources" path="../../js/ide_resources.js"/>
+    <script id="tools" path="../../js/ide_tools.js"/>
+    <script id="version" path="../../js/ide_version.js"/>
+    <jss id="cssxml" path="../../jss/CSS.xml"/>
+    <jss id="eng" path="../../jss/language/eng.xml"/>
+    <jss id="eng_errors" path="../../jss/language/eng_errors.xml"/>
+    <css id="" path="../../css/ide.css"/> <!-- don't inline because of relative URIs -->
+  </resources>
+
+  <!-- Published when a project resource is reloaded into memory. -->
+  <event id="resourceReloaded">
+    <param id="resource" type="jsx3.ide.ProjectRsrc"/>
+  </event>
+
+  <subscribe event="jsx3.ide.editor.opened">
+    jsx3.ide.syncPreviouslyOpenFiles();
+  </subscribe>
+
+  <subscribe event="jsx3.ide.editor.closed">
+    jsx3.ide.syncPreviouslyOpenFiles();
+  </subscribe>
+
+  <subscribe event="jsx3.ide.editor.renamed">
+    jsx3.ide.syncPreviouslyOpenFiles();
+  </subscribe>
+
+  <extension-point id="file-type">
+    <processor type="instantiator" instance-class="jsx3.ide.FileType"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.file-type" id="type.component">
+    <type id="component" label="GUI Component" img="jsxapp:/images/resourcefiles/component.gif"
+          ext-class="jsx3.ide.FileType.Component" reloadable="false" precedence="10"/>
+    <type id="xml" label="XML File" img="jsxapp:/images/resourcefiles/xml.gif"
+          ext-class="jsx3.ide.FileType.XML" reloadable="true" precedence="5"/>
+    <type id="xsl" label="XSL File" img="jsxapp:/images/resourcefiles/xsl.gif"
+          ext-class="jsx3.ide.FileType.XSL" reloadable="true" precedence="5"/>
+    <type id="script" label="JavaScript File" img="jsxapp:/images/resourcefiles/script.gif"
+          ext-class="jsx3.ide.FileType.Script" reloadable="true" precedence="0"/>
+    <type id="css" label="CSS File" img="jsxapp:/images/resourcefiles/css.gif"
+          slow-reload="true" reloadable="true" precedence="0"/>
+    <type id="jss" label="Dynamic Properties File" img="jsxapp:/images/resourcefiles/jss.gif"
+          ext-class="jsx3.ide.FileType.JSS" reloadable="true" precedence="10"/>
+    <type id="ljss" label="Properties Bundle" img="jsxapp:/images/resourcefiles/ljss.gif"
+          ext-class="jsx3.ide.FileType.LJSS" reloadable="true" precedence="10"/>
+  </extension>
+
+</plugin>
+    

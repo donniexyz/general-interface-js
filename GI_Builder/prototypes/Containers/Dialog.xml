@@ -1,0 +1,36 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Dialog]]></name>
+  <icon><![CDATA[images/prototypes/dialog.gif]]></icon>
+  <description><![CDATA[Dialog box.  (Set Modal property for a modal dialog).]]></description>
+  <object type="jsx3.gui.Dialog">
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <variants jsxwidth="431" jsxheight="318" jsxwindowstate="1"/>
+    <strings jsxname="dialog"/>
+    <object type="jsx3.gui.WindowBar">
+      <strings jsxname="windowBar" jsxtext="[Caption]"/>
+      <object type="jsx3.gui.ToolbarButton">
+        <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+        <strings jsxname="btnMinimize"/>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doToggleState();"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+        <dynamics jsximage="@Max Icon" jsxtip="jsx3.gui.Dialog.max"/>
+        <strings jsxname="btnMaximize"/>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doMaximize(this);"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+        <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+        <strings jsxname="btnClose"/>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1" jsxloadtype="1"/>
+      <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,25 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<antlib>
+  <taskdef name="gi-uuid" classname="com.tibco.gi.ant.UUIDTask"/>
+
+  <taskdef name="gi-obfuscate" classname="com.tibco.gi.ant.ObfuscateTask"/>
+  <taskdef name="gi-compile" classname="com.tibco.gi.ant.ScriptCompileTask"/>
+  <taskdef name="gi-merge" classname="com.tibco.gi.ant.ScriptMergeTask"/>
+  <taskdef name="gi-mergeclean" classname="com.tibco.gi.ant.MergerCleanupTask"/>
+  <taskdef name="gi-doc" classname="com.tibco.gi.ant.DocCompileTask"/>
+  <taskdef name="gi-idedoc" classname="com.tibco.gi.ant.IdeDocCompilerTask"/>
+  <taskdef name="gi-htmldoc" classname="com.tibco.gi.ant.HtmlDocTask"/>
+  <taskdef name="gi-typeahead" classname="com.tibco.gi.ant.TypeAheadTask"/>
+  <taskdef name="gi-locale" classname="com.tibco.gi.ant.LocaleCompileTask"/>
+  <taskdef name="gi-xslt" classname="com.tibco.gi.ant.XsltCompileTask"/>
+  <taskdef name="gi-inject" classname="com.tibco.gi.ant.ResourceInjectorTask"/>
+  <taskdef name="gi-manifest" classname="com.tibco.gi.ant.DirectoryListerTask"/>
+  <taskdef name="gi-embed" classname="com.tibco.gi.ant.FileEmbedderTask"/>
+  <taskdef name="gi-jsencode" classname="com.tibco.gi.ant.JsEncodeTask"/>
+  <taskdef name="amp-pmerge" classname="com.tibco.gi.ant.AmpPluginMergeTask"/>
+  <taskdef name="amp-rmerge" classname="com.tibco.gi.ant.AmpResourceMergeTask"/>
+</antlib>

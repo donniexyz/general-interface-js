@@ -1,0 +1,10 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+    <record jsxid="top_rated" jsxtext="Top Rated" />
+    <record jsxid="most_popular" jsxtext="Most Popular" />
+    <record jsxid="most_recent" jsxtext="Most Recent" />
+</data>

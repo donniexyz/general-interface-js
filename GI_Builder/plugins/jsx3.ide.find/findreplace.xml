@@ -1,0 +1,215 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.updateButtonState = function(bActive) {
+  var buttons = this.findDescendants(function(x){
+      return x instanceof jsx3.gui.Button; }, true, true);
+  for (var i = 0; i < buttons.length; i++)
+    buttons[i].setEnabled(bActive ? jsx3.gui.Form.STATEENABLED : jsx3.gui.Form.STATEDISABLED, true);
+};
+
+objJSX._doSearch = function(f, r, cs, regex) {
+  var editor = jsx3.ide.getActiveEditor();
+  if (editor && editor.canSearch()) {
+    var rv = editor.doIncrSearch(f, r, cs, regex);
+
+// Not sure if I can do this or not ... the selection style does disappear although replace()
+// seems to still work on Fx.
+    if (!rv)
+      jsx3.sleep(this._refocus, this.getId(), this);
+
+    return rv;
+  } else {
+    this.beep();
+  }
+};
+
+objJSX._refocus = function() {
+  jsxfind.focus();
+};
+
+//when user clicks the next button
+objJSX.findNext = function() {
+  if (this._doSearch(jsxfind.getValue(), null, find_cs.getChecked(), find_regexp.getChecked()))
+    return true;
+  else
+    this.beep();
+};
+
+objJSX.replace = function() {
+  if (this._doSearch(jsxfind.getValue(), jsxreplace.getValue(), find_cs.getChecked(), find_regexp.getChecked())) {
+    this._setEditorDirty();
+    return true;
+  } else {
+    this.beep();
+  }
+};
+
+objJSX.replaceAndFind = function() {
+  if (this.replace())
+    return this.findNext();
+};
+
+//replace all (regular expression)
+objJSX.replaceAll = function() {
+  var oneOrMore = false;
+
+  while (this._doSearch(jsxfind.getValue(), jsxreplace.getValue(), find_cs.getChecked(), find_regexp.getChecked()))
+    oneOrMore = true;
+
+  if (oneOrMore)
+    this._setEditorDirty();
+  else
+    this.beep();
+};
+
+objJSX._setEditorDirty = function() {
+  var editor = jsx3.ide.getActiveEditor();
+  editor.setDirty(true);
+  if (editor.getActiveView && editor.getActiveView().setDirty)
+    editor.getActiveView().setDirty(true);
+};
+
+objJSX._doFindClose = function() {
+  this._persistState();
+  this.doClose();
+};
+
+objJSX._persistState = function() {
+    var prefs = jsx3.ide.getIDESettings();
+    prefs.set("find-replace", {left:this.getLeft(), top:this.getTop(),
+        cs:find_cs.getChecked(), regexp:find_regexp.getChecked()});
+};
+
+objJSX.initTool = function() {
+  var prefs = jsx3.ide.getIDESettings();
+  var settings = prefs.get("find-replace");
+  if (settings) {
+    if (settings.left) this.setLeft(settings.left);
+    if (settings.top) this.setTop(settings.top);
+    find_cs.setChecked(settings.cs);
+    find_regexp.setChecked(settings.regexp);
+    this.constrainPosition();
+  }
+
+  var editor = jsx3.ide.getActiveEditor();
+  if (!(editor && editor.canSearch())) {
+    this.updateButtonState(false);
+  }
+
+  jsxfind.focus();
+};
+
+objJSX.toolRefocus = function() {
+  this.findNext();
+};
+
+objJSX.registerHotKey('findNext', jsx3.gui.Event.KEY_ENTER, false, true, false);
+objJSX.registerHotKey('findNext', "f", false, true, false);
+objJSX.registerHotKey('replace', "r", false, true, false);
+objJSX.registerHotKey('replaceAll', "r", true, true, false);
+objJSX.registerHotKey('replaceAndFind', "t", false, true, false);
+
+]]></onAfterDeserialize>
+    <object type="jsx3.gui.Dialog">
+      <dynamics jsxbgcolor="@Solid Medium"/>
+      <variants jsxwidth="400" jsxheight="186" jsxresize="0"/>
+      <strings jsxname="jsxfindreplace" jsxhelpid="ide.find"/>
+        <object type="jsx3.gui.WindowBar">
+          <variants/>
+          <strings jsxname="jsxcbar" jsxtext="Find and Replace"/>
+            <object type="jsx3.gui.ToolbarButton">
+              <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+              <variants/>
+              <strings jsxname="jsxminbutton" jsxkeycode="ctrl+m"/>
+              <events jsxexecute="jsxfindreplace.doToggleState();"/>
+            </object>
+            <object type="jsx3.gui.ToolbarButton">
+              <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+              <variants/>
+              <strings jsxname="jsxclosebutton" jsxkeycode="alt+w"/>
+              <events jsxexecute="jsxfindreplace._doFindClose();"/>
+            </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxpadding="@8Pixel"/>
+          <variants jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.LayoutGrid">
+              <variants />
+              <strings jsxrows="116,*"/>
+                <object type="jsx3.gui.LayoutGrid">
+                  <variants />
+                  <strings jsxcols="60,*"/>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="2"/>
+                      <strings/>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxheight="65" jsxoverflow="2"/>
+                          <strings jsxwidth="100%" jsxtext="Find" jsxpadding="2 0 0 4"/>
+                        </object>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxheight="20" jsxoverflow="2"/>
+                          <strings jsxwidth="100%" jsxtext="Replace" jsxpadding="2 0 0 4"/>
+                        </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="1"/>
+                        <object type="jsx3.gui.TextBox">
+                          <dynamics jsxborder="@Inset"/>
+                          <variants jsxheight="40" jsxrelativeposition="0" jsxtop="0" jsxleft="0" jsxtype="1"/>
+                          <strings jsxname="jsxfind" jsxwidth="100%"/>
+                          <events jsxkeydown="if (objEVENT.keyCode() == jsx3.gui.Event.KEY_ENTER &amp;&amp; !objEVENT.hasModifier()) { objEVENT.cancelAll(); jsxfindbutton.doExecute(); }"/>
+                        </object>
+                        <object type="jsx3.gui.TextBox">
+                          <dynamics jsxborder="@Inset"/>
+                          <variants jsxheight="40" jsxrelativeposition="0" jsxtop="68" jsxleft="0" jsxtype="1"/>
+                          <strings jsxname="jsxreplace" jsxwidth="100%"/>
+                          <events jsxkeydown="if (objEVENT.keyCode() == jsx3.gui.Event.KEY_ENTER &amp;&amp; !objEVENT.hasModifier()) { objEVENT.cancelAll(); jsxfindbutton.doExecute(); }"/>
+                        </object>
+                        <object type="jsx3.gui.CheckBox">
+                         <variants jsxchecked="0" jsxrelativeposition="0" jsxleft="0" jsxwidth="150" jsxtop="41" jsxheight="20"/>
+                         <strings jsxname="find_cs" jsxtext="Case Sensitive" />
+                        </object>
+                        <object type="jsx3.gui.CheckBox">
+                         <variants jsxchecked="0" jsxrelativeposition="0" jsxleft="120" jsxwidth="150" jsxtop="41" jsxheight="20" />
+                         <strings jsxname="find_regexp" jsxtext="Regular Expression" />
+                        </object>
+                    </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="1"/>
+                  <strings jsxtextalign="right"/>
+                    <object type="jsx3.gui.Button">
+                      <variants jsxindex="0" jsxheight="18" jsxwidth="60"/>
+                      <strings jsxtext="Replace" jsxmargin="0 4 0 0" jsxkeycode="ctrl+r"
+                               jsxtip="performs a case-insensitive search/replace for the exact character string"/>
+                      <events jsxexecute="jsxfindreplace.replace();"/>
+                    </object>
+                    <object type="jsx3.gui.Button">
+                      <variants jsxindex="0" jsxheight="18"/>
+                      <strings jsxtext="Replace &amp;#38; Find Again" jsxmargin="0 4 0 0" jsxkeycode="ctrl+t"/>
+                      <events jsxexecute="jsxfindreplace.replaceAndFind();"/>
+                    </object>
+                    <object type="jsx3.gui.Button">
+                      <variants jsxindex="0" jsxheight="18" jsxwidth="70"/>
+                      <strings jsxtext="Replace All" jsxmargin="0 26 0 0"
+                               jsxtip="allows for a regular expression to be entered into the 'find' box to peform a case-sensitive find and replace"/>
+                      <events jsxexecute="jsxfindreplace.replaceAll();"/>
+                    </object>
+                    <object type="jsx3.gui.Button">
+                      <variants jsxindex="0" jsxheight="18" jsxwidth="60"/>
+                      <strings jsxname="jsxfindbutton" jsxtext="Find" jsxfontweight="bold" jsxmargin="0 4 0 0" jsxkeycode="enter"
+                               jsxtip="performs a case-insensitive search for the exact character string, highlighting the first instance of the found text"/>
+                      <events jsxexecute="jsxfindreplace.findNext();"/>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </object>
+</serialization>

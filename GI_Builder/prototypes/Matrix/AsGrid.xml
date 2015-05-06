@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<component classpath="jsx3.gui" xmlns:id="http://xsd.tns.tibco.com/gi/cif/2006/inlinedata" xmlns:e="http://xsd.tns.tibco.com/gi/cif/2006/events" xmlns:d="http://xsd.tns.tibco.com/gi/cif/2006/dynamics" xmlns:p="http://xsd.tns.tibco.com/gi/cif/2006/property" xmlns:pe="http://xsd.tns.tibco.com/gi/cif/2006/property.eval" xmlns:x="http://xsd.tns.tibco.com/gi/cif/2006/xslparameters" xmlns:v="http://xsd.tns.tibco.com/gi/cif/2006/view" xmlns:u="http://xsd.tns.tibco.com/gi/cif/2006/userdefined" xmlns:ue="http://xsd.tns.tibco.com/gi/cif/2006/userdefined.eval" xmlns="http://xsd.tns.tibco.com/gi/cif/2006">
+  <meta name="name"><![CDATA[Grid]]></meta>
+  <meta name="description"><![CDATA[Matrix instance configured to allow for spreadsheet-like functionality such as cell-based edits.]]></meta>
+  <meta name="icon"><![CDATA[images/prototypes/matrixgrid.gif]]></meta>
+  <Matrix
+      p:name="matrix1"
+      p:bodyborder="1px solid #dfdfef"
+      p:headerborder="1px solid #dfdfef"
+      p:bgcolor="#efefff"
+      pe:pagingmodel="1"
+      pe:selectionmodel="0"
+      pe:jsxxmlasync="1"
+      e:beforeedit="jsx3.log('EVENT: (jsxbeforeedit). Record: ' + strRECORDID);"
+      e:afteredit="jsx3.log('EVENT: (jsxafteredit). Record: ' + strRECORDID + '. New Value: ' + strNEWVALUE);"
+      id:xml="xml"
+      x:jsx_rowbg1="#ffffff"
+      x:jsx_rowbg2="#efefff">
+
+    <id:data href="xml"><![CDATA[
+      <data jsxid="jsxroot">
+        <record index="1" jsxid="US" jsxtext="United States"/>
+        <record index="2" jsxid="UK" jsxtext="United Kingdom"/>
+        <record index="3" jsxid="AG" jsxtext="Afghanistan"/>
+        <record index="4" jsxid="AL" jsxtext="Albania"/>
+        <record index="5" jsxid="AR" jsxtext="Algeria"/>
+        <record index="6" jsxid="AS" jsxtext="American Samoa"/>
+        <record index="7" jsxid="AD" jsxtext="Andorra"/>
+        <record index="8" jsxid="AO" jsxtext="Angola"/>
+        <record index="9" jsxid="AU" jsxtext="Anguilla"/>
+        <record index="10" jsxid="AX" jsxtext="Antarctica"/>
+        <record index="11" jsxid="AT" jsxtext="Antigua and Barbuda"/>
+        <record index="12" jsxid="AE" jsxtext="Argentina"/>
+        <record index="13" jsxid="AM" jsxtext="Armenia"/>
+        <record index="14" jsxid="AB" jsxtext="Aruba"/>
+        <record index="15" jsxid="AA" jsxtext="Australia"/>
+        <record index="16" jsxid="AI" jsxtext="Austria"/>
+        <record index="17" jsxid="AZ" jsxtext="Azerbaijan"/>
+      </data>
+    ]]></id:data>
+
+    <MatrixColumn p:name="mc2"
+        d:border="@Outset"
+        d:bg="@Bevel TopDown"
+        d:bgcolor="@Solid Disabled"
+        p:width="30"
+        p:resize="0"
+        p:text="&amp;#160;"
+        p:padding="2"
+        p:cellpadding="2"
+        p:path="index"/>
+
+    <MatrixColumn p:name="mc1"
+        d:border="@Outset"
+        d:bg="@Bevel TopDown"
+        d:bgcolor="@Solid Disabled"
+        p:width="*"
+        p:text="Name"
+        p:padding="2"
+        p:cellpadding="3"
+        p:path="jsxtext">
+
+      <TextBox p:name="tb1"/>
+    </MatrixColumn>
+  </Matrix>
+</component>

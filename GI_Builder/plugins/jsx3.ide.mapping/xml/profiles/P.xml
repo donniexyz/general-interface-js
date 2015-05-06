@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+    <record jsxid="jsxid" jsxtext="Rule ID"
+        jsxtip="unique ID assigned by the system when the rule node was created"
+        jsxmask="jsxnull"/>
+    <record jsxid="mytype" jsxtext="Rule Type"
+        jsxtip="rule node type"
+        jsxmask="jsxnull"
+        value="Operation"/>
+    <record jsxid="jsxtext" jsxtext="Node Name"
+        jsxtip="The name of the node as it will appear in the XML message that will be created/processed"
+        jsxmask="jsxnull"/>
+    <record jsxid="path" jsxtext="Source Path"
+        jsxtip="'XSL Path' to locate the source node in the pattern master that was used to create the selected rule node"
+        jsxmask="jsxTextMask"/>
+    <record jsxid="opname" jsxtext="Operation Name"
+        jsxtip="The name of the operation as defined in pattern master"
+        jsxmask="jsxnull"/>
+</data>

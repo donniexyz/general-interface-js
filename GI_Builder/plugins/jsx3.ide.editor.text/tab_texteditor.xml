@@ -1,0 +1,52 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+var objTab = objJSX;
+
+// Must define getEditor() method!
+
+objJSX.getVisibleCodeEditor = function() {
+  return this.getDescendantOfName('jsxcodeeditor');
+};
+
+objJSX.getTextValue = function() {
+  return this.getDescendantOfName('jsxcodeeditor').getTextValue();
+};
+
+objJSX.setTextValue = function(s) {
+  this.getDescendantOfName('jsxcodeeditor').setTextValue(s);
+};
+
+objJSX.getDescendantOfName('jsxcodeeditor').subscribe("keyDown", function(e) {
+  objJSX.getEditor().onKeyDown();
+});
+
+jsx3.sleep(function() {
+  objJSX.getDescendantOfName('jsxcodeeditor').initAsType(objJSX.getEditor().getFileType());
+});
+
+]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <variants jsxoverflow="2" jsxrelativeposition="0"/>
+    <strings jsxname="content" jsxpadding="8 0 0 0" jsxhelpid="ide.editor.text"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxrelativeposition="1" jsxoverflow="2"/>
+      <strings jsxname="mylayout" jsxwidth="100%" jsxheight="100%"/>
+      <object type="jsx3.gui.TabbedPane">
+        <variants jsxshowtabs="0"/>
+        <strings jsxname="swap_pane" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Tab">
+          <variants jsxindex="0"/>
+          <strings jsxname="jsxtab_texteditor_maintab"/>
+          <include src="jsxplugin://jsx3.ide.editor/code_editor.xml" async="false"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

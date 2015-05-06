@@ -1,0 +1,44 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.deploytool"
+        name="Deployment Tool Plug-In"
+        class="jsx3.ide.ui.DialogToolPlugIn"
+        version="0.1">
+
+  <method id="createLaunchPage" params="objFile, bXHTML"><![CDATA[
+    var jsFile = jsx3.ide.getSystemRelativeFile('JSX/js/JSX30.js');
+    var template = jsx3.ide.getSystemRelativeFile(this.resolveURI('launch_page_template.' + (bXHTML ? 'xhtml' : 'html')));
+    var content = template.read();
+    var apppath = objFile.toURI().relativize(jsx3.ide.getActiveProjectDirectory().toURI());
+    if (apppath == "") apppath = ".";
+
+    content = content.replace(/@JSPATH@/g, objFile.relativePathTo(jsFile));
+    content = content.replace(/@APPPATH@/g, apppath);
+
+    jsx3.ide.writeUserFile(objFile, content);
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.ide.ui"/>
+  </requires>
+
+  <resources>
+    <xml id="ui" path="launchutil.xml"/>
+  </resources>
+
+  <extension point="jsx3.ide.ui.action" id="menu.help">
+    <action
+        id="jsx3.ide.launchpage"
+        label="Deployment Utility..."
+        tip="Create a launch page or launch HTML fragment"
+        menupath="/jsx3.ide.project/settings" hkconfig="true"
+        execute="this.getPlugIn().openTool();"
+        enabled="project"/>
+  </extension>
+
+</plugin>

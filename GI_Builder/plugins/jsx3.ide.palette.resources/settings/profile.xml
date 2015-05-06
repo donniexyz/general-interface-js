@@ -1,0 +1,190 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+var PrefsPane = jsx3.amp.util.PrefsPane;
+
+objJSX.getFirstResponder = function() {
+  return formId;
+};
+
+objJSX.savePrefs = function() {
+  var resourceId = this.getPane().resourceObj.getId();
+  this.getPlugIn().setResourceProps(
+    resourceId,
+    formId.getValue(),
+    formURI.getValue(),
+    formType.getValue(),
+    parseInt(formLoad.getValue())
+  );
+  
+  return true;
+};
+
+objJSX.loadPrefs = function() {
+  var objResource = this.getPane().resourceObj;
+
+  formType.clearXmlData();
+  jsx3.ide.getPlugIn("jsx3.ide").getFileTypes().each(function(e) {
+    formType.insertRecord({jsxid:e.getId(), jsxtext:e.getLabel()});
+  });
+
+  if (objResource) {
+    formId.setValue(objResource.getId());
+    var intLoad = objResource.getLoadType();
+    if (intLoad == null) intLoad = jsx3.lang.ClassLoader.LOAD_AUTO;
+
+    if (objResource.getType() != "component")
+      formLoad.setValue(intLoad + "a");
+    formType.setValue(objResource.getType());
+    formURI.setValue(objResource.getPath());
+  }
+  
+  this.updateLoadSelect(objResource.getFileType());
+};
+
+objJSX.updateLoadSelect = function(type) {
+  var loadSelect = formLoad;
+
+  if (!type.isReloadable()) {
+    loadSelect.setEnabled(jsx3.gui.Form.STATEDISABLED, true);
+  } else {
+    loadSelect.setEnabled(jsx3.gui.Form.STATEENABLED, false);
+
+    loadSelect.setXMLString("<data jsxid='jsxroot'>" +
+        "<record jsxid='" + jsx3.lang.ClassLoader.LOAD_AUTO + "a' jsxtext='Manually/As Needed'/>" +
+        "<record jsxid='" + jsx3.lang.ClassLoader.LOAD_ALWAYS + "a' jsxtext='At Init'/>" +
+        "</data>");
+
+    loadSelect.resetXmlCacheData();
+    loadSelect.repaint();
+  }
+};
+
+objJSX.makeDirty = function(objInput) {
+  if (objInput == formType)
+    this.updateLoadSelect(jsx3.ide.getPlugIn("jsx3.ide").getFileType(objInput.getValue()));
+
+  this.getPane().setDirty(true);
+};
+
+objJSX._onOpen = function() {
+  var currentFile = jsx3.ide.getSystemRelativeFile(jsx3.ide.PROJECT.resolveURI(formURI.getValue()));
+  var baseFolder = currentFile.exists() ? currentFile.getParentFile() : null;
+
+  jsx3.ide.getPlugIn("jsx3.io.browser").chooseFile(this.getServer().getRootBlock(), {
+      name:"rsrcprod", modal:true, folder: baseFolder || jsx3.ide.getActiveProjectDirectory(),
+      baseFolder: jsx3.ide.getCurrentUserHome(),
+      onChoose: jsx3.$F(function(objFile) {
+        formURI.setValue(jsx3.ide.PROJECT.getDirectory().relativePathTo(objFile));
+        this.makeDirty();
+      }).bind(this)
+  });
+};
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxpadding="@8Pixel"/>
+      <variants jsxoverflow="3" jsxrelativeposition="1"/>
+      <strings jsxname="prefspane" jsxheight="100%" jsxwidth="100%"/>
+
+        <object type="jsx3.gui.LayoutGrid">
+          <variants/>
+          <strings jsxname="jsxlayoutx" jsxrows="24,24,24,24"/>
+
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="1"/>
+              <strings jsxname="lo" jsxwidth="100%" jsxheight="100%" jsxcols="70,*"/>
+                <object type="jsx3.gui.Block">
+                  <dynamics jsxtext="_gen_id"/>
+                  <variants jsxrelativeposition="1" jsxoverflow="2"/>
+                  <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxfontweight="bold"
+                      jsxpadding="6 6 0 0"/>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxpadding="2 6 0 0"/>
+                    <object type="jsx3.gui.TextBox">
+                      <variants jsxheight="18"/>
+                      <strings jsxname="formId" jsxwidth="100%"/>
+                      <events jsxincchange="prefspane.makeDirty(this);"/>
+                    </object>
+                </object>
+            </object>
+
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="1"/>
+              <strings jsxname="lo" jsxwidth="100%" jsxheight="100%" jsxcols="70,*"/>
+                <object type="jsx3.gui.Block">
+                  <dynamics jsxtext="_gen_type"/>
+                  <variants jsxrelativeposition="1" jsxoverflow="2"/>
+                  <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxfontweight="bold"
+                      jsxpadding="6 6 0 0"/>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxpadding="2 6 0 2"/>
+                    <object type="jsx3.gui.Select">
+                      <strings jsxname="formType" jsxwidth="100%"/>
+                      <events jsxselect="prefspane.makeDirty(this);"/>
+                    </object>
+                </object>
+            </object>
+
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="1"/>
+              <strings jsxname="lo" jsxwidth="100%" jsxheight="100%" jsxcols="70,*"/>
+                <object type="jsx3.gui.Block">
+                  <dynamics jsxtext="_pfl_autoload"/>
+                  <variants jsxrelativeposition="1" jsxoverflow="2"/>
+                  <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxfontweight="bold"
+                      jsxpadding="6 6 0 0"/>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxpadding="2 6 0 2"/>
+                    <object type="jsx3.gui.Select">
+                      <variants/>
+                      <strings jsxname="formLoad" jsxwidth="100%"/>
+                      <events jsxselect="prefspane.makeDirty(this);"/>
+                    </object>
+                </object>
+            </object>
+
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="1"/>
+              <strings jsxname="lo" jsxwidth="100%" jsxheight="100%" jsxcols="70,*,36"/>
+                <object type="jsx3.gui.Block">
+                  <dynamics jsxtext="_gen_uri"/>
+                  <variants jsxrelativeposition="1" jsxoverflow="2"/>
+                  <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxfontweight="bold"
+                      jsxpadding="6 6 0 0"/>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxpadding="2 6 0 0"/>
+                    <object type="jsx3.gui.TextBox">
+                      <variants jsxheight="18"/>
+                      <strings jsxname="formURI" jsxwidth="100%"/>
+                      <events jsxincchange="prefspane.makeDirty(this);"/>
+                    </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxpadding="2 6 0 0"/>
+                    <object type="jsx3.gui.ImageButton">
+                      <dynamics jsxtip="_gen_browse"/>
+                      <variants jsxwidth="16" jsxheight="16"/>
+                      <strings jsxname="jsxbrowse" jsximage="jsxapp:/images/icon_60.gif" jsxmargin="0 0 0 8"/>
+                      <events jsxexecute="prefspane._onOpen();"/>
+                    </object>
+                </object>
+            </object>
+
+        </object>
+    </object>
+</serialization>

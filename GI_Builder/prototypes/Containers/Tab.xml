@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Tab]]></name>
+  <icon><![CDATA[images/prototypes/tab.gif]]></icon>
+  <description><![CDATA[Tab for use with TabbedPane container.]]></description>
+  <object type="jsx3.gui.Tab">
+    <variants jsxheight="18"/>
+    <strings jsxname="tab" jsxtext="Tab" jsxbgcolor="#d8d8e5"/>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxbgcolor="@Solid Medium"/>
+      <variants jsxoverflow="2" jsxrelativeposition="0" jsxloadtype="4"/>
+      <strings jsxname="pane" jsxwidth="100%" jsxheight="100%"/>
+    </object>
+  </object>
+</serialization>

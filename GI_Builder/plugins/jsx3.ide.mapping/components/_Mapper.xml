@@ -1,0 +1,28 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.ide.mapper.Mapper">
+   <dynamics jsxbgcolor="@Solid Disabled"/>
+   <variants jsxoverflow="2"/>
+   <strings jsxname="mapper" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.Splitter">
+     <dynamics jsxbgcolor="@Solid Medium"/>
+     <variants jsxorientation="1" jsxleft="0" jsxtop="0"/>
+     <strings jsxname="jsxmapper_mainsplitter" jsxsubcontainer1pct="84%" jsxsubcontainer2pct="16%"/>
+      <object type="jsx3.gui.Block">
+       <variants jsxoverflow="2"/>
+       <strings jsxname="jsx_schema_mapper_body" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+        <include src="components/default.xml" async="true"/>
+      </object>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Inset" jsxbgcolor="@Solid Light"/>
+       <variants jsxoverflow="2"/>
+       <strings jsxwidth="100%" jsxheight="100%" jsxhelpid="ide.mapper.log"/>
+        <include src="components/Logger/logger.xml" async="true"/>
+      </object>
+    </object>
+  </object>
+</serialization>

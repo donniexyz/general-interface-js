@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2001-2014. TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data>
+  <!-- jsx3.gui.Select -->
+  <record jsxid="jsx3.gui.Select.defaultText" jsxtext="- Выбрать -"/>
+  <record jsxid="jsx3.gui.Select.dataUnavailable" jsxtext="- Данные недоступны -"/>
+  <record jsxid="jsx3.gui.Select.noMatch" jsxtext="- Нет сопоставимого элемента -"/>
+
+  <!-- jsx3.gui.Menu -->
+  <record jsxid="jsx3.gui.Menu.noData" jsxtext="- Нет данных -"/>
+
+  <!-- jsx3.gui.Matrix -->
+  <record jsxid="jsx3.gui.Matrix.seek" jsxtext="Просмотр строк с {0} по {1} из {2}"/>
+
+  <!-- jsx3.gui.BlockX -->
+  <record jsxid="jsx3.gui.BlockX.loading" jsxtext="Загружается XSL..."/>
+  <record jsxid="jsx3.gui.BlockX.timeout" jsxtext="Тайм-аут XSL"/>
+  <record jsxid="jsx3.gui.BlockX.error" jsxtext="Ошибка загрузки XSL"/>
+
+  <!-- jsx3.xml.Cacheable -->
+  <record jsxid="jsx3.xml.Cacheable.loading" jsxtext="Загружается {0}..."/>
+  <record jsxid="jsx3.xml.Cacheable.timeout" jsxtext="Истекло время загрузки {0}"/>
+  <record jsxid="jsx3.xml.Cacheable.error" jsxtext="Ошибка загрузки {0}"/>
+  <record jsxid="jsx3.xml.Cacheable.data" jsxtext="данные"/>
+
+  <!-- jsx3.gui.Dialog -->
+  <record jsxid="jsx3.gui.Dialog.close" jsxtext="Закрыть"/>
+  <record jsxid="jsx3.gui.Dialog.min" jsxtext="Переключить отображение"/>
+  <record jsxid="jsx3.gui.Dialog.max" jsxtext="Развернуть"/>
+  <record jsxid="jsx3.gui.Dialog.restore" jsxtext="Свернуть в окно"/>
+</data>

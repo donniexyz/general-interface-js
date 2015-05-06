@@ -1,0 +1,40 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+   <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+   <strings jsxwidth="100%" jsxheight="100%" jsxrows="22,*" jsxhelpid="ide.mapper.input"/>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxborder="@Outset Top"/>
+     <variants jsxoverflow="2"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxbgcolor="#60709f" jsxcolor="#ffffff" jsxtext="" jsxpadding="1 1 1 4" jsxfontweight="normal" jsxtip="original schema definition for the selected node in the Rules Tree"/>
+      <object type="jsx3.gui.RadioButton">
+       <dynamics jsxcolor="@Light"/>
+       <variants jsxheight="18" jsxselected="1"/>
+       <strings jsxname="jsx_schema_rdo_input_type_wsdl" jsxtext="WSDL" jsxgroupname="jsx_schema_input_type" jsxmargin="0 4 0 0" jsxvalue="wsdl" jsxtip="use a WSDL as the starting point for creating a map"/>
+       <events jsxselect="this.getAncestorOfType(jsx3.ide.mapper.Mapper).toggleInputType(this.getValue());"/>
+      </object>
+      <object type="jsx3.gui.RadioButton">
+       <dynamics jsxcolor="@Light"/>
+       <variants jsxheight="18"/>
+       <strings jsxname="jsx_schema_rdo_input_type_xml" jsxtext="XML/XHTML/Schema" jsxgroupname="jsx_schema_input_type" jsxmargin="0 4 0 0" jsxvalue="xml" jsxtip="use XML or Schema as the starting point for creating a map"/>
+       <events jsxselect="this.getAncestorOfType(jsx3.ide.mapper.Mapper).toggleInputType(this.getValue());"/>
+      </object>
+      <object type="jsx3.gui.RadioButton">
+       <dynamics jsxcolor="@Light"/>
+       <variants jsxheight="18"/>
+       <strings jsxname="jsx_schema_rdo_input_type_json" jsxtext="JSON" jsxgroupname="jsx_schema_input_type" jsxmargin="0 4 0 0" jsxvalue="json" jsxtip="use JSON as the starting point for creating a map"/>
+       <events jsxselect="this.getAncestorOfType(jsx3.ide.mapper.Mapper).toggleInputType(this.getValue());"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxbgcolor="@Solid Medium" jsxborder="@Inset"/>
+     <variants jsxoverflow="1"/>
+     <strings jsxname="jsx_shema_input_types" jsxwidth="100%" jsxheight="100%"/>
+      <include src="components/Inputs/wsdl.xml" async="true"/>
+    </object>
+  </object>
+</serialization>

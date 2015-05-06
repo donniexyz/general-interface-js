@@ -1,0 +1,49 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+
+  <record jsxid="jsxbeforemove" jsxtext="Before Move"
+      jsxtip="Fires when the user depresses the mouse button on the caption bar of this dialog. Canceling this event prevents this dialog from moving."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="bCONSTRAINX" type="boolean" vartype="return"
+        jsxtext="set to &lt;code&gt;true&lt;/code&gt; if only vertical movement allowed. For example: &lt;code&gt;o = {bCONSTRAINX:true};&lt;/code&gt;"/>
+    <record jsxid="bCONSTRAINY" type="boolean" vartype="return"
+        jsxtext="set to &lt;code&gt;true&lt;/code&gt; if only horizontal movement allowed. For example: &lt;code&gt;o = {bCONSTRAINY:true};&lt;/code&gt;"/>
+  </record>
+
+  <record jsxid="jsxaftermove" jsxtext="After Move"
+      jsxtip="Fires when the user releases the mouse button after moving this dialog across the screen.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="intL" type="int" jsxtext="the new left offet."/>
+    <record jsxid="intT" type="int" jsxtext="the new top offet."/>
+  </record>
+
+  <record jsxid="jsxbeforeresize" jsxtext="Before Resize"
+      jsxtip="Fires when the user depresses the mouse button on the lower-right corner of this dialog. Canceling this event prevents this window from resizing."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+  </record>
+
+  <record jsxid="jsxafterresize" jsxtext="After Resize"
+      jsxtip="Fires when the user releases the mouse button after resizing this dialog by dragging its lower-right corner.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="intW" type="int" jsxtext="the new width."/>
+    <record jsxid="intH" type="int" jsxtext="the new height."/>
+  </record>
+
+  <record jsxid="jsxdestroy" jsxtext="Destroy" always="1"
+      jsxtip="Fires after this dialog is removed from the DOM.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objPARENT" type="jsx3.app.Model"
+        jsxtext="the parent of this dialog before it is removed from the DOM."/>
+  </record>
+
+</data>

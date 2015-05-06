@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!--
+
+Comment Test 1
+
+--><serialization xmlns="urn:tibco.com/v3.0">
+  <!--
+
+  Comment Test 2
+
+  -->
+  <unicode>false</unicode>
+  <name/>
+  <icon/>
+  <description/>
+  <onBeforeDeserialize><![CDATA[onBefore();]]></onBeforeDeserialize>
+  <onAfterDeserialize><![CDATA[
+
+  var ic=objJSX;
+
+  objJSX.KF=function(j,i,h){
+    return 1;
+  };
+
+  ic.anotherMethod=function(i,h,g){
+    return 1;
+  };
+
+  objJSX.blessParam=function(jsxbless_Test){
+    return 1;
+  };
+
+  objJSX.KF();
+
+]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxborder="@Outset"/>
+      <variants jsxleft="0" jsxoverflow="1" jsxtop="0"/>
+      <strings jsxheight="100%" jsxname="jsx_ide_attributes_contentblock" jsxwidth="100%"/>
+      <events jsxclick="var pc=null;this.anotherMethod(pc);" jsxdestroy="this.KF(a);"/>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxtext="_atted_title"/>
+          <variants jsxheight="0" jsxleft="0" jsxoverflow="1" jsxrelativeposition="0" jsxtop="0" jsxwidth="0"/>
+          <strings jsxname="jsx_ide_palette_title" jsxvisibility="hidden"/>
+          <events jsxclick="this.getParent().KF();" jsxdestroy=""/>
+          <properties notevent="var x; x + 1" onevent="var Eb;Eb+1;"/>
+        </object>
+    </object>
+</serialization>

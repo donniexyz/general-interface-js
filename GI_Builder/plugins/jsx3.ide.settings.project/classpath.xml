@@ -1,0 +1,129 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.getFirstResponder = function() {
+};
+
+objJSX.savePrefs = function() {
+  var grid = classpathlist;
+  var records = grid.getXML().selectNodes("//record");
+  var tokens = [];
+  for (var i = records.iterator(); i.hasNext(); ) {
+    var record = i.next();
+    if (record.getAttribute("path"))
+      tokens.push(record.getAttribute("path") + ":" + record.getAttribute("pkg"));
+  }
+
+  var settings = jsx3.ide.PROJECT.getSettings(true);
+  settings.set("classpath", tokens.join(","));
+  settings.save();
+
+  return {title: "Restart Required",
+      message: "You must restart General Interface Builder for the changes to take effect."};
+};
+
+objJSX.loadPrefs = function() {
+  var classPath = jsx3.ide.PROJECT.getSettings().get("classpath") || "";
+  var grid = classpathlist;
+  var paths = classPath.split(",");
+  for (var i = 0; i < paths.length; i++) {
+    var tokens = paths[i].split(":");
+    if (tokens[0])
+      grid.insertRecord({jsxid: jsx3.xml.CDF.getKey(), path:tokens[0], pkg:tokens[1]}, null, false);
+  }
+  grid.repaintData();
+};
+
+objJSX.onAdd = function() {
+  var grid = classpathlist;
+  grid.insertRecord({jsxid: jsx3.xml.CDF.getKey(), path:"", pkg:""}, null, true);
+};
+
+objJSX.onRemove = function() {
+  var grid = classpathlist;
+  var recordId = grid.getValue();
+  if (recordId) {
+    grid.deleteRecord(recordId, true);
+    this.makeDirty();
+  }
+};
+
+objJSX.makeDirty = function() {
+  this.getPane().setDirty(true);
+};
+
+
+
+//replaces the 'delete row' image button with simple HTML that, when clicked, commits a new classpath
+var objMatrix = objJSX.getDescendantOfName("classpathlist");
+objMatrix.getChild(0).setFormatHandler(
+  function(objDiv, strCDFKey, objMatrix, objMatrixColumn, intRowNumber, objServer) {
+    if(strCDFKey == "jsxautorow")
+      objDiv.innerHTML = '<div title="add new row" class="jsx3ide_dynprops_autorow" onclick="jsx3.IDE.getJSXById(\'' + objMatrix.getId() + '\').commitAutoRowSession();">&#160;</div>';
+  }
+);
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+      <strings jsxname="prefspane" jsxwidth="100%" jsxheight="100%" jsxpadding="8 8 4 8" jsxhelpid="ide.projset.classpath"/>
+        <object type="jsx3.gui.LayoutGrid">
+          <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%" jsxrows="32,*"/>
+            <object type="jsx3.gui.Block">
+              <dynamics/>
+              <variants jsxoverflow="2"/>
+              <strings jsxwidth="100%" jsxheight="100%"
+                  jsxtext="The classpaths of a project define where to look for classes when loading them dynamically."/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <dynamics jsxborder="@Inset"/>
+              <variants jsxoverflow="1"/>
+              <strings jsxwidth="100%" jsxheight="100%"/>
+                <object type="jsx3.gui.Matrix">
+                  <dynamics jsxbgcolor="@Solid Light"/>
+                  <variants jsxpagingmodel="0" jsxscalewidth="1" jsxselectionmodel="0" jsxreorder="0"
+                       jsxautorow="2"/>
+                  <strings jsxname="classpathlist" jsxbodyborder="1px solid #d8d8e5" jsxfocusstyle=";"/>
+                  <events jsxaftercommit="prefspane.makeDirty();"/>
+                  <xslparameters jsx_rowbg1="#ffffff" jsx_rowbg2="#ffffff" jsx_autorow_style="background-color:#f0f0f8;color:#0000ff;"/>
+                    <object type="jsx3.gui.Matrix.Column">
+                    <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset" jsxcellborder="@Matrix AllCol Border"/>
+                    <variants jsxwidth="20" jsxresize="0"/>
+                    <strings jsxname="jsxcol" jsxtext="&amp;#160;" jsxvaluetemplate="@empty" jsxcellpadding="1" jsxpadding="2 3 0 3"/>
+                      <object type="jsx3.gui.ImageButton">
+                       <variants jsxwidth="16" jsxheight="16"/>
+                       <strings jsxname="imagebutton" jsximage="jsxapp:/images/icon_55.gif" jsxtip="remove row" />
+                       <events jsxexecute="this.emGetSession().matrix.deleteRecord(this.emGetSession().recordId);"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset" jsxcellborder="@Matrix AllCol Border"/>
+                      <variants/>
+                      <strings jsxname="abclist_col1" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="*" jsxpath="path"
+                          jsxtext="Path"/>
+                        <object type="jsx3.gui.TextBox">
+                          <dynamics jsxcolor="@Matrix Edit Color"/>
+                          <strings jsxname="textbox"/>
+                        </object>
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset" jsxcellborder="@Matrix AllCol Border"/>
+                      <variants/>
+                      <strings jsxname="abclist_col2" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="*" jsxpath="pkg"
+                          jsxtext="Packages"/>
+                        <object type="jsx3.gui.TextBox">
+                          <dynamics jsxcolor="@Matrix Edit Color"/>
+                          <strings jsxname="textbox"/>
+                        </object>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </object>
+</serialization>

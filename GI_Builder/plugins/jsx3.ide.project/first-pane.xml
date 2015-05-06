@@ -1,0 +1,101 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.getTitle = function() {
+  return "Choose a Project Type";
+};
+
+objJSX.getFirstResponder = function() {
+  return typelist;
+};
+
+objJSX.onReveal = function() {
+  if (!this._inited) {
+    this._inited = true;
+
+    var types = this.getPlugIn().getProjectTypes();
+    types.each(function(e) {
+      typelist.insertRecord({jsxid:e.getId(), label:e.getLabel()});
+    });
+
+    if (types.length == 1) {
+      typelist.setValue(types[0].getId());
+      this._doSelect(types[0].getId());
+    }
+  }
+};
+
+objJSX.onConceal = function(objSession) {
+  objSession.projectType = this._getSelectedType();
+};
+
+objJSX.onTryNext = function() {
+  var thisType = this._getSelectedType();
+  if (thisType) {
+    var w = this.getPane().getWizard();
+
+    if (this._lasttype != thisType) {
+      // Clear all forward wizard panes
+      for (var i = w.getPaneCount() - 1; i > 0; i--)
+        w.removePane(i);
+
+      var paneResouces = thisType.getPanes().split(/\s*,\s*/g);
+      jsx3.$A(paneResouces).each(function(e) {
+        var pane = new jsx3.amp.util.WizardPane(thisType.getPlugIn().getResource(e), thisType.getPlugIn());
+        w.addPane(pane);
+      });
+      
+      this._lasttype = thisType;
+    }
+  }
+
+  return {ok:thisType != null};
+};
+
+objJSX.onTryPrevious = function() {
+};
+
+objJSX._getSelectedType = function() {
+  return this.getPlugIn().getTypeById(typelist.getValue());
+};
+
+objJSX._doSelect = function(id) {
+  var type = this.getPlugIn().getTypeById(id);
+  descr.setText(type ? type.getDescription() : "", true);
+};
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="2"/>
+    <strings jsxname="pane" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+      <strings jsxwidth="100%" jsxheight="100%" jsxrows="120,*"/>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxborder="@Inset"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Matrix">
+          <dynamics jsxbgcolor="@Solid Medium"/>
+          <variants jsxselectionmodel="1" jsxresize="0" jsxheaderheight="0" jsxreorder="0" jsxscalewidth="1"/>
+          <strings jsxname="typelist" jsxbodyborder="1px solid #d8d8e5" jsxfocusstyle=";"/>
+          <events jsxchange="pane._doSelect(this.getValue());"/>
+          <!--<xslparameters jsx_rowbg1="#ffffff"/>-->
+          <object type="jsx3.gui.Matrix.Column">
+            <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"
+                      jsxcellbgcolor="@Matrix AllCol Light BG" jsxcellborder="@Matrix AllCol Light Border"/>
+            <strings jsxname="abclist_col1" jsxcellpadding="3" jsxwidth="*" jsxpath="label" jsxvaluetemplate="@unescape" jsxformathandler="@unescape"/>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxname="descr" jsxwidth="100%" jsxheight="100%" jsxpadding="6 0 6 0"/>
+      </object>
+    </object>
+  </object>
+</serialization>

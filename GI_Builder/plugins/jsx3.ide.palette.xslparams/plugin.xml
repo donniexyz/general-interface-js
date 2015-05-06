@@ -1,0 +1,69 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.palette.xslparams"
+        name="XSL Parameters Palette Plug-In"
+        version="0.1">
+
+  <method id="getPalette"><![CDATA[
+    return this.getEngine().getPlugIn("jsx3.ide.ui").getPalette(this, "xsl.palette");
+  ]]></method>
+
+  <method id="onLoaded"><![CDATA[
+    this.getExtPoint("catalog").processExts(function(ext, xml) {
+      jsx3.ide.registerCatalogAt('xsl', ext.getPlugIn().resolveURI(xml.attr('path')));
+    });
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.gui.Matrix"/>
+    <plugin id="jsx3.gui.TextBox"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="xslparams.js" eval="true"/>
+    <xml id="contextmenu" path="contextmenu.xml"/>
+    <xml id="ui" path="xslparams.xml"/>
+  </resources>
+
+  <event id="changed">
+    <param id="o"/>
+    <param id="key"/>
+    <param id="value"/>
+  </event>
+
+  <subscribe event="jsx3.ide.editor.activeChanged
+                    jsx3.ide.editor.modeChanged"><![CDATA[
+    var content = this.getPalette().getUIObject();
+    if (content && content.onEditorChanged)
+      content.onEditorChanged(evt.editor, evt.previous);
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.selectionChanged"><![CDATA[
+    if (!evt.active) return;
+    var content = this.getPalette().getUIObject();
+    if (content && content.onSelectionChanged)
+      content.onSelectionChanged(evt.editor);
+  ]]></subscribe>
+
+  <extension-point id="catalog">
+    <!-- Adds an xsl params catalog file. The path attribute is relative to the declaring plug-in.
+         <catalog path="templates/catalog.xml"/>  -->
+  </extension-point>
+
+  <extension point="jsx3.ide.palette.xslparams.catalog">
+    <catalog path="templates/catalog.xml"/>
+  </extension>
+
+  <extension point="jsx3.ide.ui.palette" id="xsl.palette">
+    <palette label="XSL Parameters" hotkey="ctrl+5"
+             resource="ui" default-position="q4" default-closed="true" idegroup="per-node"/>
+  </extension>
+
+</plugin>
+    

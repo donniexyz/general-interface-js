@@ -1,0 +1,228 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<gi-merger>
+  <file path="jsx3/javascript.js" provides="jsx3.javascript"/>
+  <file path="jsx3/ext.js" provides="jsx3.ext"/>
+  <file path="jsx3/lang/pkg.js" provides="jsx3.lang" requires="jsx3.ext"/>
+  <file path="jsx3/lang/Object.js" provides="jsx3.lang.Object"
+      requires="jsx3.javascript jsx3.lang"/>
+  <file path="jsx3/lang/Method.js" provides="jsx3.lang.Method"/>
+  <file path="jsx3/lang/Class.js" provides="jsx3.lang.Class"
+      requires="jsx3.lang.Object jsx3.lang.Method"/>
+  <file path="jsx3/lang/AOP.js" provides="jsx3.lang.AOP"
+      requires=""/>
+  <file path="jsx3/lang/Exception.js" provides="jsx3.lang.Exception"
+      requires="jsx3.lang.Class"/>
+  <file path="jsx3/lang/NativeError.js" provides="jsx3.lang.NativeError"
+      requires="jsx3.lang.Exception"/>
+  <file path="jsx3/lang/Package.js" provides="jsx3.lang.Package"
+      requires=""/>
+  <file path="jsx3/package.js" provides="jsx3 jsx3.net.URIResolver"
+      requires=""/>
+  <file path="jsx3/util/package.js" provides="jsx3.util"
+      requires=""/>
+  <file path="jsx3/util/List.js" provides="jsx3.util.List jsx3.util.Collection"
+      requires=""/>
+  <file path="jsx3/app/AddIn.js" provides="jsx3.app.AddIn"
+      requires="jsx3.net.URIResolver"/>
+  <file path="jsx3/util/EventDispatcher.js" provides="jsx3.util.EventDispatcher"
+      requires=""/>
+  <file path="jsx3/net/URI.js" provides="jsx3.net.URI"
+      requires="jsx3.lang.Exception jsx3.util"/>
+  <file path="jsx3/gui/Event.js" provides="jsx3.gui.Event"
+      requires=""/>
+  <file path="jsx3/EVT.js" provides="jsx3.EVT"
+      requires=""/>
+  <file path="jsx3/app/Browser.js" provides="jsx3.app.Browser"
+      requires=""/>
+  <file path="jsx3/app/Settings.js" provides="jsx3.app.Settings"
+      requires=""/>
+  <file path="jsx3/xml/Entity.js" provides="jsx3.xml.Entity"
+      requires=""/>
+  <file path="jsx3/net/Request.js" provides="jsx3.net.Request"
+      requires=""/>
+  <file path="jsx3/xml/Document.js" provides="jsx3.xml.Document"
+      requires="jsx3.xml.Entity jsx3.net.Request"/>
+  <file path="jsx3/xml/Template.js" provides="jsx3.xml.Template jsx3.xml.XslDocument"
+      requires=""/>
+  <file path="jsx3/util/Logger.js" provides="jsx3.util.Logger"
+      requires=""/>
+  <file path="jsx3/util/Locale.js" provides="jsx3.util.Locale"
+      requires=""/>
+  <file path="jsx3/util/NumberFormat.js" provides="jsx3.util.NumberFormat"
+      requires=""/>
+  <file path="jsx3/util/DateFormat.js" provides="jsx3.util.DateFormat"
+      requires=""/>
+  <file path="jsx3/util/MessageFormat.js" provides="jsx3.util.MessageFormat"
+      requires=""/>
+  <file path="jsx3/html/package.js" provides="jsx3.html"
+      requires=""/>
+  <file path="jsx3/app/Cache.js" provides="jsx3.app.Cache"
+      requires=""/>
+  <file path="jsx3/app/Properties.js" provides="jsx3.app.Properties"
+      requires=""/>
+  <file path="jsx3/app/PropsBundle.js" provides="jsx3.app.PropsBundle"
+      requires="jsx3.app.Properties"/>
+  <file path="jsx3/lang/System.js" provides="jsx3.lang.System"
+      requires=""/>
+  <file path="jsx3/app/DOM.js" provides="jsx3.app.DOM"
+      requires=""/>
+  <file path="jsx3/app/Server.js" provides="jsx3.app.Server"
+      requires="jsx3.app.Settings"/>
+  <file path="jsx3/app/Model.js" provides="jsx3.app.Model"
+      requires="jsx3.xml.Template"/>
+  <file path="jsx3/xml/CDFSchema.js" provides="jsx3.xml.CDFSchema"
+      requires="jsx3.app.Model"/>
+  <file path="jsx3/xml/CDF.js" provides="jsx3.xml.CDF"
+      requires="jsx3.xml.CDFSchema jsx3.app.Model"/>
+  <file path="jsx3/html/DOM.js" provides="jsx3.html.DOM"/>
+  <file path="jsx3/html/Style.js" provides="jsx3.html.Style"/>
+  <file path="jsx3/gui/Template.js" provides="jsx3.gui.Template jsx3.gui.Template.Box jsx3.gui.Template.Block"
+      requires="jsx3.html.DOM jsx3.html.Style jsx3.gui.Block"/>
+
+  <alias provides="system"
+      requires="jsx3.javascript jsx3.lang jsx3.lang.Object jsx3.lang.Method jsx3.lang.Class jsx3.lang.AOP jsx3.lang.Exception
+        jsx3.lang.NativeError jsx3.lang.Package jsx3 jsx3.util jsx3.util.List jsx3.app.AddIn jsx3.util.EventDispatcher
+        jsx3.net.URI jsx3.util.Collection jsx3.xml.Entity jsx3.xml.Document jsx3.net.Request jsx3.util.Logger
+        jsx3.lang.System"/>
+  <alias provides="browser"
+      requires="system jsx3.EVT jsx3.gui.Event jsx3.app.Browser jsx3.html"/>
+  <alias provides="server"
+      requires="system jsx3.app.Cache jsx3.app.Properties jsx3.app.DOM jsx3.app.Server jsx3.app.Model"/>
+  <alias provides="locale"
+      requires="system jsx3.util.Locale jsx3.util.DateFormat jsx3.util.MessageFormat jsx3.util.NumberFormat jsx3.app.PropsBundle"/>
+
+  <alias provides="minimal" requires="system browser server"/>
+  <alias provides="31optional" requires="jsx3.app.UserSettings jsx3.net.Form jsx3.xml.Cacheable jsx3.app.Monitor
+      jsx3.gui.Form jsx3.gui.HotKey jsx3.gui.Painted jsx3.gui.Heavyweight jsx3.gui.Interactive jsx3.gui.Alerts
+      jsx3.gui.Block"/>
+  <alias provides="31optional-gui" requires="jsx3.gui.BlockX jsx3.gui.ToolbarButton jsx3.gui.WindowBar jsx3.gui.Dialog
+      jsx3.gui.Button jsx3.gui.TextBox jsx3.gui.CheckBox jsx3.gui.RadioButton jsx3.gui.Splitter jsx3.gui.LayoutGrid
+      jsx3.gui.Stack jsx3.gui.StackGroup jsx3.gui.Tab jsx3.gui.TabbedPane jsx3.gui.Select jsx3.gui.Menu jsx3.gui.Tree
+      jsx3.gui.Column jsx3.gui.List jsx3.gui.Grid jsx3.gui.DatePicker jsx3.gui.Slider jsx3.gui.Sound jsx3.gui.Window
+      jsx3.gui.ImageButton"/>
+  <alias provides="default31" requires="minimal 31optional 31optional-gui"/>
+  <alias provides="ide" requires="minimal locale jsx3.gui.ToolbarButton jsx3.gui.Dialog jsx3.gui.TextBox 
+      jsx3.gui.Splitter jsx3.gui.LayoutGrid jsx3.gui.Tab jsx3.gui.TabbedPane jsx3.gui.Select jsx3.gui.Menu
+      jsx3.gui.Tree jsx3.gui.ImageButton jsx3.gui.Stack jsx3.gui.StackGroup jsx3.gui.Matrix jsx3.gui.WindowBar
+      jsx3.gui.Image jsx3.gui.Sound jsx3.app.UserSettings" />
+  <alias provides="default" requires="minimal locale jsx3.gui.Block jsx3.gui.Alerts jsx3.xml.Template jsx3.xml.CDF"/>
+  <alias provides="34max" requires="default jsx3.gui.Matrix jsx3.gui.Button jsx3.gui.CheckBox jsx3.gui.Menu
+      jsx3.gui.TabbedPane jsx3.gui.Tab jsx3.gui.TextBox jsx3.gui.Dialog jsx3.gui.Image jsx3.gui.LayoutGrid
+      jsx3.gui.RadioButton jsx3.gui.Select jsx3.gui.ToolbarButton jsx3.gui.WindowBar jsx3.net.Service"/>
+  <alias provides="36template" requires="default jsx3.gui.Template"/>
+
+  <file path="jsx3/app/UserSettings.js" provides="jsx3.app.UserSettings"
+      requires=""/>
+  <file path="jsx3/net/Form.js" provides="jsx3.net.Form"
+      requires=""/>
+  <file path="jsx3/xml/Cacheable.js" provides="jsx3.xml.Cacheable"
+      requires="jsx3.xml.Template jsx3.xml.CDF jsx3.lang.AOP"/>
+  <file path="jsx3/app/Monitor.js" provides="jsx3.app.Monitor"
+      requires=""/>
+  <file path="jsx3/gui/Form.js" provides="jsx3.gui.Form"
+      requires=""/>
+  <file path="jsx3/gui/HotKey.js" provides="jsx3.gui.HotKey"
+      requires="jsx3.gui.Event"/>
+  <file path="jsx3/gui/Painted.js" provides="jsx3.gui.Painted"
+      requires="jsx3.app.Model"/>
+  <file path="jsx3/gui/Heavyweight.js" provides="jsx3.gui.Heavyweight"
+      requires=""/>
+  <file path="jsx3/gui/Interactive.js" provides="jsx3.gui.Interactive"
+      requires="jsx3.gui.HotKey jsx3.lang.AOP"/>
+  <file path="jsx3/gui/Alerts.js" provides="jsx3.gui.Alerts"
+      requires=""/>
+  <file path="jsx3/gui/Block.js" provides="jsx3.gui.Block"
+      requires="jsx3.gui.Painted jsx3.gui.Interactive"/>
+  <file path="jsx3/gui/Label.js" provides="jsx3.gui.Label"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/gui/BlockX.js" provides="jsx3.gui.BlockX"
+      requires="jsx3.xml.Cacheable jsx3.gui.Block"/>
+  <file path="jsx3/gui/ToolbarButton.js" provides="jsx3.gui.ToolbarButton"
+      requires="jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/WindowBar.js" provides="jsx3.gui.WindowBar"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/gui/Dialog.js" provides="jsx3.gui.Dialog"
+      requires="jsx3.gui.Alerts jsx3.gui.Block jsx3.gui.ToolbarButton"/>
+  <file path="jsx3/gui/Button.js" provides="jsx3.gui.Button"
+      requires="jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/NativeButton.js" provides="jsx3.gui.NativeButton"
+      requires="jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/NativeFileUpload.js" provides="jsx3.gui.NativeFileUpload"
+      requires="jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/NativeHidden.js" provides="jsx3.gui.NativeHidden"
+      requires="jsx3.gui.Form jsx3.gui.Painted"/>
+  <file path="jsx3/gui/NativeForm.js" provides="jsx3.gui.NativeForm"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/gui/TextBox.js" provides="jsx3.gui.TextBox"
+      requires="jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/NumberInput.js" provides="jsx3.gui.NumberInput"
+      requires="jsx3.gui.TextBox jsx3.util.NumberFormat"/>
+  <file path="jsx3/gui/CheckBox.js" provides="jsx3.gui.CheckBox"
+      requires="jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/RadioButton.js" provides="jsx3.gui.RadioButton"
+      requires="jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/Splitter.js" provides="jsx3.gui.Splitter"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/gui/LayoutGrid.js" provides="jsx3.gui.LayoutGrid"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/gui/Stack.js" provides="jsx3.gui.Stack"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/gui/StackGroup.js" provides="jsx3.gui.StackGroup"
+      requires="jsx3.gui.LayoutGrid jsx3.gui.Stack"/>
+  <file path="jsx3/gui/Tab.js" provides="jsx3.gui.Tab"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/gui/TabbedPane.js" provides="jsx3.gui.TabbedPane"
+      requires="jsx3.gui.Block jsx3.gui.Tab"/>
+  <file path="jsx3/gui/Select.js" provides="jsx3.gui.Select"
+      requires="jsx3.xml.Cacheable jsx3.gui.Form jsx3.gui.Heavyweight jsx3.gui.Block jsx3.util.MessageFormat"/>
+  <file path="jsx3/gui/NativeSelect.js" provides="jsx3.gui.NativeSelect"
+      requires="jsx3.xml.Cacheable jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/Menu.js" provides="jsx3.gui.Menu"
+      requires="jsx3.xml.Cacheable jsx3.gui.Form jsx3.gui.Heavyweight jsx3.gui.Block jsx3.gui.ToolbarButton
+        jsx3.util.MessageFormat"/>
+  <file path="jsx3/gui/Tree.js" provides="jsx3.gui.Tree"
+      requires="jsx3.xml.Cacheable jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/Column.js" provides="jsx3.gui.Column"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/gui/List.js" provides="jsx3.gui.List"
+      requires="jsx3.xml.Cacheable jsx3.gui.Form jsx3.gui.Block jsx3.gui.Column"/>
+  <file path="jsx3/gui/Grid.js" provides="jsx3.gui.Grid"
+      requires="jsx3.gui.List"/>
+  <file path="jsx3/gui/DatePicker.js" provides="jsx3.gui.DatePicker"
+      requires="jsx3.gui.Form jsx3.gui.Heavyweight jsx3.gui.Block jsx3.util.DateFormat"/>
+  <file path="jsx3/gui/Slider.js" provides="jsx3.gui.Slider"
+      requires="jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/Sound.js" provides="jsx3.gui.Sound"
+      requires="jsx3.gui.Painted jsx3.gui.Interactive"/>
+  <file path="jsx3/gui/Window.js" provides="jsx3.gui.Window"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/gui/ImageButton.js" provides="jsx3.gui.ImageButton"
+      requires="jsx3.gui.Form jsx3.gui.Block"/>
+
+  <file path="jsx3/gui/ColorPicker.js" provides="jsx3.gui.ColorPicker"
+      requires="jsx3.gui.Form jsx3.gui.Block"/>
+  <file path="jsx3/gui/TimePicker.js" provides="jsx3.gui.TimePicker"
+      requires="jsx3.gui.Form jsx3.gui.Block jsx3.util.NumberFormat"/>
+  <file path="jsx3/gui/Matrix/Column.js" provides="jsx3.gui.Matrix.Column"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/gui/Matrix.js" provides="jsx3.gui.Matrix"
+      requires="jsx3.xml.Cacheable jsx3.gui.Form jsx3.gui.Block jsx3.gui.Matrix.Column jsx3.util.MessageFormat"/>
+  <file path="jsx3/gui/Image.js" provides="jsx3.gui.Image"
+      requires="jsx3.gui.Block"/>
+  <file path="jsx3/net/Service.js" provides="jsx3.net.Service"
+      requires="jsx3.xml.Template jsx3.xml.CDF"/>
+  <file path="jsx3/gui/Table.js" provides="jsx3.gui.Table"
+      requires="jsx3.xml.Cacheable jsx3.gui.Form jsx3.gui.Block"/>
+
+  <file path="jsx3/util/Dojo.js" provides="jsx3.util.Dojo"
+      requires="jsx3.util.EventDispatcher"/>
+  <file path="jsx3/xml/DojoDataStore.js" provides="jsx3.xml.DojoDataStore"
+      requires="jsx3.util.Dojo jsx3.xml.CDF"/>
+  <file path="jsx3/gui/DojoWidget.js" provides="jsx3.gui.DojoWidget"
+      requires="jsx3.util.Dojo jsx3.gui.Block"/>
+
+</gi-merger>

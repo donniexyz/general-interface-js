@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxoverflow="2" />
+      <strings jsxrows="5,*" jsxwidth="100%" jsxheight="100%" />
+        <object type="jsx3.gui.Block">
+          <dynamics jsxbgcolor="@Solid Disabled"/>
+          <variants jsxrelativeposition="1" jsxoverflow="2" />
+          <strings jsxname="jsxpad" jsxwidth="100%" jsxheight="100%" jsxborder="1px solid #e8e8f5;0px;0px;0px"/>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="1" />
+          <strings jsxwidth="100%" jsxheight="100%" />
+            <object type="jsx3.gui.Splitter">
+              <variants jsxrelativeposition="0" jsxorientation="1" jsxleft="0" jsxtop="0" />
+              <strings jsxname="jsx_ide_splitter1" jsxdefault1pct="80%" jsxsubcontainer1pct="100%" jsxsubcontainer2pct="0%" />
+                <object type="jsx3.gui.Splitter">
+                  <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" />
+                  <strings jsxname="jsx_ide_splitter2" jsxdefault1pct="20%" jsxsubcontainer1pct="0%" jsxsubcontainer2pct="100%" />
+                    <object type="jsx3.gui.Splitter">
+                      <variants jsxorientation="1" />
+                      <strings jsxname="jsx_ide_splitter3" jsxsubcontainer1pct="50%" jsxsubcontainer2pct="50%" />
+                        <object type="jsx3.gui.Block">
+                          <variants jsxrelativeposition="1" jsxoverflow="2" />
+                          <strings jsxname="jsxquad1" jsxwidth="100%" jsxheight="100%" />
+                            <object type="jsx3.gui.StackGroup">
+                              <variants jsxleft="0" jsxtop="0" jsxrelativeposition="1" jsxoverflow="2" />
+                              <strings jsxname="jsx_ide_quadrant_q1" jsxwidth="100%" jsxheight="100%" />
+                            </object>
+                        </object>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxrelativeposition="1" jsxoverflow="2" />
+                          <strings jsxname="jsxquad2" jsxwidth="100%" jsxheight="100%" />
+                            <object type="jsx3.gui.StackGroup">
+                              <variants jsxleft="0" jsxtop="0" jsxrelativeposition="1" jsxoverflow="2" />
+                              <strings jsxname="jsx_ide_quadrant_q2" jsxwidth="100%" jsxheight="100%" />
+                            </object>
+                        </object>
+                    </object>
+                    <object type="jsx3.gui.Splitter">
+                      <variants jsxleft="0" jsxtop="0" />
+                      <strings jsxname="jsx_ide_splitter4" jsxdefault1pct="75%" jsxsubcontainer1pct="100%" jsxsubcontainer2pct="0%" />
+                        <object type="jsx3.gui.Block">
+                          <dynamics jsxbgcolor="@Solid Shadow"/>
+                          <variants jsxrelativeposition="1" jsxoverflow="2" />
+                          <strings jsxname="jsx_ide_quadrant_qmain" jsxwidth="100%" jsxheight="100%"/>
+                        </object>
+                        <object type="jsx3.gui.Splitter">
+                          <variants jsxorientation="1" />
+                          <strings jsxname="jsx_ide_splitter5" jsxsubcontainer1pct="50%" jsxsubcontainer2pct="50%" />
+                            <object type="jsx3.gui.Block">
+                              <variants jsxrelativeposition="1" jsxoverflow="2" />
+                              <strings jsxname="jsxquad3" jsxwidth="100%" jsxheight="100%" />
+                                <object type="jsx3.gui.StackGroup">
+                                  <variants jsxleft="0" jsxtop="0" jsxrelativeposition="1" jsxoverflow="2" />
+                                  <strings jsxname="jsx_ide_quadrant_q3" jsxwidth="100%" jsxheight="100%" />
+                                </object>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <variants jsxrelativeposition="1" jsxoverflow="2" />
+                              <strings jsxname="jsxquad4" jsxwidth="100%" jsxheight="100%" />
+                                <object type="jsx3.gui.StackGroup">
+                                  <variants jsxleft="0" jsxtop="0" jsxrelativeposition="1" jsxoverflow="2" />
+                                  <strings jsxname="jsx_ide_quadrant_q4" jsxwidth="100%" jsxheight="100%" />
+                                </object>
+                            </object>
+                        </object>
+                    </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <dynamics jsxborder="@Inset"/>
+                  <variants jsxrelativeposition="1" jsxoverflow="2" />
+                  <strings jsxname="jsx_ide_quadrant_q5" jsxwidth="100%" jsxheight="100%" jsxbgcolor="#ffffff"/>
+                </object>
+            </object>
+        </object>
+    </object>
+</serialization>

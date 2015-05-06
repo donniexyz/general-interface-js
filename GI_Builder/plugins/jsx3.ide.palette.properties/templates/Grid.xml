@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="jsx3list" group="1" jsxtext="List">
+
+    <record jsxid="jsxheaderheight" jsxtext="Header Height"
+        jsxtip="Sets the height of the header row in implied pixels. Only positive integers are allowed. Set to &lt;code&gt;0&lt;/code&gt; if the list does not use a header."
+        docgetter="getHeaderHeight" docsetter="setHeaderHeight"
+        docdefault="The default height for the header row specified in the static field, &lt;code&gt;DEFAULTHEADERHEIGHT&lt;/code&gt;, of the component class (&lt;code&gt;jsx3.gui.List.DEFAULTHEADERHEIGHT&lt;/code&gt;). See the API documentation."
+        eval="1"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxbgcolorhead" jsxtext="BG Color Head"
+        eval="0"
+        jsxtip="Sets the CSS color for the header row. For example, &lt;code&gt;red&lt;/code&gt;, &lt;code&gt;rgb(255,0,0)&lt;/code&gt;, or &lt;code&gt;#ff0000&lt;/code&gt;."
+        docgetter="getBackgroundColorHead" docsetter="setBackgroundColorHead"
+        docdefault="The default background color for the header row specified in the static field, &lt;code&gt; DEFAULTBACKGROUNDCOLORHEAD&lt;/code&gt;, of the component class  (&lt;code&gt;jsx3.gui.List.DEFAULTBACKGROUNDCOLORHEAD&lt;/code&gt;). See the API documentation."
+        disallow="[^-0-9a-zA-Z#\(\);:\/\.,]"
+        jsxmask="jsxcolor"/>
+    <record jsxid="jsxbghead" jsxtext="Background Head"
+        eval="0"
+        jsxtip="Sets the CSS background definition for the header row, such as &lt;code&gt;background-image:url(abc.gif);background-repeat:repeat-x;&lt;/code&gt;."
+        docgetter="getBackgroundHead" docsetter="setBackgroundHead"
+        docdefault="The default background for the header row specified in the static field, &lt;code&gt;DEFAULTBACKGROUNDHEAD&lt;/code&gt;, of the component class
+        (&lt;code&gt;jsx3.gui.List.DEFAULTBACKGROUNDHEAD&lt;/code&gt;). See the API documentation."
+        disallow="'"
+        jsxmask="jsxtext"/>
+    <record include="master.xml" group="box_list"/>
+
+    <record include="master.xml" group="column_interactions"/>
+    <record jsxid="myspy" group="1" jsxtext="Spyglass">
+      <record include="master.xml" path="/data/record[@jsxid='move']/record[@jsxid='jsxspy']"/>
+    </record>
+    <record include="master.xml" group="list" children="1"/>
+
+    <record include="master.xml" group="drag" children="1"/>
+
+
+  </record>
+
+  <record include="master.xml" group="blockx"/>
+  <record include="master.xml" path="/data/record[@jsxid='font']/record[@jsxid='jsxfontname' or @jsxid='jsxfontsize']"/>
+
+  <record include="master.xml" path="/data/record[@jsxid='css']/record[@jsxid!='jsxstyleoverride']"/>
+
+  <record include="master.xml" path="/data/record[@jsxid='jsxmenu']/*"/>
+  <record include="master.xml" path="//record[@jsxid='jsxindex']"/>
+  <record include="master.xml" group="metadata"/>
+</data>

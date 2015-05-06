@@ -1,0 +1,60 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+var rootBlock = objJSX.getChild(0);
+
+rootBlock.unfocusWindow = function() {
+  var w = this.getAncestorOfType(jsx3.gui.Window);
+  if (w) {
+    var main = w.getParentWindow();
+    if (main) main.focus();
+  }
+};
+
+objJSX.getHelpBlock = function() {
+  return this.getDescendantOfName('jsx_ide_api');
+};
+
+objJSX.getHelpBlockParent = function() {
+  return this.getChild(0).getChild(0);
+};
+
+rootBlock.registerHotKey("unfocusWindow", 'm', false, true, false);
+
+ ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Window">
+      <dynamics jsxtitle="jsx3.ide.apidoc.title"/>
+      <variants jsxdependent="1" jsxresizable="1" jsxscrollable="0"/>
+      <strings jsxname="api_help" jsxwidth="880" jsxheight="600" jsxhelpid="ide.api"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+          <strings jsxname="window" jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0"
+                  jsxoverflow="3"/>
+              <strings jsxname="windowlg" jsxwidth="100%" jsxheight="100%" jsxrows="26,*"/>
+                <object type="jsx3.gui.WindowBar">
+                  <variants jsxbartype="1"/>
+                  <strings jsxname="title" jsxtextalign="right"/>
+                    <object type="jsx3.gui.Menu">
+                      <dynamics jsxtext="jsx3.ide.apidoc.m2" jsxtip="jsx3.ide.apidoc.m2t"/>
+                      <variants jsxtype="0" jsxstate="0" jsxshare="1"/>
+                      <strings jsxname="mnuApiHelp" jsxxmlid="jsx3.ide.apidoc.menu-settings"/>
+                      <events jsxmenu="api_help.getPlugIn().onApiHelpMenu(this);"
+                              jsxexecute="api_help.getPlugIn().onApiHelpSettingsSet(this, strRECORDID);"/>
+                    </object>
+                    <object type="jsx3.gui.ToolbarButton">
+                      <dynamics jsxtip="jsx3.ide.apidoc.tog2"/>
+                      <strings jsxname="jsxminbutton" jsximage="JSX/images/dialog/window.gif"/>
+                      <events jsxexecute="api_help.getPlugIn().openApiHelp(false);"/>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </object>
+</serialization>

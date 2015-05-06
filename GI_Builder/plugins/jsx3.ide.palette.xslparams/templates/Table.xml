@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record jsxid="jsx_1" jsxtip="User attribute 1."/>
+  <record jsxid="jsx_2" jsxtip="User attribute 2."/>
+  <record jsxid="jsx_3" jsxtip="User attribute 3."/>
+  <record jsxid="jsx_4" jsxtip="User attribute 4."/>
+  <record jsxid="jsx_5" jsxtip="User attribute 5."/>
+  <record jsxid="jsx_6" jsxtip="User attribute 6."/>
+  <record jsxid="jsx_7" jsxtip="User attribute 7."/>
+  <record jsxid="jsx_8" jsxtip="User attribute 8."/>
+  <record jsxid="jsx_9" jsxtip="User attribute 9."/>
+  <record jsxid="jsx_10" jsxtip="User attribute 10."/>
+  <record jsxid="jsxshallowfrom"
+      jsxtip="The jsxid attribute of the CDF record whose child records are rendered as the entries in the select. If provided, only the direct children of the record are rendered. If this attribute is not provided, all descendants of the root data element are rendered."/>  
+  <record jsxid="jsxmininclusive" jsxtip="Record filter minimum inclusive row. This is used only when jsxmaxinclusive is defined."/>
+  <record jsxid="jsxmaxinclusive" jsxtip="Record filter maximum inclusive row. This is used in conjunction with jsxmininclusive."/>
+</data>

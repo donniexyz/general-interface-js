@@ -1,0 +1,17 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Time]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[Renders a time according to a configurable date format. The data model can store the
+    dates as epoch seconds or a string format recognized by the JavaScript Date.parse() method. Supported format
+    handlers include "@time", "@time,short", "@time,medium", "@time,long", and "@time,full".]]></description>
+  <object type="jsx3.gui.Matrix.Column">
+    <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"/>
+    <strings jsxname="timeColumn" jsxwidth="100" jsxtext="Time"
+        jsxpadding="2" jsxcellpadding="2" jsxpath="time" jsxformathandler="@time"
+        jsxvaluetemplate="@empty"/>
+  </object>
+</serialization>

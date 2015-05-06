@@ -1,0 +1,947 @@
+<?xml version="1.0" encoding="utf-8"?>
+<definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://ws.cdyne.com/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://ws.cdyne.com/" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ws.cdyne.com/">
+      <s:element name="StandardizedAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="addressToCheck" type="s0:Address" />
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="Address">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ServiceError" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="AddressError" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="Firm" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryAddress" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryAddress2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrimaryLow" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrimaryHigh" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PriEO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecEO" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecondaryLow" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecondaryHigh" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Secondary" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Extra" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StateAbbrev" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AddressFoundBeMoreSpecific" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CarrierRoute" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="County" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DeliveryPoint" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="CheckDigit" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BarCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="NeededCorrection" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="CSKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UpdateKey" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="RecordTypeCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CongressDistrictNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FIPS" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FinanceNumber" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FromLongitude" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FromLatitude" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ToLongitude" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="ToLatitude" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvgLongitude" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="AvgLatitude" type="s:decimal" />
+          <s:element minOccurs="0" maxOccurs="1" name="CMSA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PMSA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MSA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="MA" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TimeZone" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="hasDaylightSavings" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="AreaCode" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="LLCertainty" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="CountyNum" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="PreferredCityName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CensusBlockNum" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="CensusTractNum" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Primary" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PrefixDirection" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Suffix" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PostDirection" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="SecondaryNumber" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="StandardizedAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="StandardizedAddressResult" type="s0:Address" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AdvancedStandardization">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="addressToCheck" type="s0:Address" />
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AdvancedStandardizationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AdvancedStandardizationResult" type="s0:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ReturnCityState">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="zipcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReturnCityStateResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReturnCityStateResult" type="s0:Address" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="BarcodeFontURL">
+        <s:complexType />
+      </s:element>
+      <s:element name="BarcodeFontURLResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BarcodeFontURLResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CCServerCheck">
+        <s:complexType />
+      </s:element>
+      <s:element name="CCServerCheckResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CCServerCheckResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddressLine" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StateAbbrev" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckAddressResult" type="s0:Address" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAddressW2lines">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddressLine" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StateAbbrev" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckAddressW2linesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckAddressW2linesResult" type="s0:Address" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AdvancedCheckAddress">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddressLine" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AddressLine2" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ZipCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="City" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StateAbbrev" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AdvancedCheckAddressResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AdvancedCheckAddressResult" type="s0:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="VersionInformation">
+        <s:complexType />
+      </s:element>
+      <s:element name="VersionInformationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="VersionInformationResult" type="s0:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Report">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="CommentOrBugInformation" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReportResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ReportResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CalculateDistanceInMiles">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="latitude1" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="longitude1" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="latitude2" type="s:double" />
+            <s:element minOccurs="1" maxOccurs="1" name="longitude2" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CalculateDistanceInMilesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CalculateDistanceInMilesResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AlternateCities">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="zipcode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AlternateCitiesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AlternateCitiesResult" type="s0:ArrayOfAnyType" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Address" type="s0:Address" />
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="ArrayOfAnyType" nillable="true" type="s0:ArrayOfAnyType" />
+      <s:element name="boolean" type="s:boolean" />
+      <s:element name="double" type="s:double" />
+    </s:schema>
+  </types>
+  <message name="StandardizedAddressSoapIn">
+    <part name="parameters" element="s0:StandardizedAddress" />
+  </message>
+  <message name="StandardizedAddressSoapOut">
+    <part name="parameters" element="s0:StandardizedAddressResponse" />
+  </message>
+  <message name="AdvancedStandardizationSoapIn">
+    <part name="parameters" element="s0:AdvancedStandardization" />
+  </message>
+  <message name="AdvancedStandardizationSoapOut">
+    <part name="parameters" element="s0:AdvancedStandardizationResponse" />
+  </message>
+  <message name="ReturnCityStateSoapIn">
+    <part name="parameters" element="s0:ReturnCityState" />
+  </message>
+  <message name="ReturnCityStateSoapOut">
+    <part name="parameters" element="s0:ReturnCityStateResponse" />
+  </message>
+  <message name="BarcodeFontURLSoapIn">
+    <part name="parameters" element="s0:BarcodeFontURL" />
+  </message>
+  <message name="BarcodeFontURLSoapOut">
+    <part name="parameters" element="s0:BarcodeFontURLResponse" />
+  </message>
+  <message name="CCServerCheckSoapIn">
+    <part name="parameters" element="s0:CCServerCheck" />
+  </message>
+  <message name="CCServerCheckSoapOut">
+    <part name="parameters" element="s0:CCServerCheckResponse" />
+  </message>
+  <message name="CheckAddressSoapIn">
+    <part name="parameters" element="s0:CheckAddress" />
+  </message>
+  <message name="CheckAddressSoapOut">
+    <part name="parameters" element="s0:CheckAddressResponse" />
+  </message>
+  <message name="CheckAddressW2linesSoapIn">
+    <part name="parameters" element="s0:CheckAddressW2lines" />
+  </message>
+  <message name="CheckAddressW2linesSoapOut">
+    <part name="parameters" element="s0:CheckAddressW2linesResponse" />
+  </message>
+  <message name="AdvancedCheckAddressSoapIn">
+    <part name="parameters" element="s0:AdvancedCheckAddress" />
+  </message>
+  <message name="AdvancedCheckAddressSoapOut">
+    <part name="parameters" element="s0:AdvancedCheckAddressResponse" />
+  </message>
+  <message name="VersionInformationSoapIn">
+    <part name="parameters" element="s0:VersionInformation" />
+  </message>
+  <message name="VersionInformationSoapOut">
+    <part name="parameters" element="s0:VersionInformationResponse" />
+  </message>
+  <message name="ReportSoapIn">
+    <part name="parameters" element="s0:Report" />
+  </message>
+  <message name="ReportSoapOut">
+    <part name="parameters" element="s0:ReportResponse" />
+  </message>
+  <message name="CalculateDistanceInMilesSoapIn">
+    <part name="parameters" element="s0:CalculateDistanceInMiles" />
+  </message>
+  <message name="CalculateDistanceInMilesSoapOut">
+    <part name="parameters" element="s0:CalculateDistanceInMilesResponse" />
+  </message>
+  <message name="AlternateCitiesSoapIn">
+    <part name="parameters" element="s0:AlternateCities" />
+  </message>
+  <message name="AlternateCitiesSoapOut">
+    <part name="parameters" element="s0:AlternateCitiesResponse" />
+  </message>
+  <message name="ReturnCityStateHttpGetIn">
+    <part name="zipcode" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="ReturnCityStateHttpGetOut">
+    <part name="Body" element="s0:Address" />
+  </message>
+  <message name="BarcodeFontURLHttpGetIn" />
+  <message name="BarcodeFontURLHttpGetOut">
+    <part name="Body" element="s0:string" />
+  </message>
+  <message name="CCServerCheckHttpGetIn" />
+  <message name="CCServerCheckHttpGetOut">
+    <part name="Body" element="s0:string" />
+  </message>
+  <message name="CheckAddressHttpGetIn">
+    <part name="AddressLine" type="s:string" />
+    <part name="ZipCode" type="s:string" />
+    <part name="City" type="s:string" />
+    <part name="StateAbbrev" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="CheckAddressHttpGetOut">
+    <part name="Body" element="s0:Address" />
+  </message>
+  <message name="CheckAddressW2linesHttpGetIn">
+    <part name="AddressLine" type="s:string" />
+    <part name="AddressLine2" type="s:string" />
+    <part name="ZipCode" type="s:string" />
+    <part name="City" type="s:string" />
+    <part name="StateAbbrev" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="CheckAddressW2linesHttpGetOut">
+    <part name="Body" element="s0:Address" />
+  </message>
+  <message name="AdvancedCheckAddressHttpGetIn">
+    <part name="AddressLine" type="s:string" />
+    <part name="AddressLine2" type="s:string" />
+    <part name="ZipCode" type="s:string" />
+    <part name="City" type="s:string" />
+    <part name="StateAbbrev" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="AdvancedCheckAddressHttpGetOut">
+    <part name="Body" element="s0:ArrayOfAnyType" />
+  </message>
+  <message name="VersionInformationHttpGetIn" />
+  <message name="VersionInformationHttpGetOut">
+    <part name="Body" element="s0:ArrayOfAnyType" />
+  </message>
+  <message name="ReportHttpGetIn">
+    <part name="name" type="s:string" />
+    <part name="email" type="s:string" />
+    <part name="CommentOrBugInformation" type="s:string" />
+  </message>
+  <message name="ReportHttpGetOut">
+    <part name="Body" element="s0:boolean" />
+  </message>
+  <message name="CalculateDistanceInMilesHttpGetIn">
+    <part name="latitude1" type="s:string" />
+    <part name="longitude1" type="s:string" />
+    <part name="latitude2" type="s:string" />
+    <part name="longitude2" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="CalculateDistanceInMilesHttpGetOut">
+    <part name="Body" element="s0:double" />
+  </message>
+  <message name="AlternateCitiesHttpGetIn">
+    <part name="zipcode" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="AlternateCitiesHttpGetOut">
+    <part name="Body" element="s0:ArrayOfAnyType" />
+  </message>
+  <message name="ReturnCityStateHttpPostIn">
+    <part name="zipcode" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="ReturnCityStateHttpPostOut">
+    <part name="Body" element="s0:Address" />
+  </message>
+  <message name="BarcodeFontURLHttpPostIn" />
+  <message name="BarcodeFontURLHttpPostOut">
+    <part name="Body" element="s0:string" />
+  </message>
+  <message name="CCServerCheckHttpPostIn" />
+  <message name="CCServerCheckHttpPostOut">
+    <part name="Body" element="s0:string" />
+  </message>
+  <message name="CheckAddressHttpPostIn">
+    <part name="AddressLine" type="s:string" />
+    <part name="ZipCode" type="s:string" />
+    <part name="City" type="s:string" />
+    <part name="StateAbbrev" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="CheckAddressHttpPostOut">
+    <part name="Body" element="s0:Address" />
+  </message>
+  <message name="CheckAddressW2linesHttpPostIn">
+    <part name="AddressLine" type="s:string" />
+    <part name="AddressLine2" type="s:string" />
+    <part name="ZipCode" type="s:string" />
+    <part name="City" type="s:string" />
+    <part name="StateAbbrev" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="CheckAddressW2linesHttpPostOut">
+    <part name="Body" element="s0:Address" />
+  </message>
+  <message name="AdvancedCheckAddressHttpPostIn">
+    <part name="AddressLine" type="s:string" />
+    <part name="AddressLine2" type="s:string" />
+    <part name="ZipCode" type="s:string" />
+    <part name="City" type="s:string" />
+    <part name="StateAbbrev" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="AdvancedCheckAddressHttpPostOut">
+    <part name="Body" element="s0:ArrayOfAnyType" />
+  </message>
+  <message name="VersionInformationHttpPostIn" />
+  <message name="VersionInformationHttpPostOut">
+    <part name="Body" element="s0:ArrayOfAnyType" />
+  </message>
+  <message name="ReportHttpPostIn">
+    <part name="name" type="s:string" />
+    <part name="email" type="s:string" />
+    <part name="CommentOrBugInformation" type="s:string" />
+  </message>
+  <message name="ReportHttpPostOut">
+    <part name="Body" element="s0:boolean" />
+  </message>
+  <message name="CalculateDistanceInMilesHttpPostIn">
+    <part name="latitude1" type="s:string" />
+    <part name="longitude1" type="s:string" />
+    <part name="latitude2" type="s:string" />
+    <part name="longitude2" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="CalculateDistanceInMilesHttpPostOut">
+    <part name="Body" element="s0:double" />
+  </message>
+  <message name="AlternateCitiesHttpPostIn">
+    <part name="zipcode" type="s:string" />
+    <part name="LicenseKey" type="s:string" />
+  </message>
+  <message name="AlternateCitiesHttpPostOut">
+    <part name="Body" element="s0:ArrayOfAnyType" />
+  </message>
+  <portType name="AddressLookupSoap">
+    <operation name="StandardizedAddress">
+      <documentation>This method is called by all Standard Address Routines and allows more interaction with the address system.</documentation>
+      <input message="s0:StandardizedAddressSoapIn" />
+      <output message="s0:StandardizedAddressSoapOut" />
+    </operation>
+    <operation name="AdvancedStandardization">
+      <documentation>This method is called by all advanced address checking methods and allows for a deeper interface with the address correction.</documentation>
+      <input message="s0:AdvancedStandardizationSoapIn" />
+      <output message="s0:AdvancedStandardizationSoapOut" />
+    </operation>
+    <operation name="ReturnCityState">
+      <documentation>Checks a zipcode and returns City, State, Lat, Long and more.  The latitude and longitude will be more precise with a plus 4.  We have added Candian Postal Codes to this mix.  This is the only function that will pull Canadian Geo and City information.</documentation>
+      <input message="s0:ReturnCityStateSoapIn" />
+      <output message="s0:ReturnCityStateSoapOut" />
+    </operation>
+    <operation name="BarcodeFontURL">
+      <input message="s0:BarcodeFontURLSoapIn" />
+      <output message="s0:BarcodeFontURLSoapOut" />
+    </operation>
+    <operation name="CCServerCheck">
+      <input message="s0:CCServerCheckSoapIn" />
+      <output message="s0:CCServerCheckSoapOut" />
+    </operation>
+    <operation name="CheckAddress">
+      <documentation>This method checks an address with 1 line and only returns 1 match.</documentation>
+      <input message="s0:CheckAddressSoapIn" />
+      <output message="s0:CheckAddressSoapOut" />
+    </operation>
+    <operation name="CheckAddressW2lines">
+      <documentation>This method checks an address with 2 lines and only returns 1 possible match.</documentation>
+      <input message="s0:CheckAddressW2linesSoapIn" />
+      <output message="s0:CheckAddressW2linesSoapOut" />
+    </operation>
+    <operation name="AdvancedCheckAddress">
+      <documentation>This method checks an address with 2 lines and returns all possible matches.</documentation>
+      <input message="s0:AdvancedCheckAddressSoapIn" />
+      <output message="s0:AdvancedCheckAddressSoapOut" />
+    </operation>
+    <operation name="VersionInformation">
+      <documentation>Views the latest version information</documentation>
+      <input message="s0:VersionInformationSoapIn" />
+      <output message="s0:VersionInformationSoapOut" />
+    </operation>
+    <operation name="Report">
+      <documentation>This method allows you to submit a bug via a program interface.</documentation>
+      <input message="s0:ReportSoapIn" />
+      <output message="s0:ReportSoapOut" />
+    </operation>
+    <operation name="CalculateDistanceInMiles">
+      <documentation>Calculates the distance between two areas using longitude and latitude.  This is calculated using spherical geometry.</documentation>
+      <input message="s0:CalculateDistanceInMilesSoapIn" />
+      <output message="s0:CalculateDistanceInMilesSoapOut" />
+    </operation>
+    <operation name="AlternateCities">
+      <documentation>Returns all possible city names for a zipcode as an array</documentation>
+      <input message="s0:AlternateCitiesSoapIn" />
+      <output message="s0:AlternateCitiesSoapOut" />
+    </operation>
+  </portType>
+  <portType name="AddressLookupHttpGet">
+    <operation name="ReturnCityState">
+      <documentation>Checks a zipcode and returns City, State, Lat, Long and more.  The latitude and longitude will be more precise with a plus 4.  We have added Candian Postal Codes to this mix.  This is the only function that will pull Canadian Geo and City information.</documentation>
+      <input message="s0:ReturnCityStateHttpGetIn" />
+      <output message="s0:ReturnCityStateHttpGetOut" />
+    </operation>
+    <operation name="BarcodeFontURL">
+      <input message="s0:BarcodeFontURLHttpGetIn" />
+      <output message="s0:BarcodeFontURLHttpGetOut" />
+    </operation>
+    <operation name="CCServerCheck">
+      <input message="s0:CCServerCheckHttpGetIn" />
+      <output message="s0:CCServerCheckHttpGetOut" />
+    </operation>
+    <operation name="CheckAddress">
+      <documentation>This method checks an address with 1 line and only returns 1 match.</documentation>
+      <input message="s0:CheckAddressHttpGetIn" />
+      <output message="s0:CheckAddressHttpGetOut" />
+    </operation>
+    <operation name="CheckAddressW2lines">
+      <documentation>This method checks an address with 2 lines and only returns 1 possible match.</documentation>
+      <input message="s0:CheckAddressW2linesHttpGetIn" />
+      <output message="s0:CheckAddressW2linesHttpGetOut" />
+    </operation>
+    <operation name="AdvancedCheckAddress">
+      <documentation>This method checks an address with 2 lines and returns all possible matches.</documentation>
+      <input message="s0:AdvancedCheckAddressHttpGetIn" />
+      <output message="s0:AdvancedCheckAddressHttpGetOut" />
+    </operation>
+    <operation name="VersionInformation">
+      <documentation>Views the latest version information</documentation>
+      <input message="s0:VersionInformationHttpGetIn" />
+      <output message="s0:VersionInformationHttpGetOut" />
+    </operation>
+    <operation name="Report">
+      <documentation>This method allows you to submit a bug via a program interface.</documentation>
+      <input message="s0:ReportHttpGetIn" />
+      <output message="s0:ReportHttpGetOut" />
+    </operation>
+    <operation name="CalculateDistanceInMiles">
+      <documentation>Calculates the distance between two areas using longitude and latitude.  This is calculated using spherical geometry.</documentation>
+      <input message="s0:CalculateDistanceInMilesHttpGetIn" />
+      <output message="s0:CalculateDistanceInMilesHttpGetOut" />
+    </operation>
+    <operation name="AlternateCities">
+      <documentation>Returns all possible city names for a zipcode as an array</documentation>
+      <input message="s0:AlternateCitiesHttpGetIn" />
+      <output message="s0:AlternateCitiesHttpGetOut" />
+    </operation>
+  </portType>
+  <portType name="AddressLookupHttpPost">
+    <operation name="ReturnCityState">
+      <documentation>Checks a zipcode and returns City, State, Lat, Long and more.  The latitude and longitude will be more precise with a plus 4.  We have added Candian Postal Codes to this mix.  This is the only function that will pull Canadian Geo and City information.</documentation>
+      <input message="s0:ReturnCityStateHttpPostIn" />
+      <output message="s0:ReturnCityStateHttpPostOut" />
+    </operation>
+    <operation name="BarcodeFontURL">
+      <input message="s0:BarcodeFontURLHttpPostIn" />
+      <output message="s0:BarcodeFontURLHttpPostOut" />
+    </operation>
+    <operation name="CCServerCheck">
+      <input message="s0:CCServerCheckHttpPostIn" />
+      <output message="s0:CCServerCheckHttpPostOut" />
+    </operation>
+    <operation name="CheckAddress">
+      <documentation>This method checks an address with 1 line and only returns 1 match.</documentation>
+      <input message="s0:CheckAddressHttpPostIn" />
+      <output message="s0:CheckAddressHttpPostOut" />
+    </operation>
+    <operation name="CheckAddressW2lines">
+      <documentation>This method checks an address with 2 lines and only returns 1 possible match.</documentation>
+      <input message="s0:CheckAddressW2linesHttpPostIn" />
+      <output message="s0:CheckAddressW2linesHttpPostOut" />
+    </operation>
+    <operation name="AdvancedCheckAddress">
+      <documentation>This method checks an address with 2 lines and returns all possible matches.</documentation>
+      <input message="s0:AdvancedCheckAddressHttpPostIn" />
+      <output message="s0:AdvancedCheckAddressHttpPostOut" />
+    </operation>
+    <operation name="VersionInformation">
+      <documentation>Views the latest version information</documentation>
+      <input message="s0:VersionInformationHttpPostIn" />
+      <output message="s0:VersionInformationHttpPostOut" />
+    </operation>
+    <operation name="Report">
+      <documentation>This method allows you to submit a bug via a program interface.</documentation>
+      <input message="s0:ReportHttpPostIn" />
+      <output message="s0:ReportHttpPostOut" />
+    </operation>
+    <operation name="CalculateDistanceInMiles">
+      <documentation>Calculates the distance between two areas using longitude and latitude.  This is calculated using spherical geometry.</documentation>
+      <input message="s0:CalculateDistanceInMilesHttpPostIn" />
+      <output message="s0:CalculateDistanceInMilesHttpPostOut" />
+    </operation>
+    <operation name="AlternateCities">
+      <documentation>Returns all possible city names for a zipcode as an array</documentation>
+      <input message="s0:AlternateCitiesHttpPostIn" />
+      <output message="s0:AlternateCitiesHttpPostOut" />
+    </operation>
+  </portType>
+  <binding name="AddressLookupSoap" type="s0:AddressLookupSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+    <operation name="StandardizedAddress">
+      <soap:operation soapAction="http://ws.cdyne.com/StandardizedAddress" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AdvancedStandardization">
+      <soap:operation soapAction="http://ws.cdyne.com/AdvancedStandardization" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="ReturnCityState">
+      <soap:operation soapAction="http://ws.cdyne.com/ReturnCityState" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="BarcodeFontURL">
+      <soap:operation soapAction="http://ws.cdyne.com/BarcodeFontURL" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="CCServerCheck">
+      <soap:operation soapAction="http://ws.cdyne.com/CCServerCheck" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="CheckAddress">
+      <soap:operation soapAction="http://ws.cdyne.com/CheckAddress" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="CheckAddressW2lines">
+      <soap:operation soapAction="http://ws.cdyne.com/CheckAddressW2lines" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AdvancedCheckAddress">
+      <soap:operation soapAction="http://ws.cdyne.com/AdvancedCheckAddress" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="VersionInformation">
+      <soap:operation soapAction="http://ws.cdyne.com/VersionInformation" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="Report">
+      <soap:operation soapAction="http://ws.cdyne.com/Report" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="CalculateDistanceInMiles">
+      <soap:operation soapAction="http://ws.cdyne.com/CalculateDistanceInMiles" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="AlternateCities">
+      <soap:operation soapAction="http://ws.cdyne.com/AlternateCities" style="document" />
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="AddressLookupHttpGet" type="s0:AddressLookupHttpGet">
+    <http:binding verb="GET" />
+    <operation name="ReturnCityState">
+      <http:operation location="/ReturnCityState" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="BarcodeFontURL">
+      <http:operation location="/BarcodeFontURL" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="CCServerCheck">
+      <http:operation location="/CCServerCheck" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="CheckAddress">
+      <http:operation location="/CheckAddress" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="CheckAddressW2lines">
+      <http:operation location="/CheckAddressW2lines" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="AdvancedCheckAddress">
+      <http:operation location="/AdvancedCheckAddress" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="VersionInformation">
+      <http:operation location="/VersionInformation" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="Report">
+      <http:operation location="/Report" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="CalculateDistanceInMiles">
+      <http:operation location="/CalculateDistanceInMiles" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="AlternateCities">
+      <http:operation location="/AlternateCities" />
+      <input>
+        <http:urlEncoded />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <binding name="AddressLookupHttpPost" type="s0:AddressLookupHttpPost">
+    <http:binding verb="POST" />
+    <operation name="ReturnCityState">
+      <http:operation location="/ReturnCityState" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="BarcodeFontURL">
+      <http:operation location="/BarcodeFontURL" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="CCServerCheck">
+      <http:operation location="/CCServerCheck" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="CheckAddress">
+      <http:operation location="/CheckAddress" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="CheckAddressW2lines">
+      <http:operation location="/CheckAddressW2lines" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="AdvancedCheckAddress">
+      <http:operation location="/AdvancedCheckAddress" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="VersionInformation">
+      <http:operation location="/VersionInformation" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="Report">
+      <http:operation location="/Report" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="CalculateDistanceInMiles">
+      <http:operation location="/CalculateDistanceInMiles" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+    <operation name="AlternateCities">
+      <http:operation location="/AlternateCities" />
+      <input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </input>
+      <output>
+        <mime:mimeXml part="Body" />
+      </output>
+    </operation>
+  </binding>
+  <service name="AddressLookup">
+    <documentation>This service corrects U.S. addresses, provides geocoding (U.S. down to address level and Canadian to Postal Code Level), and allows you to convert zip codes (and Canadian Postal Codes) to city and state names.  We also offer PMSA, CMSA, and various other codes.  &lt;b&gt;BE SURE TO USE A LICENSE KEY OF 0 FOR TESTING.&lt;/b&gt;</documentation>
+    <port name="AddressLookupSoap" binding="s0:AddressLookupSoap">
+      <soap:address location="http://ws.cdyne.com/psaddress/addresslookup.asmx" />
+    </port>
+    <port name="AddressLookupHttpGet" binding="s0:AddressLookupHttpGet">
+      <http:address location="http://ws.cdyne.com/psaddress/addresslookup.asmx" />
+    </port>
+    <port name="AddressLookupHttpPost" binding="s0:AddressLookupHttpPost">
+      <http:address location="http://ws.cdyne.com/psaddress/addresslookup.asmx" />
+    </port>
+  </service>
+</definitions>

@@ -1,0 +1,158 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+  <onAfterDeserialize><![CDATA[
+
+objJSX.onEditorChanged = function(newEditor, oldEditor) {
+  var onNow = newEditor && newEditor.getMode() == "component" && 
+      this.getPlugIn().allArePainted(newEditor.getSelection());
+
+  this.makeActive(onNow);
+  if (onNow)
+    this._onSelectionChanged(newEditor);
+};
+
+objJSX.makeActive = jsx3.$F(function(bActive) {
+  if (Boolean(jsxattribute_name.getEnabled()) != Boolean(bActive)) {
+    jsxattribute_name.setEnabled(bActive, true);
+    jsxattribute_value.setEnabled(bActive, true);
+    jsxaddattribute.setEnabled(bActive, true);
+
+    if (!bActive)
+      jsxattributes.clearXmlData();
+    jsxattributes.setEnabled(bActive, !bActive);
+
+    namelabel.setColor(bActive ? "#000000" : jsx3.gui.Form.DEFAULTDISABLEDCOLOR, true);
+    valuelabel.setColor(bActive ? "#000000" : jsx3.gui.Form.DEFAULTDISABLEDCOLOR, true);
+  }
+}).throttled();
+
+objJSX.onSelectionChanged = function(objEditor) {
+  this.onEditorChanged(objEditor);
+};
+
+objJSX._onSelectionChanged = function(objEditor) {
+  this.getPlugIn().onAttributeChange();
+};
+
+objJSX.getDataMatrix = function() {
+  return jsxattributes;
+};
+
+objJSX._attributeExec = function() {
+  var nameField = jsxattribute_name;
+  var valueField = jsxattribute_value;
+  var name = nameField.getValue();
+  var value = valueField.getValue();
+
+  if (name && value && jsxattribute_name._regex.test(name)) {
+    this.getPlugIn().onAttributeAdd(name, value);
+    nameField.setValue("");
+    valueField.setValue("");
+    nameField.focus();
+  }
+};
+
+objJSX.onPaletteLoaded = function() {
+  jsxattribute_name._regex = /^[_A-Za-z\-][\w\-]*(\:([_A-Za-z\-][\w\-]*)?)?$/;
+  jsxattribute_value._regex = /^[^"]*$/;
+
+  jsxattribute_value.validateKey = function(strValue) {
+    if (strValue && ! this._regex.test(strValue)) {
+      this.beep();
+      return false;
+    }
+    return true;
+  };
+
+  jsxattribute_name.validateKey = jsxattribute_value.validateKey;
+
+  objJSX.registerHotKey(function() { objJSX.getPlugIn().onAttributeDelete(jsxattributes.getValue()); },
+      jsx3.gui.Event.KEY_DELETE, false, true, false); // delete
+
+  var editor = jsx3.ide.getActiveEditor();
+  if (editor)
+    this.onEditorChanged(editor, null);
+};
+
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+   <dynamics jsxborder="@Outset" />
+   <variants jsxleft="0" jsxtop="0" jsxoverflow="1" />
+   <strings jsxname="attrpal" jsxwidth="100%" jsxheight="100%" jsxhelpid="ide.palette.attr"/>
+    <object type="jsx3.gui.LayoutGrid">
+     <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2" />
+     <strings jsxname="jsxattributes_editor" jsxwidth="100%" jsxheight="100%" jsxrows="48,*"/>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxbgcolor="@Solid Medium" />
+       <variants jsxoverflow="2" jsxrelativeposition="1" />
+       <strings jsxname="jsxattributes_namevalueeditor" jsxwidth="100%" jsxheight="100%" jsxpadding="22 6 0 98" jsxtextalign="right" />
+        <object type="jsx3.gui.Block">
+         <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtext="_gen_name"/>
+         <variants jsxrelativeposition="0" jsxleft="6" jsxtop="8" jsxwidth="60" />
+         <strings jsxname="namelabel" jsxtextalign="right" />
+        </object>
+        <object type="jsx3.gui.Block">
+         <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtext="_gen_value"/>
+         <variants jsxrelativeposition="0" jsxleft="6" jsxtop="28" jsxwidth="60" />
+         <strings jsxname="valuelabel" jsxtextalign="right" />
+        </object>
+        <object type="jsx3.gui.TextBox">
+         <variants jsxrelativeposition="0" jsxleft="70" jsxtop="6" />
+         <strings jsxname="jsxattribute_name" jsxwidth="100%" />
+         <events jsxexecute="this.getParent().getChild('jsxattribute_value').focus();" jsxincchange="this.validateKey(strVALUE);" />
+        </object>
+        <object type="jsx3.gui.TextBox">
+         <variants jsxrelativeposition="0" jsxleft="70" jsxtop="26" />
+         <strings jsxname="jsxattribute_value" jsxwidth="100%" />
+         <events jsxexecute="attrpal._attributeExec();" jsxincchange="this.validateKey(strVALUE);"/>
+        </object>
+        <object type="jsx3.gui.ToolbarButton">
+         <dynamics jsxtip="_atted_add"/>
+         <strings jsxname="jsxaddattribute" jsxleft="100%" jsximage="jsx:///images/tree/plus.gif" />
+         <events jsxexecute="attrpal._attributeExec();"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxborder="@Inset Top" jsxbgcolor="@Solid Medium" />
+       <variants jsxoverflow="2" />
+       <strings jsxwidth="100%" jsxheight="100%" />
+        <object type="jsx3.gui.Matrix">
+         <dynamics jsxbgcolor="@Solid Light" jsxbodyborder="@Outset"/>
+         <variants jsxpagingmodel="1" jsxselectionmodel="0" jsxscalewidth="1" jsxresize="1" jsxreorder="0"/>
+         <strings jsxname="jsxattributes" jsxsortpath="" jsxsortdirection="ascending" jsxmenu="jsxmenu_attributes" jsxfocusstyle=";"/>
+         <events jsxafteredit="attrpal.getPlugIn().onAttributeEdit(strRECORDID, strNEWVALUE, this);"
+             jsxmenu="strRECORDID != null &amp;&amp; strRECORDID != '';" />
+          <object type="jsx3.gui.Matrix.Column">
+           <dynamics jsxtext="_gen_name" jsxbg="@Fade TopDown" jsxborder="@Outset"
+               jsxcellbgcolor="@Matrix HeaderCol BG" jsxcellborder="@Matrix HeaderCol Border"/>
+           <strings jsxname="jsxattributes_name" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="120" jsxpath="jsxtext"
+               jsxcellbgcolor="#c8c8d5" jsxcellborder="0px;1px solid #9898a5;1px solid #9898a5;0px" />
+          </object>
+          <object type="jsx3.gui.Matrix.Column">
+           <dynamics jsxtext="_gen_value" jsxbg="@Fade TopDown" jsxborder="@Outset"
+               jsxcellbgcolor="@Matrix ValueCol BG" jsxcellborder="@Matrix ValueCol Border"/>
+           <strings jsxname="jsxattributes_value" jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="*" jsxpath="value"
+               jsxvaluetemplate="&lt;xsl:template xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+&lt;xsl:choose&gt;
+  &lt;xsl:when test=&quot;@value=''&quot;&gt;&lt;span class=&quot;jsx3ide_props_emptystring&quot;&gt;[empty]&lt;/span&gt;&lt;/xsl:when&gt;
+  &lt;xsl:when test=&quot;@jsxmulti&quot;&gt;&lt;span class=&quot;jsx3ide_props_multi&quot;&gt;[multiple values]&lt;/span&gt;&lt;/xsl:when&gt;
+  &lt;xsl:otherwise&gt;&lt;xsl:value-of select=&quot;@value&quot; /&gt;&lt;/xsl:otherwise&gt;
+&lt;/xsl:choose&gt;
+&lt;/xsl:template&gt;"/>
+            <object type="jsx3.gui.TextBox">
+             <strings jsxname="jsxmask_attstext" />
+            </object>
+          </object>
+        </object>
+        <object type="jsx3.gui.Menu">
+          <variants jsxshare="1"/>
+          <strings jsxname="jsxmenu_attributes" jsxdisplay="none" jsxxmlid="jsx3.ide.editor.component.menu_attributes"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

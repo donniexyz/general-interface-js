@@ -1,0 +1,36 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+// @jsxobf-clobber-shared  getMatrixData
+
+objJSX.onShowMe = function() {
+  var editor = jsx3.ide.getActiveEditor();
+  var objXML = editor.getMatrixData();
+
+  //set 'prettified' content
+  var blockx = content;
+  blockx.getServer().getCache().setDocument(blockx.getXMLId(), objXML);
+  blockx.repaint();
+};
+
+ ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Tab">
+      <variants jsxindex="0" />
+      <strings jsxname="mode_sourcefmt" jsxhelpid="ide.editor.dynprop.xmlro"/>
+      <events jsxshow="this.onShowMe();" />
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="0" jsxindex="0"/>
+          <strings jsxname="bordertop" jsxwidth="100%" jsxheight="100%" jsxbgcolor="#ffffff" jsxborder="inset 1px;0px;0px;0px" />
+            <object type="jsx3.gui.BlockX">
+              <variants jsxoverflow="1" jsxrelativeposition="0" jsxfontsize="11" />
+              <strings jsxname="content" jsxwidth="100%" jsxheight="100%"  jsxpadding="4"
+                  jsxxslid="jsx:///xsl/xml.xsl" jsxxslurl="jsx:///xsl/xml.xsl" />
+            </object>
+        </object>
+    </object>
+</serialization>

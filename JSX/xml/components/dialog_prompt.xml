@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.setMessage = function(strMessage) {
+  this.getDescendantOfName('message').setText(strMessage, true);
+};
+
+objJSX.doCancel = function(objEvent) {
+  this.getDescendantOfName('cancel').doExecute(objEvent);
+};
+
+objJSX.setValidationRegex = function(regex) {
+  this.getDescendantOfName('value')._jsxregex = regex;
+};
+
+objJSX.getDescendantOfName('value').checkInput = function(strValue) {
+  if (this._jsxregex != null) {
+    if (strValue && !strValue.match(this._jsxregex)) {
+      this.beep();
+      return false;
+    }
+  }
+  return true;
+};
+
+objJSX.onEnter = function(objEvent) {
+  var ok = this.getDescendantOfName('ok');
+  if (ok) ok.doExecute(objEvent);
+};
+
+objJSX.registerHotKey('onEnter', 13, false, false, false); // enter
+objJSX.registerHotKey('doCancel', '.', false, true, false);
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Dialog">
+      <dynamics jsxbgcolor="@Solid Disabled" />
+      <variants jsxwidth="300" jsxheight="145" jsxmodal="1" jsxresize="0" jsxoverflow="2"/>
+      <strings jsxname="jsx_dialog_prompt" />
+        <object type="jsx3.gui.WindowBar">
+          <variants />
+          <strings jsxname="title" jsxtext="Prompt" />
+        </object>
+        <object type="jsx3.gui.LayoutGrid">
+          <!-- dynamics jsxbgcolor="@Solid Disabled" / -->
+          <!-- size array should be 20px, not sure what the rendering error is -->
+          <variants />
+          <strings jsxname="layout_horiz" jsxrows="*,22,28"/>
+            <object type="jsx3.gui.Block">
+              <dynamics />
+              <variants jsxoverflow="1" />
+              <strings jsxname="message_cont" />
+                <object type="jsx3.gui.Block">
+                  <dynamics />
+                  <variants jsxoverflow="3" />
+                  <strings jsxname="message" jsxpadding="8 8 6 8" jsxtext="Prompt text." jsxtextalign="left"
+                      jsxtagname="div" jsxwidth="100%" jsxheight="100%" jsxclassname="jsx30dialog_alert" />
+                </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <dynamics />
+              <variants jsxoverflow="2"/>
+              <strings jsxname="button_block" jsxpadding="2 8 2 8" />
+                <object type="jsx3.gui.TextBox">
+                  <variants />
+                  <strings jsxname="value" jsxwidth="100%" />
+                  <events jsxincchange="this.checkInput(strVALUE);"/>
+                </object>
+            </object>
+            <object type="jsx3.gui.Block">
+              <dynamics />
+              <variants jsxoverflow="2"/>
+              <strings jsxname="button_block" jsxtextalign="right" jsxpadding="2 4 0 8"/>
+                <object type="jsx3.gui.Button">
+                  <dynamics jsxbgcolor="@Solid Medium" jsxcolor="@Dark" />
+                  <variants />
+                  <strings jsxname="cancel" jsxtext="Cancel" jsxtextalign="center" jsxmargin="0 10 0 0" />
+                  <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+                </object>
+                <object type="jsx3.gui.Button">
+                  <dynamics jsxbgcolor="@Solid Medium" jsxcolor="@Dark" />
+                  <variants />
+                  <strings jsxname="ok" jsxtext="Ok" jsxtextalign="center" jsxfontweight="bold" />
+                  <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();" />
+                </object>
+            </object>
+        </object>
+    </object>
+</serialization>

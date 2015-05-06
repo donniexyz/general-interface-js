@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="position" group="1" jsxtext="Positioning">
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxrelativeposition']"/>
+  </record>
+
+  <record jsxid="jsx3layoutgrid" group="1" jsxtext="LayoutGrid">
+    <record jsxid="jsxcols" jsxtext="Columns Array"
+        eval="0"
+        jsxtip="Sets a comma-separated group of values to describe how large each column is. For example, &lt;code&gt;10%,25,*&lt;/code&gt; or &lt;code&gt;200,*,32,8.&lt;/code&gt;"
+        docgetter="getCols" docsetter="setCols"
+        docdefault="&lt;code&gt;*&lt;/code&gt;"
+        jsxexecute="objJSX.setCols(vntValue, true);"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxrows" jsxtext="Rows Array"
+        eval="0"
+        jsxtip="Sets a comma-separated group of values to describe how large each row is. For example, &lt;code&gt;10%,25,*&lt;/code&gt; or &lt;code&gt;200,*,32,8.&lt;/code&gt;"
+        docgetter="getRows" docsetter="setRows"
+        docdefault="&lt;code&gt;*&lt;/code&gt;"
+        jsxexecute="objJSX.setRows(vntValue, true);"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="box" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbgcolor']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbg']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxborder']"/>
+  </record>
+
+  <record include="master.xml" group="css_noclass"/>
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>

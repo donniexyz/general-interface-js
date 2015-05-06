@@ -1,0 +1,27 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.5">
+  <object type="jsx3.gui.LayoutGrid">
+    <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+    <strings jsxname="mainLayout" jsxrows="26,*,26" jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.WindowBar">
+      <variants jsxbartype="2"/>
+      <strings jsxname="mainMenu"/>
+    </object>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1"/>
+      <strings jsxname="mainContent" jsxwidth="100%" jsxheight="100%"/>
+    </object>
+    <object type="jsx3.gui.WindowBar">
+      <variants jsxbartype="3"/>
+      <strings jsxname="mainTaskBar"/>
+      <object type="jsx3.gui.Menu">
+        <variants jsxshare="1"/>
+        <strings jsxname="jsxmenu_apppath" jsxdisplay="none" jsxxmlid="jsx3.ide.ui.menu-path"/>
+      </object>
+    </object>
+  </object>
+</serialization>

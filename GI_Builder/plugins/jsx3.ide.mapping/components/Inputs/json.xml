@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <object type="jsx3.gui.LayoutGrid">
+   <strings  jsxrows="50,30,*"/>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxpadding="@8Pixel"/>
+     <strings jsxtext="Enter the URL for a JSON Service to map to. A static document on the file system may also be used as the starting point, as long as it returns a valid JavaScript object when evaluated."/>
+    </object>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="2"/>
+     <strings jsxpadding="0 8 0 188" jsxtextalign="right"/>
+      <object type="jsx3.gui.Block">
+       <variants jsxleft="0" jsxtop="8" jsxwidth="150" jsxoverflow="2" jsxrelativeposition="0"/>
+       <strings jsxtext="URL (File or HTTP)" jsxtextalign="right" jsxheight="12" jsxfontweight="bold" jsxtip="relative to the project root or absolute (http/s:, jsx:, jsxapp:)"/>
+      </object>
+      <object type="jsx3.gui.TextBox">
+       <dynamics jsxborder="@Inset"/>
+       <variants jsxleft="158" jsxtop="6" jsxindex="0" jsxrelativeposition="0"/>
+       <strings jsxwidth="100%" jsxname="jsx_schema_wsdlurl_inbound" jsxvalue="jsxplugin://jsx3.ide.mapping/samples/JSON.txt"/>
+       <events jsxexecute="var oMap = this.getAncestorOfType(jsx3.ide.mapper.Mapper);
+oMap.parseJSON(oMap.getDescendantOfName(&quot;jsx_schema_wsdlurl_inbound&quot;).getValue());"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <strings jsxname="jsx_schema_alternatestuburl_tbb" jsxtip="browse project workspace for local copy of the JSON file" jsximage="images/open_file.gif" groupName="jsx_soaptester"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.Mapper).browseURL(&quot;jsx_schema_wsdlurl_inbound&quot;);"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxpadding="@8Pixel"/>
+     <strings jsxtextalign="right"/>
+      <object type="jsx3.gui.Button">
+       <strings jsxname="jsx_schema_parsewsdl" jsxtip="click to parse the file(s) and begin the mapping process" jsxtext="Parse File(s)"/>
+       <events jsxexecute="var oMap = this.getAncestorOfType(jsx3.ide.mapper.Mapper);
+oMap.parseJSON(oMap.getDescendantOfName(&quot;jsx_schema_wsdlurl_inbound&quot;).getValue());"/>
+      </object>
+    </object>
+  </object>
+</serialization>

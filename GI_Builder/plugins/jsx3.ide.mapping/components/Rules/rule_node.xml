@@ -1,0 +1,218 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name>rule_node.xml</name>
+  <icon></icon>
+  <description></description>
+  <onBeforeDeserialize></onBeforeDeserialize>
+  <onAfterDeserialize><![CDATA[
+
+//creates [+] symbol on autorow and removes the up/down arrows from the autorow
+function myAutoRowFormatter(objDiv, strCDFKey, objMatrix, objMatrixColumn, intRowNumber, objServer) {
+  if(strCDFKey == "jsxautorow") {
+    if(objMatrixColumn.getChildIndex() == 0) {
+      objDiv.innerHTML = '<div title="add new row" class="jsx3ide_dynprops_autorow" onclick="jsx3.IDE.getJSXById(\'' + objMatrix.getId() + '\').commitAutoRowSession(jsx3.gui.Event.wrap(event));">&#160;</div>';
+    } else {
+      //mask the up/down image buttons that prioritize/deprioritize a row
+      objDiv.style.left = "-1px";
+      objDiv.style.top = "-1px";
+      objDiv.style.width = "20px";
+      objDiv.innerHTML = '<div class="jsx3ide_dynprops_autorow_emptycell" onclick="jsx3.gui.Event.wrap(event).cancelAll();">&#160;</div>';
+    }
+  }
+}
+
+//called by [-] symbol on a given concrete row to remove the row
+function myDeleteHandler(strRecordId) {
+  this.deleteRecord(strRecordId);
+  var objMapper = this.getAncestorOfType(jsx3.ide.mapper.Mapper);
+  objMapper.writeMappings(true);
+  var rt = objMapper.getRulesTree();
+  rt.redrawRecord(rt.getValue()[0]);
+  objMapper.getEditor().setDirty(true);
+}
+
+//bind functions to mappings control
+var objMatrix = objJSX.getDescendantOfName("jsx_schema_mapnode_mappings");
+objMatrix.getChild(0).setFormatHandler(myAutoRowFormatter);
+objMatrix.getChild(1).setFormatHandler(myAutoRowFormatter);
+objMatrix.getChild(2).setFormatHandler(myAutoRowFormatter);
+objMatrix.removeMapperBinding = myDeleteHandler;
+
+//bind functions to restrictions control
+var objMatrix = objJSX.getDescendantOfName("jsx_schema_mapnode_restrictions");
+objMatrix.getChild(0).setFormatHandler(myAutoRowFormatter);
+objMatrix.removeMapperBinding = myDeleteHandler;
+
+
+]]></onAfterDeserialize>
+  <objects>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+      <strings jsxrows="36,130,12,36,*,12,56"/>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxpadding="@8Pixel"/>
+        <strings jsxfontweight="bold" jsxtagname="div" jsxtext="&lt;nobr&gt;&lt;span style=&quot;color:#3030cf;&quot;&gt;[^]&lt;/span&gt;Mappings&lt;span class=&quot;jsx3ide_mapper_tiptext&quot; title=&quot;Mappings applied sequentially to read and/or write values for the node.&quot;&gt;[?]&lt;/span&gt;&lt;/nobr&gt;"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxspy="1"/>
+          <strings jsxtext="&lt;nobr style=&quot;position:relative;width:30px;height:12px;left:0px;top:0px;vertical-align:super;color:blue;font-size:8px;cursor:help;padding-left:8px;&quot;&gt;[APIs]&lt;/nobr&gt;"/>
+          <events jsxspy="this.getAncestorOfType(jsx3.ide.mapper.Mapper).doSpyContextFields();"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxpadding="0 8 0 8"/>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+          <variants jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%"/>
+
+          <object type="jsx3.gui.Matrix">
+            <dynamics jsxbg="@Alternating Rows" jsxbgcolor="@Solid Medium"/>
+            <variants jsxshare="0" jsxsort="0" jsxautorow="2" jsxresize="0" jsxscalewidth="1" jsxpagingmodel="0"
+                jsxselectionmodel="0" jsxreorder="0"/>
+            <strings jsxbodyborder="1px solid #d8d8e5" jsxname="jsx_schema_mapnode_mappings" jsxxmlid="jsx_schema_mapnode_mappings_XML" jsxxslid="jsx_schema_mapnode_mappings_XSL" jsxrenderingmodel="shallow"/>
+            <events jsxafteredit="this.getAncestorOfType(jsx3.ide.mapper.Mapper).getEditor().setDirty(true);" jsxbeforeappend="this.getAncestorOfType(jsx3.ide.mapper.Mapper).insertRow(&quot;mappings&quot;,objRECORD);" jsxafterappend="this.getAncestorOfType(jsx3.ide.mapper.Mapper).onInsertRow();"/>
+            <xslparameters jsx_autorow_style="background-color:#f0f0f8;color:#0000ff;"/>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+              <variants jsxwidth="20"/>
+              <strings jsxname="jsxcol" jsxtext="&amp;#160;" jsxvaluetemplate="@empty" jsxcellpadding="1" jsxpadding="2 3 0 3"/>
+              <object type="jsx3.gui.ImageButton">
+                <variants jsxwidth="16" jsxheight="16"/>
+                <strings jsxname="imagebutton" jsximage="images/rem.gif" jsxtip="delete row"/>
+                <events jsxexecute="this.emGetSession().matrix.removeMapperBinding(this.emGetSession().recordId);"/>
+              </object>
+            </object>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+              <variants jsxwidth="20"/>
+              <strings jsxname="jsxcol" jsxtext="&amp;#160;" jsxvaluetemplate="@empty" jsxcellpadding="1" jsxpadding="2 3 0 3" jsxtip="prioritize row"/>
+              <object type="jsx3.gui.ImageButton">
+                <variants jsxwidth="16" jsxheight="16"/>
+                <strings jsxname="imagebutton" jsximage="images/up.gif" jsxtip="prioritize row"/>
+                <events jsxexecute="this.emGetSession().matrix.getAncestorOfType(jsx3.ide.mapper.Mapper).prioritizeRow(this.emGetSession().matrix.getId(),this.emGetSession().recordId,true);"/>
+              </object>
+            </object>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+              <variants jsxwidth="20"/>
+              <strings jsxname="jsxcol" jsxtext="&amp;#160;" jsxvaluetemplate="@empty" jsxcellpadding="1" jsxpadding="2 3 0 3" jsxtip="deprioritize row"/>
+              <object type="jsx3.gui.ImageButton">
+                <variants jsxwidth="16" jsxheight="16"/>
+                <strings jsxname="imagebutton" jsximage="images/down.gif" jsxtip="deprioritize row"/>
+                <events jsxexecute="this.emGetSession().matrix.getAncestorOfType(jsx3.ide.mapper.Mapper).prioritizeRow(this.emGetSession().matrix.getId(),this.emGetSession().recordId,false);"/>
+              </object>
+            </object>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+              <variants jsxwidth="110"/>
+              <strings jsxpadding="2 3 0 3" jsxcellpadding="3 3 3 4" jsxname="jsxcol" jsxpath="name" jsxtext="Type*" jsxtip="The type of the mapping. For example, a DOM mapping to a GUI object" jsxvaluetemplate="&#xA;              &lt;xsl:template xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;&#xA;                &lt;div style=&quot;position:relative;background-image:url(JSX/images/select/arrowmask.gif);background-repeat:no-repeat;background-position:right top;&quot;&gt;&lt;xsl:value-of select=&quot;{0}&quot;/&gt;&amp;#160;&lt;/div&gt;&#xA;              &lt;/xsl:template&gt;&#xA;             "/>
+              <object type="jsx3.gui.Select">
+                <dynamics jsxcolor="@Matrix Edit Color"/>
+                <strings jsxname="jsxSelectMask" jsxdisplay="none" jsxxmlurl="xml/maptypes.xml"/>
+              </object>
+            </object>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset NoRight"/>
+              <strings jsxpadding="2 3 0 3" jsxcellpadding="3" jsxname="jsxcol" jsxpath="value" jsxtext="Path / Value" jsxwidth="*" jsxtip="an identifier appropriate to the map type. For example, if a DOM mapping, the name of the GUI object; if a CDF Document mapping, the document name"/>
+              <object type="jsx3.gui.TextBox">
+                <dynamics jsxcolor="@Matrix Edit Color"/>
+                <variants jsxtype="1" jsxheight="40"/>
+                <strings jsxname="jsxTextMask" jsxoverflow="auto"/>
+                <events jsxdblclick="this.setHeight(this.getHeight()+20,true);objEVENT.cancelBubble();"/>
+              </object>
+            </object>
+
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxborder="@Dashed Bottom"/>
+        <strings jsxtextalign="right" jsxpadding="0 8 0 0"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxpadding="@8Pixel"/>
+        <strings jsxfontweight="bold" jsxtext="&#xA;        &lt;span style=&quot;color:orange;&quot;&gt;[R]&lt;/span&gt;Restrictions&lt;span style=&quot;vertical-align:super;color:blue;font-size:8px;cursor:help;&quot; title=&quot;Restrictions can be used to validate user input.&quot;&gt;[?]&lt;/span&gt;&#xA;      "/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxpadding="0 8 0 8"/>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxbgcolor="@Solid Light" jsxborder="@Inset"/>
+          <variants jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%"/>
+
+          <object type="jsx3.gui.Matrix">
+            <dynamics jsxbg="@Alternating Rows" jsxbgcolor="@Solid Medium"/>
+            <variants jsxgrowby="0" jsxshare="0" jsxautorow="2" jsxsort="0" jsxreorder="0" jsxresize="0" jsxscalewidth="1"
+                jsxpagingmodel="0" jsxselectionmodel="0"/>
+            <strings jsxbodyborder="1px solid #d8d8e5" jsxname="jsx_schema_mapnode_restrictions" jsxxmlid="jsx_schema_mapnode_restrictions_XML" jsxxslid="jsx_schema_mapnode_restrictions_XSL" jsxrenderingmodel="shallow"/>
+            <events jsxafteredit="this.getAncestorOfType(jsx3.ide.mapper.Mapper).getEditor().setDirty(true);" jsxbeforeappend="this.getAncestorOfType(jsx3.ide.mapper.Mapper).insertRow(&quot;restrictions&quot;,objRECORD);" jsxafterappend="this.getAncestorOfType(jsx3.ide.mapper.Mapper).onInsertRow();"/>
+            <xslparameters jsx_autorow_style="background-color:#f0f0f8;color:#0000ff;"/>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+              <variants jsxwidth="20"/>
+              <strings jsxname="jsxcol" jsxtext="&amp;#160;" jsxvaluetemplate="@empty" jsxcellpadding="1" jsxpadding="2 3 0 3"/>
+              <object type="jsx3.gui.ImageButton">
+                <variants jsxwidth="16" jsxheight="16"/>
+                <strings jsxname="imagebutton" jsximage="images/rem.gif" jsxtip="delete row"/>
+                <events jsxexecute="this.emGetSession().matrix.removeMapperBinding(this.emGetSession().recordId);"/>
+              </object>
+            </object>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+              <variants jsxwidth="120"/>
+              <strings jsxpadding="2 3 0 3" jsxcellpadding="3 3 3 4" jsxname="jsxcol" jsxpath="name" jsxtext="Type" jsxtip="The type of the restriction. For example: pattern, enumeration" jsxvaluetemplate="&#xA;              &lt;xsl:template xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;&#xA;                &lt;div style=&quot;position:relative;background-image:url(JSX/images/select/arrowmask.gif);background-repeat:no-repeat;background-position:right top;&quot;&gt;&lt;xsl:value-of select=&quot;{0}&quot;/&gt;&amp;#160;&lt;/div&gt;&#xA;              &lt;/xsl:template&gt;&#xA;             "/>
+              <object type="jsx3.gui.Select">
+                <dynamics jsxcolor="@Matrix Edit Color"/>
+                <strings jsxname="jsxComboMask" jsxxmlurl="xml/restrictiontypes.xml"/>
+              </object>
+            </object>
+
+            <object type="jsx3.gui.Matrix.Column">
+              <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset NoRight"/>
+              <strings jsxpadding="2 3 0 3" jsxcellpadding="3" jsxname="jsxcol" jsxpath="value" jsxtext="Value" jsxwidth="*" jsxtip="The restriction value. For example, if pattern, a regular expression such as [A-Z]*-123"/>
+              <object type="jsx3.gui.TextBox">
+                <dynamics jsxcolor="@Matrix Edit Color"/>
+                <variants jsxtype="1" jsxheight="40"/>
+                <strings jsxname="jsxTextMask" jsxdisplay="none" jsxoverflow="auto"/>
+                <events jsxdblclick="this.setHeight(this.getHeight()+20,true);objEVENT.cancelBubble();"/>
+              </object>
+            </object>
+
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxborder="@Dashed Bottom"/>
+        <strings jsxtextalign="right" jsxpadding="0 8 0 0"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxbgcolor="@Solid Medium" jsxpadding="@8Pixel"/>
+        <variants jsxoverflow="2"/>
+        <strings/>
+        <object type="jsx3.gui.Block">
+          <variants jsxheight="20"/>
+          <strings jsxtagname="div" jsxfontweight="bold" jsxtext="&#xA;          &lt;nobr&gt;&lt;span style=&quot;color:#01B40A;&quot;&gt;[&amp;amp;]&lt;/span&gt;Repeat When&lt;span style=&quot;vertical-align:super;color:blue;font-size:8px;cursor:help;&quot; title=&quot;as long as the following JavaScript statement evaluates to true, this branch in the rules tree will be run again&quot;&gt;[?]&lt;/span&gt;&lt;/nobr&gt;&#xA;        "/>
+        </object>
+        <object type="jsx3.gui.TextBox">
+          <dynamics jsxbg="@Grid Lines"/>
+          <variants jsxheight="18" jsxtype="1"/>
+          <strings jsxname="jsx_schema_mapnode_repeat" jsxwidth="100%" jsxvalue=""/>
+          <events jsxkeydown="jsx3.ide.doTextEditorKeyDown(objEVENT,this);" jsxblur="this.getAncestorOfType(jsx3.ide.mapper.Mapper).writeMappings(true);"/>
+        </object>
+      </object>
+    </object>
+  </objects>
+</serialization>

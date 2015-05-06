@@ -1,0 +1,156 @@
+/*
+ * Copyright (c) 2001-2009, TIBCO Software Inc.
+ * Use, modification, and distribution subject to terms of license.
+ */
+
+img.jsx3ide_lockedtab {width:8px;height:10px;margin:0px 0px 0px 4px;}
+
+.jsx3ide_editor_linenums { color: #777788; padding-right: 3px; }
+.jsx3ide_editor_linenums b { color: #000000; font-weight: normal; }
+
+.jsx3ide_resource_autoload { font-weight: bold; }
+.jsx3ide_resource_noload { color: #333333; }
+.jsx3ide_resource_initial { font-weight: bold; }
+.jsx3ide_resource_noninitial { color: #333333; }
+.jsx3ide_resource_fullload { font-weight: bold; color: #660099; }
+.jsx3ide_resource_notfullload { font-weight: bold; color: #999999; }
+/* For IE this class must be defined after those above so that red color takes precedence */
+.jsx3ide_resource_missing { color: #FF0000; }
+
+.jsx3ide_dom_lasync { font-style: italic; }
+.jsx3ide_dom_ref { font-style: italic; color: #3366FF; }
+.jsx3ide_dom_refa { font-style: italic; color: #2299AA; }
+.jsx3ide_dom_pnone { color: #999999; }
+.jsx3ide_dom_noname { font-style: italic; color: #333333; }
+
+/* styles for the Events Editor Spyglass */
+span.jsx3ide_eventspy { width: 250px; }
+span.jsx3ide_eventspy code, span.jsx3ide_eventspy tt { font-size: 11px; font-family: monospace; }
+span.jsx3ide_eventspy div.name { font-weight: bold; min-width:220px;}
+span.jsx3ide_eventspy .deprecated { text-decoration: line-through; }
+span.jsx3ide_eventspy div.var { margin: 0px; padding: 2px 0px 2px 8px; text-indent: -8px; }
+span.jsx3ide_eventspy div.var b { font-weight: bold; color: #000066; }
+span.jsx3ide_eventspy div.desc { margin: 0px; padding: 0px 0px 8px 0px; width: 100%; }
+span.jsx3ide_eventspy .dep { font-style:italic; }
+span.jsx3ide_eventspy .dep span.title { font-style:normal; font-weight: bold; }
+span.jsx3ide_eventspy div.field { color: #666666; padding: 2px 0px 2px 8px; text-indent: -8px; font-size: 11px; font-family: monospace; }
+span.jsx3ide_eventspy div.cancel { color: #666666; padding: 2px 0px 2px 8px; text-indent: -8px; }
+span.jsx3ide_eventspy span.title { color: #000000; font-weight: bold; font-size: 10px; font-family: Verdana, sans-serif; }
+span.jsx3ide_eventspy div.return { margin: 0px; padding: 10px 0px 2px 0px; color: #666666; width: 100%; }
+span.jsx3ide_eventspy span.type { color: #333399; font-size: 11px; font-family: monospace; }
+/* styles for the Properties Editor Spyglass */
+span.jsx3ide_propsspy { width: 250px; }
+span.jsx3ide_propsspy code, span.jsx3ide_propsspy tt { font-size: 11px; font-family: monospace; }
+span.jsx3ide_propsspy span.title { color: #000000; font-weight: bold; font-size: 10px; font-family: Verdana, sans-serif;}
+span.jsx3ide_propsspy div.name { font-weight: bold; min-width:220px;}
+span.jsx3ide_propsspy .deprecated { text-decoration: line-through; }
+span.jsx3ide_propsspy div.desc { padding: 0px 0px 8px 0px; }
+span.jsx3ide_propsspy .dep { font-style:italic; }
+span.jsx3ide_propsspy .dep span.title { font-style:normal; font-weight: bold; }
+span.jsx3ide_propsspy div.deflt { color: #666666; padding: 2px 0px 2px 8px; text-indent: -8px; }
+span.jsx3ide_propsspy div.method { color: #000066; padding: 2px 0px 2px 8px; text-indent: -8px; font-size: 11px; font-family: monospace; }
+span.jsx3ide_propsspy div.prop { color: #666666; padding: 2px 0px 2px 8px; text-indent: -8px; }
+/* styles for the Properties Editor */
+.jsx3ide_props_normal { padding:3px; height:100%; background:transparent; }
+.jsx3ide_props_uneditable { padding:3px; height:100%; color:#66666A; background-color:#e8e8f5;}
+.jsx3ide_props_dynproperty { padding:3px; color:#9898a5;}
+.jsx3ide_props_dynval { color:#333333;}
+.jsx3ide_props_emptystring { padding:3px 3px 3px 1px; color:#BFA236; font-style:italic; }
+.jsx3ide_props_multi { padding:3px 3px 3px 1px; color:#BFA236; font-style:italic; }
+.jsx3ide_props_selectmask { position:absolute; top:0px; left:-3px; width:100%; height: 100%; background-color:transparent; background-image:url(../../JSX/images/select/arrowmask.gif);background-repeat:no-repeat;background-position:right 3px;}
+.jsx3ide_props_textmask { padding:3px; position:relative;background-color:transparent;color:#000000;}
+/* style for the DynProp Editor */
+.jsx3ide_dynprops_autorow {background-image:url(../../JSX/images/matrix/plus.gif);background-position:center center;background-repeat:no-repeat;cursor:pointer;width:100%;height:100%;}
+.jsx3ide_dynprops_autorow_emptycell {background-image:url(../../JSX/images/spc.gif);cursor:pointer;width:100%;height:100%;}
+/* mapper */
+.jsx3ide_mapper_label {color:#9898a5;}
+.jsx3ide_mapper_tiptext {vertical-align:super;color:blue;font-size:8px;cursor:help;}
+
+
+div.jsxdoc { font-family: Verdana, Arial, sans-serif; color: #000000; font-size: 11px; }
+
+div.jsxdoc_classhead { font-family: Arial, sans-serif; padding: 8px 0px 10px 0px; }
+div.jsxdoc_classhead h1 { font-size: 16px; font-weight: bold; padding: 2px 0px 10px 0px; margin: 0px; }
+div.jsxdoc_classhead h2 { font-size: 12px; font-weight: bold; padding: 2px 0px 2px 0px; margin: 0px; }
+div.jsxdoc_methodhead { font-family: Arial, sans-serif; padding: 8px 0px 6px 0px; }
+div.jsxdoc_methodhead h1 { font-size: 16px; font-weight: bold; padding: 2px 0px 2px 0px; margin: 0px; }
+div.jsxdoc_methodhead h2 { font-size: 12px; font-weight: bold; padding: 2px 0px 2px 0px; margin: 0px; }
+div.jsxdoc_fieldhead { font-family: Arial, sans-serif; padding: 8px 0px 6px 0px; }
+div.jsxdoc_fieldhead h1 { font-size: 16px; font-weight: bold; padding: 2px 0px 2px 0px; margin: 0px; }
+div.jsxdoc_fieldhead h2 { font-size: 12px; font-weight: bold; padding: 2px 0px 2px 0px; margin: 0px; }
+div.jsxdoc_classspec { padding: 2px 0px 14px 0px; font-size: 12px; font-family: "Lucida Console", Monaco, Courier, monospace; }
+div.jsxdoc_fieldspec { padding: 2px 0px 14px 0px; font-size: 12px; font-family: "Lucida Console", Monaco, Courier, monospace; }
+
+div.jsxdoc div.indent { padding: 0px 0px 0px 22px; }
+div.jsxdoc .memberdep { text-decoration:line-through; }
+div.jsxdoc hr { border-top: 1px solid #666666; border-bottom: 1px dashed #666666; border-right: none; border-left: none; 
+  height: 3px; background-color:#FFFFFF; color: #FFFFFF; }
+  
+.jsxdoc_super { font-size: 11px; font-family: "Lucida Console", Monaco, Courier, monospace; line-height: 16px; }
+.jsxdoc_super .arrow { color: #999999; }
+.jsxdoc_interface { font-size: 11px; font-family: "Lucida Console", Monaco, Courier, monospace; line-height: 14px; }
+.jsxdoc_subclass { font-size: 11px; font-family: "Lucida Console", Monaco, Courier, monospace; line-height: 14px; }
+.jsxdoc_members { font-size: 11px; font-family: "Lucida Console", Monaco, Courier, monospace; line-height: 14px; }
+.jsxdoc_link { text-decoration: underline; color: #0000CC; cursor:pointer;}
+h1.jsxdoc .class .jsxdoc_link { color: #666666; }
+h1.jsxdoc {font-family: Arial, sans-serif; margin: 0px; font-weight: bold; font-size: 16px; padding: 2px 0px 2px 0px;}
+h1.jsxdoc .type {font-weight: normal; font-size: 14px; padding-right: 10px;}
+h1.jsxdoc .class {font-weight: normal; font-size: 12px; padding-right: 0px;}
+h2.jsxdoc {font-family: Arial, sans-serif; margin: 0px; font-weight:normal; font-size: 12px; padding: 2px 0px 2px 20px;}
+h3.jsxdoc {font-family: Arial, sans-serif; margin: 0px; font-weight: bold; font-size: 12px; padding: 10px 0px 2px 0px;}
+.jsxdoc_classdesc { font-size: 11px; padding: 2px 0px 10px 0px; font-family: Verdana, Arial, sans-serif;}
+.jsxdoc_classdesc .none { color: #666666; }
+.jsxdoc_methoddecl { font-size: 12px; font-family: "Lucida Console", Monaco, Courier, monospace; padding: 2px 0px 14px 0px; line-height: 15px; }
+.jsxdoc_methoddecl .required { font-weight: bold; }
+.jsxdoc_methoddecl .optional {}
+.jsxdoc_methoddesc, .jsxdoc_fielddesc { font-size: 11px; padding: 2px 0px 10px 0px; font-family: Verdana, Arial, sans-serif; }
+.jsxdoc_param, .jsxdoc_return, .jsxdoc_throws, .jsxdoc_overrides { padding: 2px 0px 6px 22px; text-indent: -10px; }
+.jsxdoc_paramname { font-family: "Lucida Console", Monaco, Courier, monospace; font-size: 11px; font-weight: bold; line-height: 14px; }
+.jsxdoc_paramdesc, .jsxdoc_returndesc, .jsxdoc_throwsdesc { font-family: Verdana, Arial, sans-serif; font-size: 11px; }
+.jsxdoc_paramtype, .jsxdoc_returntype, .jsxdoc_throwstype, .jsxdoc_overrides code { font-family: "Lucida Console", Monaco, Courier, monospace; font-size: 11px; line-height: 14px; }
+.jsxdoc_paramrequired { font-family: Verdana, Arial, sans-serif; font-size: 11px; color: #666666; }
+.jsxdoc_fieldtype { padding: 2px 0px 10px 0px; font-family: "Lucida Console", Monaco, Courier, monospace; font-size: 11px; line-height: 14px; }
+table.jsxdoc_nested { border-collapse: collapse; margin-bottom: 6px; border-spacing: 0px; width: 100%; border: 1px solid #c8c8d8; }
+table.jsxdoc_nested tr { vertical-align: top; }
+table.jsxdoc_nested tr.odd { background-color: #eeeeff; }
+table.jsxdoc_nested td.name { font-size: 11px; padding: 3px 3px 3px 3px; margin: 0px; }
+table.jsxdoc_nested td.desc { font-size: 11px; padding: 3px 3px 3px 10px; margin: 0px; }
+  
+.jsxdoc_classdesc .deprecated, .jsxdoc_methoddesc .deprecated, .jsxdoc_fielddesc .deprecated { font-style: italic; padding: 2px 0px 18px 0px; }
+.jsxdoc_classdesc .deprecated .title, .jsxdoc_methoddesc .deprecated .title, .jsxdoc_fielddesc .deprecated .title { font-style: normal; font-weight: bold; }
+
+.jsxdoc_sresult_class { font-size: 11px; padding: 2px 0px 4px 0px; font-weight: bold; }
+.jsxdoc_sresult_field, .jsxdoc_sresult_method { font-size: 11px; padding: 2px 0px 4px 0px; }
+.jsxdoc_sresult_indent { padding: 0px 0px 0px 10px; }
+
+pre.jsxide_sysout { padding:0px; margin:0px; white-space:pre; font-family: monospace; }
+pre.jsxide_FATAL { color:#660099; }
+pre.jsxide_ERROR { color:#990000; }
+pre.jsxide_WARN { color:#996600; }
+pre.jsxide_INFO { color:#000000; }
+pre.jsxide_DEBUG { color:#444444; }
+pre.jsxide_TRACE { color:#888888; }
+
+.jsx3ide_welcome div.rssitem span.date { font-size: 9px; padding-left: 6px; color: #E8E8E8; }
+.jsx3ide_welcome div.rssitem {}
+.jsx3ide_welcome { font-family: Tahoma, sans-serif; }
+.jsx3ide_welcome a { text-decoration: none; }
+.jsx3ide_welcome a:hover { text-decoration: underline; }
+.jsx3ide_welcome .content_topic { font-size: 11px; font-weight: bold; color: #5C5C5C; padding-bottom: 2px; }
+.jsx3ide_welcome .content_list, .jsx3ide_welcome .content_news { font-size: 11px; color: #0A3056; }
+.jsx3ide_welcome .content_list a, .jsx3ide_welcome .content_news a { color: #0A3056; }
+.jsx3ide_welcome .content_list img { width: 16px; height: 16px; vertical-align: middle; margin: 0px 5px 3px 0px; }
+.jsx3ide_welcome .content_list div.rssitem, .jsx3ide_welcome .content_news div.rssitem {
+  font-size: 10px; font-weight: bold; padding: 4px 0px 6px 0px; }
+.jsx3ide_welcome .content_list div.rssdesc, .jsx3ide_welcome .content_news div.rssdesc {
+  font-weight: normal; padding-top: 2px; color: #333333; font-size: 10px; }
+.jsx3ide_welcome .cmty_topic { font-size: 11px; font-weight: bold; color: #E6ECF2; }
+.jsx3ide_welcome .cmty_topic a { color: #E6ECF2; }
+.jsx3ide_welcome .cmty_list { font-size: 10px; color: #FFF2BD; }
+.jsx3ide_welcome .cmty_list a { color: #FFF2BD; }
+
+.chatdialog table { width: 100%; }
+.chatdialog table td { font-size: 10px; padding: 2px; vertical-align: top; }
+.chatdialog table td.name { font-weight: bold; white-space: nowrap; padding-right: 10px; }
+.chatdialog table td.message { width: 100%; padding-right: 6px; }
+.chatdialog table td.date { text-align: right; white-space: nowrap; color: #b8b8c5; }

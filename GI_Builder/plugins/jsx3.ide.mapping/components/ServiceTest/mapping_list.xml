@@ -1,0 +1,36 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[
+
+   objJSX.getAncestorOfType(jsx3.ide.mapper.ServiceTest).listRules();
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Matrix">
+   <dynamics jsxbg="@Alternating Rows" jsxbgcolor="@Solid Medium"/>
+   <variants jsxselectionmodel="0"/>
+   <strings jsxname="jsx_schema_tester_maplist"/>
+    <object type="jsx3.gui.Matrix.Column">
+     <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+     <variants jsxwidth="120"/>
+     <strings  jsxname="jsxcol" jsxpath="rulename" jsxtext="Rule Name"
+               jsxtip="Optional field used for Cache and DOM mappings to more-specifically identify the mapped object"
+               jsxpadding="2" jsxcellpadding="2"/>
+    </object>
+    <object type="jsx3.gui.Matrix.Column">
+     <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+     <variants jsxwidth="120"/>
+     <strings  jsxname="jsxcol" jsxpath="name" jsxtext="Type"
+               jsxtip="type of the mapping. For example, a DOM mapping to a GUI object"
+               jsxpadding="2" jsxcellpadding="2"/>
+    </object>
+    <object type="jsx3.gui.Matrix.Column">
+     <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"/>
+     <strings  jsxname="jsxcol" jsxpath="value" jsxtext="Path / Value" jsxwidth="*"
+               jsxtip="an identifier appropriate to the map type. For example, if a DOM mapping, the name of the GUI object; if a CDF Document mapping, the document's name"
+               jsxpadding="2" jsxcellpadding="2"/>
+    </object>
+  </object>
+</serialization>

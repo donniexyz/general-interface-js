@@ -1,0 +1,17 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Menu]]></name>
+  <icon><![CDATA[images/prototypes/menu.gif]]></icon>
+  <description><![CDATA[Menu object.]]></description>
+  <object type="jsx3.gui.Menu">
+    <variants jsxxmlasync="1"/>
+    <strings jsxname="menu" jsxtip="menu" jsxtext="menu" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;
+ &lt;record jsxid=&quot;1&quot; jsxtext=&quot;New&quot;/&gt;
+ &lt;record jsxid=&quot;2&quot; jsxtext=&quot;Open&quot;/&gt;
+ &lt;record jsxid=&quot;3&quot; jsxtext=&quot;Save&quot;/&gt;
+ &lt;/data&gt;"/>
+  </object>
+</serialization>

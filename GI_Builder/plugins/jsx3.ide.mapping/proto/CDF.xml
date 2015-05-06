@@ -1,0 +1,10 @@
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.5">
+  <name>CDF Mapping Container</name>
+  <icon>images/prototypes/block.gif</icon>
+  <description>Container that maps descendant objects to records in a locally-cached CDF document</description>
+  <onBeforeDeserialize/>
+  <onAfterDeserialize/>
+    <object type="jsx3.gui.CDF">
+      <strings jsxname="cdf" jsxwidth="100%" jsxheight="100%"/>
+    </object>
+</serialization>

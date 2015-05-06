@@ -1,0 +1,12 @@
+<!--
+  ~ Copyright (c) 2001-2008, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Color Palette (7x10)]]></name>
+  <icon><![CDATA[images/prototypes/colorpicker.gif]]></icon>
+  <description><![CDATA[Color palette]]></description>
+  <object type="jsx3.gui.DojoWidget">
+    <strings dijitClassName="dijit.ColorPalette" jsxname="dijitColorPalette" dijit_palette="7x10"/>
+  </object>
+</serialization>

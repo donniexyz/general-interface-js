@@ -1,0 +1,176 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[
+
+
+objJSX.doBrowse = function(objTarget, bSave) {
+  var appFolder = jsx3.ide.getProjectDirectory();
+  if (bSave) {
+    jsx3.ide.getPlugIn("jsx3.io.browser").saveFile(this.getServer().getRootBlock(), {
+        name:"mergetooldialog", modal:true, folder: appFolder,
+        title:"Save Document", okLabel:"Save",
+        onChoose: jsx3.$F(function(objFile) {
+          this.onBrowseChoose(objFile, appFolder, objTarget, bSave);
+          jsx3.ide.setCurrentDirectory(objFile.getParentFile());
+        }).bind(this)
+    });
+  } else {
+    jsx3.ide.getPlugIn("jsx3.io.browser").chooseFile(this.getServer().getRootBlock(), {
+        name:"mergetooldialog", modal:true, folder: appFolder,
+        title:"Open Document", okLabel:"Open",
+        onChoose: jsx3.$F(function(objFile) {
+          this.onBrowseChoose(objFile, appFolder, objTarget, bSave);
+          jsx3.ide.setCurrentDirectory(objFile.getParentFile());
+        }).bind(this)
+    });
+  }
+};
+
+
+objJSX.onBrowseChoose = function(objFile, appFolder, objTarget, bSave) {
+  if (bSave) {
+    // TODO: add encoding to XML document?
+    jsx3.ide.writeUserFile(objFile, objTarget.getValue());
+  } else {
+    //resolve to the jsxapp namesapce
+    var strPath = jsx3.ide.getSystemDirFile().relativePathTo(objFile);
+    objTarget.setValue(jsx3.net.URIResolver.USER.relativizeURI(strPath));
+  }
+};
+
+
+//get list of all cache documents for the active server/project
+objJSX.getCacheList = function(strJSXId) {
+    //reset data for list (listing of all cache docs)
+    var objSel = this.getDescendantOfName(strJSXId);
+    objSel.clearXmlData(false);
+
+  var editors = jsx3.ide.getAllEditors();
+  for (var x = 0; x < editors.length; x++) {
+    var editor = editors[x];
+    var objServer = editor.getServer();
+  if(objServer) {
+    //iterate to populate
+    var objCache = objServer.getCache();
+    var keys = objCache.keys();
+
+    for (var i = 0; i < keys.length; i++) {
+      var key = keys[i];
+      if (objSel.getRecordNode(key) == null) {
+        var o = {};
+        o.jsxid = key;
+        o.jsxtext = key;
+        objSel.insertRecord(o,null,false);
+      }
+    }
+   }
+  }
+  
+  var cacheKeys = jsx3.ide.SERVER.getCache().keys();
+    for (var j = 0; j < cacheKeys.length; j++) {
+      var key = cacheKeys[j];
+      if (objSel.getRecordNode(key) == null) {
+        var o = {};
+        o.jsxid = key;
+        o.jsxtext = key;
+        objSel.insertRecord(o,null,false);
+      }
+  }
+
+  //repaint the tree
+  objSel.repaint();
+
+};
+//jsx3.ide.SERVER.getServer().getCache().subscribe(jsx3.app.Cache.CHANGE, objJSX, objJSX.getCacheList);
+
+objJSX.doMerge = function() {
+  jsx3.require("jsx3.xml.Template");
+  var objXML = this.getMergeDocument(this.getDescendantOfName("jsx_merge_xml_url_rdo"));
+  var objXSL = this.getMergeDocument(this.getDescendantOfName("jsx_merge_xsl_url_rdo"));
+
+  if(objXML && objXSL) {
+    this.getDescendantOfName('jsx_merge_xml_raw').setValue(objXML.toString());
+    this.getDescendantOfName('jsx_merge_xsl_raw').setValue(objXSL.toString());
+
+    var templateXSL = new jsx3.xml.Template(objXSL);
+    var strOutput = templateXSL.transform(objXML, true).toString();
+
+    this.getDescendantOfName('jsx_merge_rendered').setText(strOutput,true);
+    this.getDescendantOfName('jsx_merge_raw').setValue(strOutput);
+  }
+};
+
+
+objJSX.getMergeDocument = function(btn) {
+  var btnValue = btn.getGroupValue();
+
+  //determine where the XML source document will come from (the radio button that's selected will have a value that represents the name of the formfield to use)
+  var strValue = this.getDescendantOfName(btnValue).getValue();
+  var objXML;
+  if(btnValue.indexOf("_url") > -1) {
+    objXML = new jsx3.xml.Document();
+    objXML.setAsync(false);
+    objXML.load(strValue);
+    if(objXML.hasError()) {
+      jsx3.util.Logger.doLog("MERGE01","The XML document located at, <b>" + strValue + "</b>, could not be parsed due to the following reason(s):<br/>" + objXML.getError());
+      return;
+    }
+  } else if( btnValue.indexOf("_cache") > -1) {
+    objXML = jsx3.ide.SERVER.getCache().getDocument(strValue);
+  }  else if(btnValue.indexOf("_script") > -1) {
+    objXML = jsx3.eval(strValue);
+    if(objXML == null) {
+      jsx3.util.Logger.doLog("MERGE02","The script used to generate the source document for the 'Merge Tool' is returning null.");
+      return;
+    } else if(typeof(objXML.getRootNode) != "function") {
+      jsx3.util.Logger.doLog("MERGE03","The script used to generate the source document for the 'Merge Tool' is not returning a valid <b>jsx3.xml.Entity</b> or <b>jsx3.xml.Document</b> instance.");
+      return;
+    }
+  } else {
+    objXML = new jsx3.xml.Document();
+    objXML.loadXML(strValue);
+    if(objXML.getError().code != "0") {
+      jsx3.util.Logger.doLog("MERGE01","The document that was entered into the 'Merge Tool' could not be parsed due to the following reason(s):<br/>" + objXML.getError());
+      return;
+    }
+  }
+  return objXML;
+};
+
+]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+   <dynamics jsxbgcolor="@Solid Medium"/>
+   <variants jsxwidth="750" jsxheight="475" jsxminx="720" jsxminy="475"/>
+   <strings jsxname="jsxdialog" jsxhelpid="ide.merge"/>
+    <object type="jsx3.gui.WindowBar">
+     <variants/>
+     <strings jsxname="jsxcbar" jsxtext="XML/XSL Merge Tool"/>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics/>
+       <strings jsxname="jsxtoolbutton" jsxtip="Show/hide input controls" jsximage="jsxapp:/images/prototypes/menubar.gif"/>
+       <events jsxexecute="var o = this.getAncestorOfType(jsx3.gui.Dialog).getDescendantOfName('jsxlayout_merge'); if(o.getDimensionArray()[0] == 0) { o.setDimensionArray(['48','160','32','*'],true); } else { o.setDimensionArray([0,0,0,'*'],true); }"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+       <variants jsxdivider="1"/>
+       <strings jsxname="jsxminbutton"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doToggleState();"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsxtip="jsx3.gui.Dialog.max"/>
+       <strings jsxname="jsxmaxbutton" jsximage="JSX/images/dialog/max.gif"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doMaximize(this);"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <dynamics jsximage="@Close Icon" jsxtip="jsx3.gui.Dialog.close"/>
+       <strings jsxname="jsxclosebutton"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+      </object>
+    </object>
+    <include src="_merge.xml" async="true"/>
+  </object>
+</serialization>

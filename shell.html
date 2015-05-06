@@ -1,0 +1,24 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<html>
+<head>
+  <title>@gi.productname.text@</title>
+</head>
+
+<body bgcolor="#9898a5" scroll="no" 
+    style="position:absolute;width:100%;height:100%;left:0px;top:0px;padding:0px;margin:0px;border:0px;overflow:hidden;">
+
+<div id="jsxmain" style="position:absolute;left:0px;top:0px;width:100%;height:100%;">
+  <script type="text/javascript">
+    var url = window.location.href;
+    var appPath = (url && url.search(/[?&]jsxapppath=([^&]+)/)) ? RegExp.$1 : "";
+    document.write('<script type="text/javascript" src="JSX/js/JSX30.js" jsxapppath="' +
+        appPath + '"><'+'/script>');
+  </script>
+</div>
+
+</body>
+</html>

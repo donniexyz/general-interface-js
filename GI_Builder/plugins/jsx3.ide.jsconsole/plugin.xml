@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.jsconsole"
+        name="JavaScript Console Plug-In"
+        class="jsx3.ide.ui.DialogToolPlugIn"
+        version="0.1">
+
+  <requires>
+    <plugin id="jsx3.ide.ui"/>
+    <plugin id="jsx3.gui.Block"/>
+    <plugin id="jsx3.gui.Template"/>
+    <plugin id="jsx3.xml.Cacheable"/>
+  </requires>
+
+  <resources>
+    <xml id="ui" path="scriptlet.xml">
+      <prereq id="Console"/>
+    </xml>
+    <xml id="menu" path="menu.xml"/>
+    <xml id="console_xml" path="templates/console.xml"/>
+    <script id="Console" path="scripts/Console.js" eval="true">
+      <prereq id="console_xml"/>
+    </script>
+    <css id="jsConsole_css" path="css/jsconsole.css"/>
+  </resources>
+
+  <extension point="jsx3.ide.ui.action" id="menu.help">
+    <action
+        id="jsx3.ide.jsconsole"
+        label="JavaScript Console ..." img="jsxapp:/images/icon_38.gif"
+        menupath="/jsx3.ide.tools/ide" hotkey="{hk.script}" hkconfig="true"
+        execute="this.getPlugIn().openTool();"/>
+  </extension>
+
+</plugin>

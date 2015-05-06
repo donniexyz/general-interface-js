@@ -1,0 +1,41 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.ui.license"
+        name="License Dialog Plug-In"
+        class="jsx3.ide.ui.DialogToolPlugIn"
+        version="0.1">
+
+  <method id="agree" params="objDialog"><![CDATA[
+    objDialog.doClose();
+    jsx3.ide._startJobs();
+  ]]></method>
+
+  <method id="disagree" params="objDialog"><![CDATA[
+    window.onbeforeunload = null;
+    window.location.href = "http://www.generalinterface.org/alias/decline_license";
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.ide.ui"/>
+  </requires>
+
+  <resources>
+    <xml id="ui" path="license.xml"/>
+  </resources>
+
+  <extension point="jsx3.ide.ui.action" id="menu.help">
+    <action
+        id="jsx3.ide.help1_6"
+        label="License Agreement"
+        menupath="/jsx3.ide.help/license"
+        execute="this.getPlugIn().openTool()"
+        enabled="file" enabled-file="../legal/license.txt"/>
+  </extension>
+
+</plugin>

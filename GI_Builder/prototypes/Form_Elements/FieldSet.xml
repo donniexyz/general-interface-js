@@ -1,0 +1,17 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Field Set]]></name>
+  <icon><![CDATA[images/prototypes/fieldset.gif]]></icon>
+  <description><![CDATA[A native HTML fieldset tag]]></description>
+  <object type="jsx3.gui.Block">
+    <variants jsxrelativeposition="1" jsxoverflow="3"/>
+    <strings jsxname="formFieldSet" jsxtagname="fieldset"/>
+    <object type="jsx3.gui.Block">
+      <variants jsxrelativeposition="1" jsxoverflow="3"/>
+      <strings jsxname="formLegend" jsxtagname="legend" jsxtext="Legend"/>
+    </object>
+  </object>
+</serialization>

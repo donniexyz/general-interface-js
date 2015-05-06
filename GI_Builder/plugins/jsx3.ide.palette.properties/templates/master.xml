@@ -1,0 +1,794 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record jsxid="object" group="1" jsxtext="Object">
+    <record jsxid="_jsxinstanceof" jsxtext="Object Type"
+        getter="getClass"
+        jsxtip="The JSX foundation class that this object is an instance of."
+        docnoprop="true"
+        eval="0" uneditable="1"/>
+    <record jsxid="_jsxid" jsxtext="ID"
+        jsxtip="The unique, system-assigned ID for this object."
+        docgetter="getId"
+        docnoprop="true"
+        eval="0" uneditable="1"/>
+    <record jsxid="jsxname" jsxtext="Name"
+        jsxtip="Sets the name assigned by the developer to identify this object."
+        jsxexecute="objJSX.setName(vntValue);"
+        domchanged="true"
+        docgetter="getName" docsetter="setName"
+        eval="0"
+        disallow="[\[\]\u0022\u003C\u003E\u0027\u0026\\]"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="position" group="1" jsxtext="Positioning">
+    <record jsxid="jsxrelativeposition" jsxtext="Relative XY"
+        jsxtip="Sets whether to place this object relatively or absolutely with respect to its container."
+        docgetter="getRelativePosition" docsetter="setRelativePosition"
+        docdefault="Relative (&lt;code&gt;jsx3.gui.Block.RELATIVE&lt;/code&gt;)"
+        jsxexecute="objJSX.setRelativePosition(vntValue,true);"
+        eval="1"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Block.ABSOLUTE" jsxtext="Absolute"/>
+      <enum jsxid="jsx3.gui.Block.RELATIVE" jsxtext="Relative"/>
+    </record>
+    <record jsxid="jsxleft" jsxtext="Left"
+        jsxtip="Sets the position of this object from left edge of container. If this object is absolutely positioned, this value is applied as an implied pixel or a percentage. For example, &lt;code&gt;10&lt;/code&gt; or &lt;code&gt;15%&lt;/code&gt;."
+        docgetter="getLeft" docsetter="setLeft"
+        docdefault="If absolutely positioned, the default is 0. If relatively positioned, the default is empty."
+        eval="0"
+        jsxexecute="objJSX.setLeft((jsx3.util.numIsNaN(vntValue))?vntValue:vntValue-0,true);"
+        disallow="[^cm^pt^\\.^%^0-9^-]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxtop" jsxtext="Top"
+        jsxtip="Sets the position of this object from top edge of container. If this object is absolutely positioned, this value is applied as an implied pixel or a percentage. For example, &lt;code&gt;10&lt;/code&gt; or &lt;code&gt;15%&lt;/code&gt;."
+        docgetter="getTop" docsetter="setTop"
+        docdefault="If absolutely positioned, the default is 0. If relatively positioned, the default is empty."
+        eval="0"
+        jsxexecute="objJSX.setTop((jsx3.util.numIsNaN(vntValue))?vntValue:vntValue-0,true);"
+        disallow="[^cm^pt^\\.^%^0-9^-]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxwidth" jsxtext="Width"
+        jsxtip="Sets the width of the control as implied pixels or a percentage. For example, &lt;code&gt;100&lt;/code&gt; or &lt;code&gt;25%&lt;/code&gt;."
+        docgetter="getWidth" docsetter="setWidth"
+        docdefault="Empty"
+        eval="0"
+        jsxexecute="objJSX.setWidth((jsx3.util.numIsNaN(vntValue))?vntValue:vntValue-0,true);"
+        disallow="[^cm^pt^\\.^%^0-9^-]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxheight" jsxtext="Height"
+        jsxtip="Sets the height of the control in pixels or percentage. For example, &lt;code&gt;100&lt;/code&gt; or &lt;code&gt;25%&lt;/code&gt;."
+        docgetter="getHeight" docsetter="setHeight"
+        docdefault="Empty"
+        eval="0"
+        jsxexecute="objJSX.setHeight((jsx3.util.numIsNaN(vntValue))?vntValue:vntValue-0,true);"
+        disallow="[^cm^pt^\\.^%^0-9^-]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxzindex" jsxtext="Z-Index"
+        jsxtip="If this object is absolutely positioned, sets the CSS z-index. The z-index sets the stack order of an element."
+        docgetter="getZIndex" docsetter="setZIndex"
+        docdefault="&lt;code&gt;1&lt;/code&gt;"
+        eval="1"
+        jsxexecute="objJSX.setZIndex(isNaN(vntValue)?null:Number(vntValue),true);"
+        disallow="[^0-9^-]"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="list" group="1" jsxtext="List/Grid">
+    <record jsxid="jsxgrowby" jsxtext="Grow By"
+        eval="1"
+        jsxtip="Sets whether or not a new row is appended to the view when a new record is added to the CDF document for the list. In the case of a grid, a new row is also appended when the last row in the grid gets cursor focus."
+        docgetter="getGrowBy" docsetter="setGrowBy"
+        docdefault="&lt;code&gt;true (jsx3.Boolean.TRUE)&lt;/code&gt;"
+        disallow="'"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+    <record jsxid="jsxwrap" jsxtext="Word Wrap"
+        eval="1"
+        jsxtip="The word wrapping for this object. If set to &lt;code&gt;True&lt;/code&gt;, text wraps."
+        docgetter="getWrap" docsetter="setWrap"
+        docdefault="&lt;code&gt;true (jsx3.Boolean.TRUE)&lt;/code&gt;"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setWrap(vntValue);objJSX.repaintBody();">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+    <record jsxid="jsxsortpath" jsxtext="Sort Path"
+        eval="0"
+        jsxtip="Sets the attribute path to sort on, such as &lt;code&gt;@jsxtext&lt;/code&gt;."
+        docgetter="getSortPath" docsetter="setSortPath"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setSortPath(vntValue);objJSX.repaint();">
+    </record>
+    <record jsxid="jsxsortcolumn" jsxtext="Sort Column Index"
+        eval="1"
+        jsxtip="Overrides sortpath. Specifies the zero-based index for the child column to sort on."
+        docgetter="getSortColumn" docsetter="setSortColumn"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setSortColumn(vntValue);objJSX.repaint();">
+    </record>
+    <record jsxid="jsxsorttype" jsxtext="Sort Data Type"
+        eval="0"
+        jsxtip="Sets the default data type for columns in this list/grid."
+        docgetter="getSortType" docsetter="setSortType"
+        docdefault="Text (&lt;code&gt;jsx3.gui.Column.TYPETEXT&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Column.TYPETEXT" jsxtext="Text"/>
+      <enum jsxid="jsx3.gui.Column.TYPENUMBER" jsxtext="Numerical"/>
+    </record>
+    <record jsxid="jsxsortdirection" jsxtext="Sort Direction"
+        eval="0"
+        jsxtip="Sets whether the Grid is sorted ascending (a-z) or descending (z-a)."
+        docgetter="getSortDirection" docsetter="setSortDirection"
+        docdefault="Ascending (&lt;code&gt;jsx3.gui.List.SORTASCENDING&lt;/code&gt;)"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setSortDirection(vntValue);objJSX.repaint();">
+      <enum jsxid="jsx3.gui.List.SORTASCENDING" jsxtext="Ascending (a-z)"/>
+      <enum jsxid="jsx3.gui.List.SORTDESCENDING" jsxtext="Descending (z-a)"/>
+    </record>
+  </record>
+
+  <record jsxid="position_abs" group="1" jsxtext="Positioning">
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxleft']"/>
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxtop']"/>
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxwidth']"/>
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxheight']"/>
+  </record>
+
+  <record jsxid="position_fixedsize" group="1" jsxtext="Size">
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxrelativeposition']"/>
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxleft']"/>
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxtop']"/>
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxzindex']"/>
+  </record>
+
+  <record jsxid="position_fixedwidth" group="1" jsxtext="Positioning">
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxrelativeposition']"/>
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxleft']"/>
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxtop']"/>
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxheight']"/>
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxzindex']"/>
+  </record>
+
+  <record jsxid="position_widthonly" group="1" jsxtext="Size">
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid='jsxwidth']"/>
+  </record>
+
+  <record jsxid="css" group="1" jsxtext="CSS">
+    <record jsxid="jsxstyleoverride" jsxtext="CSS Override"
+        eval="0"
+        jsxtip="Convenience method for extending this object. CSS properties affecting layout, including &lt;code&gt;border-width, padding, margin, width, and height&lt;/code&gt; are strongly discouraged, as they may interfere with the framework's internal box models. Since some controls are composited from multiple HTML elements, some styles may not cascade to nested elements.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Instance Properties&lt;/b&gt; are the preferred method for applying styles."
+        docgetter="getCSSOverride" docsetter="setCSSOverride"
+        disallow="'"
+        jsxexecute="objJSX.setCSSOverride(vntValue);objJSX.repaint();"
+        jsxmask="jsxtextarea"/>
+    <record jsxid="jsxclassname" jsxtext="CSS Rule Name"
+        eval="0"
+        jsxtip="Sets the named CSS rule(s) to use. Rules that specify &lt;code&gt;border-width, padding, margin, width, and height&lt;/code&gt; are strongly discouraged. Multiple rules may be specified, delimited with a space.  For example, &lt;code&gt;label emphasis&lt;/code&gt;. Since some controls are composited from multiple HTML elements, some rule styles may not cascade to nested elements.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Dynamic Properties&lt;/b&gt; are the preferred method for applying global styles."
+        docgetter="getClassName" docsetter="setClassName"
+        disallow="[\u0022\u003C\u003E\u0027\u0026]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxdisplay" jsxtext="Display"
+        eval="0"
+        jsxtip="Sets the CSS display property. When set to None, content is hidden AND the container collapses."
+        docgetter="getDisplay" docsetter="setDisplay"
+        docdefault="Block (&lt;code&gt;jsx3.gui.Block.DISPLAYBLOCK&lt;/code&gt;)"
+        jsxexecute="objJSX.setDisplay(vntValue,true);"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Block.DISPLAYBLOCK" jsxtext="Block"/>
+      <enum jsxid="jsx3.gui.Block.DISPLAYNONE" jsxtext="None"/>
+    </record>
+    <record jsxid="jsxvisibility" jsxtext="Visibility"
+        eval="0"
+        jsxtip="Sets the CSS visibility property. When set to Hidden, content is hidden."
+        docgetter="getVisibility" docsetter="setVisibility"
+        docdefault="Visible (&lt;code&gt;jsx3.gui.Block.VISIBILITYVISIBLE&lt;/code&gt;)"
+        jsxexecute="objJSX.setVisibility(vntValue,true);"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Block.VISIBILITYVISIBLE" jsxtext="Visible"/>
+      <enum jsxid="jsx3.gui.Block.VISIBILITYHIDDEN" jsxtext="Hidden"/>
+    </record>
+  </record>
+
+  <record jsxid="css_controlled" group="1" jsxtext="CSS">
+    <record include="master.xml" path="/data/record[@jsxid='css']/record[@jsxid='jsxstyleoverride']"/>
+    <record include="master.xml" path="/data/record[@jsxid='css']/record[@jsxid='jsxclassname']"/>
+  </record>
+
+  <record jsxid="css_noclass" group="1" jsxtext="CSS">
+    <record include="master.xml" path="/data/record[@jsxid='css']/record[@jsxid!='jsxclassname']"/>
+  </record>
+
+  <record jsxid="css_override" group="1" jsxtext="CSS">
+    <record include="master.xml" path="/data/record[@jsxid='css']/record[@jsxid='jsxstyleoverride']"/>
+  </record>
+
+  <record jsxid="font" group="1" jsxtext="Font">
+    <record jsxid="jsxfontname" jsxtext="Font Name"
+        eval="0"
+        jsxtip="Sets the name of the font family."
+        docgetter="getFontName" docsetter="setFontName"
+        docdefault="&lt;code&gt;jsx3.gui.Block.DEFAULTFONTNAME&lt;/code&gt;"
+        disallow="'"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxfontsize" jsxtext="Font Size"
+        eval="1"
+        jsxtip="Sets the point size of the font."
+        docgetter="getFontSize" docsetter="setFontSize"
+        docdefault="&lt;code&gt;jsx3.gui.Block.DEFAULTFONTSIZE&lt;/code&gt;"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxfontweight" jsxtext="Font Weight"
+        eval="0"
+        jsxtip="Sets the weight of the font, such as bold or normal."
+        docgetter="getFontWeight" docsetter="setFontWeight"
+        docdefault="Normal (&lt;code&gt;jsx3.gui.Block.FONTNORMAL&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Block.FONTBOLD" jsxtext="Bold"/>
+      <enum jsxid="jsx3.gui.Block.FONTNORMAL" jsxtext="Normal"/>
+    </record>
+    <record jsxid="jsxcolor" jsxtext="Color"
+        jsxtip="Sets the color of the font. Accepts CSS values, such as predefined color names, RGB, or hexadecimal values. For example, &lt;code&gt;red&lt;/code&gt;, &lt;code&gt;rgb(255,0,0)&lt;/code&gt;, or &lt;code&gt;#ff0000&lt;/code&gt;."
+        docgetter="getColor" docsetter="setColor"
+        docdefault="&lt;code&gt;jsx3.gui.Block.DEFAULTCOLOR&lt;/code&gt;"
+        eval="0"
+        disallow="[^-0-9a-zA-Z#\(\);:\/\.,]"
+        jsxexecute="objJSX.setColor(vntValue,true);"
+        jsxmask="jsxcolor"/>
+  </record>
+
+  <record jsxid="box" group="1" jsxtext="Box">
+    <record jsxid="jsxbgcolor" jsxtext="BG Color"
+        eval="0"
+        jsxtip="Sets the background color. Accepts CSS values, such as predefined color names, RGB, or hexadecimal values. For example, &lt;code&gt;red&lt;/code&gt;, &lt;code&gt;rgb(255,0,0)&lt;/code&gt;, or &lt;code&gt;#ff0000&lt;/code&gt;."
+        docgetter="getBackgroundColor" docsetter="setBackgroundColor"
+        docdefault="The default background color specified in the static field, &lt;code&gt;DEFAULTBACKGROUNDCOLOR&lt;/code&gt;, of the component class.  For example, the default background color for a list is #f3f2f4 and is specified in &lt;code&gt;jsx3.gui.List.DEFAULTBACKGROUNDCOLOR&lt;/code&gt;. See the API documentation for the component. For some components, this property is empty."
+        disallow="[^-0-9a-zA-Z#\(\);:\/\.,]"
+        jsxexecute="objJSX.setBackgroundColor(vntValue,true);"
+        jsxmask="jsxcolor"/>
+    <record jsxid="jsxbg" jsxtext="Background"
+        eval="0"
+        jsxtip="Sets the CSS background definition, such as &lt;code&gt;background-image:url(abc.gif);background-repeat:repeat-x;&lt;/code&gt;."
+        docgetter="getBackground" docsetter="setBackground"
+        docdefault="Empty"
+        jsxexecute="objJSX.setBackground(vntValue);objJSX.repaint();"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxpadding" jsxtext="Padding"
+        eval="0"
+        jsxtip="Sets the white-space gap between the outer edge/border of this object to its inner content. Specified as one or four pixel values (top, right, bottom, and left). For example, &lt;code&gt;5&lt;/code&gt; or &lt;code&gt;8 4 8 4&lt;/code&gt;."
+        docgetter="getPadding" docsetter="setPadding"
+        docdefault="Empty"
+        disallow="'"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setPadding(vntValue,true);"/>
+    <record jsxid="jsxmargin" jsxtext="Margin"
+        eval="0"
+        jsxtip="Sets the gap between this object's border and its bounding box. Specified as one or four pixel values (top, right, bottom, and left). For example, &lt;code&gt;2&lt;/code&gt; or &lt;code&gt;4 2 4 2&lt;/code&gt;. CSS syntax is also supported but reduces performance."
+        docgetter="getMargin" docsetter="setMargin"
+        docdefault="Empty"
+        disallow="'"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setMargin(vntValue,true);"/>
+    <record jsxid="jsxborder" jsxtext="Border"
+        eval="0"
+        jsxtip="Sets the CSS border definition. Specified as one or four value sets (top, right, bottom, and left). Specified as: style width color. For example, &lt;code&gt;solid 1px red;dashed 2px red;double 3px black; solid 1px red;&lt;/code&gt;."
+        docgetter="getBorder" docsetter="setBorder"
+        docdefault="Empty"
+        disallow="'"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setBorder(vntValue);objJSX.repaint();"/>
+    <record jsxid="jsxtextalign" jsxtext="Text Align"
+        eval="0"
+        jsxtip="Sets the alignment of any contained object or text."
+        docgetter="&lt;code&gt;getTextAlign&lt;/code&gt;" docsetter="setTextAlign"
+        docdefault="Left (&lt;code&gt;jsx3.gui.Block.ALIGNLEFT&lt;/code&gt;)"
+        jsxexecute="objJSX.setTextAlign(vntValue);objJSX.repaint();"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Block.ALIGNLEFT" jsxtext="Left"/>
+      <enum jsxid="jsx3.gui.Block.ALIGNCENTER" jsxtext="Center"/>
+      <enum jsxid="jsx3.gui.Block.ALIGNRIGHT" jsxtext="Right"/>
+    </record>
+    <record jsxid="jsxoverflow" jsxtext="Overflow"
+        eval="1"
+        jsxtip="Sets the CSS overflow for this object, which defines how its on-screen view behaves when the contents are larger than the specified width and/or height."
+        docgetter="getOverflow" docsetter="setOverflow"
+        jsxexecute="objJSX.setOverflow(vntValue);objJSX.repaint();"
+        docdefault="Expand (&lt;code&gt;jsx3.gui.Block.OVERFLOWEXPAND&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Block.OVERFLOWSCROLL" jsxtext="Scroll"/>
+      <enum jsxid="jsx3.gui.Block.OVERFLOWHIDDEN" jsxtext="Hidden"/>
+      <enum jsxid="jsx3.gui.Block.OVERFLOWEXPAND" jsxtext="Expand"/>
+    </record>
+  </record>
+
+  <record jsxid="box_outer" group="1" jsxtext="Box">
+    <record include="master.xml"
+        path="/data/record[@jsxid='box']/record[@jsxid!='jsxtextalign' and @jsxid!='jsxoverflow']"/>
+  </record>
+
+  <record jsxid="box_flush" group="1" jsxtext="Box">
+    <record include="master.xml"
+        path="/data/record[@jsxid='box']/record[@jsxid!='jsxmargin' and @jsxid!='jsxoverflow']"/>
+  </record>
+
+  <record jsxid="box_nomargin" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid!='jsxmargin']"/>
+  </record>
+
+  <record jsxid="box_nobg" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid!='jsxbg']"/>
+  </record>
+
+  <record jsxid="box_nooverflow" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid!='jsxoverflow']"/>
+  </record>
+
+  <record jsxid="box_list" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbgcolor']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbg']"/>
+  </record>
+
+  <record jsxid="box_tree" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbgcolor']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbg']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxpadding']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxborder']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxoverflow']"/>
+  </record>
+
+  <record jsxid="blockx" group="1" jsxtext="XML/XSL">
+    <record jsxid="jsxxmlid" jsxtext="XML Cache Id"
+        eval="0"
+        jsxtip="Sets the cache ID for the XML document this object is mapped to."
+        docgetter="getXMLId" docsetter="setXMLId"
+        docdefault="Unique ID assigned by the system"
+        validate="/^[\w\-\.]*$/"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setXMLId(vntValue);"/>
+    <record jsxid="jsxxml" jsxtext="XML String"
+        eval="0"
+        jsxtip="Sets an XML document as a string."
+        docgetter="getXMLString" docsetter="setXMLString"
+        jsxmask="jsxtextarea"
+        jsxexecute="objJSX.setXMLString(vntValue);"/>
+    <record jsxid="jsxxmlurl" jsxtext="XML URL"
+        eval="0"
+        jsxtip="Sets the URL for the resource. This resource is synchronously loaded when this object is painted on-screen."
+        docgetter="getXMLURL" docsetter="setXMLURL"
+        jsxmask="jsxpath"
+        jsxexecute="objJSX.setXMLURL(vntValue);"/>
+    <record jsxid="jsxxmltrans" jsxtext="XML Transformers"
+        eval="0"
+        jsxtip="A comma-separated list of XSLT transformers. The source XML will be transformed in series by each of the transformers listed here before being placed in the XML cache. Each transformer is either a URI to an XSLT file or the XML cache id of an XSLT document."
+        docgetter="getXMLTransformers" docsetter="setXMLTransformers"
+        jsxmask="jsxtextarea"/>
+    <record jsxid="jsxshare" jsxtext="Share Resources"
+        eval="1"
+        jsxtip="If set to Share, this object does not delete its associated document from the cache when removed from the DOM."
+        docgetter="getShareResources" docsetter="setShareResources"
+        docdefault="Cleanup (&lt;code&gt;jsx3.xml.Cacheable.CLEANUPRESOURCES&lt;/code&gt;)"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setShareResources(vntValue);">
+      <enum jsxid="jsx3.xml.Cacheable.CLEANUPRESOURCES" jsxtext="Cleanup"/>
+      <enum jsxid="jsx3.xml.Cacheable.SHARERESOURCES" jsxtext="Share"/>
+    </record>
+    <record jsxid="jsxxmlasync" jsxtext="XML Async"
+        eval="1"
+        jsxtip="If set to Asynchronous and the XML data source of this control is loaded from a URL, then the data is loaded asynchronously and a loading message is displayed in this control until the data loads."
+        docgetter="getXmlAsync" docsetter="setXmlAsync"
+        docdefault="Synchronous (&lt;code&gt;jsx3.Boolean.FALSE&lt;/code&gt;)"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setXmlAsync(vntValue);">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Asynchronous"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Synchronous"/>
+    </record>
+    <record jsxid="jsxxmlbind" jsxtext="XML Bind"
+        eval="1"
+        jsxtip="If set to Bound this control automatically repaints every time its XML cache document changes."
+        docgetter="getXmlBind" docsetter="setXmlBind"
+        docdefault="Not Bound (&lt;code&gt;jsx3.Boolean.FALSE&lt;/code&gt;)"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setXmlBind(vntValue);">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Bound"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Not Bound"/>
+    </record>
+    <record jsxid="jsxxslid" jsxtext="XSL Cache Id" deprecated="1"
+        eval="0"
+        jsxtip="Sets the cache ID for the XSL document this object is mapped to."
+        docgetter="getXSLId" docsetter="setXSLId"
+        docdefault="Unique ID assigned by the system"
+        validate="/^[\w\-\.]*$/"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setXSLId(vntValue);"/>
+    <record jsxid="jsxxsl" jsxtext="XSL String" deprecated="1"
+        eval="0"
+        jsxtip="Sets the XSL document as a string."
+        docgetter="getXSLString" docsetter="setXSLString"
+        jsxmask="jsxtextarea"
+        jsxexecute="objJSX.setXSLString(vntValue);"/>
+    <record jsxid="jsxxslurl" jsxtext="XSL URL" deprecated="1"
+        eval="0"
+        jsxtip="Sets the URL for the resource. This resource is synchronously loaded when this object is painted on-screen."
+        docgetter="getXSLURL" docsetter="setXSLURL"
+        jsxmask="jsxpath"
+        jsxexecute="objJSX.setXSLURL(vntValue);"/>
+  </record>
+
+  <record jsxid="blockx-xml" group="1" jsxtext="XML/XSL">
+    <record include="master.xml" path="/data/record[@jsxid='blockx']/record[@jsxid='jsxxmlid']"/>
+    <record include="master.xml" path="/data/record[@jsxid='blockx']/record[@jsxid='jsxxml']"/>
+    <record include="master.xml" path="/data/record[@jsxid='blockx']/record[@jsxid='jsxxmlurl']"/>
+    <record include="master.xml" path="/data/record[@jsxid='blockx']/record[@jsxid='jsxxmltrans']"/>
+    <record include="master.xml" path="/data/record[@jsxid='blockx']/record[@jsxid='jsxshare']"/>
+    <record include="master.xml" path="/data/record[@jsxid='blockx']/record[@jsxid='jsxxmlasync']"/>
+    <record include="master.xml" path="/data/record[@jsxid='blockx']/record[@jsxid='jsxxmlbind']"/>
+    <!-- record include="master.xml" path="/data/record[@jsxid='cdfmapping']/record"/ -->
+  </record>
+
+  <record jsxid="access" group="1" jsxtext="Accessibility">
+    <record jsxid="jsxindex" jsxtext="Tab Index"
+        eval="1"
+        jsxtip="Sets the tab index. When tabbing between controls, the index group this component belongs to."
+        docgetter="getIndex" docsetter="setIndex"
+        docdefault="Empty"
+        jsxexecute="objJSX.setIndex(vntValue,true);"
+        disallow="[^0-9^-]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxtip" jsxtext="Tooltip"
+        eval="0"
+        jsxtip="Sets the text displayed when hovered over this object (text only)."
+        docgetter="getTip" docsetter="setTip"
+        docdefault="Empty"
+        jsxexecute="objJSX.setTip(vntValue,true);"
+        jsxmask="jsxtextarea"/>
+    <!--    <record jsxid="jsxaural" jsxtext="Aural"
+            eval="0"
+            jsxtip="supplemental text for text readers"
+            jsxmask="jsxtext"/> -->
+  </record>
+
+  <record jsxid="jsxtext" group="1">
+    <record jsxid="jsxtext" jsxtext="Text/HTML"
+        eval="0"
+        jsxtip="Sets the text/HTML content of this object."
+        docgetter="getText" docsetter="setText"
+        docdefault="Empty"
+        validatehtml="true"
+        jsxexecute="objJSX.setText(vntValue, true);"
+        jsxmask="jsxtextarea"/>
+    <!-- record include="master.xml" path="/data/record[@jsxid='cdfmapping']/record"/ -->
+  </record>
+
+  <record jsxid="jsxtagname" group="1">
+    <record jsxid="jsxtagname" jsxtext="Tag Name"
+        eval="0"
+        jsxtip="Sets the HTML tag to use when rendering this object on-screen."
+        docgetter="getTagName" docsetter="setTagName"
+        docdefault="&lt;code&gt;span&lt;/code&gt;"
+        disallow=""
+        jsxexecute="objJSX.setTagName(vntValue);objJSX.repaint();"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="jsxcursor" group="1">
+    <record jsxid="jsxcursor" jsxtext="Cursor"
+        eval="0"
+        jsxtip="Sets the CSS cursor definition, such as &lt;code&gt;default&lt;/code&gt;, &lt;code&gt;wait&lt;/code&gt;, or &lt;code&gt;col-resize&lt;/code&gt;."
+        docgetter="getCursor" docsetter="setCursor"
+        docdefault="Empty"
+        disallow=""
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="jsxmenu" group="1">
+    <record jsxid="jsxmenu" jsxtext="Bound Menu"
+        eval="0"
+        jsxtip="Sets the jsxname property for the context menu instance to display on a right-click."
+        docgetter="getMenu" docsetter="setMenu"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="interaction" group="1" jsxtext="Interaction">
+    <record include="master.xml" path="/data/record[@jsxid='jsxcursor']/*"/>
+    <record include="master.xml" path="/data/record[@jsxid='jsxmenu']/*"/>
+  </record>
+
+  <record jsxid="interaction_nomenu" group="1" jsxtext="Interaction">
+    <record include="master.xml" path="/data/record[@jsxid='jsxcursor']/*"/>
+  </record>
+
+  <record jsxid="interaction_nocursor" group="1" jsxtext="Interaction">
+    <record include="master.xml" path="/data/record[@jsxid='jsxmenu']/*"/>
+  </record>
+
+  <record jsxid="form" group="1" jsxtext="Form">
+    <record jsxid="jsxenabled" jsxtext="Enabled"
+        jsxtip="Sets whether or not the view for this item is enabled and mouse/keyboard events will be listened to."
+        docgetter="getEnabled" docsetter="setEnabled"
+        docdefault="Enabled (&lt;code&gt;jsx3.gui.Form.STATEENABLED&lt;/code&gt;)"
+        jsxexecute="objJSX.setEnabled(vntValue,true);" eval="1"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Form.STATEENABLED" jsxtext="Enabled"/>
+      <enum jsxid="jsx3.gui.Form.STATEDISABLED" jsxtext="Disabled"/>
+    </record>
+    <record jsxid="jsxvalue" jsxtext="Value"
+        eval="0"
+        jsxtip="Sets the value/content for the form control."
+        docgetter="getValue" docsetter="setValue"
+        jsxexecute="objJSX.setValue(vntValue);" getter="getValue"
+        jsxmask="jsxtext"/>
+    <!-- record include="master.xml" path="/data/record[@jsxid='cdfmapping']/record"/ -->
+  </record>
+
+  <record jsxid="form_novalue" group="1" jsxtext="Form">
+    <record include="master.xml" path="/data/record[@jsxid='form']/record[@jsxid!='jsxvalue']"/>
+  </record>
+
+  <record jsxid="drag" group="1" jsxtext="Drag">
+    <record jsxid="jsxdrag" jsxtext="Can Drag From"
+        eval="1"
+        jsxtip="If &lt;code&gt;true (1)&lt;/code&gt; (Enabled), this object supports drag events and allows any contained item to be dragged and dropped on another container supporting drop."
+        docgetter="getCanDrag" docsetter="setCanDrag"
+        docdefault="Disabled (&lt;code&gt;jsx3.Boolean.FALSE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Enabled"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Disabled"/>
+    </record>
+    <record jsxid="jsxdrop" jsxtext="Can Drop On"
+        eval="1"
+        jsxtip="If &lt;code&gt;true (1)&lt;/code&gt; (Enabled), this object can be the target of drop events."
+        docgetter="getCanDrop" docsetter="getCanDrop"
+        docdefault="Disabled (&lt;code&gt;jsx3.Boolean.FALSE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Enabled"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Disabled"/>
+    </record>
+  </record>
+
+  <record jsxid="column_interactions" group="1" jsxtext="Column Interactions">
+    <record jsxid="jsxsort" jsxtext="Sortable"
+        eval="1"
+        jsxtip="If Sortable, the list/grid can be sorted when a column header is clicked."
+        docgetter="getCanSort" docsetter="setCanSort"
+        docdefault="Sortable (&lt;code&gt;jsx3.Boolean.TRUE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Sortable"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Fixed"/>
+    </record>
+    <record jsxid="jsxreorder" jsxtext="Reorderable"
+        eval="1"
+        jsxtip="If Reorderable, the columns in the list/grid can be reordered by the user at runtime."
+        docgetter="getCanReorder" docsetter="setCanReorder"
+        docdefault="Reorderable (&lt;code&gt;jsx3.Boolean.TRUE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Reorderable"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Fixed"/>
+    </record>
+    <record jsxid="jsxresize" jsxtext="Resizable"
+        eval="1"
+        jsxtip="Sets whether the columns in the list/grid can be resized by the user at runtime."
+        docgetter="getResizable" docsetter="setResizable"
+        docdefault="Resizable (&lt;code&gt;jsx3.Boolean.TRUE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Resizable"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Fixed"/>
+    </record>
+  </record>
+
+  <record jsxid="move" group="1" jsxtext="Move">
+    <record jsxid="jsxmove" jsxtext="Can Move"
+        eval="1"
+        jsxtip="If &lt;code&gt;true (1)&lt;/code&gt; (Moveable), this object can be moved around the screen. This is not the same as drag and drop."
+        docgetter="getCanMove" docsetter="setCanMove"
+        docdefault="Fixed (&lt;code&gt;jsx3.Boolean.FALSE&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Moveable"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Fixed"/>
+    </record>
+    <record jsxid="jsxspy" jsxtext="Can Spy"
+        eval="1"
+        jsxtip="If &lt;code&gt;true (1)&lt;/code&gt;, this object can be spyglassed. A spyglass displays HTML returned from the jsxspy event when a spyglassed object is hovered over."
+        docgetter="getCanSpy" docsetter="setCanSpy"
+        docdefault="&lt;code&gt;false (jsx3.Boolean.FALSE)&lt;/code&gt;"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+  </record>
+
+  <record jsxid="jsxpath" group="1">
+    <record jsxid="jsxpath" jsxtext="Path"
+        eval="0"
+        jsxtip="Sets the selection path for this column of data. Typically this is simply the name of the attribute, such as &lt;code&gt;jsxtext&lt;/code&gt;, &lt;code&gt;social&lt;/code&gt;, &lt;code&gt;phone&lt;/code&gt;."
+        docgetter="getPath" docsetter="setPath"
+        docdefault="&lt;code&gt;@jsxid&lt;/code&gt;"
+        disallow="'"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="jsxxsl" group="1">
+    <record jsxid="jsxxsl" jsxtext="XSL Template"
+        eval="0"
+        jsxtip="Sets the XSLT fragment for any custom template to render the cells for this column."
+        docgetter="getXSLString" docsetter="setXSLString"
+        jsxmask="jsxtextarea"/>
+  </record>
+
+  <record jsxid="jsxdivider" group="1">
+    <record jsxid="jsxdivider" jsxtext="Separator"
+        eval="1"
+        jsxtip="Precedes this item with a vertical separator to designate a new button group."
+        docgetter="getDivider" docsetter="setDivider"
+        docdefault="Normal (&lt;code&gt;jsx3.Boolean.FALSE&lt;/code&gt;)"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.setDivider(vntValue,true);">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Separator"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Normal"/>
+    </record>
+  </record>
+
+  <record jsxid="jsximage" group="1">
+    <record jsxid="jsximage" jsxtext="Image"
+        eval="0"
+        jsxtip="Sets the URI of the image for this object"
+        docgetter="getImage" docsetter="setImage"
+        docdefault="Empty"
+        jsxmask="jsxpath"/>
+  </record>
+
+  <record jsxid="wrap" group="1">
+    <record jsxid="jsxwrap" jsxtext="Word Wrap"
+        eval="0"
+        jsxtip="Sets the word wrapping for this object."
+        docgetter="getWrap" docsetter="setWrap"
+        docdefault="Wrap (&lt;code&gt;jsx3.gui.TextBox.WRAPYES&lt;/code&gt;)" jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.TextBox.WRAPYES" jsxtext="Wrap"/>
+      <enum jsxid="jsx3.gui.TextBox.WRAPNO" jsxtext="No Wrap"/>
+    </record>
+  </record>
+
+  <record jsxid="resize" group="1" jsxtext="Resize">
+    <record jsxid="jsxresize" jsxtext="Resizable"
+        eval="1"
+        jsxtip="Determines if the dialog can be resized by the user at runtime."
+        docgetter="getResizable" docsetter="setResizable"
+        docdefault="Resizable (&lt;code&gt;jsx3.Boolean.TRUE&lt;/code&gt;)"
+        jsxexecute="objJSX.setResize(vntValue);objJSX.repaint();"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="Resizable"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="Fixed"/>
+    </record>
+    <record jsxid="jsxminx" jsxtext="Min Width"
+        eval="1"
+        jsxtip="Sets the minimum width of the dialog when resized. Units are implied pixels and only positive integers are allowed."
+        docsetter="setResizeParameters"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxminy" jsxtext="Min Height"
+        eval="1"
+        jsxtip="Sets the minimum height of the dialog when resized. Units are implied pixels and only positive integers are allowed."
+        docsetter="setResizeParameters"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxmaxx" jsxtext="Max Width"
+        eval="1"
+        jsxtip="Sets the maximum width of the dialog when resized. Units are implied pixels and only positive integers are allowed."
+        docsetter="setResizeParameters"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxmaxy" jsxtext="Max Height"
+        eval="1"
+        jsxtip="Sets the maximum height of the dialog when resized. Units are implied pixels and only positive integers are allowed."
+        docsetter="setResizeParameters"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="metadata" group="1" jsxtext="Metadata">
+    <record jsxid="jsxloadtype" jsxtext="Load Type"
+        jsxtip="Sets the load type of this DOM branch."
+        docgetter="getLoadType" docsetter="setLoadType"
+        docdefault="Normal (&lt;code&gt;jsx3.app.Model.LT_NORMAL&lt;/code&gt;)"
+        eval="1"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.app.Model.LT_NORMAL" jsxtext="Normal"/>
+      <enum jsxid="jsx3.app.Model.LT_SLEEP_PAINT" jsxtext="Paint Async."/>
+      <enum jsxid="jsx3.app.Model.LT_SLEEP_DESER" jsxtext="Deserialize Async."/>
+      <enum jsxid="jsx3.app.Model.LT_SLEEP_PD" jsxtext="Paint &amp; Deser. Async."/>
+      <enum jsxid="jsx3.app.Model.LT_SHOW_PAINT" jsxtext="Paint on Show"/>
+      <enum jsxid="jsx3.app.Model.LT_SHOW_DESER" jsxtext="Deserialize on Show"/>
+    </record>
+    <record jsxid="jsxcdfid" jsxtext="CDF Record Id"
+        eval="0"
+        jsxtip="Only applies if this object is contained by an instance (or is an instance) of jsx3.gui.CDF. ID for the CDF Record (jsxid) that the object maps to.  If not set, this value is inherited from the most recent ancestor of type jsx3.gui.CDF"
+        docgetter="getCDFId" docsetter="setCDFId"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setCDFId(vntValue);"/>
+    <record jsxid="jsxcdfattribute" jsxtext="CDF Attribute Name"
+        eval="0"
+        jsxtip="Only applies if this object is contained by an instance of jsx3.gui.CDF. Named attribute on the CDF record to which this object is mapped."
+        docgetter="setCDFAttribute" docsetter="getCDFAttribute"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setCDFAttribute(vntValue);"/>
+    <record jsxid="jsxannotation" jsxtext="Annotation"
+        eval="0"
+        jsxtip="The annotation comment visible in the Component Hierarchy palette."
+        jsxmask="jsxtextarea"/>
+    <record jsxid="jsxhelpid" jsxtext="Help ID"
+        eval="0"
+        jsxtip="A unique ID for use with context-sensitive help."
+        docsetter="setHelpId" docgetter="getHelpId"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="metadata-nocdf" group="1" jsxtext="Metadata">
+    <record include="master.xml" path="/data/record[@jsxid='metadata']/record[@jsxid='jsxloadtype']"/>
+    <record include="master.xml" path="/data/record[@jsxid='metadata']/record[@jsxid='jsxannotation']"/>
+    <record include="master.xml" path="/data/record[@jsxid='metadata']/record[@jsxid='jsxhelpid']"/>
+  </record>
+
+  <record jsxid="container_active" group="1">
+    <record jsxid="jsxactivecolor" jsxtext="Active BG Color"
+        eval="0"
+        jsxtip="Sets the background color to use when the cursor is moved over this object. Accepts CSS values, such as predefined color names, RGB, or hexadecimal values. For example, &lt;code&gt;red&lt;/code&gt;, &lt;code&gt;rgb(255,0,0)&lt;/code&gt;, or &lt;code&gt;#ff0000&lt;/code&gt;."
+        docgetter="getActiveColor" docsetter="setActiveColor"
+        docdefault="The default color specified in the static field, &lt;code&gt;DEFAULTACTIVECOLOR&lt;/code&gt; or &lt;code&gt;ACTIVECOLOR&lt;/code&gt;, of the component class. For example, &lt;code&gt;jsx3.gui.Tab.DEFAULTACTIVECOLOR&lt;/code&gt;. See the API documentation for the component."
+        disallow="[^-0-9a-zA-Z#\(\);:\/\.,]"
+        jsxmask="jsxcolor"/>
+    <record jsxid="jsxinactivecolor" jsxtext="Idle BG Color"
+        eval="0"
+        jsxtip="Sets the background color to use when the cursor is not over this object. Accepts CSS values, such as predefined color names, RGB, or hexadecimal values. For example, For example, &lt;code&gt;red&lt;/code&gt;, &lt;code&gt;rgb(255,0,0)&lt;/code&gt;, or &lt;code&gt;#ff0000&lt;/code&gt;."
+        docgetter="getInactiveColor" docsetter="setInactiveColor"
+        docdefault="The default inactive color specified in the static field, &lt;code&gt;DEFAULTINACTIVECOLOR&lt;/code&gt; or &lt;code&gt;INACTIVECOLOR&lt;/code&gt;, of the component class. For example, &lt;code&gt;jsx3.gui.Tab.DEFAULTINACTIVECOLOR&lt;/code&gt;.  See the API documentation for the component."
+        disallow="[^-0-9a-zA-Z#\(\);:\/\.,]"
+        jsxmask="jsxcolor"/>
+  </record>
+
+  <record jsxid="jsxdisabledbgcolor" group="1">
+    <record jsxid="jsxdisabledbgcolor" jsxtext="Disabled BG Color"
+        eval="0"
+        jsxtip="Sets the background color to use when in a disabled state. Accepts CSS values, such as predefined color names, RGB, or hexadecimal values. For example, For example, &lt;code&gt;red&lt;/code&gt;, &lt;code&gt;rgb(255,0,0)&lt;/code&gt;, or &lt;code&gt;#ff0000&lt;/code&gt;."
+        docgetter="getDisabledBackgroundColor" docsetter="setDisabledBackgroundColor"
+        docdefault="The default disabled background color specified in the static field, &lt;code&gt;DEFAULTDISABLEDBACKGROUNDCOLOR&lt;/code&gt;, of the component class. For example, &lt;code&gt;jsx3.gui.Form.DEFAULTDISABLEDBACKGROUNDCOLOR&lt;/code&gt;. See the API documentation for the component."
+        disallow="[^-0-9a-zA-Z#\(\);:\/\.,]"
+        jsxexecute="objJSX.setDisabledBackgroundColor(vntValue,true);" 
+        jsxmask="jsxcolor"/>
+  </record>
+
+  <record jsxid="jsxdisabledcolor" group="1">
+    <record jsxid="jsxdisabledcolor" jsxtext="Disabled Color"
+        eval="0"
+        jsxtip="Sets the font color to use when this object is in a disabled state. Accepts CSS values, such as predefined color names, RGB, or hexadecimal values. For example, &lt;code&gt;red&lt;/code&gt;, &lt;code&gt;rgb(255,0,0)&lt;/code&gt;, or &lt;code&gt;#ff0000&lt;/code&gt;."
+        docgetter="getDisabledColor" docsetter="setDisabledColor"
+        docdefault="The default disabled color specified in the static field, &lt;code&gt;DEFAULTDISABLEDCOLOR&lt;/code&gt;, of the component class. For example, &lt;code&gt;jsx3.gui.Form.DEFAULTDISABLEDCOLOR&lt;/code&gt;. See the API documentation for the component."
+        disallow="[^-0-9a-zA-Z#\(\);:\/\.,]"
+        jsxmask="jsxcolor"/>
+  </record>
+
+  <record jsxid="jsxkeycode" group="1">
+    <record jsxid="jsxkeycode" jsxtext="Key Binding"
+        eval="0"
+        jsxtip="Sets the key binding (keyboard shortcut) for this form control, which is specified as a '+' delimited string. For example, &lt;code&gt;ctrl+s&lt;/code&gt;. See API Documentation for &lt;code&gt;jsx3.gui.Form.doKeyBinding()&lt;/code&gt;."
+        docgetter="getKeyBinding" docsetter="setKeyBinding"
+        disallow="[^\da-zA-Z\+\]\[]"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="jsxrequired" group="1">
+    <record jsxid="jsxrequired" jsxtext="Required"
+        eval="1"
+        jsxtip="Determines if the form input field is required."
+        docgetter="getRequired" docsetter="setRequired"
+        docdefault="Optional (&lt;code&gt;jsx3.gui.Form.OPTIONAL&lt;/code&gt;)"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Form.REQUIRED" jsxtext="Required"/>
+      <enum jsxid="jsx3.gui.Form.OPTIONAL" jsxtext="Optional"/>
+    </record>
+  </record>
+
+</data>

@@ -1,0 +1,15 @@
+Network related tests, jsx3.net.Request, jsx3.net.Service, jsx3.net.Form, jsx3.gui.NativeForm need
+to have the test/server CGI and PHP scripts enabled for execution.
+
+Using Apache, make sure that you have ExecCGI enabled and PHP module enabled.
+
+On Linux/Mac, you also need to make sure that the execution bit are set with 'chmod 755'
+
+To run Jasmine specs, launch gi-spec.html
+
+To add a new test suite, create a new JavaScript file in the tests/jasmine
+directory. Define the test specs with describe() and it()
+method. Finally, add a reference to the new JavaScript test file in the
+tests/jasmine/suite.js file.
+
+This test suite can also be run from an HTTP server.

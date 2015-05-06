@@ -1,0 +1,58 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record include="master.xml" group="axis">
+    <record jsxid="autoAdjust" jsxtext="Auto Adjust"
+        jsxtip="Sets whether to adjust the range of the axis based on the data in the chart."
+        docgetter="getAutoAdjust" docsetter="setAutoAdjust"
+        docdefault="&lt;code&gt;FALSE (jsx3.Boolean.FALSE)&lt;/code&gt;"
+        eval="1"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.autoAdjust = vntValue; objJSX.getChart().repaint();">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="TRUE"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="FALSE"/>
+    </record>
+    <record jsxid="baseAtZero" jsxtext="Base At Zero Exponent"
+        jsxtip="Sets whether to set one end of the axis to the value of base^0 if the chart data fits exclusively on either side of base^0."
+        docgetter="getBaseAtZero" docsetter="setBaseAtZero"
+        docdefault="&lt;code&gt;TRUE (jsx3.Boolean.TRUE)&lt;/code&gt;"
+        eval="1"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.baseAtZero = vntValue; objJSX.getChart().repaint();">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="TRUE"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="FALSE"/>
+    </record>
+    <record jsxid="minExponent" jsxtext="Minimum Exponent"
+        jsxtip="Sets the minimum exponent to display. The minimum value is  base^minExponent."
+        docgetter="getMinExponent" docsetter="setMinExponent"
+        docdefault="If Auto Adjust is set to &lt;code&gt;true&lt;/code&gt;, chart data is evaluated and appropriate value is applied. If Auto Adjust is set to &lt;code&gt;false&lt;/code&gt;, default is &lt;code&gt;0&lt;/code&gt;."
+        eval="1"
+        jsxmask="jsxtext"
+        disallow="[^0-9\-]"
+        jsxexecute="objJSX.minExponent = vntValue; objJSX.getChart().repaint();"/>
+    <record jsxid="maxExponent" jsxtext="Maximum Exponent"
+        jsxtip="Sets the maximum exponent to display. The maximum value is  base^maxExponent."
+        docgetter="getMaxExponent" docsetter="setMaxExponent"
+        docdefault="If Auto Adjust is set to &lt;code&gt;true&lt;/code&gt;, chart data is evaluated and appropriate value is applied. If Auto Adjust is set to &lt;code&gt;false&lt;/code&gt;, default is &lt;code&gt;2&lt;/code&gt;."
+        eval="1"
+        jsxmask="jsxtext"
+        disallow="[^0-9\-]"
+        jsxexecute="objJSX.maxExponent = vntValue; objJSX.getChart().repaint();"/>
+    <record jsxid="base" jsxtext="Exponent Base"
+        jsxtip="Sets the value to use as the base."
+        docgetter="getBase" docsetter="setBase"
+        eval="1"
+        jsxmask="jsxtext"
+        disallow="[^0-9]"
+        jsxexecute="objJSX.base = vntValue; objJSX.getChart().repaint();"/>
+  </record>
+
+  <record include="master.xml" group="axisticks"/>
+  <record include="master.xml" group="axislabels"/>
+  <record include="master.xml" group="interaction_menuonly"/>
+</data>

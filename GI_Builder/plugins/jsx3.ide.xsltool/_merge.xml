@@ -1,0 +1,290 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+   objJSX.getAncestorOfType(jsx3.gui.Dialog).getCacheList("jsx_merge_xml_cache");
+   objJSX.getAncestorOfType(jsx3.gui.Dialog).getCacheList("jsx_merge_xsl_cache");
+      
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <dynamics jsxpadding="@8Pixel"/>
+    <strings jsxwidth="100%" jsxheight="100%"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants/>
+      <strings jsxname="jsxlayout_merge" jsxrows="34,225,28,*,22"/>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontsize="@Normal FS" jsxfontweight="@Normal FW"/>
+        <variants jsxoverflow="2"/>
+        <strings
+            jsxtext="The &lt;b&gt;Merge Tool&lt;/b&gt; allows developers to specify a &lt;i&gt;source document&lt;/i&gt; (XML or XSL) and the &lt;i&gt;XSLT filter document&lt;/i&gt; used to transform it.  Both documents can either be selected from the XMLCACHE or can come from a HTTP/File server by specifying the URL (relative or absolute)."/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxpadding="8 0 8 0"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <strings jsxcols="*,8,*" jsxrows="17,*"/>
+
+            <object type="jsx3.gui.Block">
+              <strings jsxtext="Source (XML)" jsxwidth="100%" jsxheight="100%" jsxfontweight="bold"/>
+            </object>
+
+            <object type="jsx3.gui.Block"/>
+            
+            <object type="jsx3.gui.Block">
+              <strings jsxtext="Filter (XSL)" jsxwidth="100%" jsxheight="100%" jsxfontweight="bold"/>
+            </object>
+
+            <object type="jsx3.gui.Block">
+              <dynamics jsxborder="@Inset" jsxpadding="@8Pixel"/>
+              <strings jsxwidth="100%" jsxheight="100%"/>
+
+              <object type="jsx3.gui.LayoutGrid">
+                <variants/>
+                <strings jsxrows="24,24,24,*"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxheight="26" jsxoverflow="2" jsxrelativeposition="0" jsxleft="0"/>
+                  <strings jsxwidth="100%" jsxpadding="0 0 0 120" jsxstyleoverride="" jsxtextalign="right"
+                      jsxtagname="div"/>
+                  <object type="jsx3.gui.RadioButton">
+                    <variants jsxheight="20" jsxdefaultselected="1" jsxselected="1" jsxrelativeposition="0"
+                        />
+                    <strings jsxname="jsx_merge_xml_url_rdo" jsxtext="URL" jsxgroupname="jsx_merge_xml"
+                        jsxtip="use the document at the following URL" jsxvalue="jsx_merge_xml_url"/>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <dynamics jsxborder="@Inset"/>
+                    <variants jsxleft="90" jsxheight="18" jsxrelativeposition="0" />
+                    <strings jsxname="jsx_merge_xml_url" jsxwidth="100%" jsxvalue=""/>
+                    <events
+                        jsxfocus="this.getParent().getChild('jsx_merge_xml_url_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);"/>
+                  </object>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <variants/>
+                    <strings jsximage="jsxapp:/images/icon_60.gif" jsxtip="browse workspace..."/>
+                    <events
+                        jsxexecute="this.getParent().getChild('jsx_merge_xml_url_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);this.getAncestorOfType(jsx3.gui.Dialog).doBrowse(jsx_merge_xml_url);"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxheight="24" jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" />
+                  <strings jsxwidth="100%" jsxheight="100%" jsxpadding="0 0 0 90" jsxtagname="div"/>
+                  <object type="jsx3.gui.RadioButton">
+                    <variants jsxheight="20" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="0"
+                         />
+                    <strings jsxname="jsx_merge_xml_cache_rdo" jsxtext="Cache" jsxgroupname="jsx_merge_xml"
+                        jsxtip="select a document from the cache" jsxvalue="jsx_merge_xml_cache"/>
+                  </object>
+                  <object type="jsx3.gui.Select">
+                    <variants jsxleft="90" jsxheight="18" jsxrelativeposition="0" />
+                    <strings jsxname="jsx_merge_xml_cache" jsxwidth="100%" jsxxmlid="jsxcache_list_xml"/>
+                    <events
+                        jsxselect="this.getParent().getChild('jsx_merge_xml_cache_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" />
+                  <strings jsxwidth="100%" jsxheight="100%" jsxpadding="0 0 6 90" jsxtagname="div"/>
+                  <object type="jsx3.gui.RadioButton">
+                    <variants jsxheight="20" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="0"
+                         />
+                    <strings jsxname="jsx_merge_xml_script_rdo" jsxtext="Script" jsxgroupname="jsx_merge_xml"
+                        jsxtip="use the document (or node entity) returned by this script"
+                        jsxvalue="jsx_merge_xml_script"/>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <dynamics jsxborder="@Inset" jsxbg="@Grid Lines" jsxfontsize="@Script FS"
+                        jsxfontname="@Script FN"/>
+                    <variants jsxleft="90" jsxrelativeposition="0" jsxtype="1"/>
+                    <strings jsxname="jsx_merge_xml_script" jsxwidth="100%" jsxheight="100%"/>
+                    <events
+                        jsxfocus="this.getParent().getChild('jsx_merge_xml_script_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);"
+                        jsxkeydown="jsx3.ide.doTextEditorKeyDown(objEVENT,this);"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxpadding="0 0 0 90"/>
+                  <object type="jsx3.gui.RadioButton">
+                    <variants jsxheight="20" jsxdefaultselected="1" jsxselected="0"
+                         jsxrelativeposition="0"/>
+                    <strings jsxname="jsx_merge_xml_raw_rdo" jsxtext="Source" jsxgroupname="jsx_merge_xml"
+                        jsxtip="use the raw XML as entered here" jsxvalue="jsx_merge_xml_raw"/>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <dynamics jsxborder="@Inset"/>
+                    <variants jsxleft="120" jsxtype="1"/>
+                    <strings jsxname="jsx_merge_xml_raw" jsxwidth="100%" jsxheight="100%"/>
+                    <events
+                        jsxfocus="this.getParent().getChild('jsx_merge_xml_raw_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);"/>
+                  </object>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <dynamics jsxtip="_gen_browse"/>
+                    <variants jsxleft="65"  jsxrelativeposition="0"/>
+                    <strings jsxname="jsxtbb" jsximage="jsxapp:/images/icon_14.gif"/>
+                    <events
+                        jsxexecute="this.getParent().getChild('jsx_merge_xml_raw_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);this.getAncestorOfType(jsx3.gui.Dialog).doBrowse(jsx_merge_xml_raw,true);"/>
+                  </object>
+                </object>
+              </object>
+            </object>
+
+            <object type="jsx3.gui.Block"/>
+
+            <object type="jsx3.gui.Block">
+              <dynamics jsxborder="@Inset" jsxpadding="@8Pixel"/>
+              <strings jsxwidth="100%" jsxheight="100%"/>
+
+              <object type="jsx3.gui.LayoutGrid">
+                <variants/>
+                <strings jsxrows="24,24,24,*"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxheight="26" jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" />
+                  <strings jsxwidth="100%" jsxpadding="0 0 0 120" jsxstyleoverride="" jsxtextalign="right"/>
+                  <object type="jsx3.gui.RadioButton">
+                    <variants jsxheight="20" jsxdefaultselected="1" jsxselected="1" jsxrelativeposition="0"
+                         />
+                    <strings jsxname="jsx_merge_xsl_url_rdo" jsxtext="URL" jsxgroupname="jsx_merge_xsl"
+                        jsxtip="use the document at the following URL" jsxvalue="jsx_merge_xsl_url"/>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <dynamics jsxborder="@Inset"/>
+                    <variants jsxleft="90" jsxheight="18" jsxrelativeposition="0" />
+                    <strings jsxname="jsx_merge_xsl_url" jsxwidth="100%" jsxvalue=""/>
+                    <events
+                        jsxfocus="this.getParent().getChild('jsx_merge_xsl_url_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);"/>
+                  </object>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <variants/>
+                    <strings jsximage="jsxapp:/images/icon_60.gif" jsxtip="browse workspace..."/>
+                    <events
+                        jsxexecute="this.getParent().getChild('jsx_merge_xsl_url_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);this.getAncestorOfType(jsx3.gui.Dialog).doBrowse(jsx_merge_xsl_url);"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxheight="24" jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" />
+                  <strings jsxwidth="100%" jsxpadding="0 0 0 90" jsxstyleoverride=""/>
+                  <object type="jsx3.gui.RadioButton">
+                    <variants jsxheight="20" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="0"
+                         />
+                    <strings jsxname="jsx_merge_xsl_cache_rdo" jsxtext="Cache" jsxgroupname="jsx_merge_xsl"
+                        jsxtip="select a document from the cache" jsxvalue="jsx_merge_xsl_cache"/>
+                  </object>
+                  <object type="jsx3.gui.Select">
+                    <variants jsxleft="90" jsxheight="18" jsxrelativeposition="0" />
+                    <strings jsxname="jsx_merge_xsl_cache" jsxwidth="100%" jsxxmlid="jsxcache_list_xml"/>
+                    <events
+                        jsxselect="this.getParent().getChild('jsx_merge_xsl_cache_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" />
+                  <strings jsxwidth="100%" jsxheight="100%" jsxpadding="0 0 6 90" jsxstyleoverride=""/>
+                  <object type="jsx3.gui.RadioButton">
+                    <variants jsxheight="20" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="0"
+                         />
+                    <strings jsxname="jsx_merge_xsl_script_rdo" jsxtext="Script" jsxgroupname="jsx_merge_xsl"
+                        jsxtip="use the document (or node entity) returned by this script"
+                        jsxvalue="jsx_merge_xsl_script"/>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <dynamics jsxborder="@Inset" jsxbg="@Grid Lines" jsxfontsize="@Script FS"
+                        jsxfontname="@Script FN"/>
+                    <variants jsxleft="90" jsxrelativeposition="0" jsxtype="1"/>
+                    <strings jsxname="jsx_merge_xsl_script" jsxwidth="100%" jsxheight="100%"/>
+                    <events
+                        jsxfocus="this.getParent().getChild('jsx_merge_xsl_script_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);"
+                        jsxkeydown="jsx3.ide.doTextEditorKeyDown(objEVENT,this);"/>
+                  </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxpadding="0 0 0 90" jsxwidth="100%" jsxheight="100%"/>
+                  <object type="jsx3.gui.RadioButton">
+                    <variants jsxheight="20" jsxdefaultselected="1" jsxselected="0" jsxrelativeposition="0"
+                         />
+                    <strings jsxname="jsx_merge_xsl_raw_rdo" jsxtext="Source" jsxgroupname="jsx_merge_xsl"
+                        jsxtip="use the raw XML as entered here" jsxvalue="jsx_merge_xsl_raw"/>
+                  </object>
+                  <object type="jsx3.gui.ToolbarButton">
+                    <dynamics jsxtip="_gen_browse"/>
+                    <variants jsxleft="65" jsxrelativeposition="0"/>
+                    <strings jsxname="jsxtbb" jsximage="jsxapp:/images/icon_14.gif" jsxtext=""/>
+                    <events
+                        jsxexecute="this.getParent().getChild('jsx_merge_xsl_raw_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);this.getAncestorOfType(jsx3.gui.Dialog).doBrowse(jsx_merge_xsl_raw,true);"/>
+                  </object>
+                  <object type="jsx3.gui.TextBox">
+                    <dynamics jsxborder="@Inset"/>
+                    <variants jsxtype="1"/>
+                    <strings jsxname="jsx_merge_xsl_raw" jsxwidth="100%" jsxheight="100%"/>
+                    <events
+                        jsxfocus="this.getParent().getChild('jsx_merge_xsl_raw_rdo').setSelected(jsx3.gui.RadioButton.SELECTED);"/>
+                  </object>
+                </object>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxtextalign="right"/>
+        <object type="jsx3.gui.Button">
+          <!--<dynamics jsxbgcolor="@Solid Disabled"/>-->
+          <variants jsxindex="0" jsxheight="22"/>
+          <strings
+              jsxtext="&amp;#160;&lt;img src=&quot;GI_Builder/images/icon_34.gif&quot; align=&quot;absmiddle&quot;/&gt;&amp;#160;Merge Documents&amp;#160;"
+              jsxpadding="2"/>
+          <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doMerge();"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <object type="jsx3.gui.TabbedPane">
+          <dynamics jsxbgcolor="@Solid Medium"/>
+          <strings/>
+          <object type="jsx3.gui.Tab">
+            <strings jsxtext="Raw Output"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxpadding="8"/>
+              <object type="jsx3.gui.TextBox">
+                <dynamics jsxborder="@Inset"/>
+                <variants jsxtype="1"/>
+                <strings jsxname="jsx_merge_raw" jsxwidth="100%" jsxheight="100%"/>
+              </object>
+            </object>
+          </object>
+          <object type="jsx3.gui.Tab">
+            <strings jsxtext="Rendered Output (HTML)"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxpadding="8"/>
+              <object type="jsx3.gui.Block">
+                <dynamics jsxborder="@Inset" jsxbgcolor="@Solid Light" jsxfontname="@Script FN"
+                    jsxfontsize="@Script FS"/>
+                <variants jsxoverflow="1"/>
+                <strings jsxname="jsx_merge_rendered" jsxwidth="100%" jsxheight="100%"/>
+              </object>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxpadding="6 0 0 0"/>
+        <object type="jsx3.gui.ImageButton">
+          <variants jsxindex="0" jsxheight="16" jsxwidth="16"/>
+          <strings jsxname="helpBtn" jsximage="jsxapp:/images/icon_59.gif"/>
+          <events jsxexecute="this.getServer().invokeHelp(this.getAncestorOfName(&quot;jsxdialog&quot;));"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

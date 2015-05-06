@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data>
+
+  <!-- jsx3.gui.Select -->
+  <record jsxid="jsx3.gui.Select.defaultText" jsxtext="- 選択してください -"/>
+  <record jsxid="jsx3.gui.Select.dataUnavailable" jsxtext="- データが利用できません -"/>
+  <record jsxid="jsx3.gui.Select.noMatch" jsxtext="- 一致するものがありません -"/>
+
+  <!-- jsx3.gui.Menu -->
+  <record jsxid="jsx3.gui.Menu.noData" jsxtext="- データがありません -"/>
+
+  <!-- jsx3.gui.Matrix -->
+  <record jsxid="jsx3.gui.Matrix.seek" jsxtext="{0} から {1} (/ {2}) の列を表示"/>
+
+  <!-- jsx3.gui.BlockX -->
+  <record jsxid="jsx3.gui.BlockX.loading" jsxtext="XSL をロードしています…"/>
+  <record jsxid="jsx3.gui.BlockX.timeout" jsxtext="XSL 時間切れ"/>
+  <record jsxid="jsx3.gui.BlockX.error" jsxtext="XSL エラー"/>
+
+  <!-- jsx3.xml.Cacheable -->
+  <record jsxid="jsx3.xml.Cacheable.loading" jsxtext="{0} をロードしています..."/>
+  <record jsxid="jsx3.xml.Cacheable.timeout" jsxtext="{0} のロードは時間切れです"/>
+  <record jsxid="jsx3.xml.Cacheable.error" jsxtext="{0} のロード中にエラーが発生しました"/>
+  <record jsxid="jsx3.xml.Cacheable.data" jsxtext="データ"/>
+
+  <!-- jsx3.gui.Dialog -->
+  <record jsxid="jsx3.gui.Dialog.close" jsxtext="閉じる"/>
+  <record jsxid="jsx3.gui.Dialog.min" jsxtext="トグル表示"/>
+  <record jsxid="jsx3.gui.Dialog.max" jsxtext="トグルを最大化しました"/>
+  <record jsxid="jsx3.gui.Dialog.restore" jsxtext="修復"/>
+</data>

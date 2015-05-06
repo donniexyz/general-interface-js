@@ -1,0 +1,138 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxnamespace="propsbundle" locales="">
+
+  <locale>
+    <!-- DEPRECATED: moved to root.xml locale properties jsx3.gui.Dialog.xxx -->
+    <record jsxid="@Min Tip" type="jsxtip" jsxtext="Toggle Display"/>
+    <record jsxid="@Close Tip" type="jsxtip" jsxtext="Close"/>
+    <record jsxid="@Max Tip" type="jsxtip" jsxtext="Maximize"/>
+    <record jsxid="@Restore Tip" type="jsxtip" jsxtext="Restore Down"/>
+
+    <record jsxid="@8Pixel" type="jsxpadding" jsxtext="8 8 8 8"/>
+    <record jsxid="@CaptionBar H" type="jsxheight" eval="1" jsxtext="21"/>
+    <record jsxid="@CaptionText FN" type="jsxfontname" jsxtext="Verdana, Arial, sans-serif"/>
+    <record jsxid="@CaptionText FS" type="jsxfontsize" eval="1" jsxtext="10"/>
+    <record jsxid="@CaptionText FW" type="jsxfontweight" jsxtext="bold"/>
+    <record jsxid="@CaptionText L" type="jsxleft" eval="1" jsxtext="6"/>
+    <record jsxid="@CaptionText T" type="jsxtop" eval="1" jsxtext="3"/>
+    <record jsxid="@Column No Border" type="jsxcursor" jsxtext="default"/>
+    <record jsxid="@Move" type="jsxcursor" jsxtext="move"/>
+    <record jsxid="@No" type="jsxcursor" jsxtext="not-allowed"/>
+    <record jsxid="@Wait" type="jsxcursor" jsxtext="wait"/>
+    <record jsxid="@Hand" type="jsxcursor" jsxtext="pointer"/>
+    <record jsxid="@Dark" type="jsxcolor" jsxtext="#000000"/>
+    <record jsxid="@Default" type="jsxcursor" jsxtext="default"/>
+    <record jsxid="@Dialog BG" type="jsxbgcolor" jsxtext="#f8f8f5"/>
+    <record jsxid="@Dialog Fixed" type="jsxoverflow" eval="1" jsxtext="2"/>
+    <record jsxid="@Dialog H" type="jsxheight" eval="1" jsxtext="250"/>
+    <record jsxid="@Dialog L" type="jsxleft" eval="1" jsxtext="100"/>
+    <record jsxid="@Dialog T" type="jsxtop" eval="1" jsxtext="100"/>
+    <record jsxid="@Dialog W" type="jsxwidth" eval="1" jsxtext="300"/>
+    <record jsxid="@Disabled" type="jsxcolor" jsxtext="#b8b8c5"/>
+    <record jsxid="@Disabled DC" type="jsxdisabledcolor" jsxtext="#b8b8c5"/>
+    <record jsxid="@Script FN" type="jsxfontname" jsxtext="Courier New, monospace"/>
+    <record jsxid="@Script FS" type="jsxfontsize" eval="1" jsxtext="11"/>
+    <record jsxid="@Label1 FN" type="jsxfontname" jsxtext="Verdana, Arial, sans-serif"/>
+    <record jsxid="@Label1 FS" type="jsxfontsize" eval="1" jsxtext="10"/>
+    <record jsxid="@Label1 FW" type="jsxfontweight" jsxtext="bold"/>
+    <record jsxid="@Light" type="jsxcolor" jsxtext="#ffffff"/>
+    <record jsxid="@No BG Image" type="jsxbg" jsxtext="background:transparent;"/>
+    <record jsxid="@CBar Bevel TopDown" eval="1" type="jsxbg" jsxtext="jsx3.html.getCSSFade(false);"/>
+    <record jsxid="@CBar Bevel LeftRight" eval="1" type="jsxbg" jsxtext="jsx3.html.getCSSFade(true);"/>
+    <record jsxid="@Bevel TopDown Light" type="jsxbg" eval="1" jsxtext="jsx3.html.getCSSFade(false);"/>
+    <record jsxid="@Graph Dots" type="jsxbg" eval="1" jsxtext="&quot;background-image:url(&quot; + jsx3.resolveURI(&quot;jsx:///images/icons/graphdots.gif&quot;) + &quot;);&quot;"/>
+    <record jsxid="@Grid Lines" type="jsxbg" eval="1" jsxtext="&quot;background-image:url(&quot; + jsx3.resolveURI(&quot;jsx:///images/icons/gridlines.gif&quot;) + &quot;);&quot;"/>
+    <record jsxid="@Bevel LeftRight" type="jsxbg" eval="1" jsxtext="jsx3.html.getCSSFade(true);"/>
+    <record jsxid="@Bevel TopDown" type="jsxbg" eval="1" jsxtext="jsx3.html.getCSSFade(false);"/>
+    <record jsxid="@Fade TopDown" eval="1" type="jsxbg" jsxtext="&quot;background-image:url(&quot; + jsx3.resolveURI(&quot;jsx:///images/icons/fade_v.gif&quot;) + &quot;);&quot;"/>
+    <record jsxid="@Fade LeftRight" eval="1" type="jsxbg" jsxtext="&quot;background-image:url(&quot; + jsx3.resolveURI(&quot;jsx:///images/icons/fade_h.gif&quot;) + &quot;);&quot;"/>
+    <record jsxid="@Selection BG" type="jsxbg" eval="1" jsxtext="'background-image:url(' + jsx3.resolveURI('jsx:///images/grid/select.gif') + ');background-repeat:repeat-x;'"/>
+    <record jsxid="@Mask 70%" type="jsxbg" eval="1" jsxtext="jsx3.html.getCSSOpacity(.7);"/>
+    <record jsxid="@Normal FN" type="jsxfontname" jsxtext="Verdana, Arial, sans-serif"/>
+    <record jsxid="@Normal FS" type="jsxfontsize" eval="1" jsxtext="10"/>
+    <record jsxid="@Normal FW" type="jsxfontweight" jsxtext="normal"/>
+
+    <record jsxid="@Inset" type="jsxborder" jsxtext="1px solid #9898a5;1px solid #d8d8e5;1px solid #d8d8e5;1px solid #9898a5"/>
+    <record jsxid="@Inset Top" type="jsxborder" jsxtext="1px solid #9898a5;0px solid ;0px solid ;0px solid "/>
+    <record jsxid="@Inset Bottom" type="jsxborder" jsxtext="0px solid ;0px solid ;1px solid #ffffff;0px solid "/>
+    <record jsxid="@No jsxborder" type="jsxborder" jsxtext="0px solid ;0px solid ;0px solid ;0px solid "/>
+    <record jsxid="@Outset Top" type="jsxborder" jsxtext="1px solid #ffffff;0px solid ;0px solid ;0px solid "/>
+    <record jsxid="@Outset Bottom" type="jsxborder" jsxtext="0px solid ;0px solid ;1px solid #9898a5;0px solid "/>
+    <record jsxid="@Outset MenuBar" type="jsxborder" jsxtext="1px solid #e8e8f5;0px solid ;1px solid #a8a8b5;0px solid "/>
+    <record jsxid="@Outset" type="jsxborder" jsxtext="1px solid #d8d8e5;1px solid #9898a5;1px solid #9898a5;1px solid #d8d8e5"/>
+    <record jsxid="@Dashed" type="jsxborder" jsxtext="1px dashed #9898a5"/>
+    <record jsxid="@Dashed Top" type="jsxborder" jsxtext="1px dashed #9898a5;0px solid ;0px solid ;0px solid "/>
+    <record jsxid="@Dashed Bottom" type="jsxborder" jsxtext="0px solid ;0px solid ;1px dashed #9898a5;0px solid "/>
+
+    <record jsxid="@Solid DarkShadow" type="jsxbgcolor" jsxtext="#585865"/>
+    <record jsxid="@Solid Disabled" type="jsxbgcolor" jsxtext="#c8c8d5"/>
+    <record jsxid="@Solid Disabled AC" type="jsxactivecolor" jsxtext="#d8d8e5"/>
+    <record jsxid="@Solid Disabled DBG" type="jsxdisabledbgcolor" jsxtext="#c8c8d5"/>
+    <record jsxid="@Solid Disabled IC" type="jsxinactivecolor" jsxtext="#d8d8e5"/>
+    <record jsxid="@Solid Highlight" type="jsxbgcolor" jsxtext="#ffffff"/>
+    <record jsxid="@Solid Light" type="jsxbgcolor" jsxtext="#fffeff"/>
+    <record jsxid="@Solid Medium" type="jsxbgcolor" jsxtext="#e8e8f5"/>
+    <record jsxid="@Solid Medium AC" type="jsxactivecolor" jsxtext="#e8e8f5"/>
+    <record jsxid="@Solid Medium IC" type="jsxinactivecolor" jsxtext="#e8e8f5"/>
+    <record jsxid="@Solid Shadow" type="jsxbgcolor" jsxtext="#9898a5"/>
+    <record jsxid="@Solid Selection" type="jsxbgcolor" jsxtext="#d1e8ff"/>
+    <record jsxid="@Standard MaxX" type="jsxmaxwidth" eval="1" jsxtext="600"/>
+    <record jsxid="@Standard MaxY" type="jsxmaxheight" eval="1" jsxtext="800"/>
+    <record jsxid="@Standard MinX" type="jsxminwidth" eval="1" jsxtext="100"/>
+    <record jsxid="@Standard MinY" type="jsxminheight" eval="1" jsxtext="150"/>
+    <record jsxid="@Transparent BG" type="jsxbgcolor" jsxtext="transparent"/>
+    <record jsxid="@Min Icon" type="jsximage" jsxtext="jsx:///images/dialog/min.gif"/>
+    <record jsxid="@Max Icon" type="jsximage" jsxtext="jsx:///images/dialog/max.gif"/>
+    <record jsxid="@Close Icon" type="jsximage" jsxtext="jsx:///images/dialog/close.gif"/>
+    <record jsxid="@Restore Icon" type="jsximage" jsxtext="jsx:///images/dialog/restore.gif"/>
+    <record jsxid="@Task Icon" type="jsximage" jsxtext="jsx:///images/dialog/window.gif"/>
+
+    <!-- DEPRECATED: these date formats -->
+    <record jsxid="@US Short" type="-dep-jsxdateformat" eval="0" jsxtext="M-d-yy"/>
+    <record jsxid="@US Medium" type="-dep-jsxdateformat" eval="0" jsxtext="MMM d, yyyy"/>
+    <record jsxid="@US Long" type="-dep-jsxdateformat" eval="0" jsxtext="MMMM d, yyyy"/>
+    <record jsxid="@US Full" type="-dep-jsxdateformat" eval="0" jsxtext="EEEE, MMMM d, yyyy"/>
+    <record jsxid="@UTC" type="-dep-jsxdateformat" eval="0" jsxtext="EEE MMM dd 00:00:00 UTC yyyy"/>
+    
+    <!-- replaced with these, which are localized -->
+    <record jsxid="@Short" type="jsxdateformat" eval="1" jsxtext="jsx3.util.DateFormat.SHORT"/>
+    <record jsxid="@Medium" type="jsxdateformat" eval="1" jsxtext="jsx3.util.DateFormat.MEDIUM"/>
+    <record jsxid="@Long" type="jsxdateformat" eval="1" jsxtext="jsx3.util.DateFormat.LONG"/>
+    <record jsxid="@Full" type="jsxdateformat" eval="1" jsxtext="jsx3.util.DateFormat.FULL"/>
+
+    <record jsxid="@Number" type="jsxnumberformat" eval="1" jsxtext="jsx3.util.NumberFormat.NUMBER"/>
+    <record jsxid="@Integer" type="jsxnumberformat" eval="1" jsxtext="jsx3.util.NumberFormat.INTEGER"/>
+    <record jsxid="@Currency" type="jsxnumberformat" eval="1" jsxtext="jsx3.util.NumberFormat.CURRENCY"/>
+
+    <record jsxid="@Alternating Rows" type="jsxbg" jsxtext="&quot;background-image:url(&quot; + jsx3.resolveURI(&quot;jsx:///images/matrix/grid.gif&quot;) + &quot;);&quot;;" eval="1"/>
+    <record jsxid="@Column No Border" type="jsxclassname" jsxtext="jsx30column_c1"/>
+    <record jsxid="@Column Row Border" type="jsxclassname" jsxtext="jsx30column_c2"/>
+    <record jsxid="@Column Cell Border" type="jsxclassname" jsxtext="jsx30column_c4"/>
+    <record jsxid="@List Fixed Height (Clear)" type="jsxclassname" jsxtext="jsx30list_r1"/>
+    <record jsxid="@List Min Height" jsxtext="jsx30list_r2" type="jsxclassname"/>
+    <record jsxid="@List Fixed Height (Light)" type="jsxclassname" jsxtext="jsx30list_r4"/>
+    <record jsxid="@Default BG Image (fade) H" type="jsxbghead" eval="1" jsxtext="'background-image:url(' + jsx3.resolveURI('jsx:///images/list/header.gif') + ')'"/>
+    <record jsxid="@No BG Image H" type="jsxbghead" jsxtext="background-image:none;"/>
+    <record jsxid="@Bevel TopDown Light H" type="jsxbghead" eval="1" jsxtext="jsx3.html.getCSSFade(false);"/>
+    <record jsxid="@Bevel LeftRight H" type="jsxbghead" eval="1" jsxtext="jsx3.html.getCSSFade(true);"/>
+    <record jsxid="@Bevel TopDown H" type="jsxbghead" eval="1" jsxtext="jsx3.html.getCSSFade(false);"/>
+    <record jsxid="@CaptionBar BG" type="jsxbg" eval="1" jsxtext="jsx3.html.getCSSFade(false);"/>
+    <record jsxid="@CaptionBar BG H" type="jsxbghead" eval="1" jsxtext="jsx3.html.getCSSFade(true);"/>
+    <record jsxid="@Selection BG H" type="jsxbghead" eval="1" jsxtext="'background-image:url(' + jsx3.resolveURI('jsx:///images/grid/select.gif') + ');background-repeat:repeat-x;'"/>
+    <record jsxid="@Solid DarkShadow H" type="jsxbgcolorhead" jsxtext="#585865"/>
+    <record jsxid="@Solid Disabled H" type="jsxbgcolorhead" jsxtext="#c8c8d5"/>
+    <record jsxid="@Solid Highlight H" type="jsxbgcolorhead" jsxtext="#ffffff"/>
+    <record jsxid="@Solid Light H" type="jsxbgcolorhead" jsxtext="#fffeff"/>
+    <record jsxid="@Solid Medium H" type="jsxbgcolorhead" jsxtext="#e8e8f5"/>
+    <record jsxid="@Solid Shadow H" type="jsxbgcolorhead" jsxtext="#9898a5"/>
+    <record jsxid="@Solid Selection H" type="jsxbgcolorhead" jsxtext="#d1e8ff"/>
+    <record jsxid="@Downward" type="sliderhandleimage" jsxtext="jsx:///images/slider/top.gif"/>
+    <record jsxid="@Upward" type="sliderhandleimage" jsxtext="jsx:///images/slider/bottom.gif"/>
+    <record jsxid="@Rightward" type="sliderhandleimage" jsxtext="jsx:///images/slider/left.gif"/>
+    <record jsxid="@Leftward" type="sliderhandleimage" jsxtext="jsx:///images/slider/right.gif"/>
+
+  </locale>
+</data>

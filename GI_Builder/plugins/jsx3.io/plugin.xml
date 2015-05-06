@@ -1,0 +1,91 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.io"
+        name="IO Plug-In"
+        global="true"
+        property="jsx3.io.PLUGIN"
+        version="0.1">
+
+  <method id="getFileForURI" params="objURI"><![CDATA[
+    var fs = this.getFileSystemsForURI(objURI);
+    var fsw = fs.filter(function(e) { return e.hasWrite(); });
+    if (fsw.length == 0) fsw = fs;
+    if (fsw.length > 0)
+      return fsw[0].getInstance().getFile(objURI);
+    return null;
+  ]]></method>
+
+  <method id="getFileSystemById" params="id"><![CDATA[
+    return this.getAvailableFileSystems().find(
+        function(e) { return e.getId() == id; });
+  ]]></method>
+
+  <method id="getFileSystemsForURI" params="objURI"><![CDATA[
+    var objURI = jsx3.net.URI.valueOf(objURI);
+    return jsx3.$A(this._fss).filter(function (fs) {
+      return jsx3.$A(fs.getSchemes()).contains(objURI.getScheme());
+    });
+  ]]></method>
+
+  <method id="getAvailableFileSystems"><![CDATA[
+    if (!this._fss) {
+      this._fss = this.getExtPoint("file-system").processExts().filter(
+          function(e) { return e.isAvailable(); });
+    }
+    return this._fss;
+  ]]></method>
+
+  <method id="loadAvailableFileSystems" params="cb" async="true"><![CDATA[
+    var fss = this.getAvailableFileSystems();
+
+    var condition = null;
+
+    fss.each(function(e) {
+      var c1 = e.load();
+      condition = condition ? condition.and(c1) : c1;
+    });
+
+    if (condition)
+      condition.when(cb);
+    else
+      cb.done();
+  ]]></method>
+
+  <resources>
+    <script id="FileSystem" path="FileSystem.js"/>
+    <script id="File" path="File.js"/>
+    <script id="FileRequest" path="FileRequest.js"/>
+    <script id="XmlReqFile" path="XmlReqFile.js">
+      <prereq id="FileSystem"/>
+      <prereq id="File"/>
+    </script>
+  </resources>
+
+  <extension-point id="file-system">
+    <processor type="instantiator" instance-class="jsx3.io.FileSystemDesc"/>
+  </extension-point>
+
+  <extension point="jsx3.io.file-system">
+    <method id="isAvailable"><![CDATA[
+      return true;
+    ]]></method>
+
+    <!-- The default read-only file system allows for some fall-through behavior -->
+    <file-system
+        id="xmlhttp"
+        label="Read-Only (XmlHttpRequest)"
+        class="jsx3.io.XmlReqFileSystem"
+        scheme="file,http,https"
+        read="true"
+        write="false"
+        list="false"
+        />
+  </extension>
+
+</plugin>

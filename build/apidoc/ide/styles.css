@@ -1,0 +1,57 @@
+/*
+ * Copyright (c) 2001-2009, TIBCO Software Inc.
+ * Use, modification, and distribution subject to terms of license.
+ */
+
+body { font-family: Verdana, Arial, sans-serif; font-size: 12px; }
+td { font-size: 12px; }
+h1 { font-size: 20px; font-weight: bold; margin: 4px 0px 16px 0px; padding: 0px; }
+h2 { font-size: 18px; font-weight: bold; margin: 4px 0px 12px 0px; padding: 0px; }
+h3 { font-size: 16px; font-weight: bold; margin: 4px 0px 10px 0px; padding: 0px; }
+h4 { font-size: 14px; font-weight: bold; margin: 4px 0px 2px 0px; padding: 0px; }
+
+hr { border-top: 1px solid #CCCCCC; border-bottom: 1px dashed #666666; border-right: none; border-left: none;
+  height: 3px; background-color:#FFFFFF; color: #FFFFFF; margin: 12px 0px 12px 0px; }
+
+a:link { color: #990000; }
+a:visited { color: #660000; }
+a:active { color: #FF6666; }
+a:hover { color: #CC0000; }
+
+table.summary { width: 100%; border-collapse: collapse; border-spacing: 0px; border: 1px solid #999999;
+  margin: 6px 0px 6px 0px; }
+table.summary tr { vertical-align: top; }
+table.summary th { font-size: 15px; text-align: left; padding: 4px 6px 4px 6px; border: 1px solid #999999;
+  background-color: #EEEEEE; font-weight: bold; }
+table.summary td { margin: 0px; padding: 4px 6px 4px 6px; border: 1px solid #CCCCCC; }
+table.summary td.name { white-space: nowrap; padding-left: 12px; }
+
+div.deprecated { font-style: italic; margin: 0px 0px 12px 0px; }
+div.deprecated-inline { font-style: italic; }
+div.deprecated span.title, div.deprecated-inline span.title { font-style: normal; font-weight: bold; }
+
+div.dep, span.dep, td.dep { text-decoration: line-through; }
+a.member, span.member { font-weight: bold; }
+div.copyright { margin: 6px 0px 12px 0px; font-size: 10px; }
+
+div.expanded { margin: 16px 0px 30px 0px; }
+span.eventid { padding-left: 10px; font-size: 12px; color: #666666; }
+span.apilink { padding-left: 10px; font-size: 12px; }
+div.description { margin: 6px 0px 6px 0px; }
+div.cancel { color: #666666; margin: 10px 0px 10px 0px; }
+div.params { margin: 16px 0px 10px 0px; }
+div.param { margin: 2px 0px 2px 20px; }
+
+table.summary td.section { font-weight: bold; }
+table.summary td.prop_nested { white-space: nowrap; padding-left: 12px; }
+table.summary td.prop_top { white-space: nowrap; }
+span.readonly { font-weight: bold; color: #666666; }
+div.propdoc { margin: 10px 0px 2px 0px; }
+div.enum { margin: 10px 0px 2px 0px; }
+div.enum ul { margin-top: 2px; }
+
+div.package { margin: 12px 0px 0px 0px; font-weight: bold; }
+
+div.deprecated { margin: 6px 0px 6px 0px; }
+.deprecated { font-style: italic; }
+.deprecated .title { font-style: normal; font-weight: bold; }

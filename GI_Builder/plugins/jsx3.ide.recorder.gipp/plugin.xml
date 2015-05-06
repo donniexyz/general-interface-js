@@ -1,0 +1,39 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.recorder.gipp"
+        property="GippEditorPlugin"
+        name="GIPP Test Recorder Plug-In"
+        version="0.1">
+
+  <requires>
+    <plugin id="jsx3.ide.recorder"/>
+  </requires>
+
+  <resources>
+    <css id="styles">
+      .recordermatrix tr.testcasedelim td {
+        border-bottom: 2px solid black;
+      }
+    </css>
+    <script id="type" path="GippType.js" load="early"/>
+    <script id="js" path="GippEditor.js"/>
+  </resources>
+
+  <extension point="jsx3.ide.file-type" id="type">
+    <type id="gipp" label="GIPP Test Cases" img="jsxplugin://jsx3.ide.recorder.gipp/file.gif"
+          ext-class="jsx3.ide.gipp.FileType" precedence="5"/>
+  </extension>
+
+  <extension point="jsx3.ide.editor.type">
+    <type class="jsx3.ide.gipp.Editor" xmlns="">
+      <filetype id="gipp"/>
+    </type>
+  </extension>
+
+</plugin>

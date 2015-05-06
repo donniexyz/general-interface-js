@@ -1,0 +1,137 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot" jsxns="urn:tibco.com/v3.0/dynamicproperties/1">
+  <record jsxid="_script_title" jsxtext="JavaScript Test Utility"/>
+  <record jsxid="_script_execute" jsxtext="Execute script"/>
+  <record jsxid="_script_step" jsxtext="Step through script..."/>
+  <record jsxid="_script_history" jsxtext="History"/>
+  <record jsxid="_script_result" jsxtext="Return Value (if applicable)"/>
+  <record jsxid="mnuTextEditor" jsxtext="language/eng/textarea.xml"/>
+  <record jsxid="mnuComponent" jsxtext="language/eng/component.xml"/>
+  <record jsxid="mnuTypeAheadScript" jsxtext="language/eng/typeahead_script.xml"/>
+  <record jsxid="mnuTypeAheadCSS" jsxtext="language/eng/typeahead_css.xml"/>
+  <record jsxid="mnuTypeAheadXML" jsxtext="language/eng/typeahead_xml.xml"/>
+  <record jsxid="mnuAppPath" jsxtext="language/eng/apppath_menu.xml"/>
+  <record jsxid="mnuTipProject" jsxtext="Create and manage projects"/>
+  <record jsxid="mnuTipFile" jsxtext="Create and manage files for this project"/>
+  <record jsxid="mnuTipTools" jsxtext="Tools and IDE settings"/>
+  <record jsxid="mnuTipPalettes" jsxtext="Palettes"/>
+  <record jsxid="mnuTipHelp" jsxtext="API documentation, internet resources"/>
+  <record jsxid="treeCache" jsxtext="language/eng/cache_tree.xml"/>
+  <record jsxid="treeResources" jsxtext="language/eng/resources_tree.xml"/>
+  <record jsxid="_atted_title" jsxtext="Attributes Editor"/>
+  <record jsxid="_gen_name" jsxtext="Name"/>
+  <record jsxid="_gen_value" jsxtext="Value"/>
+  <record jsxid="_atted_add" jsxtext="Add attribute"/>
+  <record jsxid="_cch_title" jsxtext="Local Data Cache"/>
+  <record jsxid="_gen_viewedit" jsxtext="View / edit"/>
+  <record jsxid="_gen_viewformat" jsxtext="View formatted"/>
+  <record jsxid="_cch_merge" jsxtext="Merge tool..."/>
+  <record jsxid="_gen_closedoc" jsxtext="Remove document from cache"/>
+  <record jsxid="_lib_title" jsxtext="Component Libraries"/>
+  <record jsxid="_lib_reload" jsxtext="Reload component libraries from disk"/>
+  <record jsxid="_dpl_title" jsxtext="Project Deployment Options"/>
+  <record jsxid="_dpl_tx1" jsxtext="Caption"/>
+  <record jsxid="_gen_browse" jsxtext="Browse..."/>
+  <record jsxid="_dpl_tp1" jsxtext="The title text for the browser's caption bar"/>
+  <record jsxid="_dpl_tp2" jsxtext="The initial GUI component to load when the app first initializes"/>
+  <record jsxid="_dpl_tp3" jsxtext="The initial code to execute when the application first initializes and AFTER the initial component has painted on-screen"/>
+  <record jsxid="_dpl_tp4" jsxtext="If 'Yes', any JavaScript errors in the browser will be intercepted by the jsx3.ERROR controller for handling and tracking"/>
+  <record jsxid="_dpl_tp5" jsxtext="If 'Yes', a right-click event will not show the default browser context menu"/>
+  <record jsxid="_dpl_tp6" jsxtext="As a single browser can contain multiple JSX Applications, this is the unique identifier for the application"/>
+  <record jsxid="_dpl_tp7" jsxtext="If set to 'Static', the various Service classes will use any registered test data instead of contacting a live service"/>
+  <record jsxid="_dpl_tp8" jsxtext="The Registry Key for which XML parser version to use"/>
+  <record jsxid="_dpl_tp9" jsxtext="The Registry Key for which XSL parser version to use"/>
+  <record jsxid="_dpl_tp10" jsxtext="The Registry Key for which HTTP transport control to use"/>
+  <record jsxid="_dpl_tp11" jsxtext="The version of the application (e.g., 3.0)"/>
+  <record jsxid="_dpl_tp12" jsxtext="If yes, all saves within builder for this application will save in Unicode (UTF-16LE; UnicodeLittleUnmarked; Sixteen-bit Unicode Transformation Format; little-endian byte order). Default is No."/>
+  <record jsxid="_dpl_tx2" jsxtext="Initial Component"/>
+  <record jsxid="_dpl_tx3" jsxtext="onLoad Script"/>
+  <record jsxid="_dpl_tx4" jsxtext="Cancel Error"/>
+  <record jsxid="_dpl_tx5" jsxtext="Cancel Right-click"/>
+  <record jsxid="_dpl_tx6" jsxtext="Namespace"/>
+  <record jsxid="_dpl_tx7" jsxtext="Mode"/>
+  <record jsxid="_dpl_tx8" jsxtext="XML Reg Key"/>
+  <record jsxid="_dpl_tx9" jsxtext="XSL Reg Key"/>
+  <record jsxid="_dpl_tx10" jsxtext="HTTP Reg Key"/>
+  <record jsxid="_dpl_tx11" jsxtext="Project Version"/>
+  <record jsxid="_dpl_tx12" jsxtext="Unicode"/>
+  <record jsxid="_gen_save" jsxtext="Save"/>
+  <record jsxid="_gen_cancel" jsxtext="Cancel"/>
+  <record jsxid="_gen_yes" jsxtext="Yes"/>
+  <record jsxid="_gen_no" jsxtext="No"/>
+  <record jsxid="_dpl_live" jsxtext="Live"/>
+  <record jsxid="_dpl_static" jsxtext="Static"/>
+  <record jsxid="_dom_title" jsxtext="Component Hierarchy"/>
+  <record jsxid="_dom_refresh" jsxtext="Refresh/synchronize Component Hierarchy tree"/>
+  <record jsxid="_dom_clone" jsxtext="Clone"/>
+  <record jsxid="_dom_recycle" jsxtext="Recycle"/>
+  <record jsxid="_dom_focus" jsxtext="Show/hide focus rectangle (shift+alt+r)"/>
+  <record jsxid="_dom_snap" jsxtext="Toggle snap to grid"/>
+  <record jsxid="_dom_repaint" jsxtext="Repaint"/>
+  <record jsxid="_dom_fetchrepaint" jsxtext="Re-Fetch Data and Repaint"/>
+  <record jsxid="_palettes_toggle_on" jsxtext="Show Edit Pane and Palettes"/>
+  <record jsxid="_palettes_toggle_off" jsxtext="Show Edit Pane Only"/>
+  <record jsxid="_evt_title" jsxtext="Events Editor"/>
+  <record jsxid="_prp_title" jsxtext="Properties Editor"/>
+  <record jsxid="_res_title" jsxtext="Project Files"/>
+  <record jsxid="_gen_id" jsxtext="ID"/>
+  <record jsxid="_pfl_autoload" jsxtext="Auto Load"/>
+  <record jsxid="_gen_uri" jsxtext="URI"/>
+  <record jsxid="_gen_type" jsxtext="Type"/>
+  <record jsxid="_pfl_title" jsxtext="{0} File Profile"/>
+  <record jsxid="_xslparam_title" jsxtext="XSL Parameters"/>
+  <record jsxid="_sysout_restore" jsxtext="Restore Log"/>
+  <record jsxid="_sysout_clear" jsxtext="Clear Log"/>
+  <record jsxid="_sysout_docking" jsxtext="Docking Options"/>
+  <record jsxid="_api_cbar" jsxtext="API Documentation"/>
+  <record jsxid="_api_viewall" jsxtext="Display Local Methods"/>
+  <record jsxid="_api_viewalltip" jsxtext="When checked, only those methods and constants declared locally in a class are displayed. Otherwise, all available methods (those that were inherited) will also be displayed."/>
+  <record jsxid="_edit_view_live" jsxtext="Live Component"/>
+  <record jsxid="_edit_view_expert" jsxtext="Source XML (Expert)"/>
+  <record jsxid="_edit_view_formatted" jsxtext="Formatted Source XML (Read Only)"/>
+  <record jsxid="_edit_view_html" jsxtext="Rendered HTML (Read Only)"/>
+  <record jsxid="_edit_view_profile" jsxtext="Component Profile"/>
+  <record jsxid="_edit_view_grid" jsxtext="Grid View"/>
+  <record jsxid="_gen_eval" jsxtext="Eval"/>
+  <record jsxid="_edit_view_source" jsxtext="Source Text"/>
+  <record jsxid="_gen_project" jsxtext="Project"/>
+  <record jsxid="_gen_file" jsxtext="File"/>
+  <record jsxid="_gen_tools" jsxtext="Tools"/>
+  <record jsxid="_gen_palettes" jsxtext="Palettes"/>
+  <record jsxid="_gen_help" jsxtext="Help"/>
+  <record jsxid="_edit_profile_title" jsxtext="Component Profile"/>
+  <record jsxid="_edit_profile_tip1" jsxtext="The name of the component"/>
+  <record jsxid="_edit_profile_tip2" jsxtext="The 16x16 icon to use when this component is displayed within the Component Libraries palette of General Interface Builder"/>
+  <record jsxid="_edit_profile_txt1" jsxtext="Icon URL"/>
+  <record jsxid="_gen_desc" jsxtext="Description"/>
+  <record jsxid="_edit_profile_tip3" jsxtext="The description of the component"/>
+  <record jsxid="mnuTypeAheadXSL" jsxtext="language/eng/typeahead_xsl.xml"/>
+  <!-- builder links to external sites -->
+  <record jsxid="signup_url" jsxtext="http://www.generalinterface.org/alias/signup" />
+  <record jsxid="welcome_text" jsxtext="&lt;a href=&quot;http://www.generalinterface.org/alias/samples&quot; target=&quot;_blank&quot;&gt;Sample Applications&lt;/a&gt;&lt;br/&gt;
+    &lt;a href=&quot;http://www.generalinterface.org/alias/forums&quot; target=&quot;_blank&quot;&gt;Forums&lt;/a&gt;&lt;br/&gt;
+    &lt;a href=&quot;http://www.generalinterface.org/alias/support&quot; target=&quot;_blank&quot;&gt;Support &amp;amp; Training&lt;/a&gt;"/>
+  <record jsxid="rss_announce_url" jsxtext="http://www.generalinterface.org/alias/announce_rss"/>
+  <record jsxid="rss_popular_url" jsxtext="http://www.generalinterface.org/alias/forums_rss" />
+  
+  <record jsxid="hk.newProject" jsxtext="ctrl+alt+n"/>
+  <record jsxid="hk.projSettings" jsxtext="ctrl+shift+,"/>
+
+  <record jsxid="hk.new" jsxtext="ctrl+n"/>
+  <record jsxid="hk.close" jsxtext="ctrl+w"/>
+  <record jsxid="hk.closeAll" jsxtext="ctrl+shift+w"/>
+  <record jsxid="hk.save" jsxtext="ctrl+s"/>
+  <record jsxid="hk.saveAll" jsxtext="ctrl+shift+s"/>
+  <record jsxid="hk.open" jsxtext="ctrl+g"/>
+
+  <record jsxid="hk.find" jsxtext="ctrl+f"/>
+  <record jsxid="hk.script" jsxtext="ctrl+e"/>
+  <record jsxid="hk.settings" jsxtext="ctrl+,"/>
+  <record jsxid="hk.api" jsxtext="shift+ctrl+/"/>
+  <record jsxid="hk.trash" jsxtext="ctrl+9"/>
+  <record jsxid="hk.syslog" jsxtext="ctrl+l"/>
+
+</data>

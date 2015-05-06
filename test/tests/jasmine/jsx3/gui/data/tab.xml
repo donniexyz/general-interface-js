@@ -1,0 +1,43 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"></variants>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%"></strings>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="1"></variants>
+      <strings jsxname="block" jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"></strings>
+      <object type="jsx3.gui.TabbedPane">
+        <variants selectedIndex="2" jsxselectedindex="1"></variants>
+        <strings jsxname="tabbedpane" jsxtextalign="0"></strings>
+        <object type="jsx3.gui.Tab">
+          <variants jsxheight="20"></variants>
+          <strings jsxname="tab1" jsxtext="Tab 1" jsxbgcolor="#d8d8e5"></strings>
+          <object type="jsx3.gui.Block">
+            <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0"></variants>
+            <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxvisibility="visible" jsxdisplay="none"></strings>
+            <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+          </object>
+        </object>
+        <object type="jsx3.gui.Tab">
+          <variants jsxheight="18"></variants>
+          <strings jsxname="tab2" jsxtext="Tab 2" jsxbgcolor="#e8e8f5"></strings>
+          <events jsxexecute="if(!this._clickCounter)this._clickCounter=0;this._clickCounter++"></events>
+          <object type="jsx3.gui.Block">
+            <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"></variants>
+            <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxdisplay="" jsxvisibility="visible"></strings>
+            <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+          </object>
+        </object>
+        <object type="jsx3.gui.Tab">
+          <variants jsxheight="18"></variants>
+          <strings jsxname="tab3" jsxtext="Tab 3" jsxbgcolor="#d8d8e5" jsxactivecolor="#415283"></strings>
+          <object type="jsx3.gui.Block">
+            <variants jsxoverflow="2" jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxloadtype="4"></variants>
+            <strings jsxname="pane" jsxwidth="100%" jsxheight="100%" jsxdisplay="none" jsxvisibility="visible"></strings>
+            <dynamics jsxbgcolor="@Solid Medium"></dynamics>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

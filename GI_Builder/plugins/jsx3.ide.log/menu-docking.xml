@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record jsxid="pane" jsxtext="Bottom" jsximg="jsxapp:/images/icon_50.gif" jsxgroupname="position"/>
+  <record jsxid="dialog" jsxtext="Floating" jsximg="jsxapp:/images/icon_32.gif" jsxgroupname="position"/>
+  <record jsxid="window" jsxtext="Window" jsximg="jsxapp:/images/icon_32.gif" jsxgroupname="position"/>
+  <record jsxid="close" jsxdivider="1" jsxtext="Close" jsximg="jsxapp:/images/icon_55.gif"/>
+</data>

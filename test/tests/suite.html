@@ -1,0 +1,27 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<!--
+
+A JsUnit test page that runs all the tests in the GI testing suite.
+
+-->
+<html>
+<head>
+
+  <script language="JavaScript" type="text/javascript" src="../gi/jsunit.js"></script>
+  <script language="JavaScript" type="text/javascript" src="../jsunit/app/jsUnitCore.js"></script>
+  <script type="text/javascript">
+
+function suite() {
+  return gi.test.jsunit.newJsSuite("suite.js");
+}
+
+  </script>
+</head>
+<body>
+
+</body>
+</html>

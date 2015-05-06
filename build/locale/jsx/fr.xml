@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data>
+
+  <!-- jsx3.gui.Select -->
+  <record jsxid="jsx3.gui.Select.defaultText" jsxtext="- Sélectionnez -"/>
+  <record jsxid="jsx3.gui.Select.dataUnavailable" jsxtext="- Données indisponibles -"/>
+  <record jsxid="jsx3.gui.Select.noMatch" jsxtext="- Correspondance introuvable -"/>
+
+  <!-- jsx3.gui.Menu -->
+  <record jsxid="jsx3.gui.Menu.noData" jsxtext="- Aucune donnée -"/>
+
+  <!-- jsx3.gui.Matrix -->
+  <record jsxid="jsx3.gui.Matrix.seek" jsxtext="Affichage des lignes {0} à {1} de {2}"/>
+
+  <!-- jsx3.gui.BlockX -->
+  <record jsxid="jsx3.gui.BlockX.loading" jsxtext="Chargement de XSL en cours..."/>
+  <record jsxid="jsx3.gui.BlockX.timeout" jsxtext="Temps limite dépassé lors du chargement de XSL"/>
+  <record jsxid="jsx3.gui.BlockX.error" jsxtext="Erreur lors du chargement de XSL"/>
+
+  <!-- jsx3.xml.Cacheable -->
+  <record jsxid="jsx3.xml.Cacheable.loading" jsxtext="Chargement {0} en cours..."/>
+  <record jsxid="jsx3.xml.Cacheable.timeout" jsxtext="Le chargement {0} a expiré"/>
+  <record jsxid="jsx3.xml.Cacheable.error" jsxtext="Erreur lors du chargement de {0}"/>
+  <record jsxid="jsx3.xml.Cacheable.data" jsxtext="données"/>
+
+  <!-- jsx3.gui.Dialog -->
+  <record jsxid="jsx3.gui.Dialog.close" jsxtext="Fermer"/>
+  <record jsxid="jsx3.gui.Dialog.min" jsxtext="Basculer l'affichage"/>
+  <record jsxid="jsx3.gui.Dialog.max" jsxtext="Basculer et agrandir"/>
+
+</data>

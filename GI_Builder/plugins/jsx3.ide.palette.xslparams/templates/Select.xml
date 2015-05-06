@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record jsxid="jsxsortpath"
+      jsxtip="The CDF attribute to sort records on. If this attribute is not provided, the select entries are rendered in the order that they appear in the CDF document."/>
+  <record jsxid="jsxsortdirection"
+      jsxtip="The sort direction if the jsxsortpath attribute is provided. Either 'ascending' or 'descending'."/>
+  <record jsxid="jsxsorttype"
+      jsxtip="The sort data type if the jsxsortpath attribute is provided. Either 'text' or 'number'."/>
+  <record jsxid="jsxdisableescape"
+      jsxtip="If 'yes' then the jsxtext attribute of each CDF record is rendered without escaping XML characters."/>
+  <record jsxid="jsxshallowfrom"
+      jsxtip="The jsxid attribute of the CDF record whose child records are rendered as the entries in the select. If provided, only the direct children of the record are rendered. If this attribute is not provided, all descendants of the root data element are rendered."/>
+  <record jsxid="jsxcasesensitive"
+      jsxtip="If equal to 1, the type-ahead feature of this combo control is case-sensitive."/>
+  <record jsxid="lc"
+      jsxtip="Overrides the default localized list of lowercase characters used if this combo control is not case sensitive. Before a comparison all lowercase characters are converted to their corresponding uppercase character."/>
+  <record jsxid="uc"
+      jsxtip="Overrides the default localized list of uppercase characters used if this combo control is not case sensitive."/>
+  <record jsxid="jsxnocheck"
+      jsxtip="If equal to 1, no check is displayed next to the selected record in the dropdown."/>
+  <record jsxid="jsx_img_resolve"
+      jsxtip="If '0', the jsximg CDF attribute is not resolved as a URL."/>
+  <record jsxid="jsxtitle"
+      jsxtip="The title of the content of the select drop-down for use in loading, error, and timeout messages."/>
+</data>

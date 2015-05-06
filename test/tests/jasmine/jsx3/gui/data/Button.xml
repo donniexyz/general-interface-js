@@ -1,0 +1,16 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"></variants>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%"></strings>
+    <object type="jsx3.gui.NativeForm">
+      <variants></variants>
+      <strings jsxname="form" jsxaction="#" jsxmethod="get" jsxmulti="0" jsxtarget="0"></strings>
+      <object type="jsx3.gui.Button">
+        <variants jsxindex="0" jsxheight="18" _clickCounter="0"></variants>
+        <strings jsxname="counterButton" jsxtext="[button text]" jsxmargin="0 4 0 0"></strings>
+        <events jsxexecute="if(!this._clickCounter)this._clickCounter=0;this._clickCounter++;&#xA;"></events>
+      </object>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,298 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.onPaletteLoaded = function() {
+  var editor = jsx3.ide.getActiveEditor();
+  if (editor)
+    this.onEditorChanged(editor, null);
+};
+
+objJSX.onEditorChanged = function(newEditor, oldEditor) {
+  //jsx3.log("properties.onEditorChanged " + newEditor);
+  var onNow = newEditor && newEditor.getMode() == "component";
+
+  jsxproperties.setDisplay(onNow ? jsx3.gui.Block.DISPLAYBLOCK : jsx3.gui.Block.DISPLAYNONE, true);
+  if (onNow)
+    this.onSelectionChanged(newEditor);
+};
+
+objJSX.getDataMatrix = function() {
+  return jsxproperties;
+};
+
+objJSX.onSelectionChanged = function(objEditor) {
+  //jsx3.log("properties.onSelectionChanged " + objEditor.getSelection());
+  objJSX.getPlugIn().onPropertiesChange();
+};
+
+objJSX._makeSpy = function(objGrid, strRecordId) {
+  var node = objGrid.getRecordNode(strRecordId);
+  if (node == null) return null;
+  if (node.getAttribute("group") == "1") return null;
+
+  var desc = node.getAttribute("jsxtip");
+  var getter = node.getAttribute("docgetter");
+  if (getter && getter.indexOf("(") < 0)
+    getter += "()";
+  var setter = node.getAttribute("docsetter");
+  if (setter && setter.indexOf("(") < 0)
+    setter += "()";
+  var deflt = node.getAttribute("docdefault");
+
+  var dep = node.getAttribute("deprecated");
+
+  var strHTML = "";
+  strHTML += "<span class='jsx3ide_propsspy'>";
+
+  strHTML += "<div class='name" + (dep ? " deprecated" : "") + "'>" + node.getAttribute("jsxtext") + "</div>";
+
+  if (dep)
+    strHTML += "<div class='desc dep'><span class='title'>Deprecated.</span> " + (dep != "1" ? dep : "") + "</div>";
+
+  strHTML += "<div class='desc'>" + (desc || "<i>No description provided.</i>") + "</div>";
+  if (deflt)
+    strHTML += "<div class='deflt'><span class='title'>Default Value:</span> " + deflt + "</div>";
+  if (getter)
+    strHTML += "<div class='method'><span class='title'>Getter:</span> " + getter + "</div>";
+  if (setter)
+    strHTML += "<div class='method'><span class='title'>Setter:</span> " + setter + "</div>";
+  if (! node.getAttribute("docnoprop"))
+    strHTML += "<div class='prop'><span class='title'>Property:</span> " + node.getAttribute("jsxid") + "</div>";
+
+  strHTML += "</span>";
+  return strHTML;
+};
+
+jsxpath.maskBrowse = function() {
+  var baseFile = jsx3.ide.getCurrentUserHome();
+  var dirFile = jsx3.ide.getCurrentDirectory();
+  var val = this.getMaskValue();
+  if (val) {
+    var fileURI = jsx3.ide.PROJECT.resolveURI(val);
+    if (fileURI.getScheme() == null || fileURI.getScheme() == "file") {
+      try {
+        var chosenFile = jsx3.ide.getSystemRelativeFile(jsx3.ide.PROJECT.resolveURI(val));
+        var parentFile = chosenFile.getParentFile();
+        if (parentFile.isDirectory()) {
+          dirFile = parentFile;
+          if (!(parentFile.equals(baseFile) || parentFile.isDescendantOf(baseFile)))
+            baseFile = parentFile.getRootDirectory();
+        }
+      } catch (e) {}
+    }
+  }
+
+  this.suspendEditSession();
+  jsx3.ide.getPlugIn("jsx3.io.browser").chooseFile(this.getServer().getRootBlock(), {
+      name:"props_mask", modal:true, folder: dirFile, baseFolder: baseFile,
+      onChoose: jsx3.$F(this._onFileChoose).bind(this),
+      onCancel: jsx3.$F(this._onFileCancel).bind(this)
+  });
+};
+
+jsxpath._onFileChoose = function(objFile) {
+  var jsxDir = jsx3.ide.getSystemRelativeFile("JSX");
+  var ideDir = jsx3.ide.getBuilderRelativeFile(".");
+  var newVal = null;
+
+  // special handling for JSX/ and GI_Builder/
+  if (objFile.isDescendantOf(jsxDir)) {
+    newVal = jsx3.net.URIResolver.JSX.relativizeURI(jsx3.ide.getSystemDirFile().toURI().relativize(objFile.toURI()));
+  } else if (objFile.isDescendantOf(ideDir)) {
+    newVal = jsx3.ide.getSystemDirFile().toURI().relativize(objFile.toURI());
+  } else {
+    newVal = jsx3.ide.PROJECT.getDirectory().relativePathTo(objFile);
+  }
+
+  this.setMaskValue(newVal);
+  jsx3.ide.setCurrentDirectory(objFile.getParentFile());
+  btnBrowse.focus();
+  this.resumeEditSession();
+};
+
+jsxpath._onFileCancel = function() {
+  this.resumeEditSession();
+  jsx3.sleep(function() {
+    btnBrowse.focus();
+  });
+};
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <variants jsxleft="0" jsxtop="0" jsxoverflow="2" />
+      <strings jsxname="propspal" jsxwidth="100%" jsxheight="100%" jsxhelpid="ide.palette.props"/>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxbgcolor="@Solid Medium"/>
+          <variants jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%" />
+            <object type="jsx3.gui.Matrix">
+              <dynamics jsxbgcolor="@Solid Light" jsxbodyborder="@Outset"/>
+              <variants jsxspy="1" jsxpagingmodel="4" jsxselectionmodel="0" jsxresize="1" jsxreorder="0" jsxscalewidth="1"/>
+              <strings jsxname="jsxproperties" jsxspystylekeys="" jsxspystylevalues="" jsxfocusstyle=";"
+                  jsxxmlid="properties" jsxdisplay="none" jsxmenu="jsxmenu_properties" jsxrenderingmodel="hierarchical"/>
+              <events jsxafteredit="propspal.getPlugIn().onPropertyEdit(this,strRECORDID,strNEWVALUE);"
+                  jsxbeforeedit="propspal.getPlugIn().onPropertyBeforeEdit(this, objCOLUMN, strRECORDID);"
+                  jsxspy="(objCOLUMN == jsxproperties_name) ? propspal._makeSpy(this, strRECORDID) : null;"
+                  jsxmenu="objCOLUMN != null &amp;&amp; strRECORDID != '';"/>
+              <xslparameters jsx_icon="" jsx_no_tip="1" jsx_no_empty_indent="1" jsx_indent="10"
+                  jsx_treehead_bgcolor="#e8e8f5" jsx_treehead_fontweight="bold" jsx_use_categories="1"/>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants/>
+                  <dynamics jsxtext="_gen_name" jsxbg="@Fade TopDown" jsxborder="@Outset"
+                    jsxcellbgcolor="@Matrix HeaderCol BG" jsxcellborder="@Matrix HeaderCol Border"/>
+                  <strings jsxwidth="120" jsxname="jsxproperties_name" jsxcellpadding="3" jsxpadding="2 3 0 3"
+                      jsxpath="jsxtext" jsxtext="Name" />
+                </object>
+                <object type="jsx3.gui.Matrix.Column">
+                  <variants jsxresize="0" jsxcellpadding="0" />
+                  <dynamics jsxtext="_gen_value" jsxbg="@Fade TopDown" jsxborder="@Outset NoRight"
+                    jsxcellbgcolor="@Matrix ValueCol BG" jsxcellborder="@Matrix ValueCol Border"/>
+                  <strings jsxname="jsxproperties_value" jsxwidth="*" jsxpadding="2 3 0 3"
+                      jsxpath="value" jsxsortpath="" jsxtext="Value"
+                      jsxvaluetemplate="&lt;xsl:template xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;
+&lt;xsl:variable name=&quot;myvalue&quot; select=&quot;@value&quot;/&gt;
+&lt;xsl:variable name=&quot;enummatch&quot; select=&quot;./enum[@jsxvalue=$myvalue]&quot;/&gt;
+&lt;div class=&quot;jsx3ide_props_normal&quot;&gt;
+&lt;xsl:choose&gt;
+  &lt;xsl:when test=&quot;@uneditable&quot;&gt;
+    &lt;xsl:attribute name=&quot;class&quot;&gt;jsx3ide_props_uneditable&lt;/xsl:attribute&gt;
+    &lt;xsl:choose&gt;
+      &lt;xsl:when test=&quot;@value=''&quot;&gt;&lt;span class=&quot;jsx3ide_props_emptystring&quot;&gt;[empty]&lt;/span&gt;&lt;/xsl:when&gt;
+      &lt;xsl:when test=&quot;@jsxmulti&quot;&gt;&lt;span class=&quot;jsx3ide_props_multi&quot;&gt;[multiple values]&lt;/span&gt;&lt;/xsl:when&gt;
+      &lt;xsl:otherwise&gt;&lt;xsl:value-of select=&quot;@value&quot; /&gt;&lt;/xsl:otherwise&gt;
+    &lt;/xsl:choose&gt;
+  &lt;/xsl:when&gt;
+  &lt;xsl:when test=&quot;@jsxdynamic&quot;&gt;
+    &lt;xsl:attribute name=&quot;class&quot;&gt;jsx3ide_props_dynproperty&lt;/xsl:attribute&gt;
+    &lt;xsl:value-of select=&quot;@jsxdynamic&quot; /&gt;&amp;#160;&lt;span class=&quot;jsx3ide_props_dynval&quot;&gt;[&lt;xsl:value-of select=&quot;@value&quot; /&gt;]&lt;/span&gt;
+  &lt;/xsl:when&gt;
+  &lt;xsl:otherwise&gt;
+    &lt;xsl:choose&gt;
+      &lt;xsl:when test=&quot;@jsxmask='jsxselect'&quot;&gt;
+        &lt;xsl:attribute name=&quot;class&quot;&gt;&lt;/xsl:attribute&gt;
+        &lt;div class=&quot;jsx3ide_props_selectmask&quot;&gt;&amp;#160;&lt;/div&gt;
+        &lt;div class=&quot;jsx3ide_props_normal&quot;&gt;
+        &lt;xsl:choose&gt;
+          &lt;xsl:when test=&quot;@jsxmulti&quot;&gt;&lt;span class=&quot;jsx3ide_props_multi&quot;&gt;[multiple values]&lt;/span&gt;&lt;/xsl:when&gt;
+          &lt;xsl:when test=&quot;$enummatch&quot;&gt;
+            &lt;xsl:value-of select=&quot;$enummatch/@jsxtext&quot;/&gt;
+          &lt;/xsl:when&gt;
+          &lt;xsl:otherwise&gt;&amp;#160;&lt;/xsl:otherwise&gt;
+        &lt;/xsl:choose&gt;
+        &lt;/div&gt;
+      &lt;/xsl:when&gt;
+      &lt;xsl:when test=&quot;@value=''&quot;&gt;&lt;span class=&quot;jsx3ide_props_emptystring&quot;&gt;[empty]&lt;/span&gt;&lt;/xsl:when&gt;
+      &lt;xsl:when test=&quot;@jsxmulti&quot;&gt;&lt;span class=&quot;jsx3ide_props_multi&quot;&gt;[multiple values]&lt;/span&gt;&lt;/xsl:when&gt;
+      &lt;xsl:when test=&quot;@value&quot;&gt;&lt;xsl:attribute name=&quot;class&quot;&gt;jsx3ide_props_textmask&lt;/xsl:attribute&gt;&lt;xsl:value-of select=&quot;@value&quot;/&gt;&lt;/xsl:when&gt;
+      &lt;xsl:otherwise&gt;&lt;xsl:attribute name=&quot;class&quot;&gt;jsx3ide_props_textmask&lt;/xsl:attribute&gt;&amp;#160;&lt;/xsl:otherwise&gt;
+    &lt;/xsl:choose&gt;
+  &lt;/xsl:otherwise&gt;
+&lt;/xsl:choose&gt;
+&lt;/div&gt;
+&lt;/xsl:template&gt;"/>
+                    <object type="jsx3.gui.TextBox">
+                      <dynamics jsxcolor="@Matrix Edit Color"/>
+                      <variants jsxtype="0"/>
+                      <strings jsxname="jsxtextbox"/>
+                    </object>
+                    <object type="jsx3.gui.TextBox">
+                      <dynamics jsxcolor="@Matrix Edit Color"/>
+                      <variants jsxtype="1" jsxheight="80"/>
+                      <strings jsxname="jsxtextarea"/>
+                    </object>
+                    <object type="jsx3.gui.Select">
+                      <dynamics jsxcolor="@Matrix Edit Color"/>
+                      <strings jsxname="jsxselect" />
+                    </object>
+                  <object type="jsx3.gui.Block">
+                    <variants jsxoverflow="1" jsxrelativeposition="0"/>
+                    <strings jsxname="jsxpath"/>
+                    <object type="jsx3.gui.LayoutGrid">
+                      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                      <strings jsxwidth="100%" jsxheight="100%" jsxcols="*,20"/>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="2"/>
+                        <strings jsxwidth="100%" jsxheight="100%"/>
+                        <object type="jsx3.gui.TextBox">
+                          <dynamics jsxcolor="@Matrix Edit Color"/>
+                          <strings jsxname="pathtextbox" jsxheight="100%" jsxwidth="100%"/>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="2"/>
+                        <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="center" jsxpadding="2"/>
+                        <object type="jsx3.gui.ImageButton">
+                          <variants jsxwidth="16" jsxheight="16" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+                          <strings jsxname="btnBrowse" jsximage="jsx:///images/tbb/open.gif"/>
+                          <events jsxexecute="jsxpath.maskBrowse();"/>
+                        </object>
+                      </object>
+                    </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <variants jsxoverflow="1" jsxrelativeposition="0"/>
+                      <strings jsxname="jsxcolor"/>
+                      <object type="jsx3.gui.LayoutGrid">
+                        <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                        <strings jsxwidth="100%" jsxheight="100%" jsxcols="*,20"/>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxoverflow="2"/>
+                          <strings jsxwidth="100%" jsxheight="100%"/>
+                          <object type="jsx3.gui.TextBox">
+                            <dynamics jsxcolor="@Matrix Edit Color"/>
+                            <strings jsxname="pathtextbox" jsxheight="100%" jsxwidth="100%"/>
+                          </object>
+                        </object>
+                        <object type="jsx3.gui.Block">
+                          <variants jsxoverflow="2"/>
+                          <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="center" jsxpadding="2"/>
+                          <object type="jsx3.gui.ImageButton">
+                            <variants jsxwidth="16" jsxheight="16" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+                            <strings jsxname="btnCP" jsximage="jsxapp:/images/prototypes/colorpicker.gif"/>
+                            <events jsxexecute="propspal.getPlugIn().openColorPickerMask(jsxcolor);"/>
+                          </object>
+                        </object>
+                      </object>
+                  </object>
+                  <object type="jsx3.gui.Block">
+                    <variants jsxoverflow="1" jsxrelativeposition="0" jsxheight="40"/>
+                    <strings jsxname="jsxcdf"/>
+                    <object type="jsx3.gui.LayoutGrid">
+                      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                      <strings jsxname="lyt" jsxcols="*,20" jsxbgcolor="#ffffff"/>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="2"/>
+                        <strings jsxwidth="100%" jsxheight="100%"/>
+                        <object type="jsx3.gui.TextBox">
+                          <dynamics jsxcolor="@Matrix Edit Color"/>
+                          <strings jsxname="pathtextbox" jsxheight="100%" jsxwidth="100%"/>
+                          <variants jsxtype="1"/>
+                        </object>
+                      </object>
+                      <object type="jsx3.gui.Block">
+                        <variants jsxoverflow="2"/>
+                        <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="center" jsxpadding="2"/>
+                        <object type="jsx3.gui.ImageButton">
+                          <variants jsxwidth="16" jsxheight="16" jsxprefetch="1" jsxtype="0" jsxstate="0"/>
+                          <strings jsxname="btnTable" jsximage="jsxapp:/images/prototypes/matrix-column.gif"/>
+                          <events jsxexecute="propspal.getPlugIn().openCdfMask(jsxcdf);"/>
+                        </object>
+                      </object>
+                    </object>
+                  </object>
+                </object>
+            </object>
+            <object type="jsx3.gui.Menu">
+              <variants jsxshare="1"/>
+              <strings jsxname="jsxmenu_properties" jsxdisplay="none" jsxxmlid="jsx3.ide.palette.properties.contextmenu" />
+              <events jsxexecute="propspal.getPlugIn().onPropertyMenuExecute(this, strRECORDID);"
+                      jsxmenu="if (!strPARENTID) propspal.getPlugIn().onPropertyMenu(this, this.getContextRecordId());"/>
+            </object>
+        </object>
+    </object>
+</serialization>

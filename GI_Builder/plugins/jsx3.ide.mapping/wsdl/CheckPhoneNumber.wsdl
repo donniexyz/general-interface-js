@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<definitions xmlns:s1="http://ws.cdyne.com/PhoneVerify/query/AbstractTypes" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:s0="http://ws.cdyne.com/PhoneVerify/query" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://ws.cdyne.com/PhoneVerify/query" xmlns="http://schemas.xmlsoap.org/wsdl/">
+  <types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://ws.cdyne.com/PhoneVerify/query">
+      <s:element name="CheckPhoneNumber">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumber" type="s:string"/>
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CheckPhoneNumberResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CheckPhoneNumberResult" type="s0:PhoneReturn"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="PhoneReturn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Company" type="s:string"/>
+          <s:element minOccurs="1" maxOccurs="1" name="Valid" type="s:boolean"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Use" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="State" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="Switch" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="RC" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="OCN" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="OriginalNumber" type="s:string"/>
+          <s:element minOccurs="0" maxOccurs="1" name="CleanNumber" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CheckPhoneNumbers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PhoneNumbers" type="s0:ArrayOfString"/>
+            <s:element minOccurs="0" maxOccurs="1" name="LicenseKey" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CheckPhoneNumbersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CheckPhoneNumbersResult" type="s0:ArrayOfPhoneReturn"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfPhoneReturn">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="PhoneReturn" type="s0:PhoneReturn"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PhoneReturn" type="s0:PhoneReturn"/>
+      <s:element name="ArrayOfPhoneReturn" nillable="true" type="s0:ArrayOfPhoneReturn"/>
+    </s:schema>
+    <s:schema targetNamespace="http://ws.cdyne.com/PhoneVerify/query/AbstractTypes">
+      <s:import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+      <s:complexType name="StringArray">
+        <s:complexContent mixed="false">
+          <s:restriction base="soapenc:Array">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="unbounded" name="String" type="s:string"/>
+            </s:sequence>
+          </s:restriction>
+        </s:complexContent>
+      </s:complexType>
+    </s:schema>
+  </types>
+  <message name="CheckPhoneNumberSoapIn">
+    <part name="parameters" element="s0:CheckPhoneNumber"/>
+  </message>
+  <message name="CheckPhoneNumberSoapOut">
+    <part name="parameters" element="s0:CheckPhoneNumberResponse"/>
+  </message>
+  <message name="CheckPhoneNumbersSoapIn">
+    <part name="parameters" element="s0:CheckPhoneNumbers"/>
+  </message>
+  <message name="CheckPhoneNumbersSoapOut">
+    <part name="parameters" element="s0:CheckPhoneNumbersResponse"/>
+  </message>
+  <message name="CheckPhoneNumberHttpGetIn">
+    <part name="PhoneNumber" type="s:string"/>
+    <part name="LicenseKey" type="s:string"/>
+  </message>
+  <message name="CheckPhoneNumberHttpGetOut">
+    <part name="Body" element="s0:PhoneReturn"/>
+  </message>
+  <message name="CheckPhoneNumbersHttpGetIn">
+    <part name="PhoneNumbers" type="s1:StringArray"/>
+    <part name="LicenseKey" type="s:string"/>
+  </message>
+  <message name="CheckPhoneNumbersHttpGetOut">
+    <part name="Body" element="s0:ArrayOfPhoneReturn"/>
+  </message>
+  <message name="CheckPhoneNumberHttpPostIn">
+    <part name="PhoneNumber" type="s:string"/>
+    <part name="LicenseKey" type="s:string"/>
+  </message>
+  <message name="CheckPhoneNumberHttpPostOut">
+    <part name="Body" element="s0:PhoneReturn"/>
+  </message>
+  <message name="CheckPhoneNumbersHttpPostIn">
+    <part name="PhoneNumbers" type="s1:StringArray"/>
+    <part name="LicenseKey" type="s:string"/>
+  </message>
+  <message name="CheckPhoneNumbersHttpPostOut">
+    <part name="Body" element="s0:ArrayOfPhoneReturn"/>
+  </message>
+  <portType name="PhoneVerifySoap">
+    <operation name="CheckPhoneNumber">
+      <documentation>Input a North American phone number such as 757-555-1212. &lt;b&gt;Use a LicenseKey of 0 for testing.&lt;/b&gt;</documentation>
+      <input message="s0:CheckPhoneNumberSoapIn"/>
+      <output message="s0:CheckPhoneNumberSoapOut"/>
+    </operation>
+    <operation name="CheckPhoneNumbers">
+      <documentation>Pass in an array of phone number strings and this function will return an array of PhoneReturn</documentation>
+      <input message="s0:CheckPhoneNumbersSoapIn"/>
+      <output message="s0:CheckPhoneNumbersSoapOut"/>
+    </operation>
+  </portType>
+  <portType name="PhoneVerifyHttpGet">
+    <operation name="CheckPhoneNumber">
+      <documentation>Input a North American phone number such as 757-555-1212. &lt;b&gt;Use a LicenseKey of 0 for testing.&lt;/b&gt;</documentation>
+      <input message="s0:CheckPhoneNumberHttpGetIn"/>
+      <output message="s0:CheckPhoneNumberHttpGetOut"/>
+    </operation>
+    <operation name="CheckPhoneNumbers">
+      <documentation>Pass in an array of phone number strings and this function will return an array of PhoneReturn</documentation>
+      <input message="s0:CheckPhoneNumbersHttpGetIn"/>
+      <output message="s0:CheckPhoneNumbersHttpGetOut"/>
+    </operation>
+  </portType>
+  <portType name="PhoneVerifyHttpPost">
+    <operation name="CheckPhoneNumber">
+      <documentation>Input a North American phone number such as 757-555-1212. &lt;b&gt;Use a LicenseKey of 0 for testing.&lt;/b&gt;</documentation>
+      <input message="s0:CheckPhoneNumberHttpPostIn"/>
+      <output message="s0:CheckPhoneNumberHttpPostOut"/>
+    </operation>
+    <operation name="CheckPhoneNumbers">
+      <documentation>Pass in an array of phone number strings and this function will return an array of PhoneReturn</documentation>
+      <input message="s0:CheckPhoneNumbersHttpPostIn"/>
+      <output message="s0:CheckPhoneNumbersHttpPostOut"/>
+    </operation>
+  </portType>
+  <binding name="PhoneVerifySoap" type="s0:PhoneVerifySoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <operation name="CheckPhoneNumber">
+      <soap:operation soapAction="http://ws.cdyne.com/PhoneVerify/query/CheckPhoneNumber" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="CheckPhoneNumbers">
+      <soap:operation soapAction="http://ws.cdyne.com/PhoneVerify/query/CheckPhoneNumbers" style="document"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <binding name="PhoneVerifyHttpGet" type="s0:PhoneVerifyHttpGet">
+    <http:binding verb="GET"/>
+    <operation name="CheckPhoneNumber">
+      <http:operation location="/CheckPhoneNumber"/>
+      <input>
+        <http:urlEncoded/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+    <operation name="CheckPhoneNumbers">
+      <http:operation location="/CheckPhoneNumbers"/>
+      <input>
+        <http:urlEncoded/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+  </binding>
+  <binding name="PhoneVerifyHttpPost" type="s0:PhoneVerifyHttpPost">
+    <http:binding verb="POST"/>
+    <operation name="CheckPhoneNumber">
+      <http:operation location="/CheckPhoneNumber"/>
+      <input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+    <operation name="CheckPhoneNumbers">
+      <http:operation location="/CheckPhoneNumbers"/>
+      <input>
+        <mime:content type="application/x-www-form-urlencoded"/>
+      </input>
+      <output>
+        <mime:mimeXml part="Body"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="PhoneVerify">
+    <port name="PhoneVerifySoap" binding="s0:PhoneVerifySoap">
+      <soap:address location="http://ws.cdyne.com/phoneverify/phoneverify.asmx"/>
+    </port>
+    <port name="PhoneVerifyHttpGet" binding="s0:PhoneVerifyHttpGet">
+      <http:address location="http://ws.cdyne.com/phoneverify/phoneverify.asmx"/>
+    </port>
+    <port name="PhoneVerifyHttpPost" binding="s0:PhoneVerifyHttpPost">
+      <http:address location="http://ws.cdyne.com/phoneverify/phoneverify.asmx"/>
+    </port>
+  </service>
+</definitions>

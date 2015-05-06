@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Licensed under TIBCO BSD license, see license.txt under directory samples/
+  -->
+<data jsxid="jsxroot">
+ <record date="2" open="5" hi="6" low="4.95" close="5.85"/>
+ <record date="3" open="5.75" hi="6.25" low="5.60" close="6.00"/>
+ <record date="4" open="6.00" hi="6.55" low="6.00" close="6.50"/>
+ <record date="5" open="7.25" hi="7.50" low="6.80" close="6.90"/>
+ <record date="6" open="6.95" hi="6.95" low="6.50" close="6.80"/>
+ <record date="7"/>
+ <record date="8"/>
+ <record date="9" open="6.80" hi="7.15" low="6.75" close="6.95"/>
+ <record date="10" open="6.90" hi="6.95" low="6.25" close="6.30"/>
+ <record date="11" open="6.25" hi="6.50" low="5.75" close="6.35"/>
+ <record date="12" open="6.35" hi="6.50" low="5.95" close="6.40"/>
+ <record date="13" open="6.25" hi="6.30" low="5.95" close="6.00"/>
+</data>

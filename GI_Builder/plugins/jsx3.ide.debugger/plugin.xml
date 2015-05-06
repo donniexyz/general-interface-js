@@ -1,0 +1,38 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.debugger"
+        name="Debugger Plug-In"
+        version="0.1">
+
+  <method id="isSupported"><![CDATA[
+    return Boolean(jsx3.CLASS_LOADER.IE);
+  ]]></method>
+
+  <method id="_doScriptletStepThrough" params="objDialog"><![CDATA[
+    var scriptletInput = objDialog.getDescendantOfName('jsx_txt_scriptlet_input');
+    var scriptlet = scriptletInput.getValue();
+
+    this.load().when(jsx3.$F(function(e) {
+      this.debug(scriptlet);
+    }).bind(this));
+  ]]></method>
+
+  <requires>
+  </requires>
+
+  <resources>
+    <script id="js" path="Debugger.js" eval="true"/>
+  </resources>
+
+  <extension point="jsx3.ide.evaluator.toolbar">
+    <button id="debug" img="jsxapp:/images/icon_8.gif" tip="Use the step-through debugger (IE Only)" section="eval"
+            execute="this.getPlugIn()._doScriptletStepThrough(item.getAncestorOfType(jsx3.gui.Dialog));"
+            enabled="this.getPlugIn().isSupported()"/>
+  </extension>
+  
+</plugin>

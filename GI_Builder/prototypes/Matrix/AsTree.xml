@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<component classpath="jsx3.gui" xmlns:id="http://xsd.tns.tibco.com/gi/cif/2006/inlinedata" xmlns:e="http://xsd.tns.tibco.com/gi/cif/2006/events" xmlns:d="http://xsd.tns.tibco.com/gi/cif/2006/dynamics" xmlns:p="http://xsd.tns.tibco.com/gi/cif/2006/property" xmlns:pe="http://xsd.tns.tibco.com/gi/cif/2006/property.eval" xmlns:x="http://xsd.tns.tibco.com/gi/cif/2006/xslparameters" xmlns:v="http://xsd.tns.tibco.com/gi/cif/2006/view" xmlns:u="http://xsd.tns.tibco.com/gi/cif/2006/userdefined" xmlns:ue="http://xsd.tns.tibco.com/gi/cif/2006/userdefined.eval" xmlns="http://xsd.tns.tibco.com/gi/cif/2006">
+  <meta name="name"><![CDATA[Tree]]></meta>
+  <meta name="description"><![CDATA[Matrix instance configured to allow for tree-type functionality. Additionally describes:
+                                      event binding (toggle),
+                                      custom bg,
+                                      drag and drop, and
+                                      on-demand (stepped) paging.
+  ]]></meta>
+  <meta name="icon"><![CDATA[images/prototypes/matrixtree.gif]]></meta>
+  <Matrix
+      p:name="matrix1"
+      d:bgcolor="@Solid Light"
+      pe:headerheight="0"
+      pe:jsxxmlasync="1"
+      p:renderingmodel="hierarchical"
+      p:pagingmodel="4"
+      p:drag="1"
+      p:drop="1"
+      p:selectionmodel="2"
+      e:toggle="jsx3.log('EVENT: (jsxtoggle). ' + strRECORDID + '. Open: ' + bOPEN);"
+      id:xml="xml">
+
+    <id:data href="xml"><![CDATA[
+      <data jsxid="jsxroot">
+        <record jsxid="1" jsxtext="rootnode" jsxopen="1" jsximg="jsx:/images/tree/folder.gif">
+          <record jsxid="2" jsxtext="node a" jsxopen="1" jsximg="jsx:/images/tree/folder.gif">
+            <record jsxid="3" jsxtext="node b" jsximg="jsx:/images/tree/folder.gif">
+              <record jsxid="4" jsxtext="node c"  jsximg="jsx:/images/tree/folder.gif">
+                <record jsxid="5" jsxtext="node d" jsximg="jsx:/images/tree/file.gif"/>
+              </record>
+            </record>
+            <record jsxid="6" jsxtext="node e" jsximg="jsx:/images/tree/folder.gif">
+              <record jsxid="7" jsxtext="node f with a lot of text to see what the impact" jsximg="jsx:/images/tree/folder.gif">
+                <record jsxid="8" jsxtext="node g" jsximg="jsx:/images/tree/file.gif"/>
+              </record>
+            </record>
+          </record>
+        </record>
+      </data>
+    ]]></id:data>
+
+    <MatrixColumn
+        d:border="@Outset"
+        d:bg="@Bevel TopDown"
+        d:bgcolor="@Solid Disabled"
+        p:name="mc1"
+        p:width="*"
+        p:cellpadding="2"
+        p:path="jsxtext"/>
+
+  </Matrix>
+</component>

@@ -1,0 +1,67 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+   <variants jsxleft="0" jsxtop="0"/>
+   <strings  jsxrows="50,30,30,*"/>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxpadding="@8Pixel"/>
+     <variants jsxoverflow="3"/>
+     <strings jsxtext="The Mapper assumes that XML documents can be &lt;i&gt;sent&lt;/i&gt; and &lt;i&gt;received&lt;/i&gt; as part of a &lt;i&gt;transaction&lt;/i&gt; with a remote service.  Documents that are created are said to be &quot;outbound&quot;, while documents that are processed are said to be &quot;inbound&quot;.  Enter the URL for the document(s) relevant to your use case."/>
+    </object>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="2"/>
+     <strings jsxpadding="0 8 0 188" jsxtextalign="right"/>
+      <object type="jsx3.gui.Block">
+       <variants jsxleft="0" jsxtop="8" jsxwidth="150" jsxoverflow="2" jsxrelativeposition="0"/>
+       <strings jsxtext="Outbound Document URL" jsxtextalign="right" jsxheight="12" jsxfontweight="bold" jsxtip="relative to the project root or absolute (http/s:, jsx:, jsxapp:)"/>
+      </object>
+      <object type="jsx3.gui.TextBox">
+       <dynamics jsxborder="@Inset"/>
+       <variants jsxleft="158" jsxtop="6" jsxindex="0" jsxrelativeposition="0" jsxenabled="1"/>
+       <strings jsxwidth="100%" jsxname="jsx_schema_wsdlurl_outbound" jsxvalue="jsxplugin://jsx3.ide.mapping/samples/XML.xml"/>
+       <events jsxexecute="var oMap = this.getAncestorOfType(jsx3.ide.mapper.Mapper);
+oMap.parseDocuments(oMap.getDescendantOfName(&quot;jsx_schema_wsdlurl_outbound&quot;).getValue(),oMap.getDescendantOfName(&quot;jsx_schema_wsdlurl_inbound&quot;).getValue());"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <variants jsxleft="8" jsxtop="8" jsxrelativeposition="1" jsxenabled="1"/>
+       <strings jsxname="jsx_schema_alternatestuburl_tbb" jsxtip="browse project workspace for local copy of the document" jsximage="images/open_file.gif" groupName="jsx_soaptester"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.Mapper).browseURL(&quot;jsx_schema_wsdlurl_outbound&quot;);"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="2"/>
+     <strings jsxpadding="0 8 0 188" jsxtextalign="right"/>
+      <object type="jsx3.gui.Block">
+       <variants jsxleft="0" jsxtop="8" jsxwidth="150" jsxoverflow="2" jsxrelativeposition="0"/>
+       <strings jsxtext="Inbound Document URL" jsxtextalign="right" jsxheight="12" jsxfontweight="bold" jsxtip="relative to the project root or absolute (http/s:, jsx:, jsxapp:)"/>
+      </object>
+      <object type="jsx3.gui.TextBox">
+       <dynamics jsxborder="@Inset"/>
+       <variants jsxleft="158" jsxtop="6" jsxindex="0" jsxrelativeposition="0" jsxenabled="1"/>
+       <strings jsxwidth="100%" jsxname="jsx_schema_wsdlurl_inbound" jsxvalue="jsxplugin://jsx3.ide.mapping/samples/CDF.xsd"/>
+       <events jsxexecute="var oMap = this.getAncestorOfType(jsx3.ide.mapper.Mapper);
+oMap.parseDocuments(oMap.getDescendantOfName(&quot;jsx_schema_wsdlurl_outbound&quot;).getValue(),oMap.getDescendantOfName(&quot;jsx_schema_wsdlurl_inbound&quot;).getValue());"/>
+      </object>
+      <object type="jsx3.gui.ToolbarButton">
+       <variants jsxleft="8" jsxtop="8" jsxrelativeposition="1" jsxenabled="1"/>
+       <strings jsxname="jsx_schema_alternatestuburl_tbb" jsxtip="browse project workspace for local copy of the document" jsximage="images/open_file.gif" groupName="jsx_soaptester"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.Mapper).browseURL(&quot;jsx_schema_wsdlurl_inbound&quot;);"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.Block">
+     <dynamics jsxpadding="@8Pixel"/>
+     <variants jsxoverflow="1"/>
+     <strings jsxtextalign="right"/>
+      <object type="jsx3.gui.Button">
+       <variants/>
+       <strings jsxname="jsx_schema_parsewsdl" jsxtip="click to parse the document(s) and begin the mapping process" jsxtext="Parse Document(s)"/>
+       <events jsxexecute="var oMap = this.getAncestorOfType(jsx3.ide.mapper.Mapper);
+oMap.parseDocuments(oMap.getDescendantOfName(&quot;jsx_schema_wsdlurl_outbound&quot;).getValue(),oMap.getDescendantOfName(&quot;jsx_schema_wsdlurl_inbound&quot;).getValue());"/>
+      </object>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2008, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Vertical Slider]]></name>
+  <icon><![CDATA[images/prototypes/vertical-slider.gif]]></icon>
+  <description><![CDATA[Vertical Slider]]></description>
+  <object type="jsx3.gui.DojoWidget">
+    <strings jsxname="dijitVSlider" dijitClassName="dijit.form.VerticalSlider"/>
+    <variants jsxheight="200"/>
+  </object>
+</serialization>

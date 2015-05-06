@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <name><![CDATA[Column - Stacked 100%]]></name>
+ <icon><![CDATA[icons/stacked100Column.gif]]></icon>
+ <description><![CDATA[a sample column chart of type 'Stacked 100%']]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.chart.ColumnChart">
+   <dynamics />
+   <variants jsxleft="0" jsxtop="0" jsxwidth="400" jsxheight="300" borderWidth="1" borderAlpha="1" alpha="1" loadState="1" categoryCoverage="1" jsxrelativeposition="1" />
+   <strings jsxname="stacked100ColumnChart" titlePlacement="top" legendPlacement="right" dataPadding="14 10 6 6" borderColor="#999999" type="stacked100" jsxbgcolor="#FFFFFF" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record cat=&quot;CA&quot; s1=&quot;20&quot; s2=&quot;15&quot;/&gt; &lt;record cat=&quot;OR&quot; s1=&quot;30&quot; s2=&quot;35&quot;/&gt; &lt;record cat=&quot;WA&quot; s1=&quot;10&quot; s2=&quot;30&quot;/&gt; &lt;record cat=&quot;NV&quot; s1=&quot;4&quot; s2=&quot;3&quot;/&gt; &lt;record cat=&quot;AZ&quot; s1=&quot;65&quot; s2=&quot;15&quot;/&gt; &lt;record cat=&quot;NM&quot; s1=&quot;55&quot; s2=&quot;20&quot;/&gt; &lt;record cat=&quot;UT&quot; s1=&quot;15&quot; s2=&quot;25&quot;/&gt; &lt;/data&gt;" />
+    <object type="jsx3.chart.ChartLabel">
+     <dynamics />
+     <variants labelRotation="0" jsxfontsize="14" />
+     <strings jsxname="title" jsxtext="Stacked 100% Column Chart" jsxbgcolor="#666666" jsxpadding="4 0 0 0" jsxfontname="Arial" jsxfontweight="bold" jsxcolor="#FFFFFF" jsxtextalign="center" />
+    </object>
+    <object type="jsx3.chart.CategoryAxis">
+     <dynamics />
+     <variants horizontal="1" primary="1" showAxis="1" showLabels="1" labelGap="3" tickLength="3" minorTickDivisions="4" minorTickLength="3" numCategories="7" numSeries="2" />
+     <strings jsxname="xAxis" axisStroke="#000000 1 1" labelPlacement="low" tickAlignment="between" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="none" minorTickStroke="#000000 1 1" labelStyle="font-size: 8px; font-family: Verdana;" categoryField="cat" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants labelRotation="0" jsxfontsize="12" />
+       <strings jsxname="xLabel" jsxtext="State" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+      </object>
+    </object>
+    <object type="jsx3.chart.LinearAxis">
+     <dynamics />
+     <variants horizontal="0" primary="1" showAxis="1" showLabels="1" labelGap="3" tickLength="3" minorTickDivisions="4" minorTickLength="2" displayWidth="25" autoAdjust="1" baseAtZero="1" max="105" />
+     <strings jsxname="yAxis" axisStroke="#000000 1 1" labelPlacement="axis" tickAlignment="aligned" tickPlacement="cross" tickStroke="#000000 1 1" minorTickPlacement="outside" minorTickStroke="#666666 1" labelFunction="jsx3.chart.Axis.percent" labelStyle="font-size: 8px; font-family: Verdana; text-align: right;" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants labelRotation="270" jsxfontsize="12" />
+       <strings jsxname="yTitle" jsxtext="Property Damage" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+      </object>
+    </object>
+    <object type="jsx3.chart.GridLines">
+     <dynamics />
+     <variants useXPrimary="1" useYPrimary="1" horizontalAbove="1" strokeMajorH="['#CCCCCC']" inForeground="0" />
+     <strings jsxname="bgGrid" />
+    </object>
+    <object type="jsx3.chart.ColumnSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="0" />
+     <strings jsxname="series1" seriesName="Fires" yField="s1" fill="#FFFF00" tooltipFunction="jsx3.chart.ColumnSeries.tooltip" stroke="#FF9900" fillGradient="#FF0000" />
+    </object>
+    <object type="jsx3.chart.ColumnSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="1" />
+     <strings jsxname="series2" seriesName="Storms" yField="s2" tooltipFunction="jsx3.chart.ColumnSeries.tooltip" fill="#6699FF" stroke="#6699FF" fillGradient="#FFFFFF" />
+    </object>
+    <object type="jsx3.chart.Legend">
+     <dynamics />
+     <variants boxHeight="10" lineHeight="22" titleSpace="8" boxSpace="6" preferredWidth="85" />
+     <strings jsxname="legend" labelStyle="font-size: 10px; font-weight: bold;" backgroundStroke="#BBBBBB" jsxmargin="10 10 10 4" jsxpadding="4 4 0 4" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants labelRotation="0" jsxfontsize="12" />
+       <strings jsxname="legendTitle" jsxtext="Legend" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+      </object>
+    </object>
+  </object>
+</serialization>

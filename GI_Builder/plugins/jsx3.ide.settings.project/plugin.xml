@@ -1,0 +1,96 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.settings.project"
+        name="Project Settings Plug-In"
+        version="0.1">
+
+  <script><![CDATA[
+
+var amp = jsx3.amp;
+
+this.showPane = function(intPane) {
+  this._openDialog(intPane);
+};
+
+this._openDialog = function(intPane) {
+  var server = this.getServer();
+  var dialog = server.getJSXByName('jsx_deployment');
+  var projectType = jsx3.ide.PROJECT.getProjectType().getId();
+
+  if (!dialog) {
+    dialog = this.loadRsrcComponent("container", server.getRootBlock());
+
+    var controller = new amp.util.Prefs();
+    this.getExtPoint("pane").processExts(function(objExt, obj) {
+      var a = obj.attr("project-types");
+      if (a && jsx3.$A(a.split(/\s*,\s*/g)).indexOf(projectType) >= 0)
+        controller.addPane(new amp.util.PrefsPane(objExt, obj));
+    });
+
+    dialog.getPrefs = function() { return controller; };
+    dialog.openPrefs(intPane);
+  } else {
+    if (intPane != null)
+      dialog.showPrefs(intPane);
+  }
+
+  dialog.focus();
+};
+
+  ]]></script>
+
+  <requires>
+    <plugin id="jsx3.amp.util.prefspanel"/>
+    <plugin id="jsx3.gui.CheckBox"/>
+    <plugin id="jsx3.gui.RadioButton"/>
+    <plugin id="jsx3.gui.Button"/>
+    <plugin id="jsx3.gui.TextBox"/>
+    <plugin id="jsx3.gui.Select"/>
+    <plugin id="jsx3.gui.Matrix"/>
+    <plugin id="jsx3.gui.ImageButton"/>
+  </requires>
+
+  <resources>
+    <xml id="container" path="container.xml"/>
+    <xml id="pane_deployment" path="deployment.xml" load="manual"/>
+    <xml id="pane_addins" path="addins.xml" load="manual"/>
+    <xml id="pane_classpath" path="classpath.xml" load="manual"/>
+    <xml id="pane_legacy" path="legacy.xml" load="manual"/>
+  </resources>
+
+  <event id="saved">
+    <param id="pane"/>
+  </event>
+
+  <extension-point id="pane">
+    <processor type="instantiator" instance-class="jsx3.amp.util.PrefsPane"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.settings.project.pane" id="default">
+    <pane label="Deployment" img="images/deployment.gif"
+          tip="Project settings related to deployment." resource="pane_deployment" project-types="jsxapp"/>
+    <pane label="Add-Ins" img="images/addins.gif"
+          tip="Configure what add-ins are activated for this project." resource="pane_addins" project-types="jsxapp"/>
+    <pane label="Classpath" img="images/classpath.gif"
+          tip="Configure the classpaths of dynamically loaded JavaScript classes." resource="pane_classpath" project-types="jsxapp"/>
+    <pane label="Legacy Settings" img="images/legacy.gif"
+          tip="Legacy project settings related to deployment." resource="pane_legacy" project-types="jsxapp"/>
+  </extension>
+
+  <extension point="jsx3.ide.ui.action" id="menu.project">
+    <action
+        id="jsx3.ide.deploy"
+        label="Project Settings..." img="jsxapp:/images/icon_101.gif"
+        tip="Allows edit of application title, namespace, live/static modes, etc."
+        menupath="/jsx3.ide.project/settings" hotkey="{hk.projSettings}"
+        execute="this.getPlugIn()._openDialog();"
+        enabled="project"/>
+  </extension>
+  
+</plugin>

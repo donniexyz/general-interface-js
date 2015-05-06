@@ -1,0 +1,15 @@
+<serialization jsxversion="3.9" xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <variants jsxoverflow="1"></variants>
+    <strings jsxname="block" jsxwidth="100%" jsxheight="100%"></strings>
+    <object type="jsx3.gui.NativeForm">
+      <variants></variants>
+      <strings jsxname="form" jsxaction="#" jsxmethod="get" jsxmulti="0" jsxtarget="0"></strings>
+      <object type="jsx3.gui.CheckBox">
+        <variants jsxheight="18" jsxchecked="0" jsxdefaultchecked="0"></variants>
+        <strings jsxname="checkbox" jsxtext="[checkbox label]" jsxmargin="0 4 0 0"></strings>
+      </object>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,92 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+var objTab = objJSX;
+
+objJSX.onShowMe = function() {
+  var editor = jsx3.ide.getActiveEditor();
+  var tab = editor.getContent();
+  var firstChild = editor.getServer().getRootObjects()[0];
+  var profileProps = this.readFromJSX(firstChild);
+
+  // generate serialization description of component and its profile
+  var root = editor.getServer().getBodyBlock();
+  if (root) {
+    window.setTimeout(jsx3.$F(function() {
+      if (root.getChild(0) == null) profileProps.children = true;
+      this.setTextValue(root != null ? this.getEditor().formatXML((root.getChild(0) || root).toXMLDoc(profileProps)).toString() : "");
+
+      this.getDescendantOfName('jsxcodeeditor').initAsType("xml");
+    }).bind(this), 100);
+  } else {
+    this.setTextValue("", true);
+  }
+
+  //flag for the read/write editor (e.g., this), that tracks when the user edits (types) into the editor
+  this._jsxdirty = false;
+};
+
+
+objJSX.readFromJSX = function(obj) {
+  //reads the profile properties of the JSX GUI object, '@obj', and returns as a hash
+  var objP = {};
+  if (obj) {
+    objP.icon = obj.getMetaValue('icon');
+    objP.name = obj.getMetaValue('name');
+    objP.description = obj.getMetaValue('description');
+    objP.onafter = obj.getMetaValue('onafter');
+    objP.onbefore = obj.getMetaValue('onbefore');
+    objP.unicode = obj.getMetaValue('unicode');
+  }
+  return objP;
+};
+
+objJSX.getEditor = function() {
+  var mainTab = this.getAncestorOfType(jsx3.gui.Tab);
+  return jsx3.ide.getEditorForTab(mainTab);
+};
+
+objJSX.getDescendantOfName('jsxcodeeditor').subscribe("keyDown", jsx3.$F(function(e) {
+  var editor = objTab.getEditor();
+
+  if (!this.isDirty()) {
+    var c = this.getTextValue();
+    jsx3.sleep(function() {
+      if (c != this.getTextValue()) {
+        this.setDirty(true);
+        editor.setDirty(true);
+      }
+    }, null, this);
+  }
+}).bind(objJSX));
+
+objJSX.getTextValue = function() {
+  return this.getDescendantOfName('jsxcodeeditor').getTextValue();
+};
+
+objJSX.setTextValue = function(s) {
+  this.getDescendantOfName('jsxcodeeditor').setTextValue(s);
+};
+
+// efficiency (allows us to sync source only after changes specific to this tab)
+objJSX.isDirty = function() {
+  return this._jsxdirty;
+}
+
+objJSX.setDirty = function(bDirty) {
+  this._jsxdirty = bDirty;
+}
+
+ ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Tab">
+      <variants jsxindex="0" />
+      <strings jsxname="mode_source" jsxhelpid="ide.editor.component.xmlrw"/>
+      <events jsxshow="this.onShowMe();" />
+        <include src="jsxplugin://jsx3.ide.editor/code_editor.xml" async="false"/>
+    </object>
+</serialization>

@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Hidden]]></name>
+  <icon><![CDATA[images/prototypes/hidden.gif]]></icon>
+  <description><![CDATA[A hidden form field for use with jsx3.gui.NativeForm.]]></description>
+  <object type="jsx3.gui.NativeHidden">
+    <variants jsxindex="0"/>
+    <strings jsxname="hidden" jsxvalue=""/>
+  </object>
+</serialization>

@@ -1,0 +1,16 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot" jsxns="urn:tibco.com/v3.0/dynamicproperties/1">
+  <record jsxid="jsxerr_launchpage_directory" 
+      jsxtext="The launch page must be placed directly within the GI installation directory."/>
+  <record jsxid="jsxerr_exportxml_writefail" 
+      jsxtext="The XML export failed because the file could not be written to disk. Please consult the System Log for more information."/>
+  <record jsxid="jsxerr_exporthtml_writefail" 
+      jsxtext="The HTML export failed because the file could not be written to disk. Please consult the System Log for more information."/>
+  <record jsxid="jsxerr_exporthtml_directory" 
+      jsxtext="The HTML export must be placed directly within the GI installation directory in order for the HTML to render correctly."/>
+  <record jsxid="jsxerr_filenotloaded" 
+      jsxtext="A resource required by General Interface Builder is not available. This is typically because the ActiveX control needed for file system access was not loaded. Ensure that your browser security settings allow for the loading of ActiveX. Also, ensure that you are running General Interface Builder from your local file system and that you have access rights to the files."/>
+</data>

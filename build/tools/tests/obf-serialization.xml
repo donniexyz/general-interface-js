@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+
+<!--
+
+Comment Test 1
+
+-->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <!--
+
+  Comment Test 2
+
+  -->
+  <unicode>false</unicode>
+  <name/>
+  <icon/>
+  <description/>
+  <onBeforeDeserialize><![CDATA[
+  
+onBefore();  
+  
+  ]]></onBeforeDeserialize>
+  <onAfterDeserialize><![CDATA[
+
+var aVar = objJSX;
+
+/* @jsxobf-clobber */
+objJSX.aMethod = function(a, b, c) {
+  return 1;
+};
+
+aVar.anotherMethod = function(a, b, c) {
+  return 1;
+};
+
+// @jsxobf-bless jsxbless_Test
+objJSX.blessParam = function(jsxbless_Test) {
+  return 1;
+};
+
+objJSX.aMethod();
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxborder="@Outset"/>
+      <variants jsxleft="0" jsxoverflow="1" jsxtop="0"/>
+      <strings jsxheight="100%" jsxname="jsx_ide_attributes_contentblock" jsxwidth="100%"/>
+      <events jsxclick="var a = null; this.anotherMethod(a);" jsxdestroy="this.aMethod(a);"/>
+        <object type="jsx3.gui.Block">
+          <dynamics jsxtext="_atted_title"/>
+          <variants jsxheight="0" jsxleft="0" jsxoverflow="1" jsxrelativeposition="0" jsxtop="0" jsxwidth="0"/>
+          <strings jsxname="jsx_ide_palette_title" jsxvisibility="hidden"/>
+          <events jsxclick="this.getParent().aMethod();" jsxdestroy=""/>
+          <properties notevent="var x; x + 1" onevent="var x; x+1;"/>
+        </object>
+    </object>
+</serialization>

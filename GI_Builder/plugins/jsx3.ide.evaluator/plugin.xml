@@ -1,0 +1,153 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.evaluator"
+        name="JavaScript Evaluator Plug-In"
+        class="jsx3.ide.ui.DialogToolPlugIn"
+        version="0.1">
+
+  <script><![CDATA[
+
+var maxSize = 15;
+
+this.isMultiInstance = function() {
+  return true;
+};
+
+this.doScriptletExecute = function(objDialog) {
+  var scriptletInput = objDialog.getDescendantOfName('jsx_txt_scriptlet_input');
+  var scriptlet = scriptletInput.getValue();
+  var resultArea = objDialog.getDescendantOfName('jsx_txt_scriptlet_output');
+
+  // Import all DOM nodes in the active component editor to the current scope
+  var context = {};
+  var activeServer = jsx3.ide.getActiveServer();
+  if (activeServer) {
+    activeServer.getBodyBlock().findDescendants(function(x) {
+      var n = x.getName();
+      if (n && !context[n] && jsx3.util.isName(n))
+        context[n] = x;
+    }, false, false, false, true);
+  }
+
+  var result = "undefined";
+  try {
+    result = jsx3.eval(scriptlet, context);
+  } catch (e) {
+    e = jsx3.NativeError.wrap(e);
+    result = e.printStackTrace();
+    this.getLog().error(e.toString(), e);
+  } finally {
+    var sResult = null;
+    if (typeof(result) == "object" && result == null)
+      sResult = "null";
+    else if (result == null || typeof(result) == "undefined")
+      sResult = "undefined";
+    else
+      sResult = result.toString();
+
+    resultArea.setValue(sResult);
+    this.storeScriptlet(objDialog, scriptlet);
+  }
+};
+
+this.doScriptletHistory = function(objDialog, strHistoryId) {
+  var menu = objDialog.getDescendantOfName('jsx_tbb_history');
+  var record = menu.getRecord(strHistoryId);
+  var scriptletInput = objDialog.getDescendantOfName('jsx_txt_scriptlet_input');
+  scriptletInput.setValue(record.script);
+};
+
+this.getHistory = function() {
+  var settings = jsx3.ide.getIDESettings();
+  return settings.get("scriptlet", "history") || [];
+};
+
+this.setHistory = function(h) {
+  var settings = jsx3.ide.getIDESettings();
+  if (h)
+    if (h.length > maxSize) h.splice(0, h.length - maxSize);
+  settings.set("scriptlet", "history", h);
+};
+
+this.storeScriptlet = function(objDialog, strScriptlet) {
+  if (! strScriptlet.match(/\S/)) return;
+
+  var saved = this.getHistory();
+  saved.push(strScriptlet);
+  this.setHistory(saved);
+
+  var menu = objDialog.getDescendantOfName('jsx_tbb_history');
+
+  var xml = menu.getXML();
+  var root = xml.getRootNode();
+  var children = root.getChildNodes();
+
+  var lastScript = children.get(0);
+
+  if (lastScript != null && lastScript.getAttribute('script') == strScriptlet) {
+    // skip insert
+  } else {
+    var oldestScript = null;
+    if (children.size() >= maxSize) {
+      oldestScript = root.getLastChild();
+      root.removeChild(oldestScript);
+    }
+
+    var record = root.createNode(jsx3.xml.Entity.TYPEELEMENT, "record");
+
+    record.setAttribute("jsxid", oldestScript != null ?
+        oldestScript.getAttribute('jsxid') : children.size());
+    record.setAttribute("jsxtext", jsx3.util.strTruncate(strScriptlet, 60, null, 2/3));
+    record.setAttribute("script", strScriptlet);
+    if (record.getAttribute("jsxtext").length < strScriptlet.length)
+      record.setAttribute("jsxtip", strScriptlet);
+
+    root.insertBefore(record, root.getFirstChild());
+
+    menu.clearCachedContent();
+  }
+};
+
+  ]]></script>
+
+  <requires>
+    <plugin id="jsx3.ide.ui"/>
+    <plugin id="jsx3.amp.util.toolbarmgr"/>
+  </requires>
+
+  <resources>
+    <xml id="ui" path="scriptlet.xml"/>
+  </resources>
+
+  <extension point="jsx3.ide.ui.action" id="menu.help">
+    <action
+        id="jsx3.ide.scriptlet"
+        label="JavaScript Test Utility..." img="jsxapp:/images/icon_38.gif"
+        menupath="/jsx3.ide.tools/ide" hotkey="{hk.script}" hkconfig="true"
+        execute="this.getPlugIn().openTool();"/>
+  </extension>
+
+  <!-- Toolbar buttons, etc -->
+  <extension-point id="toolbar">
+    <processor type="instantiator" instance-class="jsx3.amp.util.ToolbarItem"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.evaluator.toolbar">
+    <button id="eval" img="jsxapp:/images/icon_9.gif" tip="Evaluate the contents of the script input area" section="eval"
+            execute="this.getPlugIn().doScriptletExecute(item.getAncestorOfType(jsx3.gui.Dialog));"/>
+    <native id="history" section="history" xmlns="urn:tibco.com/v3.0">
+      <object type="jsx3.gui.Menu">
+        <dynamics jsxtext="_script_history"/>
+        <strings jsxname="jsx_tbb_history" jsximage="jsxapp:/images/icon_54.gif"/>
+        <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog)._doScriptletHistory(strRECORDID);"/>
+      </object>
+    </native>
+  </extension>
+
+</plugin>

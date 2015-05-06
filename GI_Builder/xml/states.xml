@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data name="" number="" jsxid="jsxroot">
+ <record name="a" number="0" jsxid="null" jsxtext="Select a State"/>
+ <record name="b" number="1" jsxid="AL" jsxtext="ALABAMA"/>
+ <record name="c" number="2" jsxid="AK" jsxtext="ALASKA"/>
+ <record name="d" number="3" jsxid="AZ" jsxtext="ARIZONA"/>
+ <record name="e" number="4" jsxid="AR" jsxtext="ARKANSAS"/>
+ <record name="f" number="5" jsxid="CA" jsxtext="CALIFORNIA"/>
+ <record name="g" number="6" jsxid="CO" jsxtext="COLORADO"/>
+ <record name="h" number="7" jsxid="CT" jsxtext="CONNECTICUT"/>
+ <record name="i" number="8" jsxid="DE" jsxtext="DELAWARE"/>
+ <record name="j" number="9" jsxid="DC" jsxtext="DISTRICT OF COLUMBIA"/>
+ <record name="k" number="10" jsxid="FL" jsxtext="FLORIDA"/>
+ <record name="l" number="11" jsxid="GA" jsxtext="GEORGIA"/>
+ <record name="m" number="12" jsxid="HI" jsxtext="HAWAII"/>
+ <record name="n" number="13" jsxid="ID" jsxtext="IDAHO"/>
+ <record name="o" number="14" jsxid="IL" jsxtext="ILLINOIS"/>
+ <record name="p" number="15" jsxid="IN" jsxtext="INDIANA"/>
+ <record name="q" number="16" jsxid="IA" jsxtext="IOWA"/>
+ <record name="r" number="17" jsxid="KS" jsxtext="KANSAS"/>
+ <record name="s" number="18" jsxid="KY" jsxtext="KENTUCKY"/>
+ <record name="t" number="19" jsxid="LA" jsxtext="LOUISIANA"/>
+ <record name="u" number="20" jsxid="ME" jsxtext="MAINE"/>
+ <record name="v" number="21" jsxid="MD" jsxtext="MARYLAND"/>
+ <record name="w" number="22" jsxid="MA" jsxtext="MASSACHUSETTS"/>
+ <record name="x" number="23" jsxid="MI" jsxtext="MICHIGAN"/>
+ <record name="y" number="24" jsxid="MN" jsxtext="MINNESOTA"/>
+ <record name="z" number="25" jsxid="MS" jsxtext="MISSISSIPPI"/>
+ <record name="A" number="26" jsxid="MO" jsxtext="MISSOURI"/>
+ <record name="B" number="27" jsxid="MT" jsxtext="MONTANA"/>
+ <record name="C" number="28" jsxid="NE" jsxtext="NEBRASKA"/>
+ <record name="D" number="29" jsxid="NV" jsxtext="NEVADA"/>
+ <record name="E" number="30" jsxid="NH" jsxtext="NEW HAMPSHIRE"/>
+ <record name="F" number="31" jsxid="NJ" jsxtext="NEW JERSEY"/>
+ <record name="G" number="32" jsxid="NM" jsxtext="NEW MEXICO"/>
+ <record name="H" number="33" jsxid="NY" jsxtext="NEW YORK"/>
+ <record name="I" number="34" jsxid="NC" jsxtext="NORTH CAROLINA"/>
+ <record name="J" number="35" jsxid="ND" jsxtext="NORTH DAKOTA"/>
+ <record name="K" number="36" jsxid="OH" jsxtext="OHIO"/>
+ <record name="L" number="37" jsxid="OK" jsxtext="OKLAHOMA"/>
+ <record name="M" number="38" jsxid="OR" jsxtext="OREGON"/>
+ <record name="N" number="39" jsxid="PA" jsxtext="PENNSYLVANIA"/>
+ <record name="O" number="40" jsxid="RI" jsxtext="RHODE ISLAND"/>
+ <record name="P" number="41" jsxid="SC" jsxtext="SOUTH CAROLINA"/>
+ <record name="Q" number="42" jsxid="SD" jsxtext="SOUTH DAKOTA"/>
+ <record name="R" number="43" jsxid="TN" jsxtext="TENNESSEE"/>
+ <record name="S" number="44" jsxid="TX" jsxtext="TEXAS"/>
+ <record name="T" number="45" jsxid="UT" jsxtext="UTAH" jsxexecute="jsx3.ERROR.doLog('abclog',strRECORDID);"/>
+ <record name="U" number="46" jsxid="VT" jsxtext="VERMONT"/>
+ <record name="V" number="47" jsxid="VA" jsxtext="VIRGINIA"/>
+ <record name="W" number="48" jsxid="WA" jsxtext="WASHINGTON"/>
+ <record name="X" number="49" jsxid="WV" jsxtext="WEST VIRGINIA"/>
+ <record name="Y" number="50" jsxid="WI" jsxtext="WISCONSIN"/>
+ <record name="Z" number="51" jsxid="WY" jsxtext="WYOMING"/>
+</data>

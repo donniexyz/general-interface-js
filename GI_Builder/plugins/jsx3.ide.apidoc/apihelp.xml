@@ -1,0 +1,579 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+var Template = jsx3.xml.Template;
+
+objJSX.doClassLink = function(strClassName) {
+  var objTree = jsx_api_classlist;
+  objTree.setValue(strClassName, true);
+  this.showClass(objTree, strClassName);
+
+  this.visit(strClassName, "_summary");
+};
+
+objJSX.onClassSelect = function(objTree, strPkgName) {
+  this.showClass(objTree, strPkgName);
+  this.visit(strPkgName, "_summary");
+};
+
+objJSX.showClass = function(objTree, strPkgName, bInternal, noListSelect) {
+  if (objTree == null)
+    objTree = jsx_api_classlist;
+
+  var objRecord = objTree.getRecord(strPkgName);
+
+  if (objRecord == null) {
+    var objList = jsx_api_memberlist;
+    objList.clearXmlData();
+    objList.repaintData();
+    var objContent = jsx_api_content;
+    objContent.getServer().getCache().clearById(objContent.getXMLId());
+    objContent.setXMLURL(null);
+    objContent.repaint();
+  } else {
+    this.setContentXmlPath(objTree.getRecordNode(strPkgName));
+
+    this.showContent("class", "");
+    this.updateMemberList(objTree.getRecordNode(strPkgName));
+
+    if (!noListSelect) {
+      // select the constructor
+      var objList = jsx_api_memberlist;
+      objList.selectRecord("_summary", true, null, true);
+    }
+  }
+
+  if (!bInternal) {
+    var settings = jsx3.ide.getIDESettings();
+    settings.set('apihelp', 'class', strPkgName);
+    settings.set('apihelp', 'member', "_summary");
+  }
+};
+
+objJSX.onSettingsChange = function(strSetting, bValue) {
+  var memberRecord = null;
+  this["_jsx" + strSetting] = bValue ? "1" : "0";
+  if (strSetting == "deprecated") {
+    var objTree = jsx_api_classlist;
+    var treeVal = objTree.getValue();
+    this.updateClassList(objTree, true);
+    if (treeVal && objTree.getRecordNode(treeVal) != null) {
+      objTree.setValue(treeVal);
+      objTree.revealRecord(treeVal);
+    } else {
+      memberRecord = false;
+      this.showContent("_blank", "_blank");
+    }
+  }
+  this.updateMemberList(memberRecord);
+};
+
+/* @jsxobf-clobber */
+objJSX.updateClassList = function(objTree, bRepaint) {
+  if (objTree == null)
+    objTree = jsx_api_classlist;
+
+  objTree.setXSLParam("showdeprecated", this._jsxdeprecated);
+  objTree.setSourceXML(this._getMergedXml());
+
+  if (bRepaint) {
+    objTree.repaint();
+    if (objTree.getValue())
+      objTree.revealRecord(objTree.getValue());
+  }
+};
+
+/* @jsxobf-clobber */
+objJSX.updateMemberList = function(objElm) {
+  var objList = jsx_api_memberlist;
+  objList.resetXmlCacheData();
+
+  if (objElm != null) {
+    var xmlURL = objElm === false ? null : this._getFullPathForRec(objElm);
+    objList.setXMLURL(xmlURL);
+  }
+  objList.setXSLParam("showinherited", this._jsxinherited);
+  objList.setXSLParam("showdeprecated", this._jsxdeprecated);
+
+  objList.repaintData();
+};
+
+/* @jsxobf-clobber */
+objJSX.setContentXmlPath = function(objElm) {
+  var objContent = jsx_api_content;
+  var strNewPath = this._getFullPathForRec(objElm);
+  if (objContent.getXMLURL() != strNewPath) {
+    objContent.getServer().getCache().clearById(objContent.getXMLId());
+    objContent.setXMLURL(strNewPath);
+  }
+};
+
+objJSX.doMemberLink = function(strNodeId) {
+//  jsx3.log("doMemberLink " + strNodeId);
+  var objContent = jsx_api_content;
+  var objXML = objContent.getXML();
+  var objRecordNode = objXML.selectSingleNode("//*[@id='"+strNodeId+"']");
+  var type = objRecordNode.getAttribute('type');
+  if (objRecordNode.getAttribute('idfk') == null) {
+    this.selectAnyMember(null, objRecordNode.getAttribute('id'), null, null, objContent);
+  } else {
+    this.selectAnyMember(objRecordNode.getAttribute('source'), objRecordNode.getAttribute('idfk'), null, null, objContent);
+  }
+};
+
+objJSX.doSeeLink = function(strMemberId, intIndex) {
+//  jsx3.log("doSeeLink " + strMemberId);
+  intIndex--;
+  var objContent = jsx_api_content;
+  var objXML = objContent.getXML();
+  var objRecordNode = objXML.selectSingleNode("//*[@id='"+strMemberId+"']");
+  var seeNode = objRecordNode.selectNodes("see").get(intIndex);
+  this.selectAnyMember(seeNode.getAttribute('source'), seeNode.getAttribute('idfk'), null, null, objContent);
+};
+
+/* @jsxobf-clobber */
+objJSX.selectAnyMember = function(strClassName, strMemberId, objTree, objList, objContent, bKeepPath, bNav) {
+  if (objTree == null)
+    objTree = jsx_api_classlist;
+  if (objContent == null)
+    objContent = jsx_api_content;
+  if (objList == null)
+    objList = jsx_api_memberlist;
+
+  if (strClassName == null) strClassName = objTree.getValue();
+
+  var classRecord = objTree.getRecord(strClassName);
+  if (classRecord) {
+    if (!bKeepPath && (strClassName != objTree.getValue())) {
+      objTree.setValue(strClassName, true);
+      this.showClass(objTree, strClassName, false, true);
+    }
+
+    if (objList.getValue() != strMemberId)
+       objList.selectRecord(strMemberId, true, true, true);
+
+    this.setContentXmlPath(objTree.getRecordNode(strClassName));
+    var objXML = objContent.getXML();
+
+    if (strMemberId == "_summary") {
+       this.showContent("class");
+     } else if (strMemberId == "_constructor") {
+       this.showContent("constructor");
+     } else {
+//      jsx3.log("selectAnyMember " + strClassName + " " + strMemberId);
+      var objRecordNode = objXML.selectSingleNode("(//method | //field)[@id='"+strMemberId+"']");
+      if (objRecordNode)
+        this.showContent(objRecordNode.getNodeName(), strMemberId);
+    }
+
+    if (!bNav)
+      this.visit(strClassName, strMemberId);
+  }
+};
+
+objJSX.memberSelect = function(objList, strMemberId) {
+  if (strMemberId) {
+    var memberRecord = objList.getRecord(strMemberId);
+
+    if (memberRecord.jsxidfk != null) {
+      // We want to show the method without updating the tree or list values
+      this.selectAnyMember(memberRecord.source, memberRecord.jsxidfk, objTree, null, null, true);
+    } else {
+      var objTree = jsx_api_classlist;
+      if (objTree.getValue())
+        this.selectAnyMember(objTree.getValue(), strMemberId, objTree, null, null);
+    }
+  }
+};
+
+objJSX.searchLink = function(strClassName, strMemberId) {
+  this.selectAnyMember(strClassName, strMemberId);
+};
+
+objJSX.showContent = function(strMemberType, strMemberId) {
+  var objBlock = jsx_api_content;
+  objBlock.setXSLParam("membertype", strMemberType);
+  objBlock.setXSLParam("memberid", strMemberId);
+  objBlock.setXSLParam("showdeprecated", this._jsxdeprecated);
+  objBlock.repaint();
+};
+
+objJSX.doSearch = function() {
+  this.getPlugIn().getResource("ApiSearcher").load().when(jsx3.$F(this._doSearch).bind(this));
+};
+
+objJSX._doSearch = function() {
+  var text = search_text.getValue();
+  var domain = search_domain.getValue();
+
+  text = jsx3.util.strTrim(text);
+  if (!(text && text.match(/\S/))) return;
+
+  if (this._jsxlasttext == text && this._jsxlastdomain == domain && domain == "global")
+    return;
+
+  this._jsxlasttext = text;
+  this._jsxlastdomain = domain;
+
+  var layout = search_layout;
+  layout.setRows(layout.searchopen + ",*", true);
+
+  var searcher = new jsx3.ide.ApiSearcher();
+  this._searcher = searcher;
+  searcher.subscribe(jsx3.ide.ApiSearcher.COMPLETE, this, "onSearchResults");
+  searcher.subscribe(jsx3.ide.ApiSearcher.PROGRESS, this, "onSearchProgress");
+
+  var objTree = jsx_api_classlist;
+  if (domain == "class") {
+    var classElm = objTree.getRecordNode(objTree.getValue());
+    if (classElm) {
+      searcher.searchDocuments(new jsx3.util.List([this._getFullPathForRec(classElm)]), text);
+    } else {
+      this.getAncestorOfType(jsx3.gui.Dialog).alert(null, 
+          "Please select a class to search in from the class tree or perform a global search.");
+    }
+  } else if (domain == "global") {
+    var seaching = search_searching;
+    seaching.setText("Searching...", true);
+    seaching.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+    var resultsPane = search_results;
+    resultsPane.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+
+    var records = objTree.getXML().selectNodes('//record[@path]');
+    var paths = records.map(jsx3.$F(function(x) {
+      return this._getFullPathForRec(x); 
+    }).bind(this));
+
+    searcher.searchDocuments(paths, text);
+  }
+};
+
+/* @jsxobf-clobber */
+objJSX.onSearchProgress = function(objEvent) {
+  var s = objEvent.target;
+  var seaching = search_searching;
+  seaching.setText("Searching... (" + Math.round(100 * objEvent.done / objEvent.total) +
+      "%, " + s.getResultCount() + " Found)" , true);
+};
+
+/* @jsxobf-clobber */
+objJSX.onSearchResults = function(objEvent) {
+  delete this._searcher;
+
+//  jsx3.log("onSearchResults", "done searching with result count: " + objEvent.target.getResultCount(), null, false);
+
+  var searcher = objEvent.target;
+  var resultsPane = search_results;
+  resultsPane.getServer().getCache().setDocument(resultsPane.getXMLId(), searcher.getResults());
+  resultsPane.repaint();
+
+  var seaching = search_searching;
+  seaching.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+  resultsPane.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+}
+
+objJSX.doClearSearch = function() {
+  this._jsxlasttext = "";
+
+  if (this._searcher != null)
+    this._searcher.cancel();
+
+  search_text.setValue("");
+  var layout = search_layout;
+  layout.setRows(layout.searchclose + ",*", true);
+
+  var resultsPane = search_results;
+  resultsPane.getServer().getCache().setDocument(resultsPane.getXMLId(), jsx3.CDF.newDocument());
+  resultsPane.repaint();
+};
+
+objJSX.onRsrcLoad = function() {
+  var settings = jsx3.ide.getIDESettings();
+  var apisets = settings.get('apihelp', 'settings');
+  if (apisets) {
+    for (var f in apisets)
+      this["_jsx" + f] = apisets[f] ? "1" : "0";
+  }
+
+  var objTree = jsx_api_classlist;
+  this.updateClassList(objTree);
+
+  var settings = jsx3.ide.getIDESettings();
+  var lastClass = settings.get('apihelp', 'class');
+  if (lastClass) {
+    var objTree = jsx_api_classlist;
+    jsx3.sleep(function(){
+      if (this.getParent() == null) return;
+      objTree.setValue(lastClass, true);
+      this.showClass(objTree, lastClass);
+      this.visit(lastClass, "_summary");
+    }, null, this);
+  }
+
+  var objList = jsx_api_memberlist;
+  var iconInherited = this.getPlugIn().resolveURI("images/inherited.gif");
+  var iconProtected = this.getPlugIn().resolveURI("images/protected.gif");
+  var iconAbstract = this.getPlugIn().resolveURI("images/abstract.gif");
+  var iconFinal = this.getPlugIn().resolveURI("images/final.gif");
+  jsx3.html.loadImages(iconInherited, iconProtected, iconAbstract);
+
+  objList.getChild(0).setFormatHandler(
+    function(objDiv, strCDFKey, objMatrix, objMatrixColumn, intRowNumber, objServer) {
+      var node = objMatrix.getRecordNode(strCDFKey);
+      if (node) {
+        var html = "";
+        if (node.getAttribute("inherited") == "1")
+          html += '<img src="' + iconInherited + '" width="11" height="10" style="vertical-align: bottom; margin:0px 0px 0px 3px;"/>';
+        if (node.getAttribute("access") == "protected")
+          html += '<img src="' + iconProtected + '" width="7" height="11" style="vertical-align: bottom; margin:0px 0px 0px 5px;"/>';
+        if (node.getAttribute("abstract") == "1")
+          html += '<img src="' + iconAbstract + '" width="10" height="10" style="vertical-align: bottom; margin:1px 0px 0px 4px;"/>';
+        if (node.getAttribute("final") == "1")
+          html += '<img src="' + iconFinal + '" width="11" height="11" style="vertical-align: bottom; margin:0px 0px 0px 4px;"/>';
+
+        if (html)
+          objDiv.innerHTML = node.getAttribute("jsxtext") + html;
+      }
+    }
+  );
+
+/*  var lastMember = settings.get('apihelp', 'member');
+  if (lastMember) {
+    var objList = jsx_api_memberlist;
+    this.memberSelect(objList, lastMember, true);
+  } */
+
+  /* @jsxobf-clobber */
+  this._history = [];
+  /* @jsxobf-clobber */
+  this._historyindex = -1;
+};
+
+objJSX._getMergedXml = function() {
+  var paths = this.getPlugIn().getIndexFiles();
+  var xml = jsx3.xml.CDF.newDocument();
+
+  paths.each(function(e) {
+    var index = (new jsx3.xml.Document()).load(e);
+    if (!index.hasError()) {
+      for (var i = index.getChildIterator(); i.hasNext(); ) {
+        var node = i.next().cloneNode(true);
+        node.setAttribute("syspath", e);
+        xml.appendChild(node);
+      }
+    }
+  });
+
+  return xml;
+};
+
+objJSX._getFullPathForRec = function(n) {
+  var path = n.getAttribute("path");
+  var syspath = null;
+  while (n && !syspath) {
+    syspath = n.getAttribute("syspath");
+    n = n.getParent();
+  }
+
+  // syspath is a resolved URI already and path is relative to syspath
+  if (syspath)
+    path = (new jsx3.net.URI(syspath)).resolve(path);
+
+  // Because the DOM URI resolver of jsx_api_memberlist is jsx3.IDE, any path used as XML URL will be resolved.
+  // Therefore we need to relativize it first.
+  return jsx_api_memberlist.getUriResolver().relativizeURI(path);
+};
+
+objJSX.onBeforeDestroy = function() {
+  if (this._searcher != null) {
+    this._searcher.cancel();
+    delete this._searcher;
+  }
+};
+
+// functions related to back-forward
+objJSX.goBack = function() {
+  if (this._historyindex > 0) {
+    var record = this._history[--this._historyindex];
+    this.selectAnyMember(record[0], record[1], null, null, null, null, true);
+    this.updateNavButtons();
+  }
+};
+
+objJSX.goForward = function() {
+  if (this._history.length > this._historyindex + 1) {
+    var record = this._history[++this._historyindex];
+    this.selectAnyMember(record[0], record[1], null, null, null, null, true);
+    this.updateNavButtons();
+  }
+};
+
+objJSX.hasBack = function() {
+  return this._historyindex > 0;
+};
+
+objJSX.hasForward = function() {
+  return this._history.length > this._historyindex + 1;
+};
+
+/* @jsxobf-clobber */
+objJSX.visit = function(strClassId, strMemberId) {
+  var record = [strClassId, strMemberId];
+  this._history.splice(++this._historyindex, this._history.length);
+  this._history[this._historyindex] = record;
+  this.updateNavButtons();
+};
+
+objJSX.updateNavButtons = function() {
+  go_back.setEnabled(this.hasBack(), true);
+  go_forward.setEnabled(this.hasForward(), true);
+};
+
+]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="2"/>
+      <strings jsxname="jsx_ide_api" jsxwidth="100%" jsxheight="100%"/>
+      <events jsxdestroy="this.onBeforeDestroy();"/>
+        <object type="jsx3.gui.Splitter">
+          <variants jsxleft="0" jsxtop="0"/>
+          <strings jsxname="jsxsplitter" jsxsubcontainer1pct="23%" jsxsubcontainer2pct="77%"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxwidth="100%" jsxheight="100%" jsxbgcolor=""/>
+                <object type="jsx3.gui.Tree">
+                  <dynamics jsxpadding="@Tree Padding" jsxborder="@Outset"/>
+                  <variants jsxuseroot="0" jsxoverflow="1" jsxshare="1"/>
+                  <strings jsxname="jsx_api_classlist" jsxsortpath="@jsxtext" jsxsortdirection="ascending" jsxicon=""
+                           jsxspystylekeys="" jsxspystylevalues="" jsxxmltrans="jsx3.ide.apidoc.class-tree"/>
+                  <events jsxchange="jsx_ide_api.onClassSelect(this, this.getValue());"/>
+                  <xslparameters jsxrootid="jsxroot" jsxsortpath="jsxtext" jsxindent="6"/>
+                </object>
+            </object>
+            <object type="jsx3.gui.Splitter">
+              <variants jsxleft="0" jsxtop="0"/>
+              <strings jsxname="jsxsplitter" jsxsubcontainer1pct="30%" jsxsubcontainer2pct="70%"/>
+                <object type="jsx3.gui.Block">
+                  <dynamics jsxborder="@Outset" jsxbgcolor="@Solid Light"/>
+                  <variants jsxoverflow="2"/>
+                  <strings jsxwidth="100%" jsxheight="100%"/>
+                    <object type="jsx3.gui.Matrix">
+                      <dynamics jsxbgcolor="@Solid Light"/>
+                      <variants jsxheaderheight="0" jsxpagingmodel="0" jsxscalewidth="1" jsxselectionmodel="1" jsxreorder="0"
+                          jsxresize="0" jsxxmlasync="0"/>
+                      <strings jsxname="jsx_api_memberlist" jsxxmltrans="jsx3.ide.apidoc.member-list" jsxfocusstyle=";"/>
+                      <events jsxselect="jsx_ide_api.memberSelect(this, strRECORDID);"/>
+                        <object type="jsx3.gui.Matrix.Column">
+                          <variants/>
+                          <strings jsxname="jsxcolumn" jsxwidth="*" jsxpath="jsxtext" jsxcellpadding="3"/>
+                        </object>
+                    </object>
+                </object>
+                <object type="jsx3.gui.LayoutGrid">
+                  <dynamics jsxborder="@Outset"/>
+                  <variants jsxrelativeposition="1" jsxleft="0" jsxtop="0" searchclose="27" searchopen="200"/>
+                  <strings jsxname="search_layout" jsxrows="27,*"/>
+                    <object type="jsx3.gui.LayoutGrid">
+                      <dynamics jsxborder="@Outset Bottom" jsxbgcolor="@Solid Medium"/>
+                      <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+                      <strings jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+                        <object type="jsx3.gui.Block">
+                          <dynamics jsxbgcolor="@Solid Medium"/>
+                          <variants jsxoverflow="3" jsxrelativeposition="0"/>
+                          <strings/>
+                            <object type="jsx3.gui.LayoutGrid">
+                              <variants />
+                              <strings jsxname="search_layout_layout" jsxcols="40,*,106,71,24" />
+                                <object type="jsx3.gui.Block">
+                                  <variants jsxoverflow="2"/>
+                                  <strings jsxpadding="6 0 0 6"/>
+                                    <object type="jsx3.gui.ImageButton">
+                                      <dynamics jsxtip="jsx3.ide.apidoc.prev"/>
+                                      <variants jsxheight="15" jsxwidth="14" jsxenabled="0"/>
+                                      <strings jsxname="go_back" jsxmargin="0 6 0 0"
+                                          jsximage="images/back.gif" jsxdisabledimage="images/back_disabled.gif" jsxkeycode="ctrl+left"/>
+                                      <events jsxexecute="jsx_ide_api.goBack();"/>
+                                    </object>
+                                    <object type="jsx3.gui.ImageButton">
+                                      <dynamics jsxtip="jsx3.ide.apidoc.next"/>
+                                      <variants jsxheight="15" jsxwidth="14" jsxenabled="0"/>
+                                      <strings jsxname="go_forward"
+                                          jsximage="images/forward.gif" jsxdisabledimage="images/forward_disabled.gif" jsxkeycode="ctrl+right"/>
+                                      <events jsxexecute="jsx_ide_api.goForward();"/>
+                                    </object>
+                                </object>
+                                <object type="jsx3.gui.Block">
+                                  <dynamics jsxtext="jsx3.ide.apidoc.search"/>
+                                  <variants jsxheight="18"/>
+                                  <strings jsxname="label" jsxtextalign="right" jsxpadding="6 4 0 0"/>
+                                </object>
+                                <object type="jsx3.gui.Block">
+                                  <variants jsxoverflow="2"/>
+                                  <strings jsxpadding="5"/>
+                                    <object type="jsx3.gui.TextBox">
+                                      <dynamics jsxtip="jsx3.ide.apidoc.searchtip"/>
+                                      <variants jsxheight="17" jsxwidth="100"/>
+                                      <strings jsxname="search_text" jsxmargin="0 0 0 0" jsxpadding="0 0 0 0" jsxvalue=""/>
+                                      <events jsxexecute="jsx_ide_api.doSearch();"/>
+                                    </object>
+                                </object>
+                                <object type="jsx3.gui.Block">
+                                  <variants jsxoverflow="2"/>
+                                  <strings jsxpadding="5"/>
+                                    <object type="jsx3.gui.Select">
+                                      <dynamics jsxtip="jsx3.ide.apidoc.typetip"/>
+                                      <variants jsxwidth="65" jsxheight="18"/>
+                                      <strings jsxname="search_domain" jsxmargin="0 0 0 0" jsxvalue="global"
+                                          jsxxml="&lt;data&gt;&lt;record jsxid=&quot;global&quot; jsxtext=&quot;{jsx3.ide.apidoc.tglobal}&quot;/&gt;&lt;record jsxid=&quot;class&quot; jsxtext=&quot;{jsx3.ide.apidoc.tclass}&quot;/&gt;&lt;/data&gt;"/>
+                                      <events jsxselect="jsx_ide_api.doSearch();"/>
+                                    </object>
+                                </object>
+                                <object type="jsx3.gui.Block">
+                                  <variants jsxoverflow="2"/>
+                                  <strings jsxpadding="6 0 0 2"/>
+                                    <object type="jsx3.gui.ImageButton">
+                                      <dynamics jsxtip="jsx3.ide.apidoc.clear"/>
+                                      <variants jsxheight="16" jsxwidth="16"/>
+                                      <strings jsxname="search_clear" jsximage="jsxapp:/images/icon_55.gif"/>
+                                      <events jsxexecute="jsx_ide_api.doClearSearch();"/>
+                                    </object>
+                                </object>
+
+                            </object>
+                        </object>
+                        <object type="jsx3.gui.Block">
+                          <dynamics jsxbgcolor="@Solid Light"/>
+                          <variants jsxoverflow="1" jsxrelativeposition="0" jsxtop="0" jsxleft="0"/>
+                          <strings jsxwidth="100%" jsxheight="100%" jsxborder="dashed 1px #9898a5;0px;dashed 1px #9898a5;0px"/>
+                            <object type="jsx3.gui.BlockX">
+                              <dynamics jsxbgcolor="@Solid Light"/>
+                              <variants jsxrelativeposition="0" jsxtop="0" jsxleft="0" jsxshare="1"/>
+                              <strings jsxname="search_results" jsxwidth="100%" jsxheight="100%" jsxxslid="jsx3.ide.apidoc.search-results" jsxpadding="4 6 4 6"/>
+                            </object>
+                            <object type="jsx3.gui.Block">
+                              <dynamics jsxbgcolor="@Solid Light"/>
+                              <variants jsxrelativeposition="0" jsxtop="0" jsxleft="0"/>
+                              <strings jsxname="search_searching" jsxwidth="100%" jsxheight="100%" jsxpadding="4 6 4 6" jsxdisplay="none" jsxtext="!"/>
+                            </object>
+                        </object>
+                    </object>
+                    <object type="jsx3.gui.Block">
+                      <dynamics jsxbgcolor="@Solid Light"/>
+                      <variants jsxoverflow="1" jsxrelativeposition="0"/>
+                      <strings jsxwidth="100%" jsxheight="100%"/>
+                        <object type="jsx3.gui.BlockX">
+                          <dynamics jsxbgcolor="@Solid Light" jsxpadding="@8Pixel"/>
+                          <variants jsxoverflow="3" jsxrelativeposition="0" jsxshare="1" jsxxmlasync="0"/>
+                          <strings jsxname="jsx_api_content" jsxxslid="jsx3.ide.apidoc.content" jsxwidth="100%" jsxheight="100%"/>
+                          <xslparameters jsxdisableescape="1"/>
+                        </object>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </object>
+</serialization>

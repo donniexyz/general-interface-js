@@ -1,0 +1,139 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.getTree = function() {
+  return jsxdom;
+};
+
+objJSX.onEditorChanged = jsx3.$F(function(newEditor, oldEditor) {
+  var onBefore = oldEditor && oldEditor.getMode() == "component";
+  var onNow = newEditor && newEditor.getMode() == "component";
+  //jsx3.log("[dom.xml].onEditorChanged " + onBefore + " " + onNow + " " + jsx3.ide.getActiveEditor());
+
+  if (onNow && jsx3.ide.getActiveServer())
+    this.getPlugIn().onDomChange();
+
+  if (onBefore != onNow) {
+    if (onNow) {
+      jsxdom.setDisplay(jsx3.gui.Block.DISPLAYBLOCK, true);
+    } else {
+      jsxdom.setDisplay(jsx3.gui.Block.DISPLAYNONE, true);
+    }
+  }
+}).throttled();
+
+objJSX.onSelectionChanged = function(objEditor) {
+  //jsx3.log("[dom.xml].onSelectionChanged " + objEditor.getSelection());
+
+  if (objEditor == jsx3.ide.getActiveEditor()) {
+    var selection = objEditor.getSelection() || [];
+    var values = jsx3.$A(selection).map(function(e) {
+      if (e == objEditor.getServer().getBodyBlock())
+        return jsx3.ide.ROOT_DOM_NODE_ID;
+      else
+        return e.getId();
+    });
+    jsxdom.setValue(values);
+    jsx3.$A(selection).each(jsx3.$F(function(e) { this._revealItemInDom(e); }).bind(this));
+  }
+};
+
+objJSX._revealItemInDom = function(objJSX) {
+  var objServer = objJSX.getServer();
+  if (objServer) {
+    jsxdom.revealRecord(objJSX.getId(), jsxdom.getParent());
+  
+    var objBody = objServer.getBodyBlock();
+    while ((objJSX = objJSX.getParent()) != null && objJSX != objBody)
+      objJSX._jsxideopen = true;
+  }
+};
+
+objJSX._onSelect = function(objTree) {
+  var objEditor = jsx3.ide.getActiveEditor();
+  if (objEditor) {
+    var objServer = objEditor.getServer();
+    if (objServer) {
+      var strRecordIds = objTree.getValue();
+      var arrJSX = jsx3.$A(strRecordIds).map(function(e) {
+        if (e == jsx3.ide.ROOT_DOM_NODE_ID)
+          return objServer.getBodyBlock();
+        else
+          return objServer.getJSXById(e); 
+      });
+      objEditor.setSelection(arrJSX);
+    }
+  }
+};
+
+objJSX._doDeleteDom = function() {
+  this.getPlugIn().recycleDOM();
+};
+
+objJSX.onPaletteLoaded = function() {
+  // control-backspace deletes selection
+  objJSX.registerHotKey('_doDeleteDom', jsx3.gui.Event.KEY_DELETE, false, true, false); // delete
+  objJSX.registerHotKey('_doDeleteDom',  8, false, true, false); // backspace
+
+  var editor = jsx3.ide.getActiveEditor();
+  if (editor) {
+    this.onEditorChanged(editor, null);
+  }
+
+  var mm = new jsx3.amp.util.MenuManager();
+  mm.addMenuBar("/", menuBar);
+  this.getPlugIn().getExtPoint("dom-ctxmenu").processExts().each(function(e) { mm.addMenu(e); });
+  this.getPlugIn().getExtPoint("dom-ctxmenu-item").processExts().each(function(e) { mm.addItem(e); });
+  mm.finishInit();
+
+  var barMgr = new jsx3.amp.util.ToolbarManager(jsx_ide_dom_bar);
+  barMgr.addSection("edit");
+  barMgr.addSection("delete", true);
+  barMgr.addSection("additions", true);
+  barMgr.addSection("utils", true);
+  this.getPlugIn().getExtPoint("dom-toolbar").processExts().each(function(e) { barMgr.addItem(e); });
+};
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <dynamics/>
+      <variants jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+      <strings jsxname="dompal" jsxwidth="100%" jsxheight="100%" jsxhelpid="ide.palette.dom"/>
+        <object type="jsx3.gui.Block">
+          <strings jsxname="menuBar" jsxdisplay="none"/>
+        </object>
+        <object type="jsx3.gui.LayoutGrid">
+          <variants jsxrelativeposition="0" jsxoverflow="2" />
+          <strings jsxname="jsx_ide_cache_layout" jsxrows="26,*" jsxwidth="100%" jsxheight="100%"/>
+          <events />
+          <properties />
+            <object type="jsx3.gui.WindowBar">
+              <dynamics jsxbgcolor="@Solid Medium" jsxborder="@Outset"/>
+              <variants jsxfontsize="10" jsxbartype="2" jsxoverflow="3" jsxrelativeposition="1" />
+              <strings jsxname="jsx_ide_dom_bar" />
+            </object>
+            <object type="jsx3.gui.Block">
+              <dynamics jsxborder="@Outset" jsxbgcolor="@Solid Light"/>
+              <variants jsxleft="0" jsxtop="0" jsxoverflow="2" />
+              <strings jsxname="jsx_ide_cache_treeblock" jsxwidth="100%" jsxheight="100%"/>
+                <object type="jsx3.gui.Tree">
+                  <dynamics jsxpadding="@Tree Padding" jsxbgcolor="@Solid Disabled"/>
+                  <variants jsxdrop="1" jsxdrag="1" jsxmultiselect="1"/>
+                  <strings jsxname="jsxdom" jsxwidth="100%" jsxheight="100%" jsxmenu="jsx3.ide.domctx" jsxspystylekeys="" jsxspystylevalues="" />
+                  <events jsxtoggle="dompal.getPlugIn().doDomToggle(strRECORDID,bOPEN);"
+                      jsxchange="dompal._onSelect(this);"
+                      jsxexecute="dompal.getPlugIn().doDomExecute(strRECORDID);"
+                      jsxdrop="dompal.getPlugIn().onDomTreeDrop(objSOURCE.getId(),strRECORDID,strDRAGIDS,this,false,bINSERTBEFORE);"
+                      jsxctrldrop="dompal.getPlugIn().onDomTreeDrop(objSOURCE.getId(),strRECORDID,strDRAGIDS,this,true,bINSERTBEFORE);"
+                      jsxspy="dompal.getPlugIn().domSpyGlass(this, strRECORDID);"/>
+                  <xslparameters jsxindent="10"/>
+                </object>
+            </object>
+        </object>
+    </object>
+</serialization>

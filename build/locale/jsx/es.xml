@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2001-2014. TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data>
+
+  <!-- jsx3.gui.Select -->
+  <record jsxid="jsx3.gui.Select.defaultText" jsxtext="- Seleccionar -"/>
+  <record jsxid="jsx3.gui.Select.dataUnavailable" jsxtext="- Datos no disponibles -"/>
+  <record jsxid="jsx3.gui.Select.noMatch" jsxtext="- No se encontraron coincidencias -"/>
+
+  <!-- jsx3.gui.Menu -->
+  <record jsxid="jsx3.gui.Menu.noData" jsxtext="- No hay datos -"/>
+
+  <!-- jsx3.gui.Matrix -->
+  <record jsxid="jsx3.gui.Matrix.seek" jsxtext="Visualización de filas de {0} a {1} de {2}"/>
+
+  <!-- jsx3.gui.BlockX -->
+  <record jsxid="jsx3.gui.BlockX.loading" jsxtext="Cargando XSL..."/>
+  <record jsxid="jsx3.gui.BlockX.timeout" jsxtext="Se agotó el tiempo de espera de XSL"/>
+  <record jsxid="jsx3.gui.BlockX.error" jsxtext="Error al cargar XSL"/>
+
+  <!-- jsx3.xml.Cacheable -->
+  <record jsxid="jsx3.xml.Cacheable.loading" jsxtext="Cargando {0}..."/>
+  <record jsxid="jsx3.xml.Cacheable.timeout" jsxtext="Se agotó el tiempo de espera de carga de {0}"/>
+  <record jsxid="jsx3.xml.Cacheable.error" jsxtext="Error al cargar {0}"/>
+  <record jsxid="jsx3.xml.Cacheable.data" jsxtext="datos"/>
+
+  <!-- jsx3.gui.Dialog -->
+  <record jsxid="jsx3.gui.Dialog.close" jsxtext="Cerrar"/>
+  <record jsxid="jsx3.gui.Dialog.min" jsxtext="Alternar visualización"/>
+  <record jsxid="jsx3.gui.Dialog.max" jsxtext="Maximización"/>
+  <record jsxid="jsx3.gui.Dialog.restore" jsxtext="Restaurar"/>
+
+</data>

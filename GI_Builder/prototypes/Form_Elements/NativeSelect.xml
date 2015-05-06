@@ -1,0 +1,14 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Select - Native]]></name>
+  <icon><![CDATA[images/prototypes/nativeselect.gif]]></icon>
+  <description><![CDATA[A select object implemented with the native browser control.]]></description>
+  <object type="jsx3.gui.NativeSelect">
+    <variants jsxwidth="150" jsxxmlasync="1"/>
+    <strings jsxname="nativeSelect" jsxmargin="0 4 0 0"
+        jsxxml="&lt;data&gt; &lt;record jsxid=&quot;1&quot; jsxtext=&quot;One&quot; jsxtip=&quot;Uno Un Ichi&quot;/&gt; &lt;record jsxid=&quot;2&quot; jsxtext=&quot;Two&quot;/&gt; &lt;record jsxtext=&quot;Group&quot;&gt; &lt;record jsxid=&quot;3&quot; jsxtext=&quot;Three&quot; jsxstyle=&quot;color:red;&quot;/&gt; &lt;record jsxid=&quot;4&quot; jsxtext=&quot;Four&quot;/&gt; &lt;/record&gt; &lt;/data&gt;"/>
+  </object>
+</serialization>

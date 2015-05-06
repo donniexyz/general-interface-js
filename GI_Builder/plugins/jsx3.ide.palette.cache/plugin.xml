@@ -1,0 +1,140 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.palette.cache"
+        name="Project Cache Palette Plug-In"
+        version="0.1">
+
+  <method id="getPalette"><![CDATA[
+    return this.getEngine().getPlugIn("jsx3.ide.ui").getPalette(this, "cache.palette");
+  ]]></method>
+
+  <method id="getSelection"><![CDATA[
+    var p = this.getPalette();
+    if (p) {
+      var ui = p.getUIObject();
+      if (ui)
+        return ui.getSelection();
+    }
+    return [];
+  ]]></method>
+
+  <requires>
+    <plugin id="jsx3.ide.ui"/>
+    <plugin id="jsx3.amp.util.menumgr"/>
+    <plugin id="jsx3.amp.util.toolbarmgr"/>
+    <plugin id="jsx3.gui.Tree"/>
+    <plugin id="jsx3.gui.ToolbarButton"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="cache.js" eval="true">poo</script>
+    <xml id="ui" path="cache.xml"/>
+  </resources>
+
+  <event id="selection">
+    <param id="values"/>
+  </event>
+
+  <subscribe event="jsx3.ide.editor.activeChanged" when="loaded"><![CDATA[
+    var content = this.getPalette().getUIObject();
+    if (content && content.onEditorChanged)
+      content.onEditorChanged(evt.editor, evt.previous);
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.closed" when="loaded"><![CDATA[
+    this.cleanUpOrphanedCacheEditors(evt.editor);
+    if (evt.editor.getServer())
+      this.updateCache();
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.component.cacheChanged" when="loaded"><![CDATA[
+    this.updateCache();
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.project.app.cacheChanged" when="loaded"><![CDATA[
+    this.updateCache();
+  ]]></subscribe>
+
+  <!-- The palette context menu -->
+  <extension-point id="ctxmenu">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenu"/>
+  </extension-point>
+
+  <!-- The palette context menu items -->
+  <extension-point id="ctxmenu-item">
+    <processor type="instantiator" instance-class="jsx3.ide.ui.IdeMenuItem"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.ui.palette" id="cache.palette">
+    <palette label="Local Data Cache" hotkey="ctrl+7"
+             resource="ui" default-position="q2" idegroup="per-project"/>
+  </extension>
+
+  <extension point="jsx3.ide.palette.cache.ctxmenu" id="ctxmenu">
+    <menu id="jsx3.ide.cachectx" path="/">
+      <section id="edit"/>
+      <divider id="util"/>
+      <divider id="modify"/>
+      <divider id="additions"/>
+    </menu>
+  </extension>
+
+  <extension point="jsx3.ide.palette.cache.ctxmenu-item" id="ctxmenu-item">
+    <action
+        id="edit"
+        label="View/Edit"
+        menupath="/jsx3.ide.cachectx/edit"
+        execute="this.getPlugIn().editSelectedCacheDoc(menu.getContextParent().getValue());"
+        img="jsxapp:/images/icon_21.gif"/>
+    <action
+        id="view"
+        label="View Markup"
+        menupath="/jsx3.ide.cachectx/edit"
+        execute="this.getPlugIn().viewSelectedCacheDoc(menu.getContextParent().getValue());"
+        img="jsxapp:/images/icon_21.gif"/>
+
+    <action
+        id="copyname"
+        label="Copy Name"
+        menupath="/jsx3.ide.cachectx/util"
+        execute="jsx3.html.copy(menu.getContextParent().getRecord(menu.getContextRecordId()).jsxtext);"
+        enabled="eval" enabled-eval="menu.getContextParent().getValue().length == 1"/>
+    <action
+        id="copysrc"
+        label="Copy Source"
+        menupath="/jsx3.ide.cachectx/util"
+        execute="jsx3.html.copy(this.getPlugIn().getCacheDocByTreeId(menu.getContextParent(), menu.getContextRecordId()).getXML());"
+        enabled="eval" enabled-eval="menu.getContextParent().getValue().length == 1"/>
+
+    <action
+        id="remove"
+        label="Remove From Cache"
+        menupath="/jsx3.ide.cachectx/modify"
+        execute="this.getPlugIn().deleteCacheDocument([menu.getContextRecordId()]);"
+        img="jsxapp:/images/icon_24.gif"/>
+  </extension>
+
+  <bindable id="oneOrMoreSelected" value="this.getSelection().length > 0"
+            subscribe="jsx3.ide.palette.cache.selection"/>
+
+  <!-- Toolbar buttons, etc -->
+  <extension-point id="toolbar">
+    <processor type="instantiator" instance-class="jsx3.amp.util.ToolbarItem"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.palette.cache.toolbar">
+    <button id="edit" img="jsxapp:/images/icon_21.gif" tip="Edit a cache document" section="edit"
+            execute="this.getPlugIn().editSelectedCacheDoc(this.getPlugIn().getSelection());" enabled="{oneOrMoreSelected}"/>
+    <button id="view" img="jsxapp:/images/icon_20.gif" tip="View a cache document" section="edit"
+            execute="this.getPlugIn().viewSelectedCacheDoc(this.getPlugIn().getSelection());" enabled="{oneOrMoreSelected}"/>
+    <button id="delete" img="jsxapp:/images/icon_24.gif" tip="Delete a document from the cache" section="delete"
+            execute="this.getPlugIn().deleteCacheDocument(this.getPlugIn().getSelection());" enabled="{oneOrMoreSelected}"/>
+  </extension>
+
+</plugin>

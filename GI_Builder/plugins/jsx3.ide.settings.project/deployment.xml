@@ -1,0 +1,325 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+var DEPLOY_INPUT_PREFIX = "jsx_deployment_";
+
+objJSX.getFirstResponder = function() {
+  return jsx_deployment_caption;
+};
+
+objJSX.savePrefs = function() {
+  var objSettings = jsx3.ide.PROJECT.getSettings(true);
+
+  var ns = jsx_deployment_namespace.getValue();
+  var tokens = ns.split(".");
+  for (var i = 0; i < tokens.length; i++) {
+    if (! tokens[i].match(/^[A-Za-z][A-Za-z0-9]*$/)) {
+      this.getAncestorOfType(jsx3.gui.Dialog).alert(null,
+          "The project namespace is not valid. It must be a valid JavaScript identifier with no underscores.");
+      return false;
+    }
+  }
+
+  var retValue = ns == objSettings.get("namespace") ? true :
+      {title: "Restart Required", message:
+        "You must restart General Interface Builder for the new project namespace to take effect."};
+  var bRefreshRes = jsx_deployment_objectseturl.getValue() != objSettings.get("objectseturl");
+
+  var done = {};
+  var inputs = this.getDescendantsOfType(jsx3.gui.Form);
+
+  for (var i = 0; i < inputs.length; i++) {
+    var input = inputs[i];
+    if (input.getName().indexOf(DEPLOY_INPUT_PREFIX) != 0)
+      continue;
+
+    var strRecordId = input.getName().substring(DEPLOY_INPUT_PREFIX.length);
+
+    if (done[strRecordId]) continue;
+    done[strRecordId] = true;
+
+    if (jsx3.gui.RadioButton && input instanceof jsx3.gui.RadioButton && input.getValue("true"))
+      objSettings.set(strRecordId, input.getSelected() == jsx3.gui.RadioButton.SELECTED);
+    else if (input instanceof jsx3.gui.TextBox)
+      objSettings.set(strRecordId, input.getValue());
+    else if (input instanceof jsx3.gui.Select)
+      objSettings.set(strRecordId, input.getValue());
+    else if (input instanceof jsx3.gui.CheckBox)
+      objSettings.set(strRecordId, input.getChecked() == jsx3.gui.CheckBox.CHECKED);
+  }
+
+  objSettings.save();
+
+  return retValue;
+};
+
+objJSX.loadPrefs = function() {
+  var objSettings = jsx3.ide.PROJECT.getSettings(false);
+
+  var inputs = this.getDescendantsOfType(jsx3.gui.Form);
+  for (var i = 0; i < inputs.length; i++) {
+    var input = inputs[i];
+    if (input.getName().indexOf(DEPLOY_INPUT_PREFIX) != 0)
+      continue;
+
+    var strRecordId = input.getName().substring(DEPLOY_INPUT_PREFIX.length);
+
+    var objValue = objSettings.get(strRecordId);
+    if (objValue != null) {
+      if (jsx3.gui.RadioButton && input instanceof jsx3.gui.RadioButton)
+        input.setSelected((objValue && input.getValue() == "true") || (!objValue && input.getValue() == "false") ?
+            jsx3.gui.RadioButton.SELECTED : jsx3.gui.RadioButton.UNSELECTED);
+      else if (input instanceof jsx3.gui.TextBox)
+        input.setValue(objValue);
+      else if (input instanceof jsx3.gui.Select)
+        input.setValue(objValue);
+      else if (input instanceof jsx3.gui.CheckBox) {
+        if (objValue != null)
+          input.setChecked(objValue ? jsx3.gui.CheckBox.CHECKED : jsx3.gui.CheckBox.UNCHECKED);
+      }
+    }
+  }
+};
+
+objJSX.makeDirty = function(objInput) {
+  this.getPane().setDirty(true);
+};
+
+objJSX.browseDeploymentOptions = function() {
+  var dialog = this.getServer().getJSXByName("deployment_settings_fd");
+  if (dialog) {
+    dialog.focus();
+    return;
+  }
+
+  jsx3.ide.getPlugIn("jsx3.io.browser").chooseFile(this.getServer().getRootBlock(), {
+      name:"deployment_settings_fd", modal:false,
+      folder: jsx3.ide.getCurrentDirectory(), baseFolder: jsx3.ide.getCurrentUserHome(),
+      onChoose: jsx3.$F(function(objFile) {
+        jsx_deployment_objectseturl.setValue(jsx3.ide.PROJECT.getDirectory().relativePathTo(objFile));
+        jsx3.ide.setCurrentDirectory(objFile.getParentFile());
+        this.makeDirty();
+      }).bind(this)
+  });
+};
+
+var ns = objJSX.getDescendantOfName('jsx_deployment_namespace');
+ns._jsxregex = /^[A-Za-z][A-Za-z0-9\.]*$/;
+ns.checkInput = function(strValue) {
+ if (strValue.length > 0 && !strValue.match(this._jsxregex)) {
+  this.beep();
+  return false;
+ }
+ prefspane.makeDirty(this);
+ return true;
+};
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Block">
+    <dynamics jsxpadding="@8Pixel"/>
+    <variants jsxoverflow="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+    <strings jsxname="prefspane" jsxwidth="100%" jsxheight="100%" jsxhelpid="ide.projset.deploy"/>
+    <object type="jsx3.gui.LayoutGrid">
+      <variants />
+      <strings jsxname="jsxlayoutx" jsxrows="22,22,22,22,22,22,22,22,22,*,*" jsxcols="120,*"/>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtip="_dpl_tp1" jsxtext="_dpl_tx1"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right"/>
+      </object>
+      <!-- field wrapper -->
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxpadding="2 6 0 0"/>
+        <object type="jsx3.gui.TextBox">
+          <variants/>
+          <strings jsxwidth="100%" jsxname="jsx_deployment_caption"/>
+          <events jsxincchange="prefspane.makeDirty(this);"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtip="_dpl_tp6" jsxtext="_dpl_tx6"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right"/>
+      </object>
+      <!-- field wrapper -->
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxpadding="2 6 0 0"/>
+        <object type="jsx3.gui.TextBox">
+          <strings jsxwidth="100%" jsxname="jsx_deployment_namespace"/>
+          <events jsxincchange="this.checkInput(strVALUE);"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtip="_dpl_tp2" jsxtext="_dpl_tx2"/>
+        <variants/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants/>
+        <strings jsxtagname="div" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.LayoutGrid">
+          <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+          <strings jsxwidth="100%" jsxheight="100%" jsxcols="*,30"/>
+          <!-- field wrapper -->
+          <object type="jsx3.gui.Block">
+            <variants jsxoverflow="2"/>
+            <strings jsxpadding="2 6 0 0"/>
+            <object type="jsx3.gui.TextBox">
+              <variants/>
+              <strings jsxwidth="100%" jsxname="jsx_deployment_objectseturl"/>
+              <events jsxincchange="prefspane.makeDirty(this);"/>
+            </object>
+          </object>
+          <!-- field wrapper -->
+          <object type="jsx3.gui.Block">
+            <variants jsxoverflow="2"/>
+            <strings jsxpadding="2 6 0 0"/>
+            <object type="jsx3.gui.ImageButton">
+              <dynamics jsxtip="_gen_browse"/>
+              <variants jsxindex="0" jsxwidth="16" jsxheight="16"/>
+              <strings jsxname="jsxbrowse" jsximage="jsxapp:/images/icon_60.gif" jsxmargin="0 0 0 8"/>
+              <events jsxexecute="prefspane.browseDeploymentOptions();"/>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtip="_dpl_tp4" jsxtext="_dpl_tx4"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants/>
+        <strings jsxtagname="div" jsxpadding="1 0 0 0"/>
+        <object type="jsx3.gui.CheckBox">
+          <variants jsxchecked="0" jsxwidth="60"/>
+          <strings jsxname="jsx_deployment_cancelerror"/>
+          <events jsxtoggle="prefspane.makeDirty();"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtip="_dpl_tp5" jsxtext="_dpl_tx5"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants/>
+        <strings jsxtagname="div" jsxpadding="1 0 0 0"/>
+        <object type="jsx3.gui.CheckBox">
+          <variants jsxchecked="1" jsxwidth="60"/>
+          <strings jsxname="jsx_deployment_cancelrightclick"/>
+          <events jsxtoggle="prefspane.makeDirty();"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtip="_dpl_tp7" jsxtext="_dpl_tx7"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants/>
+        <strings jsxtagname="div" jsxpadding="2 0 0 0"/>
+        <object type="jsx3.gui.RadioButton">
+          <dynamics jsxtext="_dpl_live"/>
+          <variants jsxwidth="60" jsxdefaultselected="0"/>
+          <strings jsxname="jsx_deployment_mode" jsxgroupname="jsx_deployment_mode" jsxvalue="true"/>
+          <events jsxselect="prefspane.makeDirty();"/>
+        </object>
+        <object type="jsx3.gui.RadioButton">
+          <dynamics jsxtext="_dpl_static"/>
+          <variants jsxwidth="60" jsxdefaultselected="1"/>
+          <strings jsxname="jsx_deployment_mode" jsxgroupname="jsx_deployment_mode" jsxvalue="false"/>
+          <events jsxselect="prefspane.makeDirty();"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right" jsxtip="If yes, key listeners (onmousedown, etc.) wil be bound to the document body for all key-related events" jsxtext="Body Hot Keys"/>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants/>
+        <strings jsxtagname="div" jsxpadding="1 0 0 0"/>
+        <object type="jsx3.gui.CheckBox">
+          <variants jsxchecked="0" jsxwidth="60"/>
+          <strings jsxname="jsx_deployment_bodyhotkeys"/>
+          <events jsxtoggle="prefspane.makeDirty();"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right" jsxtext="Overflow"
+            jsxtip="Determines how the application container behaves when movable objects such as dialogs and CDF drag masks are moved off the edge of the container."/>
+      </object>
+      <!-- field wrapper -->
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxpadding="2 6 0 0"/>
+        <object type="jsx3.gui.Select">
+          <variants jsxwidth="125"/>
+          <strings jsxname="jsx_deployment_overflow" jsxvalue="3" jsxxml="
+&lt;data jsxid=&quot;jsxroot&quot;&gt;
+  &lt;record jsxid=&quot;1&quot; jsxtext=&quot;Scroll&quot; jsxtip=&quot;Objects cause the container to scroll.&quot;/&gt;
+  &lt;record jsxid=&quot;2&quot; jsxtext=&quot;Hidden&quot; jsxtip=&quot;Objects are invisible.&quot;/&gt;
+  &lt;record jsxid=&quot;3&quot; jsxtext=&quot;Expand&quot; jsxtip=&quot;Objects can leave the container.&quot;/&gt;
+&lt;/data&gt;"/>
+          <events jsxselect="prefspane.makeDirty();"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right" jsxtext="Default Locale"/>
+      </object>
+      <!-- field wrapper -->
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxpadding="2 6 0 0"/>
+        <object type="jsx3.gui.TextBox">
+          <variants/>
+          <strings jsxwidth="125" jsxname="jsx_deployment_default_locale"/>
+          <events jsxincchange="prefspane.makeDirty(this);"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW" jsxtip="_dpl_tp3" jsxtext="_dpl_tx3"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right"/>
+      </object>
+      <!-- field wrapper -->
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxpadding="2 6 2 0"/>
+        <object type="jsx3.gui.TextBox">
+          <dynamics jsxborder="@Inset" jsxbg="@Grid Lines"/>
+          <variants jsxtype="1"/>
+          <strings jsxwidth="100%" jsxheight="100%" jsxname="jsx_deployment_onload"/>
+          <events jsxkeydown="jsx3.ide.doTextEditorKeyDown(objEVENT,this);" jsxincchange="prefspane.makeDirty(this);"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics jsxfontname="@Label1 FN" jsxfontsize="@Label1 FS" jsxfontweight="@Label1 FW"/>
+        <variants jsxoverflow="2"/>
+        <strings jsxwidth="100%" jsxpadding="6 6 0 0" jsxtextalign="right" jsxtip="Code to execute when the application is destroyed." jsxtext="onUnload Script"/>
+      </object>
+      <!-- field wrapper -->
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2"/>
+        <strings jsxpadding="2 6 2 0"/>
+        <object type="jsx3.gui.TextBox">
+          <dynamics jsxborder="@Inset" jsxbg="@Grid Lines"/>
+          <variants jsxtype="1"/>
+          <strings jsxwidth="100%" jsxheight="100%" jsxname="jsx_deployment_onunload"/>
+          <events jsxkeydown="jsx3.ide.doTextEditorKeyDown(objEVENT,this);" jsxincchange="prefspane.makeDirty(this);"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

@@ -1,0 +1,71 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+  <record include="master.xml" group="position"/>
+
+  <record jsxid="piechart" group="1" jsxtext="PieChart">
+    <record jsxid="innerRadius" jsxtext="Inner Radius"
+        jsxtip="Sets the radius of the doughnut hole in the center of this pie chart as a ratio of the chart radius (&lt;code&gt;0.0 - 1.0&lt;/code&gt;)."
+        docgetter="getInnerRadius" docsetter="setInnerRadius"
+        docdefault="&lt;code&gt;0&lt;/code&gt;"
+        eval="1"
+        disallow="[^0-9\.]"
+        jsxexecute="objJSX.setInnerRadius(vntValue); objJSX.repaint();"
+        jsxmask="jsxtext"/>
+    <record jsxid="seriesPadding" jsxtext="Series Padding"
+        jsxtip="Sets the padding between series in this chart, as a multiple of the width of a series."
+        docgetter="getSeriesPadding" docsetter="setSeriesPadding"
+        docdefault="&lt;code&gt;0&lt;/code&gt;"
+        eval="1"
+        disallow="[^0-9\.]"
+        jsxmask="jsxtext"/>
+    <record jsxid="totalAngle" jsxtext="Total Angle"
+        jsxtip="Sets the default total angle for each series (&lt;code&gt;0 - 360&lt;/code&gt;)."
+        docgetter="getTotalAngle" docsetter="setTotalAngle"
+        docdefault="&lt;code&gt;360&lt;/code&gt;"
+        eval="1"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.setTotalAngle(vntValue); objJSX.repaint();"/>
+    <record jsxid="startAngle" jsxtext="Start Angle"
+        jsxtip="Sets the angle for the start of the first pie slice. Values start at north and continue clockwise (&lt;code&gt;0 - 360&lt;/code&gt;)."
+        docgetter="getStartAngle" docsetter="setStartAngle"
+        docdefault="&lt;code&gt;0&lt;/code&gt;"
+        eval="1"
+        disallow="[^0-9\-]"
+        jsxmask="jsxtext"/>
+  </record>
+
+  <record jsxid="piechart" group="1" jsxtext="By-Category">
+    <record jsxid="categoryField" jsxtext="Category Field"
+        jsxtip="Sets the attribute of the data provider containing the category value."
+        docgetter="getCategoryField" docsetter="setCategoryField"
+        eval="0"
+        validate="^([_a-zA-Z]\w*|)$"
+        jsxmask="jsxtext"/>
+    <record jsxid="colors" jsxtext="Colors"
+        jsxtip="Sets an array of colors to use to color the pie slices.  Specified as &lt;i&gt;color1 alpha1, color2 alpha 2, ...&lt;/i&gt;. For example, &lt;code&gt;black 1, red .4&lt;/code&gt;."
+        docgetter="getColors" docsetter="setColors"
+        docdefault="Default color scheme"
+        eval="0"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.colors = jsx3.chart.splitInputArray(vntValue); objJSX.repaint();"/>
+    <record jsxid="seriesStroke" jsxtext="Series Stroke"
+        jsxtip="Sets the vector stroke to use to outline the slices in each series. Specified as &lt;i&gt;color width alpha&lt;/i&gt;. For example, &lt;code&gt;black 1 1&lt;/code&gt;."
+        docgetter="getSeriesStroke" docsetter="setSeriesStroke"
+        docdefault="Empty"
+        eval="0"
+        jsxmask="jsxtext"/>
+    <record include="master.xml" group="colorFunction" children="1"/>
+  </record>
+
+  <record include="master.xml" group="blockx"/>
+  <record include="master.xml" group="background"/>
+  <record include="master.xml" group="chart"/>
+  <record include="master.xml" group="interaction_menuonly"/>
+
+</data>

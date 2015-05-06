@@ -1,0 +1,43 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <name><![CDATA[Layout ( | )]]></name>
+ <description><![CDATA[2 side-by-side panes in an adaptive layout grid.]]></description>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.gui.LayoutGrid">
+   <dynamics jsxbgcolor="@Solid Medium"/>
+   <variants />
+   <strings jsxname="jsx_schema_logger" jsxcols="40,*"/>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="2"/>
+     <strings jsxborder="solid 0px;solid 1px #9898a5;solid 0px;solid 0px" jsxpadding="2 0 0 2"/>
+      <object type="jsx3.gui.ToolbarButton">
+       <variants jsxrelativeposition="1" jsxleft="0" jsxtop="2"/>
+       <strings jsxname="jsx_schema_clearlog" jsximage="images/clear.gif" jsxtext="" jsxtip="clear log"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.Mapper).getOut().setText(&quot;&quot;,true);"/>
+      </object>
+      <object type="jsx3.gui.Menu">
+       <variants jsxrelativeposition="1" jsxleft="0" jsxtop="30"/>
+       <strings jsxname="jsx_schema_loglevel" jsxtip="Adjust Log Level" jsxtext="" jsximage="GI_Builder/images/icon_19.gif"
+                jsxxmlurl="jsxplugin://jsx3.ide.mapping/xml/menu-logger.xml"/>
+       <events jsxexecute="this.getAncestorOfType(jsx3.ide.mapper.Mapper)._setLogLevel(strRECORDID);"/>
+      </object>
+    </object>
+    <object type="jsx3.gui.LayoutGrid">
+     <dynamics jsxbgcolor="@Solid Light"/>
+     <variants />
+     <strings jsxrows="18,*"/>
+      <object type="jsx3.gui.Block">
+       <variants jsxoverflow="2"/>
+       <strings jsxname="jsx_schema_log_title" jsxtext="Mapper Log - (Info Level)" jsxpadding="1 1 1 4" jsxfontweight="bold" jsxtip="parse status for the mapper" jsxborder="solid 0px;solid 0px;dashed 1px #9898a5;solid 0px"/>
+      </object>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxfontsize="@Script FS" jsxfontname="@Script FN"/>
+       <variants jsxoverflow="1"/>
+       <strings jsxname="jsx_schema_log" jsxpadding="2 2 2 2"/>
+      </object>
+    </object>
+  </object>
+</serialization>

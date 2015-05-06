@@ -1,0 +1,24 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+
+  <record jsxid="jsxmenu" jsxtext="Menu"
+      jsxtip="Fires after the user right-clicks the header cell of this column and before the bound context menu displays. Canceling this event prevents the menu from displaying."
+      vetoable="1">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objEVENT" type="jsx3.gui.Event" jsxtext="the browser event that triggers this event."/>
+    <record jsxid="objMENU" type="jsx3.gui.Menu" vartype="inout" jsxtext="the menu to display."
+        jsxreturntext="use this field to override the default menu with an instance of &lt;code&gt;jsx3.gui.Menu&lt;/code&gt;."/>
+  </record>
+
+  <record jsxid="jsxdestroy" jsxtext="Destroy" always="1"
+      jsxtip="Fires after this column is removed from the DOM.">
+    <record jsxid="this" type="$class$" jsxtext="the object that publishes this event."/>
+    <record jsxid="objPARENT" type="jsx3.app.Model"
+        jsxtext="the parent of this column before it is removed from the DOM."/>
+  </record>
+
+</data>

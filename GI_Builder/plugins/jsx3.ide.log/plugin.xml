@@ -1,0 +1,35 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.log"
+        name="System Log Plug-In"
+        version="0.1">
+
+  <requires>
+  </requires>
+
+  <resources>
+    <script id="js" path="log.js" eval="true"/>
+    <xml id="ui" path="log.xml"/>
+    <xml id="menu-docking" path="menu-docking.xml"/>
+    <xml id="menu-log" path="menu-log.xml"/>
+    <xml id="menu-logger" path="menu-logger.xml"/>
+    <xml id="as_dialog" path="as_dialog.xml" load="manual"/>
+    <xml id="as_pane" path="as_pane.xml" load="manual"/>
+    <xml id="as_window" path="as_window.xml" load="manual"/>
+  </resources>
+
+  <extension point="jsx3.ide.ui.action" id="menu.palettes">
+    <action id="jsx3.ide.syslog"
+            label="System Log"
+            menupath="/jsx3.ide.palettes/misc" hotkey="{hk.syslog}" hkconfig="true"
+            execute="this.getPlugIn().toggleSystemOut();"
+            selected="eval" selected-eval="this.getPlugIn().isOpen &amp;&amp; this.getPlugIn().isOpen()"/>
+  </extension>
+
+</plugin>

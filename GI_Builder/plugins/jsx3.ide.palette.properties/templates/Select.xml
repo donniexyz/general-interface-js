@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+  <record include="master.xml" group="position"/>
+
+  <record jsxid="jsx3select" group="1" jsxtext="Select">
+    <record jsxid="jsxtype" jsxtext="Type"
+        eval="1"
+        jsxtip="Sets the type of the select, such as Select or Combo/Type Ahead."
+        docgetter="getType" docsetter="setType"
+        docdefault="Select (&lt;code&gt;jsx3.gui.Select.TYPESELECT&lt;/code&gt;)"
+        jsxexecute="objJSX.setType(vntValue);objJSX.repaint();"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.Select.TYPESELECT" jsxtext="Select"/>
+      <enum jsxid="jsx3.gui.Select.TYPECOMBO" jsxtext="Combo/Type Ahead"/>
+    </record>
+    <record jsxid="jsxmaxlength" jsxtext="Max Length"
+        eval="1"
+        jsxtip="Sets the maximum allowed length of the input field of this combo control."
+        docgetter="getMaxLength" docsetter="setMaxLength"
+        docdefault="Empty"
+        disallow="[^0-9]"
+        jsxmask="jsxtext"/>
+    <record jsxid="jsxdefaulttext" jsxtext="Default Text"
+        jsxtip="Sets the text to display if the value of this select box is &lt;code&gt;null&lt;/code&gt;."
+        docgetter="getDefaultText" docsetter="setDefaultText"
+        docdefault="A value appropriate for the server locale, for example: &quot;- Select -&quot;"
+        jsxmask="jsxtext"/>
+    <record include="master.xml" group="form" children="1"/>
+    <record include="master.xml" group="jsxrequired" children="1"/>
+  </record>
+
+  <record include="master.xml" group="blockx"/>
+  <record include="master.xml" group="font"/>
+
+  <record include="master.xml" group="box_nobg">
+    <record include="master.xml" group="jsxdisabledbgcolor" children="1"/>
+    <record jsxid="jsxicon" jsxtext="Icon"
+        eval="0"
+        jsxtip="The icon to use for the dropdown arrow. This image will be positioned at the top-right corner of the control when painted.  The recommended image size is 16 x 16 pixels."
+        docgetter="getIcon" docsetter="setIcon"
+        docdefault="&lt;code&gt;jsx3.gui.Select.ARROWICON&lt;/code&gt;. See the API documentation for this component."
+        jsxmask="jsxpath"/>
+  </record>
+
+  <record include="master.xml" group="css"/>
+  <record include="master.xml" group="interaction"/>
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>

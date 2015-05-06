@@ -1,0 +1,90 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.recycling"
+        name="Recycling Plug-In"
+        version="0.1">
+
+  <method id="getSelection">
+    var ui = this.getServer().getJSXByName("jsx_ide_recycling_bin");
+    return ui ? ui.getTree().getValue() : null;
+  </method>
+
+  <requires>
+    <plugin id="jsx3.ide"/>
+    <plugin id="jsx3.ide.ui"/>
+    <plugin id="jsx3.amp.util.toolbarmgr"/>
+  </requires>
+
+  <resources>
+    <script id="js" path="recycling.js" eval="true"/>
+    <xml id="ui" path="recycling.xml"/>
+  </resources>
+
+  <event id="selection">
+    <param id="value"/>
+  </event>
+
+  <event id="emptied"/>
+
+  <event id="restored">
+    <param id="o"/>
+  </event>
+
+  <subscribe event="jsx3.ide.editor.activeChanged
+                    jsx3.ide.editor.modeChanged" when="loaded"><![CDATA[
+    if (this.getUI()) this.getUI().refreshTree();
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.component.recycled" when="loaded"><![CDATA[
+    if (this.getUI()) this.getUI().refreshTree();
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.reverted" when="loaded"><![CDATA[
+    if (evt.editor.getServer())
+      this.emptyRecycleBin(evt.editor.getServer(), true);
+
+    if (this.getUI()) this.getUI().refreshTree();
+  ]]></subscribe>
+
+  <subscribe event="jsx3.ide.editor.closed" when="loaded"><![CDATA[
+    if (evt.editor.getServer())
+      this.emptyRecycleBin(evt.editor.getServer(), true);
+  ]]></subscribe>
+
+  <extension point="jsx3.ide.ui.action" id="menu.palettes">
+    <action id="jsx3.ide.trash"
+            label="Recycle Bin"
+            menupath="/jsx3.ide.palettes/misc" hotkey="{hk.trash}" hkconfig="true"
+            execute="this.getPlugIn().doToggleRecycleBin();"
+            enabled="project"
+            selected="jsx" selected-jsx="jsx_ide_recycling_bin"/>
+  </extension>
+
+  <bindable id="editorApplies" value="var e = jsx3.ide.getActiveEditor();
+                                      e &amp;&amp; e.getMode() == 'component'"
+            subscribe="jsx3.ide.editor.activeChanged
+                       jsx3.ide.editor.modeChanged"/>
+
+  <bindable id="oneOrMoreSelected" value="this.getSelection() != null"
+            subscribe="jsx3.ide.recycling.selection"/>
+
+  <!-- Toolbar buttons, etc -->
+  <extension-point id="toolbar">
+    <processor type="instantiator" instance-class="jsx3.amp.util.ToolbarItem"/>
+  </extension-point>
+
+  <extension point="jsx3.ide.recycling.toolbar">
+    <button id="restore" img="jsxapp:/images/icon_93.gif" tip="Restore the selected objects" section="utils"
+            execute="this.getPlugIn().doRecycleRestore();" enabled="{editorApplies &amp;&amp; oneOrMoreSelected}"/>
+    <button id="empty" img="jsxapp:/images/icon_42.gif" tip="Empty the recycling bin" section="utils"
+            execute="this.getPlugIn().emptyRecycleBin();" enabled="{editorApplies}"/>
+  </extension>
+
+</plugin>
+    

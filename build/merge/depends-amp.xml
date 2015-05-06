@@ -1,0 +1,22 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<gi-merger>
+  <file path="js/jsx3/amp/package.js" provides="jsx3.amp" requires=""/>
+  <file path="js/jsx3/amp/Bindable.js" provides="jsx3.amp.Bindable" requires="jsx3.amp"/>
+  <file path="js/jsx3/amp/Ext.js" provides="jsx3.amp.Ext" requires="jsx3.amp"/>
+  <file path="js/jsx3/amp/ExtPoint.js" provides="jsx3.amp.ExtPoint" requires="jsx3.amp"/>
+  <file path="js/jsx3/amp/ExtProc.js" provides="jsx3.amp.ExtProc"/>
+  <file path="js/jsx3/amp/PlugIn.js" provides="jsx3.amp.PlugIn" requires="jsx3.amp jsx3.amp.Bindable"/>
+  <file path="js/jsx3/amp/XML.js" provides="jsx3.amp.XML" requires="jsx3.amp"/>
+  <file path="js/jsx3/amp/Resource.js" provides="jsx3.amp.Resource" requires="jsx3.amp.XML"/>
+  <file path="js/jsx3/amp/Engine.js" provides="jsx3.amp.Engine"
+        requires="jsx3.amp jsx3.amp.Ext jsx3.amp.ExtPoint jsx3.amp.ExtProc
+                  jsx3.amp.PlugIn jsx3.amp.Resource"/>
+  <file path="js/main.js" provides="main" requires="jsx3.amp.Engine"/>
+
+  <alias provides="default" requires="jsx3.amp.Engine main"/>
+
+</gi-merger>

@@ -1,0 +1,18 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Checkbox]]></name>
+  <icon><![CDATA[images/prototypes/matrix-columnmask.gif]]></icon>
+  <description><![CDATA[Renders a checkbox in each row of a column. Sets the CDF attribute specified in the path
+    property to 0 or 1 based on the checked state. Honors the @jsxdisabled and @jsxnomask CDF attributes.]]></description>
+  <object type="jsx3.gui.Matrix.Column">
+    <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"/>
+    <strings jsxname="checkboxColumn" jsxwidth="100" jsxtext="Checkbox" jsxpath="checked" jsxcelltextalign="center"
+        jsxpadding="3" jsxcellpadding="1" jsxvaluetemplate="@empty"/>
+    <object type="jsx3.gui.CheckBox">
+      <strings jsxname="checkboxMask"/>
+    </object>
+  </object>
+</serialization>

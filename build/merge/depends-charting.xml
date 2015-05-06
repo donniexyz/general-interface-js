@@ -1,0 +1,67 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<gi-merger>
+  <file path="classes/jsx3/chart/package.js" provides="jsx3.chart" requires=""/>
+  <file path="classes/jsx3/vector/package.js" provides="jsx3.vector" requires=""/>
+  <file path="classes/jsx3/html/Tag.js" provides="jsx3.html.Tag" requires=""/>
+  <file path="classes/jsx3/html/Text.js" provides="jsx3.html.Text" requires="jsx3.html.Tag"/>
+  <file path="classes/jsx3/html/BlockTag.js" provides="jsx3.html.BlockTag" requires="jsx3.html.Tag"/>
+  <file path="classes/jsx3/html/FontTag.js" provides="jsx3.html.FontTag" requires="jsx3.html.Tag"/>
+  <file path="classes/jsx3/vector/Canvas.js" provides="jsx3.vector.Canvas" requires="jsx3.html.BlockTag"/>
+  <file path="classes/jsx3/vector/Tag.js" provides="jsx3.vector.Tag" requires="jsx3.vector jsx3.html.BlockTag"/>
+  <file path="classes/jsx3/vector/Stroke.js" provides="jsx3.vector.Stroke" requires="jsx3.html.Tag"/>
+  <file path="classes/jsx3/vector/Fill.js" provides="jsx3.vector.Fill" requires="jsx3.html.Tag"/>
+  <file path="classes/jsx3/vector/Group.js" provides="jsx3.vector.Group" requires="jsx3.vector.Tag"/>
+  <file path="classes/jsx3/vector/BaseShape.js" provides="jsx3.vector.BaseShape" requires="jsx3.vector.Tag"/>
+  <file path="classes/jsx3/vector/Shape.js" provides="jsx3.vector.Shape" requires="jsx3.vector.BaseShape"/>
+  <file path="classes/jsx3/vector/Line.js" provides="jsx3.vector.Line" requires="jsx3.vector.BaseShape"/>
+  <file path="classes/jsx3/vector/Rectangle.js" provides="jsx3.vector.Rectangle" requires="jsx3.vector.BaseShape"/>
+  <file path="classes/jsx3/vector/Oval.js" provides="jsx3.vector.Oval" requires="jsx3.vector.BaseShape"/>
+  <file path="classes/jsx3/vector/Polygon.js" provides="jsx3.vector.Polygon" requires="jsx3.vector.BaseShape"/>
+  <file path="classes/jsx3/vector/TextLine.js" provides="jsx3.vector.TextLine" requires="jsx3.vector.Shape jsx3.html.BaseShape"/>
+  <file path="classes/jsx3/vector/LineGroup.js" provides="jsx3.vector.LineGroup" requires="jsx3.vector.Shape"/>
+  <file path="classes/jsx3/vector/RectangleGroup.js" provides="jsx3.vector.RectangleGroup" requires="jsx3.vector.Shape"/>
+  <file path="classes/jsx3/vector/Block.js" provides="jsx3.vector.Block" requires="jsx3.vector.Canvas"/>
+
+  <alias provides="html" requires="jsx3.html.Tag jsx3.html.Text jsx3.html.BlockTag jsx3.html.FontTag"/>
+  <alias provides="vector" requires="html jsx3.vector jsx3.vector.Canvas jsx3.vector.Tag jsx3.vector.Stroke
+       jsx3.vector.Fill jsx3.vector.Group jsx3.vector.Shape jsx3.vector.Line jsx3.vector.Rectangle
+       jsx3.vector.Oval jsx3.vector.Polygon jsx3.vector.TextLine jsx3.vector.LineGroup jsx3.vector.RectangleGroup
+       jsx3.vector.Block"/>
+
+  <file path="classes/jsx3/chart/PointRenderer.js" provides="jsx3.chart.PointRenderer" requires="vector"/>
+  <file path="classes/jsx3/chart/ChartComponent.js" provides="jsx3.chart.ChartComponent" requires="vector jsx3.chart"/>
+  <file path="classes/jsx3/chart/ChartLabel.js" provides="jsx3.chart.ChartLabel" requires="jsx3.chart.ChartComponent"/>
+  <file path="classes/jsx3/chart/GridLines.js" provides="jsx3.chart.GridLines" requires="jsx3.chart.ChartComponent"/>
+  <file path="classes/jsx3/chart/Axis.js" provides="jsx3.chart.Axis" requires="jsx3.chart.ChartComponent"/>
+  <file path="classes/jsx3/chart/LinearAxis.js" provides="jsx3.chart.LinearAxis" requires="jsx3.chart.Axis"/>
+  <file path="classes/jsx3/chart/LogarithmicAxis.js" provides="jsx3.chart.LogarithmicAxis" requires="jsx3.chart.Axis"/>
+  <file path="classes/jsx3/chart/CategoryAxis.js" provides="jsx3.chart.CategoryAxis" requires="jsx3.chart.Axis"/>
+  <file path="classes/jsx3/chart/Legend.js" provides="jsx3.chart.Legend" requires="jsx3.chart.PointRenderer jsx3.chart.ChartComponent"/>
+  <file path="classes/jsx3/chart/Series.js" provides="jsx3.chart.Series" requires="jsx3.chart.ChartComponent"/>
+  <file path="classes/jsx3/chart/BarSeries.js" provides="jsx3.chart.BarSeries jsx3.chart.ColumnSeries" requires="jsx3.chart.Series"/>
+  <file path="classes/jsx3/chart/PointSeries.js" provides="jsx3.chart.PointSeries" requires="jsx3.chart.PointRenderer jsx3.chart.Series"/>
+  <file path="classes/jsx3/chart/LineSeries.js" provides="jsx3.chart.LineSeries" requires="jsx3.chart.PointRenderer jsx3.chart.Series"/>
+  <file path="classes/jsx3/chart/AreaSeries.js" provides="jsx3.chart.AreaSeries" requires="jsx3.chart.PointRenderer jsx3.chart.Series"/>
+  <file path="classes/jsx3/chart/PieSeries.js" provides="jsx3.chart.PieSeries" requires="jsx3.chart.Series"/>
+  <file path="classes/jsx3/chart/Chart.js" provides="jsx3.chart.Chart" requires="jsx3.chart.ChartComponent"/>
+  <file path="classes/jsx3/chart/CartesianChart.js" provides="jsx3.chart.CartesianChart" requires="jsx3.chart.Chart"/>
+  <file path="classes/jsx3/chart/BarChart.js" provides="jsx3.chart.BarChart jsx3.chart.ColumnChart" requires="jsx3.chart.CartesianChart"/>
+  <file path="classes/jsx3/chart/PlotChart.js" provides="jsx3.chart.PlotChart" requires="jsx3.chart.CartesianChart jsx3.chart.PointSeries"/>
+  <file path="classes/jsx3/chart/LineChart.js" provides="jsx3.chart.LineChart" requires="jsx3.chart.CartesianChart jsx3.chart.LineSeries"/>
+  <file path="classes/jsx3/chart/AreaChart.js" provides="jsx3.chart.AreaChart" requires="jsx3.chart.CartesianChart jsx3.chart.AreaSeries"/>
+  <file path="classes/jsx3/chart/RadialChart.js" provides="jsx3.chart.RadialChart" requires="jsx3.chart.Chart"/>
+  <file path="classes/jsx3/chart/PieChart.js" provides="jsx3.chart.PieChart" requires="jsx3.chart.RadialChart jsx3.chart.PieSeries"/>
+
+  <alias provides="minimal" requires="vector"/>
+  <alias provides="common" requires="jsx3.chart.ChartLabel jsx3.chart.CartesianChart jsx3.chart.Axis
+      jsx3.chart.Series jsx3.chart.Legend"/>
+  <alias provides="full" requires="common jsx3.chart.BarChart jsx3.chart.PlotChart jsx3.chart.LineChart
+      jsx3.chart.AreaChart jsx3.chart.PieChart jsx3.chart.GridLines jsx3.chart.CategoryAxis jsx3.chart.LinearAxis
+      jsx3.chart.LogarithmicAxis"/>
+  <alias provides="default" requires="common"/>
+
+</gi-merger>

@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" >
+ <name><![CDATA[Bar - Stacked 100%]]></name>
+ <icon><![CDATA[icons/stacked100Bar.gif]]></icon>
+ <description><![CDATA[a sample bar chart of type 'Stacked 100%']]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[]]></onAfterDeserialize>
+  <object type="jsx3.chart.BarChart">
+   <dynamics />
+   <variants jsxleft="0" jsxtop="0" jsxwidth="400" jsxheight="300" borderWidth="1" borderAlpha="1" alpha="1" loadState="1" seriesOverlap="0.3" categoryCoverage="0.65" jsxrelativeposition="1" />
+   <strings jsxname="stacked100BarChart" titlePlacement="top" legendPlacement="right" dataPadding="14 10 6 6" borderColor="#999999" type="stacked100" jsxbgcolor="#FFFFFF" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;&lt;record cat=&quot;Argentina&quot; g=&quot;5&quot; m=&quot;10&quot; b=&quot;20&quot;/&gt;&lt;record cat=&quot;Brazil&quot; g=&quot;7&quot; m=&quot;25&quot; b=&quot;7&quot;/&gt;&lt;record cat=&quot;Chile&quot; g=&quot;22&quot; m=&quot;15&quot; b=&quot;4&quot;/&gt;&lt;record cat=&quot;Colombia&quot; g=&quot;10&quot; m=&quot;20&quot; b=&quot;10&quot;/&gt;&lt;record cat=&quot;Peru&quot; g=&quot;5&quot; m=&quot;20&quot; b=&quot;4&quot;/&gt;&lt;record cat=&quot;Uruguay&quot; g=&quot;17&quot; m=&quot;10&quot; b=&quot;4&quot;/&gt;&lt;record cat=&quot;Venezuela&quot; g=&quot;20&quot; m=&quot;20&quot; b=&quot;10&quot;/&gt;&lt;/data&gt;" />
+    <object type="jsx3.chart.Legend">
+     <dynamics />
+     <variants boxHeight="10" lineHeight="22" titleSpace="8" boxSpace="6" preferredWidth="110"/>
+     <strings jsxname="legend" labelStyle="font-family: Verdana; font-weight: bold; font-size: 10px;" backgroundStroke="#AAAAAA" jsxmargin="10 10 10 4" jsxpadding="4 4 0 4" />
+      <object type="jsx3.chart.ChartLabel">
+       <dynamics />
+       <variants labelRotation="0" jsxfontsize="12" />
+       <strings jsxname="legendTitle" jsxtext="Legend" jsxfontname="Arial" jsxfontweight="bold" jsxtextalign="center" />
+      </object>
+    </object>
+    <object type="jsx3.chart.ChartLabel">
+     <dynamics />
+     <variants labelRotation="0" jsxfontsize="14" />
+     <strings jsxname="title" jsxtext="Stacked 100% Bar Chart" jsxbgcolor="#666666" jsxpadding="4 0 0 0" jsxfontname="Arial" jsxfontweight="bold" jsxcolor="#FFFFFF" jsxtextalign="center" />
+    </object>
+    <object type="jsx3.chart.LinearAxis">
+     <dynamics />
+     <variants horizontal="1" primary="1" showAxis="1" showLabels="1" labelGap="3" tickLength="3" minorTickDivisions="4" minorTickLength="2" autoAdjust="1" baseAtZero="1" max="100" interval="25" />
+     <strings jsxname="xAxis" axisStroke="#000000 1 1" labelPlacement="axis" tickAlignment="aligned" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="outside" minorTickStroke="#666666 1" labelStyle="font-size: 8px; font-family: Verdana;" labelFunction="jsx3.chart.Axis.percent" />
+    </object>
+    <object type="jsx3.chart.CategoryAxis">
+     <dynamics />
+     <variants horizontal="0" primary="1" showAxis="1" showLabels="1" labelGap="3" tickLength="3" minorTickDivisions="4" minorTickLength="3" displayWidth="45" numCategories="7" numSeries="3" />
+     <strings jsxname="yAxis" axisStroke="#000000 1 1" labelPlacement="low" tickAlignment="between" tickPlacement="outside" tickStroke="#000000 1 1" minorTickPlacement="none" minorTickStroke="#000000 1 1" labelStyle="font-size: 8px; font-family: Verdana; text-align: right;" categoryField="cat" />
+    </object>
+    <object type="jsx3.chart.GridLines">
+     <dynamics />
+     <variants useXPrimary="1" useYPrimary="1" horizontalAbove="1" strokeMajorV="['#CCCCCC']" strokeMinorV="['#EEEEEE']" />
+     <strings jsxname="bgGrid" borderStroke="#CCCCCC 1" />
+    </object>
+    <object type="jsx3.chart.BarSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="0" />
+     <strings jsxname="series1" seriesName="Favorable" xField="g" tooltipFunction="jsx3.chart.BarSeries.tooltip" stroke="#2233FF" fill="#2233FF" />
+    </object>
+    <object type="jsx3.chart.BarSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="1" />
+     <strings jsxname="series2" seriesName="Neutral" xField="m" tooltipFunction="jsx3.chart.BarSeries.tooltip" stroke="#AAAAAA" fill="#AAAAAA" />
+    </object>
+    <object type="jsx3.chart.BarSeries">
+     <dynamics />
+     <variants usePrimaryX="1" usePrimaryY="1" index="2" />
+     <strings jsxname="series3" seriesName="Unfavorable" xField="b" tooltipFunction="jsx3.chart.BarSeries.tooltip" fill="#FF2233" stroke="#FF2233" />
+    </object>
+  </object>
+</serialization>

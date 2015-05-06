@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record include="master.xml" group="axis">
+    <record jsxid="autoAdjust" jsxtext="Auto Adjust"
+        jsxtip="Sets whether to adjust the range of the axis based on the data in the chart."
+        docgetter="getAutoAdjust" docsetter="setAutoAdjust"
+        docdefault="&lt;code&gt;TRUE (jsx3.Boolean.TRUE)&lt;/code&gt;"
+        eval="1"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.autoAdjust = vntValue; objJSX.getChart().repaint();">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="TRUE"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="FALSE"/>
+    </record>
+    <record jsxid="baseAtZero" jsxtext="Base At Zero"
+        jsxtip="Sets whether to set one end of the axis to the value of 0 if the chart data fits exclusively on either side of 0."
+        docgetter="getBaseAtZero" docsetter="setBaseAtZero"
+        docdefault="&lt;code&gt;TRUE (jsx3.Boolean.TRUE)&lt;/code&gt;"
+        eval="1"
+        jsxmask="jsxselect"
+        jsxexecute="objJSX.baseAtZero = vntValue; objJSX.getChart().repaint();">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="TRUE"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="FALSE"/>
+    </record>
+    <record jsxid="min" jsxtext="Minimum Value"
+        jsxtip="Sets the minimum value to display."
+        docgetter="getMin" docsetter="setMin"
+        docdefault="If Auto Adjust is set to &lt;code&gt;true&lt;/code&gt;, chart data is evaluated and appropriate value is applied. If Auto Adjust is set to &lt;code&gt;false&lt;/code&gt;, default is &lt;code&gt;0&lt;/code&gt;."
+        eval="1"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.min = vntValue; objJSX.getChart().repaint();"/>
+    <record jsxid="max" jsxtext="Maximum Value"
+        jsxtip="Sets the maximum value to display."
+        docgetter="getMax" docsetter="setMax"
+        docdefault="If Auto Adjust is set to &lt;code&gt;true&lt;/code&gt;, chart data is evaluated and appropriate value is applied. If Auto Adjust is set to &lt;code&gt;false&lt;/code&gt;, default is &lt;code&gt;100&lt;/code&gt;."
+        eval="1"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.max = vntValue; objJSX.getChart().repaint();"/>
+    <record jsxid="interval" jsxtext="Interval"
+        jsxtip="Sets the interval between major ticks."
+        docgetter="getInterval" docsetter="setInterval"
+        docdefault="If Auto Adjust is set to &lt;code&gt;true&lt;/code&gt;, chart data is evaluated and appropriate value is applied. If Auto Adjust is set to &lt;code&gt;false&lt;/code&gt;, default is &lt;code&gt;20&lt;/code&gt;."
+        eval="1"
+        jsxmask="jsxtext"
+        jsxexecute="objJSX.interval = vntValue; objJSX.getChart().repaint();"/>
+  </record>
+
+  <record include="master.xml" group="axisticks"/>
+  <record include="master.xml" group="axislabels"/>
+  <record include="master.xml" group="interaction_menuonly"/>
+</data>

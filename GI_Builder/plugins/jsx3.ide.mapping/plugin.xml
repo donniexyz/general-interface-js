@@ -1,0 +1,47 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+    id="jsx3.ide.mapping"
+    name="Data Mapping Plug-In"
+    property="MappingPlugin"
+    version="0.1">
+
+  <requires>
+    <plugin id="jsx3.net.Service"/>
+    <plugin id="jsx3.gui.BlockX"/>
+    <plugin id="jsx3.gui.RadioButton"/>
+    <plugin id="jsx3.ide"/>
+    <plugin id="jsx3.ide.editor"/>
+  </requires>
+  
+  <resources>
+    <script id="ide_js" path="js/ide.js" load="early"/> <!-- replace this with plug-in extensions -->
+    <script id="Mapper.js" path="js/jsx3/ide/mapper/Mapper.js"/>
+    <script id="ServiceTest.js" path="js/jsx3/ide/mapper/ServiceTest.js"/>
+  </resources>
+
+  <extension point="jsx3.ide.ui.action" id="actions">
+    <action
+        id="jsx3.ide.mapping"
+        label="XML Mapping Utility..." img="images/service.gif"
+        menupath="/jsx3.ide.tools/ide"
+        execute="jsx3.ide.doNewEditor('services');"/>
+  </extension>
+
+  <extension point="jsx3.ide.file-type" id="type.component">
+    <type id="services" label="Mapping Rule" img="jsxplugin://jsx3.ide.mapping/images/service.gif"
+          ext-class="jsx3.ide.mapper.FileType" precedence="10"/>
+  </extension>
+
+  <extension point="jsx3.ide.editor.type">
+    <type class="jsx3.ide.mapper.Editor" dialog="true" multi="false">
+      <filetype id="services"/>
+    </type>
+  </extension>
+
+</plugin>

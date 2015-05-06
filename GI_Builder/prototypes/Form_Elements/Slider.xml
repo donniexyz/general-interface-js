@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Slider]]></name>
+  <icon><![CDATA[images/prototypes/slider.gif]]></icon>
+  <description><![CDATA[Horizontal slider form control.]]></description>
+  <object type="jsx3.gui.Slider">
+    <variants jsxvalue="0" jsxrelativeposition="1" jsxorientation="0"/>
+    <strings jsxname="slider" jsxlength="200"/>
+  </object>
+</serialization>

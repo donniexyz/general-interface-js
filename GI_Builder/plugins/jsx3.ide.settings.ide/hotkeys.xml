@@ -1,0 +1,200 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+var amp = jsx3.amp;
+
+objJSX.getFirstResponder = function() {
+  return hotkeylist;
+};
+
+objJSX.savePrefs = function() {
+  var hkList = hotkeylist;
+  var hotkeys = {};
+
+  var records = hkList.getXML().selectNodes("//record");
+  for (var i = records.iterator(); i.hasNext(); ) {
+    var record = i.next();
+    var keycode = record.getAttribute("keycode");
+    var jsxdefault = record.getAttribute("jsxdefault");
+    var jsxid = record.getAttribute("jsxid");
+
+    if (keycode != jsxdefault) {
+      hotkeys[jsxid] = keycode;
+    }
+  }
+
+  var prefs = jsx3.ide.getIDESettings(true);
+  prefs.set("hotkeys", hotkeys);
+  prefs.save();
+
+  return {title: "Restart Required",
+      message: "You must restart General Interface Builder for the changes to take effect."};
+};
+
+objJSX.loadPrefs = function() {
+  var hkList = hotkeylist;
+  var prefs = jsx3.ide.getIDESettings().get("hotkeys") || {};
+
+  var menuManager = amp.Engine.getEngine(this.getServer()).getPlugIn("jsx3.ide.ui").getMenuManager();
+  var menus = menuManager.getMenus();
+
+  for (var i = 0; i < menus.length; i++) {
+    var menu = menus[i];
+
+    var items = menu.getItems();
+    for (var j = 0; j < items.length; j++) {
+      var item = items[j];
+
+      if (item instanceof amp.util.Menu) {
+        menus.push(item);
+      } else if (item instanceof jsx3.ide.ui.IdeMenuItem) {
+        var id = item.getHotKeyId();
+        if (id) {
+          var newRec = {};
+          newRec.jsxid = id;
+          newRec.path = this._getMenuPath(item);
+          newRec.jsxdefault = item.getDefaultHotKey(); // might be dynprop key
+          newRec.keycode = prefs[newRec.jsxid] || newRec.jsxdefault;
+
+          if (newRec.keycode == newRec.jsxdefault) {
+            newRec.unchanged = "true";
+          }
+
+          if (newRec.keycode) {
+            try {
+              var hk = jsx3.gui.HotKey.valueOf(newRec.keycode);
+              newRec.keycodeformatted = hk.getFormatted();
+            } catch (e) { this.getPlugIn().getLog().warn("Error parsing hot key string '" + newRec.keycode + "'."); }
+          }
+
+          hkList.insertRecord(newRec, null, false);
+        }
+      }
+    }
+  }
+
+  hkList.repaintData();
+};
+
+objJSX.getMenuItemForKey = function(key) {
+  var menuManager = amp.Engine.getEngine(this.getServer()).getPlugIn("jsx3.ide.ui").getMenuManager();
+  var menus = menuManager.getMenus();
+
+  for (var i = 0; i < menus.length; i++) {
+    var menu = menus[i];
+
+    var items = menu.getItems();
+    for (var j = 0; j < items.length; j++) {
+      var item = items[j];
+
+      if (item instanceof amp.util.Menu) {
+        menus.push(item);
+      } else {
+        var keycode = item.getHotKey();
+        if (keycode) {
+          var hk = jsx3.gui.HotKey.valueOf(keycode);
+          if (hk.getKey() == key.getKey())
+            return item;
+        }
+      }
+    }
+  }
+};
+
+objJSX._getMenuPath = function(objItem) {
+  var path = objItem.getLabel();
+  var parent = objItem.getMenu();
+  while (parent != null) {
+    path = parent.getLabel() + " : " + path;
+    parent = parent.getMenu();
+  }
+
+  var props = this.getServer().getProperties();
+  path = path.replace(/\{([\w\.]+)\}/g, function(p0, p1) {
+    var p = props.get(p1);
+    return p || p0;
+  });
+
+  return path;
+};
+
+objJSX._doChoose = function(objList, strRecordId) {
+  var d = this.load("hotkeys-dialog.xml", null, amp.Engine.getEngine(this.getServer()).getPlugIn("jsx3.ide.settings.ide"));
+  d.subscribe("default", this, "_onSetDefault");
+  d.subscribe("set", this, "_onSetKey");
+  d.onInit(hotkeylist.getRecordNode(strRecordId).getAttribute("jsxid"));
+  d.focus();
+};
+
+objJSX._onSetDefault = function(objEvent) {
+  var hkList = hotkeylist;
+  var keyId = hkList.getValue();
+  var recordNode = hkList.getRecordNode(keyId);
+  hkList.insertRecordProperty(keyId, "keycode", recordNode.getAttribute("jsxdefault"), false);
+  if(recordNode.getAttribute("jsxdefault")) {
+    var hk = jsx3.gui.HotKey.valueOf(recordNode.getAttribute("jsxdefault"));
+    hkList.insertRecordProperty(keyId, "keycodeformatted", hk.getFormatted());
+  } else {
+    hkList.deleteRecordProperty(keyId, "keycodeformatted");
+  }
+  hkList.insertRecordProperty(keyId, "unchanged", "true", true);
+  this._makeDirty();
+};
+
+objJSX._onSetKey = function(objEvent) {
+  var hkList = hotkeylist;
+  var keyId = hkList.getValue();
+  hkList.insertRecordProperty(keyId, "keycode", objEvent.key);
+  var hk = jsx3.gui.HotKey.valueOf(objEvent.key);
+  hkList.insertRecordProperty(keyId, "keycodeformatted", hk.getFormatted());
+  hkList.deleteRecordProperty(keyId, "unchanged", true);
+  this._makeDirty();
+};
+
+objJSX._makeDirty = function() {
+  this.getPane().setDirty(true);
+};
+
+  ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+      <strings jsxname="prefspane" jsxwidth="100%" jsxheight="100%" jsxpadding="8 8 4 8" jsxhelpid="ide.prefs.hotkeys"/>
+          <object type="jsx3.gui.LayoutGrid">
+            <variants/>
+            <strings jsxrows="32,*"/>
+              <object type="jsx3.gui.Block">
+                <variants jsxoverflow="2"/>
+                <strings jsxwidth="100%" jsxheight="100%" jsxtext="Double-click on a row in the list to set the hot key for that menu item. Changes take effect after restarting the IDE."/>
+              </object>
+              <object type="jsx3.gui.Block">
+              <dynamics jsxbgcolor="@Solid Medium" jsxborder="@Inset"/>
+              <variants jsxoverflow="2"/>
+              <strings jsxwidth="100%" jsxheight="100%"/>
+                <object type="jsx3.gui.Matrix">
+                  <dynamics jsxbgcolor="@Solid Light"/>
+                  <variants jsxselectionmodel="1" jsxscalewidth="1" jsxresize="1" jsxreorder="0"/>
+                  <strings jsxname="hotkeylist" jsxbodyborder="1px solid #d8d8e5" jsxfocusstyle=";"/>
+                  <events jsxexecute="prefspane._doChoose(this, strRECORDID);"/>
+                  <xslparameters jsx_rowbg1="#ffffff"/>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset"
+               jsxcellbgcolor="@Matrix AllCol BG" jsxcellborder="@Matrix AllCol Border"/>
+                      <strings jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="*" jsxpath="path" jsxtext="Menu" />
+                    </object>
+                    <object type="jsx3.gui.Matrix.Column">
+                      <dynamics jsxbg="@Fade TopDown" jsxborder="@Outset NoRight"
+               jsxcellbgcolor="@Matrix AllCol BG" jsxcellborder="@Matrix AllCol Border"/>
+                      <strings jsxcellpadding="3" jsxpadding="2 3 0 3" jsxwidth="135" jsxpath="keycodeformatted"
+                          jsxtext="Key" jsxvaluetemplate="&lt;xsl:template xmlns:xsl=&quot;http://www.w3.org/1999/XSL/Transform&quot;&gt;  &lt;xsl:choose&gt;    &lt;xsl:when test=&quot;{0} and not({0}='')&quot;&gt;      &lt;xsl:if test=&quot;@unchanged&quot;&gt;&lt;xsl:attribute name=&quot;style&quot;&gt;color:#9898a5;&lt;/xsl:attribute&gt;&lt;/xsl:if&gt;      &lt;xsl:value-of select=&quot;{0}&quot;/&gt;&lt;/xsl:when&gt;    &lt;xsl:otherwise&gt;&lt;xsl:text&gt;&amp;#160;&lt;/xsl:text&gt;&lt;/xsl:otherwise&gt;  &lt;/xsl:choose&gt;&lt;/xsl:template&gt;"
+                          jsxcellfontname="Lucida Grande, Verdana, sans-serif"/>
+                    </object>
+                </object>
+            </object>
+        </object>
+    </object>
+</serialization>

@@ -1,0 +1,172 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+ <name><![CDATA[Dialog]]></name>
+ <description><![CDATA[Dialog box.  (Set Modal property for a modal dialog).]]></description>
+ <onBeforeDeserialize><![CDATA[]]></onBeforeDeserialize>
+ <onAfterDeserialize><![CDATA[
+
+objJSX.getFirstResponder = function() {
+  return homepath;
+};
+
+objJSX.doBrowse = function() {
+  var fs = this._getFS(fsSelect.getValue());
+  if (!fs) {
+    jsx3.ide.LOG.warn("No file system " + fsSelect.getValue());
+    return;
+  }
+
+  var strValue = homepath.getValue();
+  var objFolder = fs.getInstance().getFile(strValue);
+  while (objFolder && ! objFolder.isDirectory()) {
+    objFolder = objFolder.getParentFile();
+  }
+
+  if (!objFolder || !objFolder.isDirectory())
+    objFolder = fs.getInstance().getFile("/");
+
+  jsx3.ide.getPlugIn("jsx3.io.browser").chooseFolder(jsx3.IDE.getRootBlock(), {
+      name:"newhomedialog", modal:true, title:"Choose Workspace Folder", okLabel:"Choose",
+      folder: objFolder, onChoose: jsx3.$F(function(objFile) { this._onBrowseChoose(objFile); }).bind(this)
+  });
+};
+
+objJSX._onBrowseChoose = function(objFile) {
+  homepath.setValue(objFile.getAbsolutePath());
+};
+
+objJSX.doCreate = function() {
+  var strValue = homepath.getValue();
+  var fs = this._getFS(fsSelect.getValue());
+
+  if (strValue && fs) {
+    var objFile = fs.getInstance().getFile(strValue);
+    if (jsx3.ide.onSelectNewUserHome(objFile, jsx3.IDE)) {
+      jsx3.IDE.alert(null, "You must reload General Interface Builder to use your new workspace.",
+          function() {window.location.reload()}, "Reload Browser");
+    }
+  } else {
+    this.beep();
+    this.onInit();
+  }
+};
+
+objJSX.onInit = function() {
+  var fs = jsx3.ide.getPlugIn("jsx3.io").getAvailableFileSystems();
+  var fsWrite = fs.filter(function(e) { return e.hasWrite(); });
+
+  if (fsWrite.length == 0)
+    fsWrite = fs;
+
+  if (fsWrite.length > 0) {
+    fsWrite.each(function(fileSystem) {
+      fsSelect.insertRecord({jsxid:fileSystem.getId(), jsxtext:fileSystem.getLabel()});
+    });
+
+    fsSelect.setValue(fsWrite[0].getId());
+    this._onFSSelect(fsWrite[0].getId());
+  } else {
+    fsSelect.setEnabled(false, true);
+  }
+};
+
+objJSX._getFS = function(id) {
+  return jsx3.ide.getPlugIn("jsx3.io").getFileSystemById(id);
+};
+
+objJSX._onFSSelect = function(id) {
+  var fileSystem = this._getFS(id);
+
+  homepath.setValue("", true);
+  btnBrowse.setEnabled(false, true);
+
+  if (fileSystem) {
+    fileSystem.load().when(function() {
+      var fs = fileSystem.getInstance();
+      var userDocs = fs.getUserDocuments();
+      if (userDocs)
+        homepath.setValue(userDocs.resolve(jsx3.ide.DEFAULT_USER_HOME).getAbsolutePath(), true);
+      btnBrowse.setEnabled(fileSystem && fileSystem.hasList(), true);
+    });
+  }
+};
+
+objJSX.registerHotKey('doCreate', jsx3.gui.Event.KEY_ENTER, false, false, false);
+ 
+objJSX.onInit();
+
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+   <dynamics jsxbgcolor="@Solid Medium"/>
+   <variants jsxresize="0" jsxmodal="0" />
+   <strings jsxname="jsx_ide_newhome" jsxwidth="500" jsxheight="175" jsxhelpid="ide.newhome"/>
+    <object type="jsx3.gui.WindowBar">
+     <variants/>
+     <strings jsxtext="Create or Locate a Workspace"/>
+       <object type="jsx3.gui.ToolbarButton">
+         <dynamics jsximage="@Min Icon" jsxtip="jsx3.gui.Dialog.min"/>
+         <variants/>
+         <strings/>
+         <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doToggleState();"/>
+       </object>
+    </object>
+    <object type="jsx3.gui.LayoutGrid">
+     <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxrows="*,36,36"/>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxpadding="@8Pixel"/>
+       <variants jsxoverflow="2"/>
+       <strings jsxwidth="100%" jsxheight="100%" jsxtext="Your workspace could not be found. A workspace contains your projects, custom addins, and prototypes, as well as your user settings for General Interface Builder. Use the browse button to locate an existing workspace or create a new one."/>
+      </object>
+      <object type="jsx3.gui.Block">
+       <variants jsxoverflow="1"/>
+       <strings jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.LayoutGrid">
+         <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+         <strings jsxwidth="100%" jsxheight="100%" jsxcols="135,*,40"/>
+          <object type="jsx3.gui.Block">
+           <variants jsxoverflow="2"/>
+           <strings jsxwidth="100%" jsxheight="100%" jsxpadding="8 0 8 8"/>
+            <object type="jsx3.gui.Select">
+             <variants jsxheight="18" jsxenabled="1"/>
+             <strings jsxname="fsSelect" jsxwidth="100%"/>
+             <events jsxselect="jsx_ide_newhome._onFSSelect(strRECORDID)"/>
+            </object>
+          </object>
+          <object type="jsx3.gui.Block">
+           <dynamics jsxpadding="@8Pixel"/>
+           <variants jsxoverflow="2"/>
+           <strings jsxwidth="100%" jsxheight="100%"/>
+            <object type="jsx3.gui.TextBox">
+             <variants jsxheight="18" jsxenabled="1"/>
+             <strings jsxname="homepath" jsxwidth="100%"/>
+             <events/>
+            </object>
+          </object>
+          <object type="jsx3.gui.Block">
+           <variants jsxoverflow="1"/>
+           <strings jsxwidth="100%" jsxheight="100%" jsxpadding="5"/>
+            <object type="jsx3.gui.ToolbarButton">
+             <variants/>
+             <strings jsxname="btnBrowse" jsximage="jsxapp:/images/icon_60.gif"/>
+             <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doBrowse();"/>
+            </object>
+          </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+       <dynamics jsxpadding="@8Pixel"/>
+       <variants jsxoverflow="1"/>
+       <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right"/>
+        <object type="jsx3.gui.Button">
+         <variants jsxindex="0" jsxheight="18"/>
+         <strings jsxtext="Choose" jsxmargin="0 4 0 0" jsxfontweight="bold"/>
+         <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doCreate();"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

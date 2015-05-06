@@ -1,0 +1,18 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Text Area]]></name>
+  <icon><![CDATA[images/prototypes/matrix-columnmask.gif]]></icon>
+  <description><![CDATA[An editable plain text column. The edit mask can be larger than the data cell.]]></description>
+  <object type="jsx3.gui.Matrix.Column">
+    <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"/>
+    <strings jsxname="textareaColumn" jsxwidth="100" jsxtext="Text"
+        jsxpadding="2" jsxcellpadding="3" jsxpath="jsxtext"/>
+    <object type="jsx3.gui.TextBox">
+      <variants jsxheight="80" jsxtype="1"/>
+      <strings jsxname="textareaMask"/>
+    </object>
+  </object>
+</serialization>

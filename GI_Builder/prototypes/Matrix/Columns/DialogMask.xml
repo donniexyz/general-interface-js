@@ -1,0 +1,39 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Mask - Dialog]]></name>
+  <icon><![CDATA[images/prototypes/matrix-columnmask.gif]]></icon>
+  <description><![CDATA[Example of using a dialog as an edit mask for a matrix column.]]></description>
+  <object type="jsx3.gui.Matrix.Column">
+    <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"/>
+    <strings jsxname="dialogMaskColumn" jsxwidth="150" jsxtext="Value"
+        jsxpadding="2" jsxcellpadding="2" jsxpath="jsxvalue"/>
+    <object type="jsx3.gui.Dialog">
+      <dynamics jsxbgcolor="@Solid Medium"/>
+      <variants jsxwidth="300" jsxheight="200"/>
+      <strings jsxname="dialog"/>
+      <object type="jsx3.gui.WindowBar">
+        <dynamics/>
+        <variants jsxheight="9"/>
+        <strings jsxname="caption" jsxbg="" jsxborder="1px solid #d8d8e5;0px;0px;1px solid #e8e8f5;"
+            jsxbgcolor="#f5f5fb"/>
+        <object type="jsx3.gui.ImageButton">
+          <dynamics jsxtip="jsx3.gui.Dialog.close"/>
+          <variants jsxwidth="8" jsxheight="8"/>
+          <strings jsxname="closebtn" jsximage="jsx:///images/dialog/close_small.gif"/>
+          <events jsxexecute="this.getParent().getParent().commitEditMask(objEVENT);"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxrelativeposition="1" jsxoverflow="2"/>
+        <strings jsxname="block" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.TextBox">
+          <variants jsxtype="1" jsxrelativeposition="1"/>
+          <strings jsxwidth="100%" jsxheight="100%" jsxname="textarea"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

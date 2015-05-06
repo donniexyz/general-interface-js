@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="jsx3form" group="1" jsxtext="Form">
+    <record jsxid="jsxaction" jsxtext="Action"
+        jsxtip="Sets the form action. The action is the URL to which the form is submitted."
+        docgetter="getAction" docsetter="setAction" docdefault="None"
+        disallow="[\s]" jsxmask="jsxtext" eval="0"
+        jsxexecute="objJSX.setAction(vntValue);"
+        />
+    <record jsxid="jsxmethod" jsxtext="Method"
+        jsxtip="Sets the form method."
+        docgetter="getMethod" docsetter="setMethod" docdefault="GET"
+        jsxexecute="objJSX.setMethod(vntValue);"
+        eval="1"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.NativeForm.GET" jsxtext="GET" eval="0"/>
+      <enum jsxid="jsx3.gui.NativeForm.POST" jsxtext="POST" eval="0"/>
+    </record>
+    <record jsxid="jsxmulti" jsxtext="Multipart"
+        jsxtip="Sets whether the form is multipart. Forms that include file upload fields must be multipart."
+        docgetter="getMultipart" docsetter="setMultipart" docdefault="&lt;code&gt;false (jsx3.Boolean.FALSE)&lt;/code&gt;"
+        jsxexecute="objJSX.setMultipart(vntValue);"
+        eval="1"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+    <record jsxid="jsxtarget" jsxtext="Target"
+        jsxtip="Sets the target for the form submission."
+        docgetter="setTarget" docsetter="getTarget"
+        docdefault="Invisible IFRAME &lt;code&gt;(jsx3.gui.NativeForm.IFRAME)&lt;/code&gt;"
+        jsxexecute="objJSX.setTarget(vntValue);"
+        eval="1"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.gui.NativeForm.IFRAME" jsxtext="Invisible IFRAME" jsxtip="The form is submitted in the background. The results of the form submission are available programmatically."/>
+      <enum jsxid="jsx3.gui.NativeForm.BLANK" jsxtext="New Window" jsxtip="The form is submitted in a new browser window."/>
+      <enum jsxid="jsx3.gui.NativeForm.SELF" jsxtext="Current Window/Frame" jsxtip="The form is submitted in the window or frame containing the GI application. The GI application will be unloaded."/>
+      <enum jsxid="jsx3.gui.NativeForm.TOP" jsxtext="Current Window" jsxtip="The form is submitted in the browser window containing the GI application. The GI application will be unloaded."/>
+    </record>
+    <record jsxid="jsxiframe" jsxtext="Target IFrame"
+        jsxtip="Sets the target IFrame. The value of this property is the name or selection expression of a jsx3.gui.IFrame in this application. This property takes precedence over the Target property."
+        docgetter="getIFrame" docsetter="setIFrame" docdefault="Empty"
+        jsxmask="jsxtext" eval="0"
+        />
+  </record>
+
+  <record include="master.xml" group="metadata"/>
+</data>

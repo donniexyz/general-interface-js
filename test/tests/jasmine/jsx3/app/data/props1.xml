@@ -1,0 +1,7 @@
+<data jsxid="jsxroot" jsxns="urn:tibco.com/v3.0/dynamicproperties/1">
+  <record jsxid="key1" jsxtext="value1"/>
+  <record jsxid="key2" jsxtext="value2"/>
+  <record jsxid="key3" jsxtext="value3"/>
+  <record jsxid="eval1" eval="1" jsxtext="2 * 9"/>
+  <record jsxid="eval2" eval="1" jsxtext="2n * 9"/>
+</data>

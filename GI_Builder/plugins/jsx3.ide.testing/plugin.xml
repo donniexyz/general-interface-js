@@ -1,0 +1,126 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+        id="jsx3.ide.testing"
+        name="GIPP Integration Plug-In"
+        version="0.1">
+
+  <method id="launchGIPP" params="benchmarkJSPath, interval">
+    var gipp = this.getGIPPDir();
+
+    var query = "GI=" + gipp.relativePathTo(jsx3.ide.getSystemRelativeFile("")) + "&amp;APP=" +
+        gipp.relativePathTo(jsx3.ide.PROJECT.getDirectory());
+
+    if (benchmarkJSPath) {
+      query = query + "&amp;BENCHMARK_JS=" + benchmarkJSPath;
+    } else {
+      var rsrc = jsx3.ide.PROJECT.getResources().filter(function(e) { return e.getType() == "gipp"; });
+      if (rsrc.length > 0) {
+        var paths = rsrc.map(function(e) { return e.getPath(); });
+        query = query + "&amp;BENCHMARK_JS=[" + paths.join(",") + "]";
+      }
+    }
+
+    if (interval)
+      query = query + "&amp;INTERVAL=" + interval;
+
+    var uri = gipp.toURI();
+    uri = jsx3.net.URI.fromParts(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(),
+        uri.getPath() + "gipp.html", query, null);
+
+    window.open(uri.toString());
+  </method>
+
+  <method id="launchGITAK" params="testFilePath">
+    var gitak = this.getGITAKDir();
+    // Test Runner is under "selenium/core/" subdirectory, need go one more up from gitak.relativePath
+    var query = "GI=../../" + gitak.relativePathTo(jsx3.ide.getSystemRelativeFile("")) + "&amp;APP=../../" +
+        gitak.relativePathTo(jsx3.ide.PROJECT.getDirectory());
+
+    if (testFilePath) {
+      query = query + "&amp;TESTS=[" + testFilePath + "]";
+    } else {
+      var rsrc = jsx3.ide.PROJECT.getResources().filter(function(e) { return e.getType() == "gitak"; });
+      if (rsrc.length > 0) {
+        var paths = rsrc.map(function(e) { return e.getPath(); });
+        query = query + "&amp;TESTS=[" + paths.join(",") + "]";
+      }
+    }
+    query = "test=TestSuiteAuto.html&amp;" + query;
+    
+    var uri = gitak.toURI();
+    uri = jsx3.net.URI.fromParts(uri.getScheme(), uri.getUserInfo(), uri.getHost(), uri.getPort(),
+        uri.getPath() + "selenium/core/TestRunner.html", query, null);
+
+    window.open(uri.toString());
+  </method>
+
+  <method id="isGIPPConfigured">
+    return this.isValidGIPP(this.getGIPPDir());
+  </method>
+
+  <method id="isGITAKConfigured">
+    return this.isValidGITAK(this.getGITAKDir());
+  </method>
+
+  <method id="getGIPPDir">
+    var p = jsx3.app.Browser.getLocation().resolve(this.getGIPPPath());
+    return jsx3.ide.getPlugIn("jsx3.io").getFileForURI(p);
+  </method>
+
+  <method id="getGITAKDir">
+    var p = jsx3.app.Browser.getLocation().resolve(this.getGITAKPath());
+    return jsx3.ide.getPlugIn("jsx3.io").getFileForURI(p);
+  </method>
+
+  <method id="getGIPPPath">
+    return jsx3.ide.getIDESettings().get(this.getId(), "path") || this.resolveURI("gipp");
+  </method>
+
+  <method id="getGITAKPath">
+    return jsx3.ide.getIDESettings().get(this.getId(), "pathGitak") || this.resolveURI("gitak");
+  </method>
+
+  <method id="isValidGIPP" params="objFile">
+    return objFile.resolve("gipp.html").isFile();
+  </method>
+
+  <method id="isValidGITAK" params="objFile">
+    return objFile.resolve("selenium/core/TestRunner.html").isFile();
+  </method>
+
+  <requires>
+  </requires>
+
+  <resources>
+    <xml id="pane_gipp" path="pane.xml"/>
+  </resources>
+
+  <extension point="jsx3.ide.settings.ide.pane" id="default">
+    <pane label="GIPP &amp;#38; GITAK" img="gipp.gif" resource="pane_gipp"
+          tip="Settings related to integration with the Test Automation Kit and Performance Profiler."/>
+  </extension>
+
+  <extension point="jsx3.ide.ui.action" id="menu.project">
+    <action
+        id="jsx3.ide.testing.run"
+        label="Run Project In GIPP..."
+        tip="Run project in the General Interface Performance Profiler"
+        menupath="/jsx3.ide.project/run" hkconfig="true"
+        execute="this.getPlugIn().launchGIPP();"
+        enabled="eval" enabled-eval="jsx3.ide.PROJECT &amp;&amp; this.getPlugIn().isGIPPConfigured()"/>
+    <action
+        id="jsx3.ide.testing.rungitak"
+        label="Run Project In GITAK..."
+        tip="Run project in the General Interface Test Automation Kit"
+        menupath="/jsx3.ide.project/run" hkconfig="true"
+        execute="this.getPlugIn().launchGITAK();"
+        enabled="eval" enabled-eval="jsx3.ide.PROJECT &amp;&amp; this.getPlugIn().isGITAKConfigured()"/>
+  </extension>
+
+</plugin>

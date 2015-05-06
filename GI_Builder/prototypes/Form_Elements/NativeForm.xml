@@ -1,0 +1,12 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Form]]></name>
+  <icon><![CDATA[images/prototypes/form.gif]]></icon>
+  <description><![CDATA[A jsx3.gui.NativeForm object.]]></description>
+  <object type="jsx3.gui.NativeForm">
+    <strings jsxname="form" jsxaction="#" jsxmethod="get" jsxmulti="0" jsxtarget="0"/>
+  </object>
+</serialization>

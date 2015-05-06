@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Text/HTML]]></name>
+  <icon><![CDATA[images/prototypes/block-text.gif]]></icon>
+  <description><![CDATA[Block with long Text/HTML property.  relatively positioned, so text will wrap around other relatively positioned objects.]]></description>
+  <object type="jsx3.gui.Block">
+    <variants/>
+    <strings jsxname="text" jsxwidth="100%" jsxtext="[Lorem ipsum dolor sit amet, consectetuer adipiscing elit. In pharetra wisi non dolor. Pellentesque a ipsum. Nulla laoreet erat a nulla. In porta luctus justo. Pellentesque arcu odio, sollicitudin ac, hendrerit non, ornare et, risus. Proin aliquam viverra ligula. Aliquam eget lectus eu lorem convallis volutpat. Aliquam erat volutpat.]"/>
+  </object>
+</serialization>

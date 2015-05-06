@@ -1,0 +1,176 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<HTML>
+<HEAD>
+<TITLE>JSX Step Through Debugger (Read Only)</TITLE>
+
+<style type="text/css">
+  .jsxscrollbar {scrollbar-arrow-color:window;scrollbar-3dlight-color:threedface;scrollbar-shadow-color:scrollbar;scrollbar-darkshadow-color:threedshadow;scrollbar-base-color:scrollbar;scrollbar-highlight-color:window  ;scrollbar-face-color:threedface;}
+
+</style>
+
+<script language="JavaScript">
+
+//regular expression replace funciton
+String.prototype.doTruncate = function(intLength) {return (this.length > intLength) ? this.substring(0,intLength) + "..." : this;};
+
+//global reference to parent window for this modal dialog instance
+var objWindow;
+
+//reference to offset left/top of dialog window from the dialog's caption bars and borders
+var g_leftDiff;
+var g_topDiff;
+
+//set default return value to be cancel
+window.returnValue = 0;
+
+//initialization function to display variables passed from parent window and enable/disable various buttons
+function fnInit(){
+  //THE FOLLOWING ARRAY INDECES DENOTE WHAT IS PASSED FROM THE PARENT WINDOW
+  //[0]  entire expression object
+  //[1] current SUBexpression object
+  //[2] current index of child statement about to be executed (-1 is passed if just about to enter an expression)
+  //[3] value returned when the last statment of code was executed in the parent window; if an [object] is passed, users can inspect for additional values
+  //[4] flag denoting which actions will be enabled for the developer (step into, step out, etc)
+        //0 = execution failed or has completed; only cancel/close button will be enabled
+  //1 = stepinto
+  //2 = step out
+  //4 = execute all
+  //[5] reference to parent window (typically a hidden IFRAME, but can be any HTML window)
+
+
+  //display return data if applicable
+  if(false && window.dialogArguments[3] != null && typeof(window.dialogArguments[3]) == "object" && typeof(window.dialogArguments[3].nodeTypedValue) == "undefined") {
+    var strHTML = "object <span style='text-decoration:underline;color:orange;cursor:hand;' onclick='doInspect();'>[view properties]</span>";
+    oArgs2.innerHTML = strHTML;
+  } else if(false && window.dialogArguments[3] != null && typeof(window.dialogArguments[3]) == "object") {
+    var strHTML = "object <span style='text-decoration:underline;color:orange;cursor:hand;' onclick='document.all.oArgs2.innerHTML = fixMe(window.dialogArguments[3].xml);'>[view XML]</span>";
+    oArgs2.innerHTML = strHTML;
+  } else {
+    oArgs2.innerText = window.dialogArguments[3];
+  }
+
+  //show errors in red (when buttons 1 and 4 are disabled, a runtime error has occurred)
+  if(window.dialogArguments[4] == 5) document.all.oArgs2.style.color = "#ff0000";
+
+  //additive values for which buttons are enabled (8 + 4 + 1), etc.
+  intFlag = window.dialogArguments[4];
+  //array of toolbar buttons to enable
+  var tArray = [];
+  tArray[0] = document.all.oCancel;   //will never become disabled, because zero is never encounted in decrement
+  tArray[1] = document.all.oStepInto;
+  tArray[2] = document.all.oStepOver;
+  tArray[4] = document.all.oExecute;
+  
+  curMax = 4;
+  while(intFlag > 0) {
+    //update curMax--whatever number it is will be the type of control to enable
+    while(intFlag < curMax) {
+      curMax = curMax / 2;
+    }
+
+    //disable this toolbar control
+    tArray[curMax].style.backgroundImage = tArray[curMax].style.backgroundImage.toString().replace(/_1/g,"_0");
+    tArray[curMax].style.cursor = "default";
+    tArray[curMax].onclick = function() {return;};
+
+    //decrement the flag
+    intFlag = intFlag - curMax;
+  }
+
+  //ref to owner window (a hidden IFRAME)
+  objWindow = window.dialogArguments[5];
+
+  //do math to determine offsets
+  g_leftDiff = window.screenLeft - window.dialogLeft.replace(/px/g,"");
+  g_topDiff = window.screenTop - window.dialogTop.replace(/px/g,"");
+
+
+  //convert the expression object to a string of HTML with the line about to be executed highlighted in yellow
+  oArgs.innerHTML = convertExpressionToString(window.dialogArguments[0],"",window.dialogArguments[1],window.dialogArguments[2]);
+
+  //make sure the line of highlighted yellow text is scrolled into view
+  document.all.mrYellow.focus();
+}
+
+
+function doInspect() {
+  var o = window.dialogArguments[3];
+  var strHTML = "<table style='width:100%;font-family:verdana;font-size:10px;'>";
+  for(p in o) {
+    if(typeof(o[p]) != "function") {
+      try {
+        strHTML += "<tr><td>" + p + "</td><td>" + fixMe(o[p].toString()).doTruncate(100) + "</td></tr>";
+      } catch(e){}
+    }
+  }
+  strHTML += "</table>";
+  document.all.oArgs2.innerHTML = strHTML;
+}
+
+
+
+
+//save position of dialog box if it is moved
+function doProcessMove() {
+  //determine absolute position of the dialog's content window
+  objWindow.jsx3.ide.DEBUG_LEFT = window.screenLeft - g_leftDiff;
+  objWindow.jsx3.ide.DEBUG_TOP = window.screenTop - g_topDiff;
+}
+window.onbeforeunload = doProcessMove;
+
+
+
+//converts the JSX expression object to a string representation (as HTML) of the function being stepped through
+function convertExpressionToString(objExpression,strIndent,objIteration,intIndex) {
+  if(intIndex == -1 && objIteration == objExpression) {
+    var strExpression = "<div id='mrYellow' tabindex='0' style='background-color:yellow;white-space:nowrap;'>" + strIndent + fixMe(objExpression["strConditionStart"]) + "</div>";
+  } else {
+    var strExpression = "<div tabindex='0' style='white-space:nowrap;'>" + strIndent + fixMe(objExpression["strConditionStart"]) + "</div>";
+  }
+  var a = objExpression["expressionArray"];
+  for(var i=0;i<a.length;i++) {
+    if(typeof(a[i]) == "string") {
+      if(i == intIndex && objIteration == objExpression) {
+        strExpression += "<div id='mrYellow' tabindex='0' style='background-color:yellow;white-space:nowrap;'>" + strIndent + "&#160;&#160;" + fixMe(a[i]) + "</div>";
+      } else {
+        strExpression += "<div tabindex='0' style='white-space:nowrap;'>" + strIndent + "&#160;&#160;" + fixMe(a[i]) + "</div>";
+      }
+    } else {
+      strExpression += convertExpressionToString(a[i],strIndent + "&#160;&#160;",objIteration,intIndex);
+    }
+  }
+  if(intIndex == a.length && objIteration == objExpression) {
+    strExpression += "<div id='mrYellow' tabindex='0' style='color:#006633;background-color:yellow;white-space:nowrap;'>" + strIndent + fixMe(objExpression["strConditionEnd"]) + "</div>";
+  } else {
+    strExpression += "<div tabindex='0' style='white-space:nowrap;'>" + strIndent + fixMe(objExpression["strConditionEnd"]) + "</div>";
+  }
+  return strExpression;
+}
+
+
+//replaces HTML markup with escaped values
+function fixMe(strInput) {
+  return strInput.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/ /g,"&#160;").replace(/\t/g,"&#160;&#160;&#160;&#160;");
+}
+
+
+</script>
+</HEAD>
+<BODY style="background-color:scrollbar;" SCROLL="false" onload="fnInit();">
+<div style="position:absolute;left:8px;top:8px;width:560px;height:24px;border:solid 1px threedshadow;border-left-color:threedhighlight;border-top-color:threedhighlight;z-index:2;background-color:threedface;">
+  <div id="oStepInto" title="execute statement..." onclick="window.returnValue=1;window.close();" style="position:absolute;left:4px;top:3px;height:16px;width:16px;overflow:hidden;cursor:hand;background-image:url(images/into_1.gif);">&#160;</div>
+  <div id="oStepOver" title="skip statement..." onclick="window.returnValue=2;window.close();" style="position:absolute;left:28px;top:4px;height:16px;width:16px;overflow:hidden;cursor:hand;background-image:url(images/over_1.gif);">&#160;</div>
+  <span style="position:absolute;left:50px;top:2px;height:18px;width:8px;border-right:inset 2px;overflow:hidden;">&#160;</span>
+  <div id="oExecute" title="execute all..." onclick="window.returnValue=4;window.close();" style="position:absolute;left:68px;top:4px;height:16px;width:16px;overflow:hidden;cursor:hand;background-image:url(images/play_1.gif);">&#160;</div>
+  <div id="oCancel" title="cancel/close..." onclick="window.returnValue=0;window.close();" style="position:absolute;left:92px;top:4px;height:16px;width:16px;overflow:hidden;cursor:hand;background-image:url(images/cancel.gif);">&#160;</div>
+</div>
+
+<div id="oArgs" class="jsxscrollbar" style="color:#008740;white-space:nowrap;overflow:auto;padding:6px;background-color:white;position:absolute;left:8px;top:34px;width:560px;height:294px;border:inset 1px;font-family:Courier new;font-size:12px;"></div>
+<div style="position:absolute;left:8px;top:341px;width:560px;height:12px;font-family:Verdana;font-size:11px;">Return Value:</div>
+<div id="oArgs2" class="jsxscrollbar" style="color:#000000;overflow:auto;padding:6px;background-color:#ffffff;position:absolute;left:8px;top:354px;width:560px;height:190px;border:inset 1px;font-family:Courier new;font-size:12px;"></div>
+</BODY>
+</HTML>

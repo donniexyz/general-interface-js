@@ -1,0 +1,27 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Tree]]></name>
+  <icon><![CDATA[images/prototypes/tree.gif]]></icon>
+  <description><![CDATA[Pre-built tree control with custom icons.]]></description>
+  <object type="jsx3.gui.Tree">
+    <variants jsxxmlasync="1"/>
+    <strings jsxname="tree" jsxwidth="100%" jsxheight="100%" jsxvalue="1" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;
+ &lt;record jsxid=&quot;1&quot; jsxtext=&quot;rootnode&quot; jsxopen=&quot;1&quot; jsximg=&quot;jsx:///images/icons/logo_16.gif&quot;&gt;
+  &lt;record jsxid=&quot;2&quot; jsxtext=&quot;node a&quot; jsxopen=&quot;1&quot;&gt;
+    &lt;record jsxid=&quot;3&quot; jsxtext=&quot;node b&quot;&gt;
+      &lt;record jsxid=&quot;4&quot; jsxtext=&quot;node c&quot;/&gt;
+      &lt;record jsxid=&quot;5&quot; jsxtext=&quot;node d&quot;/&gt;
+    &lt;/record&gt;
+    &lt;record jsxid=&quot;6&quot; jsxtext=&quot;node e&quot; jsxopen=&quot;1&quot; jsximg=&quot;jsx:///images/imagebutton/off.gif&quot;&gt;
+     &lt;record jsxid=&quot;7&quot; jsxtext=&quot;node f&quot; jsxopen=&quot;1&quot;&gt;
+       &lt;record jsxid=&quot;8&quot; jsxtext=&quot;node g&quot;/&gt;
+     &lt;/record&gt;
+    &lt;/record&gt;
+  &lt;/record&gt;
+ &lt;/record&gt;
+&lt;/data&gt;"/>
+  </object>
+</serialization>

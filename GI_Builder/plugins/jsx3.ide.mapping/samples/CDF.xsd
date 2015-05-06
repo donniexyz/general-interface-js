@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:element name="data">
+    <xsd:complexType>
+      <xsd:sequence>
+        <xsd:element type="cdfrecord" name="record" maxOccurs="unbounded"/>
+      </xsd:sequence>
+      <xsd:attribute name="jsxid">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="jsxroot"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:attribute>
+    </xsd:complexType>
+  </xsd:element>
+
+  <xsd:complexType name="cdfrecord">
+    <xsd:sequence>
+            <xsd:element type="cdfrecord" name="record" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="jsxtip" type="xsd:string"/>
+    <xsd:attribute name="jsxvalue" type="xsd:string"/>
+    <xsd:attribute name="jsxdivider" type="xsd:string"/>
+    <xsd:attribute name="jsxtext" type="xsd:string"/>
+    <xsd:attribute name="jsxstyle" type="xsd:string"/>
+    <xsd:attribute name="jsxkeycode" type="xsd:string"/>
+    <xsd:attribute name="jsxunselectable" type="xsd:string"/>
+    <xsd:attribute name="jsxexecute" type="xsd:string"/>
+    <xsd:attribute name="jsxgroupname" type="xsd:string"/>
+    <xsd:attribute name="jsximg" type="xsd:string"/>
+    <xsd:attribute name="jsxselected" type="xsd:string"/>
+    <xsd:attribute name="jsxid" use="required" type="xsd:string"/>
+  </xsd:complexType>
+
+</xsd:schema>

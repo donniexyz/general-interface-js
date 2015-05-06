@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<component classpath="jsx3.gui" xmlns:id="http://xsd.tns.tibco.com/gi/cif/2006/inlinedata" xmlns:e="http://xsd.tns.tibco.com/gi/cif/2006/events" xmlns:d="http://xsd.tns.tibco.com/gi/cif/2006/dynamics" xmlns:p="http://xsd.tns.tibco.com/gi/cif/2006/property" xmlns:pe="http://xsd.tns.tibco.com/gi/cif/2006/property.eval" xmlns:x="http://xsd.tns.tibco.com/gi/cif/2006/xslparameters" xmlns:v="http://xsd.tns.tibco.com/gi/cif/2006/view" xmlns:u="http://xsd.tns.tibco.com/gi/cif/2006/userdefined" xmlns:ue="http://xsd.tns.tibco.com/gi/cif/2006/userdefined.eval" xmlns="http://xsd.tns.tibco.com/gi/cif/2006">
+  <meta name="name"><![CDATA[Paginated List]]></meta>
+  <meta name="description"><![CDATA[Matrix instance configured to allow for Paqinated List-type functionality. Additionally describes:
+                                      customizing the scroll info label,
+                                      custom row heights, and
+                                      paging (paged model, including panel, row, and paint-queue configuration).]]></meta>
+  <meta name="icon"><![CDATA[images/prototypes/matrixlist.gif]]></meta>
+  <Matrix
+      p:name="matrix1"
+      p:bodyborder="1px solid #dfdfff"
+      p:headerborder="1px solid #dfdfff"
+      p:bgcolor="#dfdfff"
+      pe:pagingmodel="3"
+      pe:paintqueuesize="3"
+      pe:rowsperpanel="50"
+      pe:panelpoolsize="5"
+      pe:jsxxmlasync="1"
+      p:scrollinfolabel="- viewing countries {0} to {1} of {2} -"
+      id:xml="xml"
+      x:jsx_rowbg1="#ffffff"
+      x:jsx_rowbg2="#dfdfff">
+
+    <id:data href="xml"><![CDATA[
+      <data jsxid="jsxroot">
+        <record jsxid="a4" jsxtext="Afghanistan"/>
+        <record jsxid="a5" jsxtext="Albania"/>
+        <record jsxid="a6" jsxtext="Algeria"/>
+        <record jsxid="a7" jsxtext="American Samoa"/>
+        <record jsxid="a8" jsxtext="Andorra"/>
+        <record jsxid="a9" jsxtext="Angola"/>
+        <record jsxid="a10" jsxtext="Anguilla"/>
+        <record jsxid="a11" jsxtext="Antarctica"/>
+        <record jsxid="a12" jsxtext="Antigua and Barbuda"/>
+        <record jsxid="a13" jsxtext="Argentina"/>
+        <record jsxid="a14" jsxtext="Armenia"/>
+        <record jsxid="a15" jsxtext="Aruba"/>
+        <record jsxid="a16" jsxtext="Australia"/>
+        <record jsxid="a17" jsxtext="Austria"/>
+        <record jsxid="a18" jsxtext="Azerbaijan"/>
+        <record jsxid="a19" jsxtext="Bahamas"/>
+        <record jsxid="a20" jsxtext="Bahrain"/>
+        <record jsxid="a21" jsxtext="Bangladesh"/>
+        <record jsxid="a22" jsxtext="Barbados"/>
+        <record jsxid="a23" jsxtext="Belarus"/>
+        <record jsxid="a24" jsxtext="Belgium"/>
+        <record jsxid="a25" jsxtext="Belize"/>
+        <record jsxid="a26" jsxtext="Benin"/>
+        <record jsxid="a27" jsxtext="Bermuda"/>
+        <record jsxid="a28" jsxtext="Bhutan"/>
+        <record jsxid="a29" jsxtext="Bolivia"/>
+        <record jsxid="a30" jsxtext="Bosnia and Herzegovina"/>
+        <record jsxid="a31" jsxtext="Botswana"/>
+        <record jsxid="a32" jsxtext="Bouvet Island"/>
+        <record jsxid="a33" jsxtext="Brazil"/>
+        <record jsxid="a34" jsxtext="British Indian Ocean Territory"/>
+        <record jsxid="a35" jsxtext="Brunei Darussalam"/>
+        <record jsxid="a36" jsxtext="Bulgaria"/>
+        <record jsxid="a37" jsxtext="Burkina Faso"/>
+        <record jsxid="a38" jsxtext="Burundi"/>
+        <record jsxid="a39" jsxtext="Cambodia"/>
+        <record jsxid="a40" jsxtext="Cameroon"/>
+        <record jsxid="a41" jsxtext="Canada"/>
+        <record jsxid="a42" jsxtext="Cape Verde"/>
+        <record jsxid="a43" jsxtext="Cayman Islands"/>
+        <record jsxid="a44" jsxtext="Central African Republic"/>
+        <record jsxid="a45" jsxtext="Chad"/>
+        <record jsxid="a46" jsxtext="Chile"/>
+        <record jsxid="a47" jsxtext="China"/>
+        <record jsxid="a48" jsxtext="Christmas Island"/>
+        <record jsxid="a49" jsxtext="Cocos (Keeling) Islands"/>
+        <record jsxid="a50" jsxtext="Colombia"/>
+        <record jsxid="a51" jsxtext="Comoros"/>
+        <record jsxid="a52" jsxtext="Congo"/>
+        <record jsxid="a53" jsxtext="Congo, The Democratic Republic of The"/>
+        <record jsxid="a54" jsxtext="Cook Islands"/>
+        <record jsxid="a55" jsxtext="Costa Rica"/>
+        <record jsxid="a56" jsxtext="Cote D'ivoire"/>
+        <record jsxid="a57" jsxtext="Croatia"/>
+        <record jsxid="a58" jsxtext="Cuba"/>
+        <record jsxid="a59" jsxtext="Cyprus"/>
+        <record jsxid="a60" jsxtext="Czech Republic"/>
+        <record jsxid="a61" jsxtext="Denmark"/>
+        <record jsxid="a62" jsxtext="Djibouti"/>
+        <record jsxid="a63" jsxtext="Dominica"/>
+        <record jsxid="a64" jsxtext="Dominican Republic"/>
+        <record jsxid="a65" jsxtext="Ecuador"/>
+        <record jsxid="a66" jsxtext="Egypt"/>
+        <record jsxid="a67" jsxtext="El Salvador"/>
+        <record jsxid="a68" jsxtext="Equatorial Guinea"/>
+        <record jsxid="a69" jsxtext="Eritrea"/>
+        <record jsxid="a70" jsxtext="Estonia"/>
+        <record jsxid="a71" jsxtext="Ethiopia"/>
+        <record jsxid="a72" jsxtext="Falkland Islands (Malvinas)"/>
+        <record jsxid="a73" jsxtext="Faroe Islands"/>
+        <record jsxid="a74" jsxtext="Fiji"/>
+        <record jsxid="a75" jsxtext="Finland"/>
+        <record jsxid="a76" jsxtext="France"/>
+        <record jsxid="a77" jsxtext="French Guiana"/>
+        <record jsxid="a78" jsxtext="French Polynesia"/>
+        <record jsxid="a79" jsxtext="French Southern Territories"/>
+        <record jsxid="a80" jsxtext="Gabon"/>
+        <record jsxid="a81" jsxtext="Gambia"/>
+        <record jsxid="a82" jsxtext="Georgia"/>
+        <record jsxid="a83" jsxtext="Germany"/>
+        <record jsxid="a84" jsxtext="Ghana"/>
+        <record jsxid="a85" jsxtext="Gibraltar"/>
+        <record jsxid="a86" jsxtext="Greece"/>
+        <record jsxid="a87" jsxtext="Greenland"/>
+        <record jsxid="a88" jsxtext="Grenada"/>
+        <record jsxid="a89" jsxtext="Guadeloupe"/>
+        <record jsxid="a90" jsxtext="Guam"/>
+        <record jsxid="a91" jsxtext="Guatemala"/>
+        <record jsxid="a92" jsxtext="Guinea"/>
+        <record jsxid="a93" jsxtext="Guinea-bissau"/>
+        <record jsxid="a94" jsxtext="Guyana"/>
+        <record jsxid="a95" jsxtext="Haiti"/>
+        <record jsxid="a96" jsxtext="Heard Island and Mcdonald Islands"/>
+        <record jsxid="a97" jsxtext="Holy See (Vatican City State)"/>
+        <record jsxid="a98" jsxtext="Honduras"/>
+        <record jsxid="a99" jsxtext="Hong Kong"/>
+        <record jsxid="a100" jsxtext="Hungary"/>
+        <record jsxid="a101" jsxtext="Iceland"/>
+        <record jsxid="a102" jsxtext="India"/>
+        <record jsxid="a103" jsxtext="Indonesia"/>
+        <record jsxid="a104" jsxtext="Iran, Islamic Republic of"/>
+        <record jsxid="a105" jsxtext="Iraq"/>
+        <record jsxid="a106" jsxtext="Ireland"/>
+        <record jsxid="a107" jsxtext="Israel"/>
+        <record jsxid="a108" jsxtext="Italy"/>
+        <record jsxid="a109" jsxtext="Jamaica"/>
+        <record jsxid="a110" jsxtext="Japan"/>
+        <record jsxid="a111" jsxtext="Jordan"/>
+        <record jsxid="a112" jsxtext="Kazakhstan"/>
+        <record jsxid="a113" jsxtext="Kenya"/>
+        <record jsxid="a114" jsxtext="Kiribati"/>
+        <record jsxid="a115" jsxtext="Korea, Democratic People's Republic of"/>
+        <record jsxid="a116" jsxtext="Korea, Republic of"/>
+        <record jsxid="a117" jsxtext="Kuwait"/>
+        <record jsxid="a118" jsxtext="Kyrgyzstan"/>
+        <record jsxid="a119" jsxtext="Lao People's Democratic Republic"/>
+        <record jsxid="a120" jsxtext="Latvia"/>
+        <record jsxid="a121" jsxtext="Lebanon"/>
+        <record jsxid="a122" jsxtext="Lesotho"/>
+        <record jsxid="a123" jsxtext="Liberia"/>
+        <record jsxid="a124" jsxtext="Libyan Arab Jamahiriya"/>
+        <record jsxid="a125" jsxtext="Liechtenstein"/>
+        <record jsxid="a126" jsxtext="Lithuania"/>
+        <record jsxid="a127" jsxtext="Luxembourg"/>
+        <record jsxid="a128" jsxtext="Macao"/>
+        <record jsxid="a129" jsxtext="Macedonia, The Former Yugoslav Republic of"/>
+        <record jsxid="a130" jsxtext="Madagascar"/>
+        <record jsxid="a131" jsxtext="Malawi"/>
+        <record jsxid="a132" jsxtext="Malaysia"/>
+        <record jsxid="a133" jsxtext="Maldives"/>
+        <record jsxid="a134" jsxtext="Mali"/>
+        <record jsxid="a135" jsxtext="Malta"/>
+        <record jsxid="a136" jsxtext="Marshall Islands"/>
+        <record jsxid="a137" jsxtext="Martinique"/>
+        <record jsxid="a138" jsxtext="Mauritania"/>
+        <record jsxid="a139" jsxtext="Mauritius"/>
+        <record jsxid="a140" jsxtext="Mayotte"/>
+        <record jsxid="a141" jsxtext="Mexico"/>
+        <record jsxid="a142" jsxtext="Micronesia, Federated States of"/>
+        <record jsxid="a143" jsxtext="Moldova, Republic of"/>
+        <record jsxid="a144" jsxtext="Monaco"/>
+        <record jsxid="a145" jsxtext="Mongolia"/>
+        <record jsxid="a146" jsxtext="Montserrat"/>
+        <record jsxid="a147" jsxtext="Morocco"/>
+        <record jsxid="a148" jsxtext="Mozambique"/>
+        <record jsxid="a149" jsxtext="Myanmar"/>
+        <record jsxid="a150" jsxtext="Namibia"/>
+        <record jsxid="a151" jsxtext="Nauru"/>
+        <record jsxid="a152" jsxtext="Nepal"/>
+        <record jsxid="a153" jsxtext="Netherlands"/>
+        <record jsxid="a154" jsxtext="Netherlands Antilles"/>
+        <record jsxid="a155" jsxtext="New Caledonia"/>
+        <record jsxid="a156" jsxtext="New Zealand"/>
+        <record jsxid="a157" jsxtext="Nicaragua"/>
+        <record jsxid="a158" jsxtext="Niger"/>
+        <record jsxid="a159" jsxtext="Nigeria"/>
+        <record jsxid="a160" jsxtext="Niue"/>
+        <record jsxid="a161" jsxtext="Norfolk Island"/>
+        <record jsxid="a162" jsxtext="Northern Mariana Islands"/>
+        <record jsxid="a163" jsxtext="Norway"/>
+        <record jsxid="a164" jsxtext="Oman"/>
+        <record jsxid="a165" jsxtext="Pakistan"/>
+        <record jsxid="a166" jsxtext="Palau"/>
+        <record jsxid="a167" jsxtext="Palestinian Territory, Occupied"/>
+        <record jsxid="a168" jsxtext="Panama"/>
+        <record jsxid="a169" jsxtext="Papua New Guinea"/>
+        <record jsxid="a170" jsxtext="Paraguay"/>
+        <record jsxid="a171" jsxtext="Peru"/>
+        <record jsxid="a172" jsxtext="Philippines"/>
+        <record jsxid="a173" jsxtext="Pitcairn"/>
+        <record jsxid="a174" jsxtext="Poland"/>
+        <record jsxid="a175" jsxtext="Portugal"/>
+        <record jsxid="a176" jsxtext="Puerto Rico"/>
+        <record jsxid="a177" jsxtext="Qatar"/>
+        <record jsxid="a178" jsxtext="Reunion"/>
+        <record jsxid="a179" jsxtext="Romania"/>
+        <record jsxid="a180" jsxtext="Russian Federation"/>
+        <record jsxid="a181" jsxtext="Rwanda"/>
+        <record jsxid="a182" jsxtext="Saint Helena"/>
+        <record jsxid="a183" jsxtext="Saint Kitts and Nevis"/>
+        <record jsxid="a184" jsxtext="Saint Lucia"/>
+        <record jsxid="a185" jsxtext="Saint Pierre and Miquelon"/>
+        <record jsxid="a186" jsxtext="Saint Vincent and The Grenadines"/>
+        <record jsxid="a187" jsxtext="Samoa"/>
+        <record jsxid="a188" jsxtext="San Marino"/>
+        <record jsxid="a189" jsxtext="Sao Tome and Principe"/>
+        <record jsxid="a190" jsxtext="Saudi Arabia"/>
+        <record jsxid="a191" jsxtext="Senegal"/>
+        <record jsxid="a192" jsxtext="Serbia and Montenegro"/>
+        <record jsxid="a193" jsxtext="Seychelles"/>
+        <record jsxid="a194" jsxtext="Sierra Leone"/>
+        <record jsxid="a195" jsxtext="Singapore"/>
+        <record jsxid="a196" jsxtext="Slovakia"/>
+        <record jsxid="a197" jsxtext="Slovenia"/>
+        <record jsxid="a198" jsxtext="Solomon Islands"/>
+        <record jsxid="a199" jsxtext="Somalia"/>
+        <record jsxid="a200" jsxtext="South Africa"/>
+        <record jsxid="a201" jsxtext="South Georgia and The South Sandwich Islands"/>
+        <record jsxid="a202" jsxtext="Spain"/>
+        <record jsxid="a203" jsxtext="Sri Lanka"/>
+        <record jsxid="a204" jsxtext="Sudan"/>
+        <record jsxid="a205" jsxtext="Suriname"/>
+        <record jsxid="a206" jsxtext="Svalbard and Jan Mayen"/>
+        <record jsxid="a207" jsxtext="Swaziland"/>
+        <record jsxid="a208" jsxtext="Sweden"/>
+        <record jsxid="a209" jsxtext="Switzerland"/>
+        <record jsxid="a210" jsxtext="Syrian Arab Republic"/>
+        <record jsxid="a211" jsxtext="Taiwan, Province of China"/>
+        <record jsxid="a212" jsxtext="Tajikistan"/>
+        <record jsxid="a213" jsxtext="Tanzania, United Republic of"/>
+        <record jsxid="a214" jsxtext="Thailand"/>
+        <record jsxid="a215" jsxtext="Timor-leste"/>
+        <record jsxid="a216" jsxtext="Togo"/>
+        <record jsxid="a217" jsxtext="Tokelau"/>
+        <record jsxid="a218" jsxtext="Tonga"/>
+        <record jsxid="a219" jsxtext="Trinidad and Tobago"/>
+        <record jsxid="a220" jsxtext="Tunisia"/>
+        <record jsxid="a221" jsxtext="Turkey"/>
+        <record jsxid="a222" jsxtext="Turkmenistan"/>
+        <record jsxid="a223" jsxtext="Turks and Caicos Islands"/>
+        <record jsxid="a224" jsxtext="Tuvalu"/>
+        <record jsxid="a225" jsxtext="Uganda"/>
+        <record jsxid="a226" jsxtext="Ukraine"/>
+        <record jsxid="a227" jsxtext="United Arab Emirates"/>
+        <record jsxid="a241" jsxtext="United Kingdom"/>
+        <record jsxid="a242" jsxtext="United States"/>
+        <record jsxid="a228" jsxtext="United States Minor Outlying Islands"/>
+        <record jsxid="a229" jsxtext="Uruguay"/>
+        <record jsxid="a230" jsxtext="Uzbekistan"/>
+        <record jsxid="a231" jsxtext="Vanuatu"/>
+        <record jsxid="a232" jsxtext="Venezuela"/>
+        <record jsxid="a233" jsxtext="Viet Nam"/>
+        <record jsxid="a234" jsxtext="Virgin Islands, British"/>
+        <record jsxid="a235" jsxtext="Virgin Islands, U.S."/>
+        <record jsxid="a236" jsxtext="Wallis and Futuna"/>
+        <record jsxid="a237" jsxtext="Western Sahara"/>
+        <record jsxid="a238" jsxtext="Yemen"/>
+        <record jsxid="a239" jsxtext="Zambia"/>
+        <record jsxid="a240" jsxtext="Zimbabwe"/>
+      </data>
+    ]]></id:data>
+
+    <MatrixColumn
+        d:border="@Outset"
+        d:bg="@Bevel TopDown"
+        d:bgcolor="@Solid Disabled"
+        p:name="mc2"
+        p:text="Country"
+        p:padding="2"
+        p:cellpadding="1"
+        p:width="*"
+        p:path="jsxtext"/>
+
+  </Matrix>
+</component>

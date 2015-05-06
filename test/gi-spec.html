@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--
+  ~ Copyright (c) 2001-2013, TIBCO Software Inc. Use, modification, and distribution subject to terms of license.
+  -->
+
+<html lang="en">
+<head>
+  <title>GI Runner</title>
+  <meta http-equiv="content-type: UTF-8;" >
+  <link rel="stylesheet" type="text/css" href="jasmine/jasmine.css">
+  <script type="text/javascript" src="jasmine/jasmine.js"></script>
+  <script type="text/javascript" src="jasmine/jasmine-html.js"></script>
+  <script type="text/javascript" src="gi/jasmine.js"></script>
+  <script type="text/javascript">
+
+   var loadJasmine = (function() {
+      var jasmineEnv = jasmine.getEnv();
+      jasmineEnv.updateInterval = 1000;
+
+      var htmlReporter = new jasmine.HtmlReporter();
+      jasmineEnv.addReporter(htmlReporter);
+
+      //jasmineEnv.addReporter(new jasmine.TrivialReporter());
+
+      jasmineEnv.specFilter = function(spec) {
+        if(htmlReporter)
+        return htmlReporter.specFilter(spec);
+      };
+
+      var gi_test = gi.test.jasmine;
+
+      gi_test.onLoaded = function () {
+        execJasmine();
+      };
+      gi_test.loadGI();
+
+      function execJasmine() {
+        jasmineEnv.execute();
+      }
+    });
+
+    gi.test.jasmine.loadScript("tests/jasmine/suite.js", loadJasmine);
+  </script>
+
+</head>
+
+<body>
+
+</body>
+</html>

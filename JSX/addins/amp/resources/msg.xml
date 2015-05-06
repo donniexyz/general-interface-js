@@ -1,0 +1,51 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxnamespace="propsbundle" locales="">
+  <locale>
+    <record jsxid="amp.01" jsxtext="Requesting {0} for plug-in {1}"/>
+    <record jsxid="amp.02" jsxtext="Plug-in engine descriptor {0} loaded"/>
+    <record jsxid="amp.03" jsxtext="Error loading plug-in descriptor: {0}"/>
+    <record jsxid="amp.04" jsxtext="Bad root node in plug-in descriptor: {0} {1}"/>
+    <record jsxid="amp.05" jsxtext="Bad root node for plug-in {0}: {1} {2}"/>
+    <record jsxid="amp.06" jsxtext="Error loading plug-in {0}: {1}"/>
+    <record jsxid="amp.07" jsxtext="Expected plug-in with id {0} but got {1}"/>
+    <record jsxid="amp.08" jsxtext="Duplicate resource id {0} in plug-in {1}"/>
+    <record jsxid="amp.09" jsxtext="Class {0} for plug-in {1} is not loaded"/>
+    <record jsxid="amp.10" jsxtext="Registered plug-in {0}"/>
+    <record jsxid="amp.11" jsxtext="Registered extension point {0}"/>
+    <record jsxid="amp.12" jsxtext="Registered extension {0} with point {1}"/>
+    <record jsxid="amp.13" jsxtext="Published event {0}"/>
+    <record jsxid="amp.14" jsxtext="Error defining script for {0}"/>
+    <record jsxid="amp.15" jsxtext="Error defining field {0} for {1}"/>
+    <record jsxid="amp.16" jsxtext="Error defining method {0} for {1}"/>
+    <record jsxid="amp.17" jsxtext="The OpenAjax Hub threw an error when AMP published name {0}."/>
+    <record jsxid="amp.18" jsxtext="Plug-in {0} requires unregistered plug-in {1}"/>
+    <record jsxid="amp.20" jsxtext="Invalid prerequisite plug-in {0} for resource {1}"/>
+    <record jsxid="amp.21" jsxtext="Invalid prerequisite resource {0} for resource {1}"/>
+    <record jsxid="amp.22" jsxtext="Invalid resource type: {0}"/>
+    <record jsxid="amp.23" jsxtext="Loaded resource {0} {1}"/>
+    <record jsxid="amp.24" jsxtext="No job!"/>
+    <record jsxid="amp.25" jsxtext="Loading inline resource {0}"/>
+    <record jsxid="amp.26" jsxtext="Registered plug-in {0} before its required plug-in {1}; possibly an error or typo."/>
+    <record jsxid="amp.28" jsxtext="Inline propsbundle resource not implemented"/>
+    <record jsxid="amp.29" jsxtext="No inline &lt;data&gt; element defined for resource {0}"/>
+    <record jsxid="amp.32" jsxtext="Error evaluating script {0} on target {1}"/>
+    <record jsxid="amp.33" jsxtext="Error loading script {0}"/>
+    <record jsxid="amp.34" jsxtext="Duplicate ID: {0}"/>
+    <record jsxid="amp.35" jsxtext="No ID: {0}"/>
+    <record jsxid="amp.36" jsxtext="Descriptor class {0} is not defined"/>
+    <record jsxid="amp.38" jsxtext="Extension point class {0} is not defined"/>
+    <record jsxid="amp.39" jsxtext="Plug-in {0} defines extension point {1} multiple times"/>
+    <record jsxid="amp.40" jsxtext="Extension class {0} is not defined"/>
+    <record jsxid="amp.41" jsxtext="Plug-in {0} defines extension {1} multiple times"/>
+    <record jsxid="amp.42" jsxtext="Loading plug-in {0}"/>
+    <record jsxid="amp.43" jsxtext="Plug-in {0} finished loading"/>
+    <record jsxid="amp.44" jsxtext="Error in onRsrcLoad() of resource {0}"/>
+    <record jsxid="amp.52" jsxtext="Loading resource {0} {1}"/>
+    <record jsxid="amp.53" jsxtext="Error loading localized resource {0}: {1}"/>
+    <record jsxid="amp.54" jsxtext="Invalid localized plugin.xml file: {0}"/>
+    <record jsxid="amp.55" jsxtext="No element {1} with id {2} in plug-in {0}"/>
+  </locale>
+</data>

@@ -1,0 +1,70 @@
+/*
+ * Copyright (c) 2001-2009, TIBCO Software Inc.
+ * Use, modification, and distribution subject to terms of license.
+ */
+
+options {
+  STATIC = false;
+}
+
+PARSER_BEGIN(TypeParser)
+
+package com.tibco.gi.tools.doc;
+
+import java.io.StringBufferInputStream;
+import java.io.IOException;
+
+public class TypeParser {
+
+  public TypeParser(String s) throws IOException, ParseException {
+    this(new StringBufferInputStream(s));
+  }
+
+  public JsType run() throws ParseException {
+    return Type();
+  }
+
+}
+
+PARSER_END(TypeParser)
+
+<DEFAULT> SKIP: { <" " | "\t"> }
+
+<DEFAULT> TOKEN: {
+  <JSX_TYPE_POPEN : "<">
+| <JSX_TYPE_PCLOSE : ">">
+| <JSX_TYPE_PAND : ",">
+| <JSX_TYPE_VARARGS : "...">
+| <JSX_TYPE_OR : ("|" | "/")>
+| <JSX_TYPE_NAME : <NAME> ("." <NAME>)*>
+
+| <#NAME: (<LETTER>|"_") (<LETTER>|<DIGIT>|"_")*>
+| <#LETTER: ["a"-"z","A"-"Z","$"]>
+| <#DIGIT: ["0"-"9"]>
+}
+
+private JsType Type() : {
+  Token t = null;
+  JsType tp = null;
+  JsType type = new JsType();
+} {
+  (
+    /* main type identifier */
+    t = <JSX_TYPE_NAME> {
+      type.setType(t.toString());
+    }
+
+    /* parameterized types */
+    (<JSX_TYPE_POPEN> tp = Type() { type.addGeneric(tp); }
+     (<JSX_TYPE_PAND> tp = Type() { type.addGeneric(tp); })*
+     <JSX_TYPE_PCLOSE>)?
+
+    /* variable arguments */
+    (<JSX_TYPE_VARARGS> { type.setVarargs(true); })?
+
+    /* or groups */
+    (LOOKAHEAD(2) <JSX_TYPE_OR> tp = Type() { type.addOr(tp); } )*
+  ) {
+    return type;
+  }
+}

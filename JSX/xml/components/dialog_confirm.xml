@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+
+objJSX.setMessage = function(strMessage) {
+  this.getDescendantOfName('message').setText(strMessage, true);
+};
+
+objJSX.doCancel = function(objEvent) {
+  this.getDescendantOfName('cancel').doExecute(objEvent);
+};
+
+objJSX.registerHotKey('doCancel', '.', false, true, false);
+
+  ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+    <dynamics jsxbgcolor="@Solid Medium"/>
+    <variants jsxwidth="300" jsxheight="145" jsxmodal="1" jsxresize="0"/>
+    <strings jsxname="jsx_dialog_confirm"/>
+    <object type="jsx3.gui.WindowBar">
+      <variants/>
+      <strings jsxname="title" jsxtext="Confirm"/>
+    </object>
+    <object type="jsx3.gui.LayoutGrid">
+      <dynamics jsxbgcolor="@Solid Disabled"/>
+      <variants jsxrelativeposition="0" jsxoverflow="2"/>
+      <strings jsxname="layout_horiz" jsxwidth="100%" jsxheight="100%" jsxrows="*,32"/>
+      <object type="jsx3.gui.Block">
+        <dynamics/>
+        <variants jsxoverflow="1"/>
+        <strings jsxname="message_cont" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Block">
+          <dynamics/>
+          <variants jsxoverflow="3"/>
+          <strings jsxname="message" jsxpadding="8 8 2 8" jsxtext="Confirm text." jsxtextalign="left"
+              jsxwidth="100%" jsxheight="100%" jsxclassname="jsx30dialog_alert"/>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <dynamics/>
+        <variants jsxoverflow="2" jsxrelativeposition="1"/>
+        <strings jsxname="button_block" jsxpadding="6 8 0 8" jsxtextalign="right" jsxwidth="100%" jsxheight="100%"/>
+        <object type="jsx3.gui.Button">
+          <dynamics jsxbgcolor="@Solid Medium" jsxcolor="@Dark"/>
+          <variants/>
+          <strings jsxdisplay="none" jsxname="no" jsxtext="No" jsxtextalign="center" jsxmargin="0 30 0 0"/>
+          <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+        </object>
+        <object type="jsx3.gui.Button">
+          <dynamics jsxbgcolor="@Solid Medium" jsxcolor="@Dark"/>
+          <variants/>
+          <strings jsxname="cancel" jsxtext="Cancel" jsxtextalign="center" jsxmargin="0 10 0 0"/>
+          <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+        </object>
+        <object type="jsx3.gui.Button">
+          <dynamics jsxbgcolor="@Solid Medium" jsxcolor="@Dark"/>
+          <variants/>
+          <strings jsxname="ok" jsxtext="Ok" jsxtextalign="center"/>
+          <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).doClose();"/>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

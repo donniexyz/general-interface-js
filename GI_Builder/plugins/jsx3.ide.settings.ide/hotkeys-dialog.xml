@@ -1,0 +1,115 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0" jsxversion="3.2">
+ <onAfterDeserialize><![CDATA[
+ 
+var Event = jsx3.gui.Event;
+var HotKey = jsx3.gui.HotKey;
+var Form = jsx3.gui.Form;
+
+objJSX.onKeyDown = function(objEvent) {
+  var bShift = objEvent.shiftKey();
+  var bCtrl = objEvent.ctrlKey();
+  var bAlt = objEvent.altKey();
+  var bMeta = objEvent.metaKey();
+  var keyCode = objEvent.keyCode();
+  
+  if ((bShift || bCtrl || bAlt || bMeta) && !objEvent.isModifierKey()) {
+    if (bCtrl && !bShift && !bAlt && !bMeta && keyCode == HotKey.keyDownCharToCode(".")) {
+      return; // cancel handled by hot key below
+    } else {
+      try {
+        var hk = new jsx3.gui.HotKey(new Function(""), keyCode, bShift, bCtrl, bAlt , bMeta);
+
+        var key = hk.getFormatted();
+        var usingItem = this.getParent().getMenuItemForKey(hk);
+        if (usingItem && usingItem.getHotKeyId() != this._selectedid)
+          key += '<div style="padding-top:4px;color:#CC0000;font-size:9px;">Used for "' + this.getParent()._getMenuPath(usingItem) + '"</div>';
+        keyPane.setText(key, true);
+
+        btnSet.setEnabled(Form.STATEENABLED, true);
+        this._lasthk = hk;
+      } catch (e) {
+        jsx3.ide.LOG.warn("Error testing hotkey.", jsx3.NativeError.wrap(e));
+      }
+    }
+  } else {
+    if (keyCode == Event.KEY_ENTER) {
+      if (btnSet.getEnabled() == Form.STATEENABLED)
+        this.onSet();
+    }
+  }
+  
+  if (! objEvent.isModifierKey())
+    objEvent.cancelAll();
+};
+ 
+objJSX.onDefault = function() {
+  this.publish({subject:"default"});
+  this.doClose();
+};
+ 
+objJSX.onCancel = function() {
+  this.publish({subject:"cancel"});
+  this.doClose();
+};
+ 
+objJSX.onSet = function() {
+  this.publish({subject:"set", key:this._lasthk.getKey()});
+  this.doClose();
+};
+
+objJSX.onInit = function(strCurrent) {
+  this._selectedid = strCurrent;
+};
+
+objJSX.registerHotKey('onCancel', '.', false, true, false); // cancel on ctrl+. (just to get the keydown event to hook)
+ 
+ ]]></onAfterDeserialize>
+  <object type="jsx3.gui.Dialog">
+   <dynamics jsxbgcolor="@Solid Medium"/>
+   <variants jsxresize="0" jsxmodal="1"/>
+   <strings jsxname="dialog" jsxwidth="250" jsxheight="130"/>
+   <events jsxkeydown="this.onKeyDown(objEVENT);"/>
+    <object type="jsx3.gui.Block">
+     <variants jsxoverflow="1"/>
+     <strings jsxwidth="100%" jsxheight="100%" jsxrelativeposition="1"/>
+      <object type="jsx3.gui.LayoutGrid">
+       <variants jsxrelativeposition="0" jsxleft="0" jsxtop="0" jsxoverflow="2"/>
+       <strings jsxwidth="100%" jsxheight="100%" jsxrows="40,*,30"/>
+        <object type="jsx3.gui.Block">
+         <dynamics jsxpadding="@8Pixel"/>
+         <variants jsxoverflow="2"/>
+         <strings jsxwidth="100%" jsxheight="100%" jsxtext="Press any modifier key combination on the keyboard."/>
+        </object>
+        <object type="jsx3.gui.Block">
+         <dynamics jsxpadding="@8Pixel"/>
+         <variants jsxoverflow="1"/>
+         <strings jsxname="keyPane" jsxwidth="100%" jsxheight="100%" jsxtextalign="center" jsxfontweight="bold"
+             jsxfontname="Lucida Grande, Verdana, sans-serif" jsxfontsize="12"/>
+        </object>
+        <object type="jsx3.gui.Block">
+         <variants jsxoverflow="1"/>
+         <strings jsxwidth="100%" jsxheight="100%" jsxtextalign="right" jsxpadding="4 4 0 0"/>
+          <object type="jsx3.gui.Button">
+           <variants jsxindex="0" jsxheight="18"/>
+           <strings jsxname="btnDefault" jsxtext="Use Default" jsxmargin="0 20 0 0" jsxtextalign="center"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).onDefault();"/>
+          </object>
+          <object type="jsx3.gui.Button">
+           <variants jsxindex="0" jsxheight="18"/>
+           <strings jsxname="btnCancel" jsxtext="Cancel" jsxmargin="0 4 0 0" jsxtextalign="center"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).onCancel();"/>
+          </object>
+          <object type="jsx3.gui.Button">
+           <variants jsxindex="0" jsxheight="18" jsxenabled="0"/>
+           <strings jsxname="btnSet" jsxtext="Set" jsxmargin="0 4 0 0" jsxfontweight="bold" jsxtextalign="center"/>
+           <events jsxexecute="this.getAncestorOfType(jsx3.gui.Dialog).onSet();"/>
+          </object>
+        </object>
+      </object>
+    </object>
+  </object>
+</serialization>

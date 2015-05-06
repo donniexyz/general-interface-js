@@ -1,0 +1,306 @@
+diff -r app/jsUnitCore.js ../jsunit-2.1/app/jsUnitCore.js
+5a6
+> var isUserTestsLoaded = true;
+157c158
+<   return isTestPageLoaded;
+---
+>   return isTestPageLoaded && isUserTestsLoaded;
+167c168
+<   var name = aFunction.toString().match(/function (\w*)/)[1];
+---
+>   var name = aFunction.toString().match(/^\s*function\s+(\w*)/) ? RegExp.$1 : null;
+diff -r app/jsUnitTestManager.js ../jsunit-2.1/app/jsUnitTestManager.js
+8c8
+<   this.container            = top.frames.testContainer
+---
+>   this.container            = top.frames.testContainer;
+48a49
+> jsUnitTestManager.ASYNC_TIMEOUT      = 5000;
+62a64,71
+>   // GI extensions BEGIN
+>   var mainData = this.mainFrame.frames.mainData;
+>   this.giConfigParams = (mainData.document.testRunnerForm.giTestsConfigure.value).replace(/\s+/, "&");
+>   if (mainData.document.testRunnerForm.giTestsXmlVers.value)
+>     this.giConfigParams += "&jsxxmlversion=" + mainData.document.testRunnerForm.giTestsXmlVers.value;
+>   if (mainData.document.testRunnerForm.giTestsInteractive.checked)
+>     this.giConfigParams += "&jsxtestinter=1";
+>   // GI extensions END
+66c75
+< }
+---
+> };
+87c96
+< }
+---
+> };
+91c100
+< }
+---
+> };
+106c115
+< }
+---
+> };
+121c130
+< }
+---
+> };
+166a176,185
+>   if (! this.asyncWaiting) {
+>     this.totalCount++;
+>     this.updateProgressIndicators();
+>     this._testIndex++;
+>     setTimeout('top.testManager._runTest()', jsUnitTestManager.TIMEOUT_LENGTH);
+>   }
+> };
+> 
+> jsUnitTestManager.prototype._resumeAfterAsync = function ()
+> {
+169a189
+>   this.containerTestFrame.asyncTestWaiting = false;
+171c191
+< }
+---
+> };
+173c193
+< jsUnitTestManager.prototype._done = function () 
+---
+> jsUnitTestManager.prototype._done = function ()
+182c202
+< }
+---
+> };
+196c216
+< }
+---
+> };
+206c226
+< }
+---
+> };
+222c242
+< }
+---
+> };
+229c249
+< }
+---
+> };
+235c255
+< }
+---
+> };
+246c266
+< }
+---
+> };
+257c277
+< }
+---
+> };
+267c287
+< }
+---
+> };
+296c316
+< }
+---
+> };
+313c333
+< }
+---
+> };
+320c340,346
+<   this.containerController.setTestPage(this._testFileName);
+---
+> 
+>   // GI extensions BEGIN
+>   var query = this._testFileName.indexOf("?") >= 0 ? "&" : "?";
+>   query += this.giConfigParams;
+>   // GI extensions END
+> 
+>   this.containerController.setTestPage(this._testFileName + query);
+322c348
+< }
+---
+> };
+339c365
+< }
+---
+> };
+349c375
+< }
+---
+> };
+371a398,437
+> 
+>   if (this.containerTestFrame.asyncTestWaiting) {
+>     if (excep) {
+>       this._finishTestFunction(excep, timeBefore);
+>       this.containerTestFrame.asyncTestWaiting = false;
+>     } else {
+>       this.asyncWaiting = true;
+>       this.asyncTestStart = timeBefore;
+>       var me = this;
+>       this.asyncTimeout = window.setInterval(function() { me._pollAsync(); }, 50);
+>     }
+>   } else {
+>     this._finishTestFunction(excep, timeBefore);
+>   }
+> };
+> 
+> jsUnitTestManager.prototype._pollAsync = function() {
+>   var timeBefore = this.asyncTestStart;
+>   var excep = null;
+> 
+>   if (! this.containerTestFrame.asyncTestWaiting) {
+>     excep = this.containerTestFrame.asyncTestException;
+>     this.containerTestFrame.asyncTestException = null;
+>   } else if (new Date() - timeBefore > jsUnitTestManager.ASYNC_TIMEOUT) {
+>     excep = new JsUnitException("Asynchronous test timed out before finishing.");
+>   } else {
+>     return;
+>   }
+> 
+>   window.clearInterval(this.asyncTimeout);
+> 
+>   this.asyncWaiting = false;
+>   delete this.asyncTestStart;
+>   delete this.asyncTimeout;
+> 
+>   this._finishTestFunction(excep, timeBefore);
+>   this._resumeAfterAsync();
+> };
+> 
+> jsUnitTestManager.prototype._finishTestFunction = function(excep, timeBefore) {
+385c451
+<   }  	
+---
+>   }
+387,388c453,454
+<   this.testCaseResultsField[this.testCaseResultsField.length]=newOption;  
+< }
+---
+>   this.testCaseResultsField[this.testCaseResultsField.length]=newOption;
+> };
+390a457,464
+>   // GI extensions BEGIN
+>   // make reporting and collating test sets easier
+>   var index = this._testFunctionName.indexOf("__");
+>   if (index >= 0) {
+>     return this._testFunctionName.substring(0, index).replace(/_/g, ".") + ":" +
+>            this._testFunctionName.substring(index + 2);
+>   } else {
+>   // GI extensions END
+400c474,475
+< }
+---
+>   }
+> };
+443c518
+< }
+---
+> };
+469c544
+< }
+---
+> };
+482c557
+< }
+---
+> };
+487c562
+< }
+---
+> };
+492c567
+< }
+---
+> };
+497c572
+< }
+---
+> };
+502c577
+< }
+---
+> };
+507c582
+< }
+---
+> };
+512c587
+< }
+---
+> };
+525c600
+< }
+---
+> };
+532c607
+< }
+---
+> };
+565c640
+< }
+---
+> };
+574c649
+< }
+---
+> };
+583c658
+< }
+---
+> };
+588c663
+< }
+---
+> };
+593c668
+< }
+---
+> };
+604c679
+< }
+---
+> };
+615c690
+< }
+---
+> };
+diff -r app/main-data.html ../jsunit-2.1/app/main-data.html
+158a159,177
+> 
+>       <!-- GI extension BEGIN -->
+>       <table cellpadding="0" cellspacing="0" border="0" summary="Configure Tests">
+>         <tr>
+>           <td nowrap>(GI) Configure tests:</td>
+>           <td>&nbsp;<input type="text" name="giTestsConfigure" value="" style="width:400px;"
+>               title="Include any name=value pairs separated by whitespace. These values will be available to tests through jsx3.getEnv()."/></td>
+>           <td>&nbsp;<select name="giTestsXmlVers" title="Only affects tests when running in Internet Explorer. This is equivalent to jsxxmlversion={3,4} in the preceeding text box.">
+>             <option value="" selected>Default MSXML</option>
+>             <option value="3">MSXML v3</option>
+>             <option value="6">MSXML v6</option>
+>             </select>
+>           </td>
+>           <td><input type="checkbox" name="giTestsInteractive" title="Whether to run tests that require user interaction."/> Interactive</td>
+>         </tr>
+>       </table>
+>       <hr>
+>       <!-- GI extension END -->
+> 
+diff -r app/main-frame.html ../jsunit-2.1/app/main-frame.html
+8c8
+<   <frameset rows="200,30,30,30,0,*">
+---
+>   <frameset rows="250,30,30,30,0,*">
+diff -r app/testContainerController.html ../jsunit-2.1/app/testContainerController.html
+26c26
+<     if (typeof(top.testManager.containerTestFrame.isTestPageLoaded) != 'undefined')
+---
+>     if (typeof(top.testManager.containerTestFrame.isLoaded) == 'function')
+28c28
+<       isTestPageLoaded=top.testManager.containerTestFrame.isTestPageLoaded;
+---
+>       isTestPageLoaded=top.testManager.containerTestFrame.isLoaded();

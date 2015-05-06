@@ -1,0 +1,228 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <onAfterDeserialize><![CDATA[
+ 
+objJSX.getFirstResponder = function() {
+  return homepath;
+};
+
+objJSX.savePrefs = function() {
+  var strValue = homepath.getValue();
+  var fs = this._getFS(fsSelect.getValue());
+  var retValue = true;
+  
+  if (strValue && fs) {
+    var oldHomeDir = jsx3.ide.getSavedUserHome();
+    var newHomeDir = fs.getInstance().getFile(strValue);
+
+    if (!oldHomeDir || !oldHomeDir.equals(newHomeDir)) {
+      if (jsx3.ide.onSelectNewUserHome(newHomeDir, this.getServer())) {
+        retValue = {title: "Restart Required",
+            message: "You must restart General Interface Builder to use your new workspace."};
+      } else {
+        return false;
+      }
+    }
+  }
+
+  jsx3.ide.getIDESettings().set("http", "base", httpuri.getValue());
+  jsx3.ide.getIDESettings().set("http", "home", httphome.getValue());
+
+  return retValue;
+};
+
+objJSX.loadPrefs = function() {
+  var fs = jsx3.ide.getPlugIn("jsx3.io").getAvailableFileSystems();
+  var fsWrite = fs.filter(function(e) { return e.hasWrite(); });
+
+  if (fsWrite.length == 0)
+    fsWrite = fs;
+
+  jsx3.$A(fsWrite).each(function(fileSystem) {
+    fsSelect.insertRecord({jsxid:fileSystem.getId(), jsxtext:fileSystem.getLabel()});
+  });
+
+  var homeDir = jsx3.ide.getSavedUserHome();
+  if (homeDir) {
+    var allFS = jsx3.ide.getPlugIn("jsx3.io").getFileSystemsForURI(homeDir.toURI());
+    // First try any writable file system ...
+    var selectedFS = allFS.filter(function(e) { return e.hasWrite(); })[0];
+    // ... then any available file system.
+    if (!selectedFS) selectedFS = allFS[0];
+    
+    if (!selectedFS)
+      selectedFS = fsWrite[0];
+
+    if (selectedFS) {
+      fsSelect.setValue(selectedFS.getId());
+      this.onFSSelect(selectedFS.getId());
+    }
+
+    homepath.setValue(homeDir.getAbsolutePath());
+  }
+
+  httpuri.setValue(jsx3.ide.getIDESettings().get("http", "base"));
+  httphome.setValue(jsx3.ide.getIDESettings().get("http", "home"));
+};
+
+objJSX._getFS = function(id) {
+  return jsx3.ide.getPlugIn("jsx3.io").getFileSystemById(id);
+};
+
+objJSX.onFSSelect = function(id) {
+  var fileSystem = this._getFS(id);
+
+  homepath.setValue("", true);
+  btnBrowse.setEnabled(false, true);
+
+  if (fileSystem) {
+    fileSystem.load().when(function() {
+      var fs = fileSystem.getInstance();
+      var userDocs = fs.getUserDocuments();
+      if (userDocs)
+        homepath.setValue(userDocs.resolve(jsx3.ide.DEFAULT_USER_HOME).getAbsolutePath(), true);
+      btnBrowse.setEnabled(fileSystem && fileSystem.hasList(), true);
+    });
+  }
+};
+
+objJSX.doBrowse = function() {
+  var fs = this._getFS(fsSelect.getValue());
+  if (!fs) {
+    this.getPlugIn().getLog().warn("No file system " + fsSelect.getValue());
+    return;
+  }
+
+  var strValue = homepath.getValue();
+  var objFolder = fs.getInstance().getFile(strValue);
+  while (objFolder && ! objFolder.isDirectory()) {
+    objFolder = objFolder.getParentFile();
+  }
+
+  if (!objFolder || !objFolder.isDirectory())
+    objFolder = jsx3.ide.getSystemDirFile();
+
+  jsx3.ide.getPlugIn("jsx3.io.browser").chooseFolder(this.getServer().getRootBlock(), {
+      name:"newhomedialog", modal:true, title:"Choose Workspace Folder", okLabel:"Choose",
+      folder: objFolder, onChoose: jsx3.$F(function(objFile) { this._onBrowseChoose(objFile); }).bind(this)
+  });
+};
+
+objJSX._onBrowseChoose = function(objFile) {
+  homepath.setValue(objFile.getAbsolutePath());
+  this.makeDirty();
+};
+
+objJSX.makeDirty = function(objInput) {
+  this.getPane().setDirty(true);
+};
+
+ ]]></onAfterDeserialize>
+    <object type="jsx3.gui.Block">
+      <variants jsxoverflow="3" jsxrelativeposition="0" jsxleft="0" jsxtop="0"/>
+      <strings jsxname="prefspane" jsxwidth="100%" jsxheight="100%" jsxpadding="8" jsxhelpid="ide.prefs.paths"/>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="1" jsxheight="46"/>
+          <strings jsxwidth="100%"/>
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="1" jsxoverflow="2"/>
+              <strings jsxcols="90,*,30"/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxtext="Workspace:" jsxfontweight="bold" jsxtextalign="right"
+                      jsxwidth="100%" jsxheight="100%" jsxpadding="5 6 0 0"/>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="3"/>
+                  <strings jsxwidth="100%" jsxpadding="2 0 0 0"/>
+                    <object type="jsx3.gui.Block">
+                     <variants jsxoverflow="2"/>
+                     <strings jsxwidth="100%" jsxheight="22" jsxpadding="0"/>
+                      <object type="jsx3.gui.Select">
+                       <variants jsxheight="18" jsxenabled="1"/>
+                       <strings jsxname="fsSelect" jsxwidth="135"/>
+                       <events jsxselect="prefspane.makeDirty(); prefspane.onFSSelect(strRECORDID)"/>
+                      </object>
+                    </object>
+                    <object type="jsx3.gui.TextBox">
+                      <variants jsxheight="18" jsxenabled="1" jsxrelativeposition="1"/>
+                      <strings jsxname="homepath" jsxwidth="100%"/>
+                      <events jsxincchange="prefspane.makeDirty(this);"/>
+                    </object>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="1"/>
+                  <strings jsxtextalign="right" jsxwidth="100%" jsxheight="100%" jsxpadding="22 0 0 0"/>
+                    <object type="jsx3.gui.ToolbarButton">
+                      <variants/>
+                      <strings jsxname="btnBrowse" jsximage="jsxapp:/images/icon_60.gif"/>
+                      <events jsxexecute="prefspane.doBrowse();"/>
+                    </object>
+                </object>
+            </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxwidth="100%" jsxpadding="0 0 0 90"
+              jsxtext="The local directory containing your projects, custom addins, and prototypes, as well as your user settings for General Interface Builder."/>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="1" jsxheight="24"/>
+          <strings jsxmargin="20 0 0 0" jsxwidth="100%"/>
+            <object type="jsx3.gui.LayoutGrid">
+              <variants jsxrelativeposition="1" jsxoverflow="2"/>
+              <strings jsxcols="90,*,30"/>
+              <strings/>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxtext="HTTP Base:" jsxfontweight="bold" jsxtextalign="right"
+                      jsxwidth="100%" jsxheight="100%" jsxpadding="5 6 0 0"/>
+                </object>
+                <object type="jsx3.gui.Block">
+                  <variants jsxoverflow="2"/>
+                  <strings jsxwidth="100%" jsxheight="100%" jsxpadding="2 0 0 0"/>
+                    <object type="jsx3.gui.TextBox">
+                      <variants jsxheight="18" jsxenabled="1"/>
+                      <strings jsxname="httpuri" jsxwidth="100%"/>
+                      <events jsxincchange="prefspane.makeDirty(this);"/>
+                    </object>
+                </object>
+            </object>
+        </object>
+        <object type="jsx3.gui.Block">
+          <variants jsxoverflow="2" jsxrelativeposition="1"/>
+          <strings jsxwidth="100%" jsxpadding="0 0 0 90"
+              jsxtext="The base URI to the General Interface directory on a local HTTP server hosting this General Interface installation."/>
+        </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2" jsxrelativeposition="1" jsxheight="32"/>
+        <strings jsxwidth="100%" jsxpadding="8 0 0 90"/>
+        <object type="jsx3.gui.LayoutGrid">
+          <variants jsxrelativeposition="1" jsxoverflow="2"/>
+          <strings jsxcols="60,*,30"/>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxtext="WS Path:" jsxtip="HTTP Workspace Path" jsxfontweight="bold" jsxtextalign="right"
+                  jsxwidth="100%" jsxheight="100%" jsxpadding="5 6 0 0"/>
+            </object>
+            <object type="jsx3.gui.Block">
+              <variants jsxoverflow="2"/>
+              <strings jsxwidth="100%" jsxheight="100%" jsxpadding="2 0 0 0"/>
+                <object type="jsx3.gui.TextBox">
+                  <variants jsxheight="18" jsxenabled="1"/>
+                  <strings jsxname="httphome" jsxwidth="100%"/>
+                  <events jsxincchange="prefspane.makeDirty(this);"/>
+                </object>
+            </object>
+        </object>
+      </object>
+      <object type="jsx3.gui.Block">
+        <variants jsxoverflow="2" jsxrelativeposition="1"/>
+        <strings jsxwidth="100%" jsxpadding="0 0 0 90"
+            jsxtext="Optionally, if the relative path to your workspace is not the same on the HTTP server as on disk, specify its path here."/>
+      </object>
+    </object>
+</serialization>

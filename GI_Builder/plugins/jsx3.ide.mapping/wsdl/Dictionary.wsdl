@@ -1,0 +1,160 @@
+<?xml version="1.0"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetEEMeaning">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="englishWord" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEEMeaningResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetEEMeaningResult" type="tns:MyResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="MyResult">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="Trans" type="tns:ArrayOfString"/>
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string"/>
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetEAMeaning">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="englishWord" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEAMeaningResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetEAMeaningResult" type="tns:MyResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFFMeaning">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="frenchWord" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFFMeaningResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetFFMeaningResult" type="tns:MyResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFAMeaning">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="frenchWord" type="s:string"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFAMeaningResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetFAMeaningResult" type="tns:MyResult"/>
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetEEMeaningSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEEMeaning"/>
+  </wsdl:message>
+  <wsdl:message name="GetEEMeaningSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEEMeaningResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetEAMeaningSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEAMeaning"/>
+  </wsdl:message>
+  <wsdl:message name="GetEAMeaningSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEAMeaningResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetFFMeaningSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFFMeaning"/>
+  </wsdl:message>
+  <wsdl:message name="GetFFMeaningSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFFMeaningResponse"/>
+  </wsdl:message>
+  <wsdl:message name="GetFAMeaningSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFAMeaning"/>
+  </wsdl:message>
+  <wsdl:message name="GetFAMeaningSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFAMeaningResponse"/>
+  </wsdl:message>
+  <wsdl:portType name="dic2Soap">
+    <wsdl:operation name="GetEEMeaning">
+      <wsdl:input message="tns:GetEEMeaningSoapIn"/>
+      <wsdl:output message="tns:GetEEMeaningSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetEAMeaning">
+      <wsdl:input message="tns:GetEAMeaningSoapIn"/>
+      <wsdl:output message="tns:GetEAMeaningSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetFFMeaning">
+      <wsdl:input message="tns:GetFFMeaningSoapIn"/>
+      <wsdl:output message="tns:GetFFMeaningSoapOut"/>
+    </wsdl:operation>
+    <wsdl:operation name="GetFAMeaning">
+      <wsdl:input message="tns:GetFAMeaningSoapIn"/>
+      <wsdl:output message="tns:GetFAMeaningSoapOut"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="dic2Soap" type="tns:dic2Soap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+    <wsdl:operation name="GetEEMeaning">
+      <soap:operation soapAction="http://tempuri.org/GetEEMeaning" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEAMeaning">
+      <soap:operation soapAction="http://tempuri.org/GetEAMeaning" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFFMeaning">
+      <soap:operation soapAction="http://tempuri.org/GetFFMeaning" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFAMeaning">
+      <soap:operation soapAction="http://tempuri.org/GetFAMeaning" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="dic2">
+    <documentation xmlns="http://schemas.xmlsoap.org/wsdl/"/>
+    <wsdl:port name="dic2Soap" binding="tns:dic2Soap">
+      <soap:address location="http://www.closerfar.com/dic2.asmx"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="position" group="1" jsxtext="Size">
+    <record include="master.xml" path="/data/record[@jsxid='position']/record[@jsxid!='jsxwidth']"/>
+  </record>
+
+  <record jsxid="jsx3timepicker" group="1" jsxtext="TimePicker">
+    <record include="master.xml" group="form_novalue" children="1"/>
+    <record include="master.xml" group="jsxrequired" children="1"/>
+    <record jsxid="jsxshowsecs" jsxtext="Show Seconds"
+        jsxtip="Sets whether to show the seconds input field."
+        eval="1"
+        docgetter="getShowSeconds" docsetter="setShowSeconds"
+        docdefault="&lt;code&gt;False (jsx3.Boolean.FALSE)&lt;/code&gt;"
+        jsxexecute="objJSX.setShowSeconds(vntValue);objJSX.repaint();"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+    <record jsxid="jsxshowmillis" jsxtext="Show Milliseconds"
+        jsxtip="Sets whether to show the milliseconds input field. The Show Milliseconds input field only displays if both this and Show Seconds are set to &lt;code&gt;true&lt;/code&gt;."
+        docgetter="getShowMillis" docsetter="setShowMillis"
+        docdefault="&lt;code&gt;False (jsx3.Boolean.FALSE)&lt;/code&gt;"
+        eval="1"
+        jsxexecute="objJSX.setShowMillis(vntValue);objJSX.repaint();"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+    <record jsxid="jsx24hour" jsxtext="24-Hour Clock"
+        jsxtip="Sets whether to use a 24-hour clock."
+        docgetter="is24Hour" docsetter="set24Hour"
+        docdefault="Determined by the locale of the server containing this TimePicker."
+        eval="1"
+        jsxexecute="objJSX.set24Hour(vntValue);objJSX.repaint();"
+        jsxmask="jsxselect">
+      <enum jsxid="jsx3.Boolean.TRUE" jsxtext="True"/>
+      <enum jsxid="jsx3.Boolean.FALSE" jsxtext="False"/>
+    </record>
+  </record>
+
+  <record include="master.xml" group="font"/>
+
+  <record jsxid="box_tree" group="1" jsxtext="Box">
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbgcolor']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxbg']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxmargin']"/>
+    <record include="master.xml" path="/data/record[@jsxid='box']/record[@jsxid='jsxborder']"/>
+    <record include="master.xml" group="jsxdisabledbgcolor" children="1"/>
+  </record>
+
+  <record include="master.xml" group="css_noclass"/>
+  <record include="master.xml" group="interaction_nocursor"/>
+  <record include="master.xml" group="access"/>
+  <record include="master.xml" group="metadata"/>
+</data>

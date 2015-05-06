@@ -1,0 +1,72 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+
+<plugin xmlns="http://www.generalinterface.org/gi/amp"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.generalinterface.org/gi/amp http://www.generalinterface.org/xsd/plugin.xsd"
+    id="jsx3.ide.progress"
+    name="IDE Progress Plug-In"
+    version="0.1">
+
+  <method id="setProgress" params="pct"><![CDATA[
+    if (this._off) return;
+
+    var canvas = this.getServer().getEnv("GUIREF");
+
+    if (!canvas.firstChild || canvas.firstChild.id != "JSX") {
+      if (this._ct == null)
+        this._ct = 0;
+
+      this._ct++;
+      var maxPct = this._ct * 4; // smooth out progress if initial graph looks very small
+                                 // minimum of 25 progress updates
+
+      var thisPct = Math.min(pct, maxPct);
+
+      if (this._lastpct == null || this._lastpct < thisPct) {
+        this._lastpct = thisPct;
+        this._setPCT(canvas, pct);
+      }
+    } else {
+      this._off = true;
+    }
+  ]]></method>
+
+  <method id="_setPCT" params="gui, pct"><![CDATA[
+    if (!this._firsttime) {
+      this._firsttime = true;
+
+      var w = 450;
+      var h = 225;
+      var l = Math.round((gui.offsetWidth - w) / 2);
+      var t = Math.round((gui.offsetHeight - h) / 3);
+      gui.style.backgroundColor = "#ffffff";
+      gui.innerHTML = '<div style="position:absolute;left:' + l + 'px;top:' + t + 'px;font-family:Verdana,Arial,sans-serif;font-size:12px;">' +
+          '<img src="' + this.resolveURI('splash.jpg') + '" alt="General Interface Builder"/>' +
+          '<div style="position:absolute;left:45px;top:113px;width:0px;overflow:hidden;height:10px;' +
+             'background-image:url(' + this.resolveURI("progress.jpg") + ');">&#160;</div>' +
+          '<div style="position:absolute;left:45px;top:135px;color:white;">' +
+            'Loading Builder Plug-ins...</div>' +
+          '</div>';
+    }
+
+    var bar = gui.firstChild.childNodes[1];
+    bar.style.width = Math.round(360 * pct / 100) + "px";
+  ]]></method>
+
+  <method id="onComplete" params="pct">
+  </method>
+
+  <requires>
+  </requires>
+  
+  <resources>
+  </resources>
+
+  <extension point="jsx3.amp.main.progress">
+    <eval>this.getPlugIn()</eval>
+  </extension>
+  
+</plugin>

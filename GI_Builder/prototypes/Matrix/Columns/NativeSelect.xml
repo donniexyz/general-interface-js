@@ -1,0 +1,22 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Select - Native]]></name>
+  <icon><![CDATA[images/prototypes/matrix-columnmask.gif]]></icon>
+  <description><![CDATA[Selects one of a set of enumerated values. jsxid is the key, jsxtext is the text.]]></description>
+  <object type="jsx3.gui.Matrix.Column">
+    <dynamics jsxborder="@Outset" jsxbg="@Bevel TopDown" jsxbgcolor="@Solid Disabled"/>
+    <strings jsxname="selectColumn" jsxwidth="100" jsxtext="Select"
+        jsxpadding="2" jsxcellpadding="3 0 0 4" jsxvaluetemplate="@empty"
+        jsxformathandler="@lookup" jsxpath="jsxvalue"/>
+    <object type="jsx3.gui.NativeSelect">
+      <strings jsxname="selectMask" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;
+&lt;record jsxid=&quot;1&quot; jsxtext=&quot;One&quot;/&gt;
+&lt;record jsxid=&quot;2&quot; jsxtext=&quot;Two&quot;/&gt;
+&lt;record jsxid=&quot;3&quot; jsxtext=&quot;Three&quot;/&gt;
+&lt;/data&gt;"/>
+    </object>
+  </object>
+</serialization>

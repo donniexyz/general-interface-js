@@ -1,0 +1,102 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+  <record include="master.xml" group="object"/>
+
+  <record jsxid="jsx3schema" group="1" jsxtext="Attributes">
+    <record jsxid="attrchildren" jsxtext="record"
+        jsxtip="The name of the record element, or '*' for any element"
+        docgetter="getProp('children')" docsetter="setProp('children')" docdefault="record"
+        getter="this.getProps()['children']" jsxexecute="objJSX.setProp('children', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="[^\w\*]"/>
+    <record jsxid="attrid" jsxtext="@jsxid"
+        jsxtip="The id attribute"
+        docgetter="getProp('id')" docsetter="setProp('id')" docdefault="jsxid"
+        getter="this.getProps()['id']" jsxexecute="objJSX.setProp('id', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrtext" jsxtext="@jsxtext"
+        jsxtip="The text attribute"
+        docgetter="getProp('text')" docsetter="setProp('text')" docdefault="jsxtext"
+        getter="this.getProps()['text']" jsxexecute="objJSX.setProp('text', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrimg" jsxtext="@jsximg"
+        jsxtip="The img attribute"
+        docgetter="getProp('img')" docsetter="setProp('img')" docdefault="jsximg"
+        getter="this.getProps()['img']" jsxexecute="objJSX.setProp('img', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrimgalt" jsxtext="@jsximgalt"
+        jsxtip="The imgalt attribute"
+        docgetter="getProp('imgalt')" docsetter="setProp('imgalt')" docdefault="jsximgalt"
+        getter="this.getProps()['imgalt']" jsxexecute="objJSX.setProp('imgalt', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrstyle" jsxtext="@jsxstyle"
+        jsxtip="The style attribute"
+        docgetter="getProp('style')" docsetter="setProp('style')" docdefault="jsxstyle"
+        getter="this.getProps()['style']" jsxexecute="objJSX.setProp('style', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrclass" jsxtext="@jsxclass"
+        jsxtip="The class attribute"
+        docgetter="getProp('class')" docsetter="setProp('class')" docdefault="jsxclass"
+        getter="this.getProps()['class']" jsxexecute="objJSX.setProp('class', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrtip" jsxtext="@jsxtip"
+        jsxtip="The tip attribute"
+        docgetter="getProp('tip')" docsetter="setProp('tip')" docdefault="jsxtip"
+        getter="this.getProps()['tip']" jsxexecute="objJSX.setProp('tip', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attropen" jsxtext="@jsxopen"
+        jsxtip="The open attribute"
+        docgetter="getProp('open')" docsetter="setProp('open')" docdefault="jsxopen"
+        getter="this.getProps()['open']" jsxexecute="objJSX.setProp('open', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrselected" jsxtext="@jsxselected"
+        jsxtip="The selected attribute"
+        docgetter="getProp('selected')" docsetter="setProp('selected')" docdefault="jsxselected"
+        getter="this.getProps()['selected']" jsxexecute="objJSX.setProp('selected', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrunselectable" jsxtext="@jsxunselectable"
+        jsxtip="The unselectable attribute"
+        docgetter="getProp('unselectable')" docsetter="setProp('unselectable')" docdefault="jsxunselectable"
+        getter="this.getProps()['unselectable']" jsxexecute="objJSX.setProp('unselectable', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrlazy" jsxtext="@jsxlazy"
+        jsxtip="The lazy attribute"
+        docgetter="getProp('lazy')" docsetter="setProp('lazy')" docdefault="jsxlazy"
+        getter="this.getProps()['lazy']" jsxexecute="objJSX.setProp('lazy', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrdisabled" jsxtext="@jsxdisabled"
+        jsxtip="The disabled attribute"
+        docgetter="getProp('disabled')" docsetter="setProp('disabled')" docdefault="jsxdisabled"
+        getter="this.getProps()['disabled']" jsxexecute="objJSX.setProp('disabled', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrdivider" jsxtext="@jsxdivider"
+        jsxtip="The divider attribute"
+        docgetter="getProp('divider')" docsetter="setProp('divider')" docdefault="jsxdivider"
+        getter="this.getProps()['divider']" jsxexecute="objJSX.setProp('divider', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrkeycode" jsxtext="@jsxkeycode"
+        jsxtip="The keycode attribute"
+        docgetter="getProp('keycode')" docsetter="setProp('keycode')" docdefault="jsxkeycode"
+        getter="this.getProps()['keycode']" jsxexecute="objJSX.setProp('keycode', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrcategory" jsxtext="@jsxcategory"
+        jsxtip="The category attribute"
+        docgetter="getProp('category')" docsetter="setProp('category')" docdefault="jsxcategory"
+        getter="this.getProps()['category']" jsxexecute="objJSX.setProp('category', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrgroupname" jsxtext="@jsxgroupname"
+        jsxtip="The groupname attribute"
+        docgetter="getProp('groupname')" docsetter="setProp('groupname')" docdefault="jsxgroupname"
+        getter="this.getProps()['groupname']" jsxexecute="objJSX.setProp('groupname', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+    <record jsxid="attrcellstyle" jsxtext="@jsxcellstyle"
+        jsxtip="The cellstyle attribute"
+        docgetter="getProp('cellstyle')" docsetter="setProp('cellstyle')" docdefault="jsxcellstyle"
+        getter="this.getProps()['cellstyle']" jsxexecute="objJSX.setProp('cellstyle', vntValue)"
+        eval="0" jsxmask="jsxtext" disallow="\W"/>
+
+  </record>
+</data>

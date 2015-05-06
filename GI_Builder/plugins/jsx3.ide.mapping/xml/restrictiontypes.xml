@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<data jsxid="jsxroot">
+ <record jsxid="length" jsxtext="length" jsxtip="Exact number of characters allowed in a string"/>
+ <record jsxid="maxLength" jsxtext="maxLength" jsxtip="Maximum number of characters allowed in a string"/>
+ <record jsxid="minLength" jsxtext="minLength" jsxtip="Minimum number of characters allowed in a string"/>
+ <record jsxid="pattern" jsxtext="pattern" jsxtip="Regular expression to validate against"/>
+ <record jsxid="enumeration" jsxtext="enumeration" jsxtip="Enumerated value to validate against"/>
+ <record jsxid="maxInclusive" jsxtext="maxInclusive" jsxtip="Maximum inclusive value (the node value must be less than or equal to...)"/>
+ <record jsxid="maxExclusive" jsxtext="maxExclusive" jsxtip="Maximum exclusive value (the node value must be less than...)"/>
+ <record jsxid="minInclusive" jsxtext="minInclusive" jsxtip="Minimum inclusive value (the node value must be greater than or equal to...)"/>
+ <record jsxid="minExclusive" jsxtext="minExclusive" jsxtip="Minimum exclusive value (the node value must be greater than...)"/>
+ <record jsxid="minoccur" jsxtext="minoccur" jsxtip="Inclusive minimum number of times this node should appear in the XML message"  idregex="/^[\w\-\.]*$/"/>
+ <record jsxid="maxoccur" jsxtext="maxoccur" jsxtip="Inclusive maximum number of times this node should appear in the XML message" idregex="/^[\w\-\.]*$/"/>
+ <record jsxid="nillable" jsxtext="nillable" jsxtip="Set to true to allow this node to be empty without being auto-removed" idregex="/^[\w\-\.]*$/"/>
+</data>

@@ -1,0 +1,13 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Select]]></name>
+  <icon><![CDATA[images/prototypes/select.gif]]></icon>
+  <description><![CDATA[Select box object.]]></description>
+  <object type="jsx3.gui.Select">
+    <variants jsxwidth="150" jsxheight="18" jsxxmlasync="1"/>
+    <strings jsxname="select" jsxxmlurl="jsx:///xml/sample.xml" jsxmargin="0 4 0 0"/>
+  </object>
+</serialization>

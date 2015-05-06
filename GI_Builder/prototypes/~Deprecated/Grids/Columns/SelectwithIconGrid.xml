@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Select - w/Arrow]]></name>
+  <icon><![CDATA[images/prototypes/matrix-column.gif]]></icon>
+  <description><![CDATA[This Column (with arrow graphic) can be added to a jsx3.gui.Grid, or compatible derivative thereof. It provides a selectBox edit mask that updates the @type attribute on a CDF record. The jsxtext attribute of the CDF document associated with the select mask object is used for the display value in the select box.  The jsxid attribute is placed in the grid cell when selection is made and is set as the value of @type in the grid's CDF document.]]></description>
+  <object type="jsx3.gui.Column">
+    <variants/>
+    <strings jsxname="column (select)" jsxwidth="100" jsxpath="@type" jsxtext="Select Mask" jsxmask="mySelectMask" jsxxsl="&lt;xsl:attribute name=&quot;style&quot;&gt;position:relative;padding-left:4px;padding-top:3px;background-image:url(JSX/images/select/arrowmask.gif);background-repeat:no-repeat;background-position-x:right;background-position-y:top;&lt;/xsl:attribute&gt;&lt;xsl:value-of select=&quot;@path@&quot;/&gt;&amp;#160;"/>
+    <object type="jsx3.gui.Select">
+      <dynamics jsxbgcolor="@Solid Selection" jsxborder="@Dashed"/>
+      <variants jsxwidth="99" jsxheight="19" jsxtype="0" jsxleft="0" jsxtop="0" jsxrelativeposition="0"/>
+      <strings jsxname="mySelectMask" jsxvisibility="hidden" jsxxml="&lt;data jsxid=&quot;jsxroot&quot;&gt;
+ &lt;record jsxid=&quot;Opt1&quot; jsxtext=&quot;Opt1&quot;/&gt;
+ &lt;record jsxid=&quot;Opt2&quot; jsxtext=&quot;Opt2&quot;/&gt;
+ &lt;record jsxid=&quot;Opt3&quot; jsxtext=&quot;Opt3&quot;/&gt;
+&lt;/data&gt;"/>
+      <events jsxselect="if(this.getVisibility() != jsx3.gui.Block.VISIBILITYHIDDEN) {
+  var oGrid = this.getAncestorOfType(jsx3.gui.Grid);
+  oGrid.onAfterEdit(null,this);
+  oGrid.getActiveCell().focus();
+}" jsxkeydown="if((objEVENT.isArrowKey()) &amp;&amp; objEVENT.altKey()) {this.getAncestorOfType(jsx3.gui.Grid).onAfterEdit(null,this);jsx3.gui.Select.hideOptions();} this.getAncestorOfType(jsx3.gui.Grid).doMaskKeyDown();"/>
+    </object>
+  </object>
+</serialization>

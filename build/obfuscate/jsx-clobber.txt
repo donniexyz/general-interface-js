@@ -1,0 +1,170 @@
+# JSX30.js
+#getJSXParameterValue
+getClassPrototype
+#SUPERS
+#INTERFACES
+APPS
+shakeStyles
+
+# syntax
+_anonymous
+
+# jsx3.lang.Class (@package)
+_NEW_FORCE
+_NEW_NO_INIT
+newPrivateConstructor
+newConstructor
+_newInstanceForce
+_getSuperMethodFor
+_getSuperMixinMethodFor
+_getOrCreatePackage
+_classDidLoad
+_packageDidLoad
+
+# Exception
+_LAST_THROWN
+
+# Model
+#_getLocale
+_getLocaleProp
+_jsxserver
+destroyView
+_getShowState
+_setShowState
+_getNodeRefField
+
+# Block paint
+paintBackgroundColor
+paintBackground
+paintBorder
+paintColor
+paintCursor
+paintAttributes
+paintCSSOverride
+paintClassName
+paintDisplay
+paintFontName
+paintFontSize
+paintFontWeight
+paintHeight
+paintIndex
+paintLeft
+paintMargin
+paintOverflow
+paintPadding
+paintRelativePosition
+paintTagName
+paintText
+paintTextAlign
+paintTip
+paintTop
+paintVisibility
+paintWidth
+paintZIndex
+paintLabel
+# Form paint
+paintEnabled
+paintCellBackgroundColor
+paintCellBorder
+paintCellColor
+paintCellCursor
+paintCellFontName
+paintCellFontSize
+paintCellFontWeight
+paintCellTextAlign
+paintCellVAlign
+paintCellWrap
+paintName
+
+# Interactive Event bridge
+_ebBlur
+_ebChange
+_ebClick
+_ebDoubleClick
+_ebFocus
+#_ebKeyDown
+_ebKeyPress
+_ebKeyUp
+_ebMouseDown
+_ebMouseOut
+_ebMouseOver
+_ebMouseUp
+_ebMouseWheel
+#_beginMove
+#_beginMoveConstrained
+
+_getSharedXSL
+
+# Tree
+doSpyDelay
+
+# Tab
+paintBevel
+paintActiveColor
+paintInactiveColor
+getTabIndex
+setTabIndex
+paintTRHeight
+paintTDHeight
+dispatchChangeEvents
+
+# Grid/List
+paintExtras
+doSelectRange
+doDeselectRow
+paintHeaderHeight
+paintHead
+paintBody
+isRecordSelectable
+paintBackgroundColorHead
+paintBackgroundHead
+isRecordSelectable
+
+BRIDGE_EVENTS
+BRIDGE_EVENTS_MAP
+persistEvent
+renderHandlers
+renderHandler
+
+# painted/box
+convertStyleToStyles
+#clearBoxProfile
+_clearBoxProfile
+setBoxProfile
+addChildProfile
+getBoxProfile
+createBoxProfile
+setBoxDirty
+updateBoxProfile
+updateBoxProfileImpl
+syncBoxProfile
+syncBoxProfileSync
+getChildProfile
+getClientDimensions
+# getCSSFade
+# getCSSOpacity
+getClientHeight
+getClientLeft
+getClientTop
+getClientWidth
+#getOffsetHeight
+#getOffsetWidth
+#getPaintedHeight
+#getPaintedLeft
+#getPaintedTop
+#getPaintedWidth
+getCachedClientDimensions
+setCachedClientDimensions
+_UNSEL
+_CLPSE
+
+# CDF
+_cdfan
+_cdfav
+
+# jsx3.gui.Window
+# _jsxwindow (html files cannot be obfuscated)
+
+# Matrix, etc
+# _emPaintStandardCdfTemplate
+_removeFxWrapper

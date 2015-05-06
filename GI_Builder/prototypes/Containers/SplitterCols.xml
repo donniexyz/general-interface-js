@@ -1,0 +1,23 @@
+<!--
+  ~ Copyright (c) 2001-2014, TIBCO Software Inc.
+  ~ Use, modification, and distribution subject to terms of license.
+  -->
+<serialization xmlns="urn:tibco.com/v3.0">
+  <name><![CDATA[Splitter - V]]></name>
+  <icon><![CDATA[images/prototypes/splitter-side.gif]]></icon>
+  <description><![CDATA[Splitter (side-by-side panes)]]></description>
+  <object type="jsx3.gui.Splitter">
+    <variants jsxleft="0" jsxtop="0"/>
+    <strings jsxname="splitterV" jsxsubcontainer1pct="50%"/>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxborder="@Inset"/>
+      <variants jsxoverflow="1"/>
+      <strings jsxname="paneLeft" jsxwidth="100%" jsxheight="100%"/>
+    </object>
+    <object type="jsx3.gui.Block">
+      <dynamics jsxborder="@Inset"/>
+      <variants jsxoverflow="1"/>
+      <strings jsxname="paneRight" jsxwidth="100%" jsxheight="100%"/>
+    </object>
+  </object>
+</serialization>
